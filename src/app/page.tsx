@@ -1001,9 +1001,16 @@ function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-        <a href="#" className="text-xl font-bold tracking-tight">
-          <span className="text-[#F5A623]">TIDA</span>{" "}
-          <span className="text-white">WORKS</span>
+        <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
+          <img
+            src="/images/名称未設定のデザイン (14).png"
+            alt="TIDA WORKS ロゴ"
+            className="h-12 w-auto"
+          />
+          <span>
+            <span className="text-[#F5A623]">TIDA</span>{" "}
+            <span className="text-white">WORKS</span>
+          </span>
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -2635,15 +2642,14 @@ function Contact() {
           <div className="md:w-1/2">
             <form
               className="space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("お問い合わせありがとうございます。（※デモ用：実際の送信は未実装です）");
-              }}
+              action="https://formspree.io/f/xaqljdkw"
+              method="POST"
             >
               <div>
                 <label className="block text-xs font-medium text-white/50 mb-2 tracking-wider">NAME</label>
                 <input
                   type="text"
+                  name="name"
                   required
                   className="w-full bg-transparent border-b border-white/15 pb-3 text-white placeholder-white/20 focus:outline-none focus:border-[#F5A623] transition-colors text-base"
                   placeholder="山田 太郎"
@@ -2654,6 +2660,7 @@ function Contact() {
                 <label className="block text-xs font-medium text-white/50 mb-2 tracking-wider">EMAIL</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   className="w-full bg-transparent border-b border-white/15 pb-3 text-white placeholder-white/20 focus:outline-none focus:border-[#F5A623] transition-colors text-base"
                   placeholder="example@email.com"
@@ -2663,6 +2670,7 @@ function Contact() {
               <div>
                 <label className="block text-xs font-medium text-white/50 mb-2 tracking-wider">SERVICE</label>
                 <select
+                  name="service"
                   required
                   className="w-full bg-transparent border-b border-white/15 pb-3 text-white focus:outline-none focus:border-[#F5A623] transition-colors text-base"
                   defaultValue=""
@@ -2679,6 +2687,7 @@ function Contact() {
               <div>
                 <label className="block text-xs font-medium text-white/50 mb-2 tracking-wider">MESSAGE</label>
                 <textarea
+                  name="message"
                   required
                   rows={4}
                   className="w-full bg-transparent border-b border-white/15 pb-3 text-white placeholder-white/20 focus:outline-none focus:border-[#F5A623] resize-none transition-colors text-base"

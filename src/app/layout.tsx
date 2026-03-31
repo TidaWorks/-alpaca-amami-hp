@@ -81,7 +81,7 @@ const jsonLd = {
   logo: `${siteUrl}/opengraph-image`,
   image: `${siteUrl}/opengraph-image`,
   telephone: "",
-  email: "tidaworks@gmail.com",
+  email: "tida1997amami@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressRegion: "鹿児島県",
