@@ -2598,7 +2598,7 @@ function About() {
                 ["代表者", "作田 大地"],
                 ["事業内容", "Webアプリ開発 / LINE構築 / 業務システム構築 / 保守運用"],
                 ["所在地", "鹿児島県 奄美大島"],
-                ["メール", "tidaworks@gmail.com"],
+                ["メール", "tida1997amami@gmail.com"],
               ].map(([label, value]) => (
                 <div key={label} className="flex flex-col md:flex-row border-b border-white/10 py-5 md:py-6">
                   <span className="text-[#F5A623]/50 text-sm font-medium md:w-1/4 mb-1 md:mb-0">{label}</span>
