@@ -3,7 +3,7 @@
 ## 概要
 - 奄美島内向けWeb制作・システム構築・保守運用の個人事業
 - 代表: 作田 大地
-- メール: tidaworks@gmail.com
+- メール: tida1997amami@gmail.com
 
 ## 技術スタック
 - Next.js + TypeScript + Tailwind CSS
