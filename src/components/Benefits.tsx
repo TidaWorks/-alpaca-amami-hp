@@ -70,15 +70,17 @@ function BenefitCard({ b, i }: { b: typeof benefits[number]; i: number }) {
 
 export default function Benefits() {
   return (
-    <section id="benefits" className="relative py-16 md:py-32 bg-[#0a0a0a] text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="mb-20">
-          <p className="text-[#F5A623] font-medium tracking-[0.3em] text-xs mb-4">BENEFITS</p>
+    <section id="benefits" className="relative py-20 md:py-36 bg-[#0a0a0a] text-white overflow-hidden noise-overlay">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F5A623]/20 to-transparent" />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div className="mb-24">
+          <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">BENEFITS</p>
           <h2 className="text-4xl md:text-6xl font-black leading-tight">
             選ばれる
             <br />
-            <span className="text-white/50">3つの理由</span>
+            <span className="text-white/40">3つの理由</span>
           </h2>
+          <div className="w-20 h-[2px] bg-[#F5A623]/40 mt-6" />
         </div>
 
         <div className="space-y-24 md:space-y-32">

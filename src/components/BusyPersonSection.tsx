@@ -55,12 +55,12 @@ export default function BusyPersonSection() {
   const bounceAnim = isWalking ? `chibiBounce ${walkSpeed} ease-in-out infinite` : "none";
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#0f0a14] text-white overflow-hidden border-t border-white/5">
+    <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#0f0a14] text-white overflow-hidden noise-overlay">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div ref={fade.ref} className={`flex flex-col md:flex-row items-center gap-10 md:gap-20 transition-all duration-1000 ${fade.className}`}>
           {/* 左: テキスト */}
           <div className="md:w-1/2 text-center md:text-left">
-            <p className="text-[#E74C8B]/60 text-xs tracking-[0.3em] mb-4 font-medium">BEFORE</p>
+            <p className="font-display text-[#E74C8B]/60 text-xs tracking-[0.4em] mb-4 font-semibold">BEFORE</p>
             <h3 className="text-2xl md:text-4xl font-black leading-tight mb-4">
               毎日、<span className="text-[#E74C8B]">バタバタ</span>
               <br />

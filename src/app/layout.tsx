@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP } from "next/font/google";
+import { Noto_Sans_JP, Outfit } from "next/font/google";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   weight: ["400", "500", "700", "900"],
   display: "swap",
+  variable: "--font-noto",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-outfit",
 });
 
 const siteName = "TIDA WORKS";
@@ -180,7 +188,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansJP.className} antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
+        className={`${notoSansJP.variable} ${outfit.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
         {children}
       </body>

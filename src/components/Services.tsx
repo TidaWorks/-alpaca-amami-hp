@@ -19,7 +19,7 @@ export default function Services() {
   const fade4 = useFadeIn();
 
   return (
-    <section id="services" className="relative py-16 md:py-32 bg-[#111] text-white overflow-hidden">
+    <section id="services" className="relative py-20 md:py-36 bg-[#111] text-white overflow-hidden noise-overlay">
       <ParallaxText>
         PRI
         <br />
@@ -28,7 +28,7 @@ export default function Services() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="mb-20">
-          <p className="text-[#F5A623] font-medium tracking-[0.3em] text-xs mb-4">PRICING</p>
+          <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">PRICING</p>
           <h2 className="text-4xl md:text-6xl font-black leading-tight">
             料金
           </h2>
@@ -38,7 +38,7 @@ export default function Services() {
         </div>
 
         {/* ホームページ制作 */}
-        <div ref={fade1.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 ${fade1.className}`}>
+        <div ref={fade1.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-white/20 hover:bg-white/[0.01] ${fade1.className}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <p className="text-[#4A90D9] text-xs tracking-[0.3em] font-medium mb-3">WEB DESIGN</p>
@@ -69,7 +69,10 @@ export default function Services() {
         </div>
 
         {/* システム開発 */}
-        <div ref={fade2.ref} className={`border border-[#F5A623]/20 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 relative overflow-hidden ${fade2.className}`}>
+        <div ref={fade2.ref} className={`border border-[#F5A623]/30 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 relative overflow-hidden bg-gradient-to-br from-[#F5A623]/[0.03] to-transparent hover:border-[#F5A623]/50 hover:shadow-[0_0_60px_rgba(245,166,35,0.08)] ${fade2.className}`}>
+          <div className="absolute top-4 right-4 md:top-6 md:right-6">
+            <span className="font-display bg-[#F5A623] text-black text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">POPULAR</span>
+          </div>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <p className="text-[#F5A623] text-xs tracking-[0.3em] font-medium mb-3">SYSTEM DEVELOPMENT</p>
@@ -100,7 +103,7 @@ export default function Services() {
         </div>
 
         {/* 保守サポート */}
-        <div ref={fade3.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 ${fade3.className}`}>
+        <div ref={fade3.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-[#2ECC71]/20 hover:bg-[#2ECC71]/[0.01] ${fade3.className}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <p className="text-[#2ECC71] text-xs tracking-[0.3em] font-medium mb-3">MAINTENANCE & SUPPORT</p>

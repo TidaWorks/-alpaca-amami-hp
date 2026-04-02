@@ -22,15 +22,15 @@ export default function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
+        <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight group">
           <Image
             src="/images/tida-works-logo.png"
             alt="TIDA WORKS ロゴ"
             width={48}
             height={48}
-            className="h-12 w-auto"
+            className="h-10 w-auto transition-transform group-hover:scale-110"
           />
-          <span>
+          <span className="font-display font-extrabold tracking-wider">
             <span className="text-[#F5A623]">TIDA</span>{" "}
             <span className="text-white">WORKS</span>
           </span>

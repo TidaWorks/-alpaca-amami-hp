@@ -33,12 +33,12 @@ export default function FAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="relative py-16 md:py-32 bg-[#111] text-white overflow-hidden">
+    <section id="faq" className="relative py-20 md:py-36 bg-[#111] text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
           {/* 左: タイトル */}
           <div className="md:w-1/3">
-            <p className="text-[#F5A623] font-medium tracking-[0.3em] text-xs mb-4">FAQ</p>
+            <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">FAQ</p>
             <h2 className="text-4xl md:text-5xl font-black leading-tight">
               よくある
               <br />

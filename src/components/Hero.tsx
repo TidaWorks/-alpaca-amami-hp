@@ -528,17 +528,319 @@ function HeroStoryAnimation() {
   );
 }
 
+/* ─── スマホ体験型モックアップ ─── */
+
+// スマホ画面 Step1: LINE通知が届く
+function PhoneScreenNotification({ visible }: { visible: boolean }) {
+  return (
+    <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+      {/* ロック画面風の背景 */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4">
+        <p className="text-white/30 text-[10px] font-medium tracking-wider mb-1">3月28日 金曜日</p>
+        <p className="text-white text-2xl font-bold tracking-tight mb-8">14:32</p>
+
+        {/* LINE通知 */}
+        <div className="w-full phone-notif-slide">
+          <div className="rounded-2xl p-3 border border-white/10" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)" }}>
+            <div className="flex items-start gap-2.5">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#06C755" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.95 1.96 5.55 4.88 7.06l-.84 3.05c-.08.29.25.52.49.34l3.56-2.59c.62.09 1.26.14 1.91.14 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/>
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white/90 text-[11px] font-bold">LINE 予約通知</span>
+                  <span className="text-white/30 text-[9px]">たった今</span>
+                </div>
+                <p className="text-white/70 text-[11px] leading-relaxed">
+                  <span className="text-[#06C755] font-semibold">新規予約</span>が入りました！<br/>
+                  田中 美咲さん — カット＆カラー<br/>
+                  4/5（土）14:00〜
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2つ目の通知（少し遅れて） */}
+        <div className="w-full mt-2.5 phone-notif-slide-2">
+          <div className="rounded-2xl p-3 border border-white/10" style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(20px)" }}>
+            <div className="flex items-start gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-[#F5A623]/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-[#F5A623] text-xs font-black">T</span>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white/90 text-[11px] font-bold">TIDA システム</span>
+                  <span className="text-white/30 text-[9px]">たった今</span>
+                </div>
+                <p className="text-white/70 text-[11px]">
+                  予約台帳に<span className="text-[#F5A623] font-semibold">自動反映</span>しました ✓
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// スマホ画面 Step2: 予約台帳に反映
+function PhoneScreenBooking({ visible }: { visible: boolean }) {
+  const bookings = [
+    { time: "10:00", name: "鈴木 健太", menu: "カット", status: "完了", color: "#666" },
+    { time: "11:30", name: "山田 花子", menu: "パーマ", status: "施術中", color: "#4A90D9" },
+    { time: "13:00", name: "佐藤 一郎", menu: "カラー", status: "来店待ち", color: "#F5A623" },
+    { time: "14:00", name: "田中 美咲", menu: "カット＆カラー", status: "NEW!", color: "#06C755" },
+  ];
+
+  return (
+    <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+      {/* ヘッダー */}
+      <div className="px-4 pt-2 pb-2">
+        <div className="flex items-center justify-between">
+          <p className="text-white text-sm font-bold">予約台帳</p>
+          <p className="text-white/30 text-[10px]">4月5日（土）</p>
+        </div>
+      </div>
+
+      {/* 予約リスト */}
+      <div className="flex-1 px-3 space-y-1.5 overflow-hidden">
+        {bookings.map((b, i) => (
+          <div
+            key={b.name}
+            className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all ${
+              i === bookings.length - 1
+                ? "border-[#06C755]/30 bg-[#06C755]/[0.08] phone-booking-new"
+                : "border-white/[0.06] bg-white/[0.03]"
+            }`}
+            style={{ animationDelay: `${i * 0.08}s` }}
+          >
+            <div className="text-center w-10 flex-shrink-0">
+              <p className="text-white/80 text-[11px] font-bold tabular-nums">{b.time}</p>
+            </div>
+            <div className="h-8 w-[2px] rounded-full flex-shrink-0" style={{ background: b.color }} />
+            <div className="flex-1 min-w-0">
+              <p className="text-white/80 text-[11px] font-semibold truncate">{b.name}</p>
+              <p className="text-white/30 text-[9px]">{b.menu}</p>
+            </div>
+            <span
+              className="text-[8px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+              style={{
+                background: `${b.color}20`,
+                color: b.color,
+                border: `1px solid ${b.color}30`,
+              }}
+            >
+              {b.status}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* ボトムの合計 */}
+      <div className="px-4 py-2 border-t border-white/[0.06] mt-auto">
+        <div className="flex items-center justify-between">
+          <span className="text-white/30 text-[10px]">本日の予約</span>
+          <div className="flex items-center gap-2">
+            <span className="text-white/70 text-sm font-bold tabular-nums">4<span className="text-white/30 text-[10px] font-normal">件</span></span>
+            <span className="text-emerald-400 text-[9px] font-semibold phone-count-bump">+1 NEW</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// スマホ画面 Step3: 売上グラフが伸びる
+function PhoneScreenSales({ visible }: { visible: boolean }) {
+  const bars = [28, 45, 38, 55, 42, 62, 50, 72, 58, 68, 75, 88];
+
+  return (
+    <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+      <div className="px-4 pt-2 pb-2">
+        <p className="text-white text-sm font-bold">売上レポート</p>
+      </div>
+
+      <div className="px-4 pb-3">
+        <div className="flex items-end gap-2">
+          <p className="text-white text-2xl font-black tabular-nums phone-sales-count">¥1,284,000</p>
+          <span className="text-emerald-400 text-[10px] font-bold mb-1 phone-sales-badge">+18.2%</span>
+        </div>
+        <p className="text-white/25 text-[9px] mt-0.5">2026年3月の売上</p>
+      </div>
+
+      {/* グラフ */}
+      <div className="px-4 flex-1">
+        <div className="rounded-xl border border-white/[0.06] p-3 h-full flex flex-col" style={{ background: "rgba(255,255,255,0.02)" }}>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-white/40 text-[9px]">月次推移</span>
+            <span className="text-[#F5A623] text-[9px] font-semibold">過去最高 ↑</span>
+          </div>
+          <div className="flex items-end gap-[4px] flex-1 min-h-0">
+            {bars.map((h, i) => (
+              <div key={i} className="flex-1 flex items-end h-full">
+                <div
+                  className="w-full rounded-t-sm phone-bar-grow"
+                  style={{
+                    height: `${h}%`,
+                    background: i === bars.length - 1
+                      ? "linear-gradient(180deg, #F5A623, #E09510)"
+                      : i >= bars.length - 2
+                      ? "linear-gradient(180deg, rgba(245,166,35,0.5), rgba(245,166,35,0.15))"
+                      : "linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03))",
+                    animationDelay: `${i * 0.06}s`,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between mt-1.5">
+            {["4","5","6","7","8","9","10","11","12","1","2","3"].map((m, i) => (
+              <span key={i} className="text-[6px] text-white/15 flex-1 text-center tabular-nums">{m}月</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* KPI */}
+      <div className="px-4 py-2.5 grid grid-cols-3 gap-2">
+        {[
+          { label: "予約数", val: "156", sub: "+24" },
+          { label: "客単価", val: "¥8,230", sub: "+¥820" },
+          { label: "リピ率", val: "68%", sub: "+5.3%" },
+        ].map((k) => (
+          <div key={k.label} className="text-center">
+            <p className="text-white/25 text-[7px]">{k.label}</p>
+            <p className="text-white text-[11px] font-bold tabular-nums">{k.val}</p>
+            <p className="text-emerald-400/70 text-[7px] font-semibold">{k.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// メインのスマホモックアップ
+function PhoneMockup() {
+  const [step, setStep] = useState(0); // 0: 通知, 1: 予約台帳, 2: 売上
+  const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    const cycle = () => {
+      timerRef.current.forEach(clearTimeout);
+      timerRef.current = [];
+      setStep(0);
+      timerRef.current.push(setTimeout(() => setStep(1), 3500));
+      timerRef.current.push(setTimeout(() => setStep(2), 7000));
+      timerRef.current.push(setTimeout(() => cycle(), 11500));
+    };
+    cycle();
+    return () => timerRef.current.forEach(clearTimeout);
+  }, []);
+
+  // ステップのラベル
+  const steps = [
+    { label: "LINE通知", icon: "📱" },
+    { label: "自動反映", icon: "📋" },
+    { label: "売上集計", icon: "📊" },
+  ];
+
+  return (
+    <div className="relative w-full flex flex-col items-center">
+      {/* スマホ本体 */}
+      <div className="relative phone-float">
+        {/* グロー効果（スマホの下） */}
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-16 rounded-full phone-glow" />
+        {/* 横グロー */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-8 -right-8 h-[60%] phone-side-glow" />
+
+        {/* iPhone風フレーム */}
+        <div
+          className="relative w-[260px] md:w-[280px] rounded-[36px] border-[3px] border-white/[0.15] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6),0_0_40px_rgba(245,166,35,0.1)]"
+          style={{ background: "linear-gradient(160deg, #1a1a2e, #0d0d1a)", aspectRatio: "9/19.5" }}
+        >
+          {/* ノッチ */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-[26px] bg-black rounded-b-2xl z-20" />
+          {/* ステータスバー */}
+          <div className="absolute top-[6px] left-4 right-4 flex items-center justify-between z-10">
+            <span className="text-white/50 text-[9px] font-semibold tabular-nums">14:32</span>
+            <div className="flex items-center gap-1">
+              <div className="flex gap-[2px]">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="w-[3px] rounded-sm bg-white/40" style={{ height: `${4 + i * 2}px` }} />
+                ))}
+              </div>
+              <svg width="14" height="10" viewBox="0 0 20 14" className="text-white/40"><rect x="1" y="1" width="15" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none"/><rect x="17" y="4" width="2" height="4" rx="0.5" fill="currentColor"/><rect x="3" y="3" width="8" height="6" rx="1" fill="currentColor"/></svg>
+            </div>
+          </div>
+
+          {/* 画面コンテンツ */}
+          <div className="absolute inset-[3px] top-[30px] bottom-[4px] rounded-[32px] overflow-hidden" style={{ background: "linear-gradient(180deg, #111118, #0a0a12)" }}>
+            <PhoneScreenNotification visible={step === 0} />
+            <PhoneScreenBooking visible={step === 1} />
+            <PhoneScreenSales visible={step === 2} />
+          </div>
+
+          {/* ホームインジケーター */}
+          <div className="absolute bottom-[6px] left-1/2 -translate-x-1/2 w-[35%] h-[4px] bg-white/20 rounded-full" />
+        </div>
+      </div>
+
+      {/* ステップインジケーター */}
+      <div className="flex items-center gap-3 mt-8">
+        {steps.map((s, i) => (
+          <button
+            key={s.label}
+            onClick={() => setStep(i)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all duration-300 cursor-pointer ${
+              step === i
+                ? "bg-[#F5A623]/15 text-[#F5A623] border border-[#F5A623]/30 scale-105"
+                : "bg-white/[0.04] text-white/30 border border-white/[0.06] hover:border-white/10"
+            }`}
+          >
+            <span>{s.icon}</span>
+            <span>{s.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* フローの矢印表示 */}
+      <div className="flex items-center gap-2 mt-4 text-white/20 text-[10px]">
+        <span className={`transition-colors ${step === 0 ? "text-[#06C755]" : ""}`}>予約が入る</span>
+        <span>→</span>
+        <span className={`transition-colors ${step === 1 ? "text-[#F5A623]" : ""}`}>自動で台帳に</span>
+        <span>→</span>
+        <span className={`transition-colors ${step === 2 ? "text-[#F5A623]" : ""}`}>売上も見える</span>
+      </div>
+    </div>
+  );
+}
+
 /* ─── ヒーロー（エクスポート） ─── */
 export default function Hero() {
   return (
-    <section className="relative flex items-start pt-32 pb-16 md:pt-36 md:pb-24 bg-[#0a0a0a] text-white overflow-hidden">
-      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full opacity-40" style={{ background: "radial-gradient(circle, rgba(245,166,35,0.12), transparent 65%)" }} />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(245,166,35,0.06), transparent 65%)" }} />
+    <section className="relative flex items-start pt-28 pb-16 md:pt-32 md:pb-28 bg-[#0a0a0a] text-white overflow-hidden noise-overlay">
+      {/* 背景グラデーションメッシュ */}
+      <div className="absolute inset-0 mesh-gradient" />
+      <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full opacity-50" style={{ background: "radial-gradient(circle, rgba(245,166,35,0.15), transparent 60%)" }} />
+      <div className="absolute bottom-[-15%] left-[-8%] w-[500px] h-[500px] rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(46,204,113,0.08), transparent 60%)" }} />
+
+      {/* 装飾グリッドライン */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+        backgroundSize: "80px 80px",
+      }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full">
-        <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-          <div className="md:w-full">
-            <h1 className="text-[9.5vw] md:text-[8vw] font-black leading-[1.1] mb-8 md:mb-10 tracking-tight">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
+          {/* 左: テキスト */}
+          <div className="lg:w-1/2">
+            <p className="font-display text-[#F5A623]/60 text-xs tracking-[0.4em] mb-6 animate-[fadeInUp_0.8s_ease-out_0.1s_both] font-semibold">TIDA WORKS — AMAMI OSHIMA</p>
+
+            <h1 className="text-[8.5vw] md:text-[5.5vw] lg:text-[4vw] font-black leading-[1.12] mb-8 md:mb-10 tracking-tight">
               <span className="text-white/80 whitespace-nowrap"><WobblyText text="「こんなアプリ、" lineDelay={0.2} /></span>
               <br />
               <span className="whitespace-nowrap"><WobblyText text="あったらいいな」" className="text-[#F5A623]" lineDelay={0.7} /><WobblyText text="を" className="text-white" lineDelay={1.1} /></span>
@@ -546,26 +848,31 @@ export default function Hero() {
               <span className="text-white whitespace-nowrap"><WobblyText text="カタチにします。" lineDelay={1.3} /></span>
             </h1>
 
-            <p className="text-white/50 text-sm md:text-base max-w-lg leading-relaxed mb-6 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
+            <p className="text-white/45 text-sm md:text-base max-w-lg leading-[1.9] mb-8 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
               予約・顧客・売上・在庫——バラバラだった業務をひとつに。
               <br />
               社内全体がつながる、あなた専用のシステム構築。
             </p>
 
-            <div className="flex gap-3 md:gap-4 animate-[fadeInUp_0.8s_ease-out_0.6s_both] mt-5">
+            <div className="flex gap-3 md:gap-4 animate-[fadeInUp_0.8s_ease-out_0.6s_both]">
               <a
                 href="#contact"
-                className="bg-[#F5A623] text-black font-bold px-7 py-3.5 md:px-9 md:py-4 rounded-full text-sm md:text-base hover:bg-[#FFD700] transition-all hover:scale-105 shadow-lg shadow-[#F5A623]/20"
+                className="btn-cta bg-[#F5A623] text-black font-bold px-7 py-3.5 md:px-9 md:py-4 rounded-full text-sm md:text-base hover:bg-[#FFD700] transition-all hover:scale-105 shadow-lg shadow-[#F5A623]/25"
               >
                 無料で相談する
               </a>
               <a
                 href="#benefits"
-                className="border border-white/20 text-white/70 hover:text-white hover:border-white/50 font-bold px-7 py-3.5 md:px-9 md:py-4 rounded-full text-sm md:text-base transition-all"
+                className="border border-white/15 text-white/60 hover:text-white hover:border-[#F5A623]/40 hover:bg-[#F5A623]/5 font-bold px-7 py-3.5 md:px-9 md:py-4 rounded-full text-sm md:text-base transition-all"
               >
                 詳しく見る
               </a>
             </div>
+          </div>
+
+          {/* 右: スマホ体験型UI */}
+          <div className="lg:w-1/2 mt-12 lg:mt-0 animate-[fadeInUp_1s_ease-out_0.8s_both]">
+            <PhoneMockup />
           </div>
         </div>
       </div>
@@ -574,4 +881,4 @@ export default function Hero() {
 }
 
 /* ─── エクスポート（他コンポーネントで再利用可能にする） ─── */
-export { ScrambleDigit, MascotSVG, WobblyText, HeroStoryAnimation, MiniAppCard };
+export { ScrambleDigit, MascotSVG, WobblyText, HeroStoryAnimation, MiniAppCard, PhoneMockup };

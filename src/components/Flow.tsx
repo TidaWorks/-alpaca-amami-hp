@@ -63,10 +63,11 @@ function FlowStep({ step, i, isLast }: { step: typeof steps[number]; i: number; 
 
 export default function Flow() {
   return (
-    <section id="flow" className="relative py-16 md:py-32 bg-[#0a0a0a] text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+    <section id="flow" className="relative py-20 md:py-36 bg-[#0a0a0a] text-white overflow-hidden noise-overlay">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         <div className="mb-20">
-          <p className="text-[#F5A623] font-medium tracking-[0.3em] text-xs mb-4">FLOW</p>
+          <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">FLOW</p>
           <h2 className="text-4xl md:text-6xl font-black leading-tight">
             ご利用の<span className="text-[#F5A623]">流れ</span>
           </h2>

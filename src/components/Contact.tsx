@@ -35,15 +35,16 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-16 md:py-32 bg-[#0a0a0a] text-white overflow-hidden">
+    <section id="contact" className="relative py-20 md:py-36 bg-[#0a0a0a] text-white overflow-hidden noise-overlay">
       {/* 背景グロー */}
-      <div className="absolute top-[30%] left-[40%] w-[500px] h-[500px] bg-[#F5A623]/5 rounded-full blur-[150px]" />
+      <div className="absolute top-[20%] left-[30%] w-[600px] h-[600px] bg-[#F5A623]/5 rounded-full blur-[180px]" />
+      <div className="absolute bottom-[10%] right-[20%] w-[400px] h-[400px] bg-[#4A90D9]/3 rounded-full blur-[120px]" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
           {/* 左: 大きなコピー */}
           <div ref={fade.ref} className={`md:w-1/2 transition-all duration-700 ${fade.className}`}>
-            <p className="text-[#F5A623] font-medium tracking-[0.3em] text-xs mb-4">CONTACT</p>
+            <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">CONTACT</p>
             <h2 className="text-4xl md:text-6xl font-black leading-tight mb-6">
               気軽に
               <br />
