@@ -841,17 +841,15 @@ export default function Hero() {
             <p className="font-display text-[#F5A623]/60 text-xs tracking-[0.4em] mb-6 animate-[fadeInUp_0.8s_ease-out_0.1s_both] font-semibold">TIDA WORKS — AMAMI OSHIMA</p>
 
             <h1 className="text-[8.5vw] md:text-[5.5vw] lg:text-[4vw] font-black leading-[1.12] mb-8 md:mb-10 tracking-tight">
-              <span className="text-white/80 whitespace-nowrap"><WobblyText text="「こんなアプリ、" lineDelay={0.2} /></span>
+              <span className="text-white/80 whitespace-nowrap"><WobblyText text="予約も売上も、" lineDelay={0.2} /></span>
               <br />
-              <span className="whitespace-nowrap"><WobblyText text="あったらいいな」" className="text-[#F5A623]" lineDelay={0.7} /><WobblyText text="を" className="text-white" lineDelay={1.1} /></span>
-              <br />
-              <span className="text-white whitespace-nowrap"><WobblyText text="カタチにします。" lineDelay={1.3} /></span>
+              <span className="whitespace-nowrap"><WobblyText text="スマホひとつ" className="text-[#F5A623]" lineDelay={0.7} /><WobblyText text="で。" className="text-white" lineDelay={1.1} /></span>
             </h1>
 
             <p className="text-white/45 text-sm md:text-base max-w-lg leading-[1.9] mb-8 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
               予約・顧客・売上・在庫——バラバラだった業務をひとつに。
               <br />
-              社内全体がつながる、あなた専用のシステム構築。
+              奄美の事業者に寄り添う、あなた専用のシステム構築。
             </p>
 
             <div className="flex gap-3 md:gap-4 animate-[fadeInUp_0.8s_ease-out_0.6s_both]">

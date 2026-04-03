@@ -142,6 +142,17 @@ export default function Services() {
           <p>※ 保守サポートは任意です。自社で運用される場合は不要です。</p>
           <p>※ 大規模な機能追加は別途お見積りとなります。</p>
         </div>
+
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <p className="text-white/40 text-sm mb-5">まずはお気軽にご相談ください。お見積りは無料です。</p>
+          <a
+            href="#contact"
+            className="inline-block bg-[#F5A623] text-black font-bold px-9 py-4 rounded-full text-base hover:bg-[#FFD700] transition-all hover:scale-105 shadow-lg shadow-[#F5A623]/25"
+          >
+            無料で相談する
+          </a>
+        </div>
       </div>
     </section>
   );

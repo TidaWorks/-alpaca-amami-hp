@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
 export default function About() {
@@ -19,8 +20,33 @@ export default function About() {
             </h2>
           </div>
 
-          {/* 右: テーブル */}
+          {/* 右: プロフィール + テーブル */}
           <div ref={fade.ref} className={`md:w-2/3 transition-all duration-700 ${fade.className}`}>
+            {/* 代表プロフィール */}
+            <div className="mb-10 p-6 md:p-8 rounded-2xl border border-white/10 bg-white/[0.02]">
+              <div className="flex items-start gap-5">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#F5A623]/10 border-2 border-[#F5A623]/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <Image
+                    src="/images/tida-works-logo.png"
+                    alt="TIDA WORKS ロゴ"
+                    width={80}
+                    height={80}
+                    className="w-[70%] h-[70%] object-contain"
+                  />
+                </div>
+                <div className="flex-1">
+                  <p className="text-white/90 text-lg md:text-xl font-bold mb-1">作田 大地<span className="text-white/30 text-sm font-normal ml-2">Daichi Sakuta</span></p>
+                  <p className="text-[#F5A623] text-xs tracking-wider font-medium mb-3">TIDA WORKS 代表</p>
+                  <p className="text-white/50 text-sm leading-[1.9]">
+                    奄美大島出身・在住。「島の事業者さんが本業に集中できる環境をつくりたい」
+                    という想いから、TIDA WORKSを立ち上げました。
+                    地元だからこそ、対面でじっくりお話を聞いて、ぴったりのシステムをお届けします。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 事業情報テーブル */}
             <div className="border-t border-white/10">
               {[
                 ["屋号", "TIDA WORKS（ティダ ワークス）"],

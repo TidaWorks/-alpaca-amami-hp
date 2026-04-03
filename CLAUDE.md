@@ -15,7 +15,7 @@
 - 保守・運用サポート: ¥12,000/月〜（サーバー・ドメイン代込み、小さな変更OK、大規模追加は別途）
 - SEOコンサルは範囲外（基本的なSEO設定は開発に含む）
 
-## LP構成
+## ホームページ構成
 Header → Hero → BusyPersonSection → Strengths → Benefits → Services → Flow → FAQ → About → Contact → Footer
 
 ## サービス内容

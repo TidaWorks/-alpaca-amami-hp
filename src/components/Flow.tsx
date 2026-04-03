@@ -85,6 +85,17 @@ export default function Flow() {
             ))}
           </div>
         </div>
+
+        {/* CTA */}
+        <div className="mt-20 text-center">
+          <p className="text-white/40 text-sm mb-5">「こんなの作れる？」だけでOKです。</p>
+          <a
+            href="#contact"
+            className="inline-block bg-[#F5A623] text-black font-bold px-9 py-4 rounded-full text-base hover:bg-[#FFD700] transition-all hover:scale-105 shadow-lg shadow-[#F5A623]/25"
+          >
+            無料で相談する
+          </a>
+        </div>
       </div>
     </section>
   );
