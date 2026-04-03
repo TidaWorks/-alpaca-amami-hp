@@ -3,56 +3,87 @@
 import { useState, useEffect } from "react";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
-type BusyPhase = "walkToDesk" | "typing" | "walkToPapers" | "lookPapers" | "walkToPhone" | "phoneCall" | "walkToCenter" | "stressed";
+/* ─── SVGラインアイコン ─── */
+function IconPhone() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
 
-const BUSY_PHASES: { phase: BusyPhase; duration: number; x: number }[] = [
-  { phase: "walkToDesk",   duration: 1400, x: -90 },
-  { phase: "typing",       duration: 2800, x: -90 },
-  { phase: "walkToPapers", duration: 1200, x: -10 },
-  { phase: "lookPapers",   duration: 2000, x: -10 },
-  { phase: "walkToPhone",  duration: 1600, x: 120 },
-  { phase: "phoneCall",    duration: 2500, x: 120 },
-  { phase: "walkToCenter", duration: 1400, x: 0 },
-  { phase: "stressed",     duration: 2200, x: 0 },
+function IconPencil() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+    </svg>
+  );
+}
+
+function IconTable() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="3" y1="15" x2="21" y2="15" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+      <line x1="15" y1="3" x2="15" y2="21" />
+    </svg>
+  );
+}
+
+function IconClipboard() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+      <rect x="8" y="2" width="8" height="4" rx="1" />
+      <line x1="9" y1="12" x2="15" y2="12" />
+      <line x1="9" y1="16" x2="13" y2="16" />
+    </svg>
+  );
+}
+
+const busyTasks = [
+  { icon: IconPhone, label: "電話対応", desc: "予約の電話が鳴りっぱなし", color: "#E74C8B" },
+  { icon: IconPencil, label: "手書きメモ", desc: "紙に書いて、またPC入力", color: "#F5A623" },
+  { icon: IconTable, label: "Excel管理", desc: "売上の転記でミスが出る", color: "#4A90D9" },
+  { icon: IconClipboard, label: "紙の予約表", desc: "ダブルブッキングに気づけない", color: "#2ECC71" },
 ];
 
 export default function BusyPersonSection() {
   const fade = useFadeIn();
-  const [phaseIdx, setPhaseIdx] = useState(0);
+  const [phase, setPhase] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(0);
+  const [crossedOut, setCrossedOut] = useState(false);
+  const [showSolution, setShowSolution] = useState(false);
 
   useEffect(() => {
-    const current = BUSY_PHASES[phaseIdx];
-    const timer = setTimeout(() => {
-      setPhaseIdx((prev) => (prev + 1) % BUSY_PHASES.length);
-    }, current.duration);
-    return () => clearTimeout(timer);
-  }, [phaseIdx]);
-
-  const current = BUSY_PHASES[phaseIdx];
-  const isWalking = current.phase.startsWith("walk");
-  const isTyping = current.phase === "typing";
-  const isPhone = current.phase === "phoneCall";
-  const isLookPapers = current.phase === "lookPapers";
-  const isStressed = current.phase === "stressed";
-
-  const walkSpeed = "0.35s";
-  const headAnim = isWalking ? `chibiHeadBob 0.6s ease-in-out infinite`
-    : isTyping ? `chibiHeadTilt 2s ease-in-out infinite`
-    : isStressed ? `chibiStressHead 0.8s ease-in-out infinite`
-    : "none";
-
-  const armLAnim = isWalking ? `chibiArmSwingL ${walkSpeed} ease-in-out infinite`
-    : isTyping ? `chibiTypingL 0.4s ease-in-out infinite`
-    : isPhone ? `chibiPhoneArm 1.5s ease-in-out infinite`
-    : "none";
-
-  const armRAnim = isWalking ? `chibiArmSwingR ${walkSpeed} ease-in-out infinite`
-    : isTyping ? `chibiTypingR 0.4s ease-in-out infinite`
-    : "none";
-
-  const legLAnim = isWalking ? `chibiLegL ${walkSpeed} ease-in-out infinite` : "none";
-  const legRAnim = isWalking ? `chibiLegR ${walkSpeed} ease-in-out infinite` : "none";
-  const bounceAnim = isWalking ? `chibiBounce ${walkSpeed} ease-in-out infinite` : "none";
+    if (phase === 0 && visibleCount < busyTasks.length) {
+      const timer = setTimeout(() => setVisibleCount((prev) => prev + 1), 600);
+      return () => clearTimeout(timer);
+    }
+    if (phase === 0 && visibleCount === busyTasks.length) {
+      const timer = setTimeout(() => setPhase(1), 1200);
+      return () => clearTimeout(timer);
+    }
+    if (phase === 1 && !crossedOut) {
+      const timer = setTimeout(() => setCrossedOut(true), 300);
+      return () => clearTimeout(timer);
+    }
+    if (phase === 1 && crossedOut) {
+      const timer = setTimeout(() => { setPhase(2); setShowSolution(true); }, 800);
+      return () => clearTimeout(timer);
+    }
+    if (phase === 2) {
+      const timer = setTimeout(() => {
+        setPhase(0);
+        setVisibleCount(0);
+        setCrossedOut(false);
+        setShowSolution(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [phase, visibleCount, crossedOut]);
 
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#0f0a14] text-white overflow-hidden noise-overlay">
@@ -77,167 +108,78 @@ export default function BusyPersonSection() {
             </p>
           </div>
 
-          {/* 右: アニメーション */}
+          {/* 右: タスク → 解決 */}
           <div className="md:w-1/2 flex justify-center">
-            <div className="busy-person-scene">
-              <svg viewBox="0 0 500 310" fill="none" className="w-full h-full">
-                {/* デスク */}
-                <rect x="25" y="240" width="120" height="7" rx="2" fill="#E0DDD8" stroke="#222" strokeWidth="2.5" />
-                <rect x="38" y="247" width="6" height="45" rx="1" fill="#C8C4BE" stroke="#222" strokeWidth="2" />
-                <rect x="135" y="247" width="6" height="45" rx="1" fill="#C8C4BE" stroke="#222" strokeWidth="2" />
+            <div className="relative w-[320px] md:w-[400px] min-h-[280px] md:min-h-[320px]">
+              {/* タスクカード */}
+              <div className={`grid grid-cols-2 gap-3 md:gap-4 transition-all duration-700 ${showSolution ? "opacity-0 scale-90 blur-sm" : "opacity-100"}`}>
+                {busyTasks.map((task, i) => {
+                  const Icon = task.icon;
+                  return (
+                    <div
+                      key={task.label}
+                      className={`relative rounded-2xl border p-5 md:p-6 transition-all duration-500 ${
+                        i < visibleCount ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                      } ${
+                        crossedOut
+                          ? "border-red-500/20 bg-red-500/[0.03]"
+                          : "border-white/[0.08] bg-white/[0.02]"
+                      }`}
+                    >
+                      {/* アイコン */}
+                      <div
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all duration-300 ${
+                          crossedOut ? "opacity-20" : "opacity-100"
+                        }`}
+                        style={{ background: `${task.color}12`, color: task.color }}
+                      >
+                        <Icon />
+                      </div>
 
-                {/* PC */}
-                <rect x="42" y="186" width="80" height="52" rx="5" fill="white" stroke="#222" strokeWidth="3" />
-                <rect x="50" y="194" width="64" height="36" rx="2" fill="#D0D8E0" />
-                <rect x="72" y="236" width="22" height="6" rx="1" fill="#C8C4BE" stroke="#222" strokeWidth="2" />
-                <line x1="56" y1="205" x2="90" y2="205" stroke="#7A9BBE" strokeWidth="2" strokeLinecap="round" />
-                <line x1="56" y1="212" x2="104" y2="212" stroke="#A0B0C0" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="56" y1="218" x2="98" y2="218" stroke="#B0BCC8" strokeWidth="1.5" strokeLinecap="round" />
+                      <p className={`text-sm font-bold mb-1 transition-colors duration-300 ${crossedOut ? "text-white/15" : "text-white/80"}`}>
+                        {task.label}
+                      </p>
+                      <p className={`text-[11px] leading-relaxed transition-colors duration-300 ${crossedOut ? "text-white/8" : "text-white/35"}`}>
+                        {task.desc}
+                      </p>
 
-                {/* 書類の山 */}
-                <rect x="218" y="268" width="42" height="6" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(-3 239 271)" />
-                <rect x="216" y="261" width="44" height="6" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(2 238 264)" />
-                <rect x="219" y="254" width="40" height="6" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(-1 239 257)" />
-
-                {/* 電話 */}
-                <g style={{ animation: isPhone ? "phoneRing 2s ease-in-out infinite" : "phoneRing 4s ease-in-out infinite", transformOrigin: "410px 255px" }}>
-                  <rect x="393" y="248" width="34" height="20" rx="7" fill="#444" stroke="#222" strokeWidth="2.5" />
-                  <rect x="400" y="253" width="20" height="10" rx="3" fill="#6BE0C8" stroke="#222" strokeWidth="1.5" />
-                  <path d="M431 244 Q437 256 431 268" stroke="#F5A623" strokeWidth="3" fill="none" strokeLinecap="round" opacity={isPhone ? "1" : "0.6"} />
-                  <path d="M438 240 Q446 256 438 272" stroke="#F5A623" strokeWidth="2" fill="none" strokeLinecap="round" opacity={isPhone ? "0.7" : "0.3"} />
-                </g>
-
-                {/* コーヒー */}
-                <path d="M355 250 L359 268 L373 268 L377 250 Z" fill="#A0704A" stroke="#222" strokeWidth="2.5" />
-                <path d="M377 254 Q384 254 384 259 Q384 264 377 264" stroke="#222" strokeWidth="2.5" fill="none" />
-                <path d="M363 246 Q365 238 363 230" stroke="#999" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5" />
-                <path d="M369 244 Q371 236 369 228" stroke="#999" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.35" />
-
-                {/* 床 */}
-                <line x1="0" y1="290" x2="500" y2="290" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-
-                {/* キャラ */}
-                <g style={{
-                  transform: `translateX(${current.x}px)`,
-                  transition: isWalking ? "transform 1.2s ease-in-out" : "transform 0.3s ease",
-                }}>
-                  <g style={{ animation: bounceAnim }}>
-                    {(isWalking || isStressed) && (
-                      <>
-                        <g style={{ animation: "sweatPop 2s ease-out infinite", transformOrigin: "278px 68px" }}>
-                          <path d="M278 62 L275 72 L278 72 L275 82" stroke="#5AC8FF" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                        </g>
-                        <g style={{ animation: "sweatPop 2s ease-out infinite 1s", transformOrigin: "286px 75px" }}>
-                          <path d="M286 72 L284 78 L286 78 L284 84" stroke="#5AC8FF" strokeWidth="2" fill="none" strokeLinecap="round" />
-                        </g>
-                      </>
-                    )}
-
-                    {isStressed && (
-                      <g>
-                        <text x="275" y="58" fill="#F5A623" fontSize="22" fontWeight="900" style={{ animation: "sweatPop 1.5s ease-out infinite" }}>！</text>
-                      </g>
-                    )}
-
-                    {/* 頭 */}
-                    <g style={{ animation: headAnim, transformOrigin: "250px 90px" }}>
-                      <path d="M222 82 Q222 55 250 50 Q278 55 278 82 L275 88 Q270 80 250 78 Q230 80 225 88 Z"
-                        fill="#222" stroke="#222" strokeWidth="2.5" />
-                      <ellipse cx="250" cy="92" rx="26" ry="28" fill="white" stroke="#222" strokeWidth="3" />
-                      {isStressed ? (
-                        <>
-                          <text x="234" y="94" fill="#222" fontSize="10" fontWeight="900">×</text>
-                          <text x="254" y="94" fill="#222" fontSize="10" fontWeight="900">×</text>
-                        </>
-                      ) : (
-                        <>
-                          <circle cx="240" cy="90" r="2.5" fill="#222" />
-                          <circle cx="260" cy="90" r="2.5" fill="#222" />
-                        </>
+                      {/* × 打ち消し */}
+                      {crossedOut && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <line x1="15" y1="15" x2="85" y2="85" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" className="busy-cross-line" />
+                            <line x1="85" y1="15" x2="15" y2="85" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" className="busy-cross-line" style={{ animationDelay: "0.15s" }} />
+                          </svg>
+                        </div>
                       )}
-                      <path d="M234 83 Q238 86 244 84" stroke="#222" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                      <path d="M266 83 Q262 86 256 84" stroke="#222" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                      <circle cx="250" cy="96" r="1" fill="#222" />
-                      {isPhone ? (
-                        <ellipse cx="250" cy="106" rx="5" ry="4" fill="#222" />
-                      ) : isStressed ? (
-                        <path d="M242 108 Q250 100 258 108" stroke="#222" strokeWidth="2" fill="none" strokeLinecap="round" />
-                      ) : (
-                        <path d="M244 106 Q250 102 256 106" stroke="#222" strokeWidth="2" fill="none" strokeLinecap="round" />
-                      )}
-                      <ellipse cx="224" cy="92" rx="4" ry="6" fill="white" stroke="#222" strokeWidth="2.5" />
-                      <ellipse cx="276" cy="92" rx="4" ry="6" fill="white" stroke="#222" strokeWidth="2.5" />
-                    </g>
+                    </div>
+                  );
+                })}
+              </div>
 
-                    {/* 首 */}
-                    <rect x="244" y="118" width="12" height="8" rx="2" fill="white" stroke="#222" strokeWidth="2.5" />
+              {/* 解決: スマホ */}
+              <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ${
+                showSolution ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
+              }`}>
+                <div className="relative">
+                  <div className="absolute -inset-10 rounded-full bg-[#F5A623]/8 blur-3xl" />
 
-                    {/* 体 */}
-                    <path d="M222 132 Q222 126 234 126 L266 126 Q278 126 278 132 L280 195 Q280 200 274 200 L226 200 Q220 200 220 195 Z"
-                      fill="#2E6EB5" stroke="#222" strokeWidth="3" />
-                    <path d="M234 126 L240 126 L250 145 L240 145 Z" fill="#3A82CC" stroke="#222" strokeWidth="2" />
-                    <path d="M266 126 L260 126 L250 145 L260 145 Z" fill="#3A82CC" stroke="#222" strokeWidth="2" />
-                    <path d="M246 140 L250 188 L254 140 Z" fill="#F0C830" stroke="#222" strokeWidth="2" />
-                    <path d="M247 188 L250 196 L253 188 Z" fill="#E0B420" stroke="#222" strokeWidth="1.5" />
+                  <div className="relative w-24 h-40 md:w-28 md:h-44 rounded-[20px] border border-[#F5A623]/20 bg-gradient-to-b from-[#1a1a2e] to-[#0d0d1a] flex flex-col items-center justify-center shadow-[0_0_60px_rgba(245,166,35,0.1)]">
+                    <div className="absolute top-2 w-8 h-1 bg-white/10 rounded-full" />
+                    <svg className="w-10 h-10 md:w-12 md:h-12 text-[#F5A623] busy-check-pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <div className="absolute bottom-2.5 w-8 h-1 bg-white/10 rounded-full" />
+                  </div>
+                </div>
 
-                    {/* 左腕 */}
-                    <g style={{ animation: armLAnim, transformOrigin: "224px 134px" }}>
-                      <path d="M222 134 Q210 155 208 175" stroke="#222" strokeWidth="12" fill="none" strokeLinecap="round" />
-                      <path d="M222 134 Q210 155 208 175" stroke="#2E6EB5" strokeWidth="9" fill="none" strokeLinecap="round" />
-                      <circle cx="208" cy="178" r="7" fill="white" stroke="#222" strokeWidth="2.5" />
-                      <line x1="203" y1="175" x2="201" y2="172" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="206" y1="173" x2="205" y2="169" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="210" y1="172" x2="210" y2="168" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="213" y1="174" x2="215" y2="170" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                    </g>
-
-                    {/* 右腕 */}
-                    <g style={{ animation: armRAnim, transformOrigin: "276px 134px" }}>
-                      <path d="M278 134 Q290 155 292 175" stroke="#222" strokeWidth="12" fill="none" strokeLinecap="round" />
-                      <path d="M278 134 Q290 155 292 175" stroke="#2E6EB5" strokeWidth="9" fill="none" strokeLinecap="round" />
-                      <circle cx="292" cy="178" r="7" fill="white" stroke="#222" strokeWidth="2.5" />
-                      <line x1="287" y1="174" x2="285" y2="170" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="290" y1="172" x2="290" y2="168" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="294" y1="173" x2="295" y2="169" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                      <line x1="297" y1="175" x2="299" y2="172" stroke="#222" strokeWidth="2" strokeLinecap="round" />
-                    </g>
-
-                    {/* ズボン */}
-                    <path d="M224 198 L222 228 L244 228 L250 210 L256 228 L278 228 L276 198 Z"
-                      fill="#444" stroke="#222" strokeWidth="3" />
-
-                    {/* 左足 */}
-                    <g style={{ animation: legLAnim, transformOrigin: "233px 228px" }}>
-                      <path d="M233 228 L230 258" stroke="#222" strokeWidth="12" fill="none" strokeLinecap="round" />
-                      <path d="M233 228 L230 258" stroke="#444" strokeWidth="9" fill="none" strokeLinecap="round" />
-                      <path d="M220 254 L230 254 Q238 254 238 260 L238 264 L216 264 L216 260 Q216 256 220 254 Z"
-                        fill="#333" stroke="#222" strokeWidth="2.5" />
-                    </g>
-
-                    {/* 右足 */}
-                    <g style={{ animation: legRAnim, transformOrigin: "267px 228px" }}>
-                      <path d="M267 228 L270 258" stroke="#222" strokeWidth="12" fill="none" strokeLinecap="round" />
-                      <path d="M267 228 L270 258" stroke="#444" strokeWidth="9" fill="none" strokeLinecap="round" />
-                      <path d="M260 254 L270 254 Q278 254 278 260 L278 264 L256 264 L256 260 Q256 256 260 254 Z"
-                        fill="#333" stroke="#222" strokeWidth="2.5" />
-                    </g>
-                  </g>
-                </g>
-
-                {/* ひらひら書類 */}
-                <g style={{ animation: "paperDrop 3.5s ease-out infinite", transformOrigin: "330px 200px" }}>
-                  <rect x="324" y="195" width="20" height="26" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(12 334 208)" />
-                  <line x1="328" y1="204" x2="340" y2="204" stroke="#AAA" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="328" y1="210" x2="337" y2="210" stroke="#CCC" strokeWidth="1.5" strokeLinecap="round" />
-                </g>
-                <g style={{ animation: "paperDrop2 4s ease-out infinite 1.2s", transformOrigin: "170px 205px" }}>
-                  <rect x="163" y="200" width="18" height="24" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(-10 172 212)" />
-                  <line x1="167" y1="208" x2="177" y2="208" stroke="#AAA" strokeWidth="1.5" strokeLinecap="round" />
-                </g>
-                <g style={{ animation: "paperDrop3 3s ease-out infinite 2.5s", transformOrigin: "300px 190px" }}>
-                  <rect x="294" y="185" width="16" height="22" rx="2" fill="white" stroke="#222" strokeWidth="2" transform="rotate(18 302 196)" />
-                </g>
-              </svg>
+                <p className="mt-6 text-lg md:text-xl font-black text-white/90">
+                  全部、<span className="text-[#F5A623]">これひとつ</span>で。
+                </p>
+                <p className="mt-1.5 text-xs md:text-sm text-white/30">
+                  予約も、顧客情報も、売上も。
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 
 import BusyPersonSection from "@/components/BusyPersonSection";
-import Strengths from "@/components/Strengths";
+
 import Benefits from "@/components/Benefits";
 import Services from "@/components/Services";
 import Flow from "@/components/Flow";
@@ -20,7 +20,7 @@ export default function Home() {
         <Hero />
 
         <BusyPersonSection />
-        <Strengths />
+
         <Benefits />
         <Services />
         <Flow />

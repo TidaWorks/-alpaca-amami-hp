@@ -2,6 +2,21 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
+/* ─── 現在時刻フック ─── */
+function useCurrentTime() {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setTime(`${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`);
+    };
+    update();
+    const interval = setInterval(update, 10000);
+    return () => clearInterval(interval);
+  }, []);
+  return time;
+}
+
 /* ─── ピコピコ数字コンポーネント ─── */
 function ScrambleDigit({ style, delay, className }: { style: React.CSSProperties; delay: number; className: string }) {
   const [char, setChar] = useState("0");
@@ -238,7 +253,7 @@ function WobblyText({ text, className = "", lineDelay = 0 }: { text: string; cla
     const dist = Math.abs(i - hoveredIdx);
     if (dist === 0) {
       return {
-        transform: "translateY(-12px) rotate(-6deg) scale(1.15)",
+        transform: "translateY(-16px) rotate(-8deg) scale(1.2)",
         color: "#F5A623",
         transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease",
       };
@@ -246,13 +261,20 @@ function WobblyText({ text, className = "", lineDelay = 0 }: { text: string; cla
     if (dist === 1) {
       const dir = i < hoveredIdx ? 1 : -1;
       return {
-        transform: `translateY(-6px) rotate(${dir * 3}deg) scale(1.05)`,
-        transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s",
+        transform: `translateY(-10px) rotate(${dir * 5}deg) scale(1.1)`,
+        transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.03s",
       };
     }
     if (dist === 2) {
+      const dir = i < hoveredIdx ? 1 : -1;
       return {
-        transform: "translateY(-2px)",
+        transform: `translateY(-4px) rotate(${dir * 2}deg)`,
+        transition: "transform 0.35s ease 0.06s",
+      };
+    }
+    if (dist === 3) {
+      return {
+        transform: "translateY(-1px)",
         transition: "transform 0.4s ease 0.1s",
       };
     }
@@ -531,17 +553,41 @@ function HeroStoryAnimation() {
 /* ─── スマホ体験型モックアップ ─── */
 
 // スマホ画面 Step1: LINE通知が届く
-function PhoneScreenNotification({ visible }: { visible: boolean }) {
+function PhoneScreenNotification({ visible, currentTime }: { visible: boolean; currentTime: string }) {
+  const [tappedNotif, setTappedNotif] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!visible) setTappedNotif(null);
+  }, [visible]);
+
+  const notifDetails = [
+    {
+      title: "LINE 予約通知",
+      customer: "田中 美咲",
+      menu: "カット＆カラー",
+      date: "4/5（土）14:00〜",
+      source: "LINE",
+      note: "初めてのご予約です。カラーはアッシュ系希望。",
+      color: "#06C755",
+    },
+    {
+      title: "TIDA システム",
+      detail: "予約台帳に自動反映しました",
+      actions: ["台帳を確認", "通知を閉じる"],
+      color: "#F5A623",
+    },
+  ];
+
   return (
     <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
       {/* ロック画面風の背景 */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 relative">
         <p className="text-white/30 text-[10px] font-medium tracking-wider mb-1">3月28日 金曜日</p>
-        <p className="text-white text-2xl font-bold tracking-tight mb-8">14:32</p>
+        <p className="text-white text-2xl font-bold tracking-tight mb-8">{currentTime || "00:00"}</p>
 
         {/* LINE通知 */}
-        <div className="w-full phone-notif-slide">
-          <div className="rounded-2xl p-3 border border-white/10" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)" }}>
+        <div className="w-full phone-notif-slide cursor-pointer active:scale-[0.97] transition-transform" onClick={() => setTappedNotif(0)}>
+          <div className="rounded-2xl p-3 border border-white/10 hover:bg-white/[0.12] transition-colors" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)" }}>
             <div className="flex items-start gap-2.5">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#06C755" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
@@ -564,8 +610,8 @@ function PhoneScreenNotification({ visible }: { visible: boolean }) {
         </div>
 
         {/* 2つ目の通知（少し遅れて） */}
-        <div className="w-full mt-2.5 phone-notif-slide-2">
-          <div className="rounded-2xl p-3 border border-white/10" style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(20px)" }}>
+        <div className="w-full mt-2.5 phone-notif-slide-2 cursor-pointer active:scale-[0.97] transition-transform" onClick={() => setTappedNotif(1)}>
+          <div className="rounded-2xl p-3 border border-white/10 hover:bg-white/[0.1] transition-colors" style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(20px)" }}>
             <div className="flex items-start gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-[#F5A623]/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-[#F5A623] text-xs font-black">T</span>
@@ -582,19 +628,103 @@ function PhoneScreenNotification({ visible }: { visible: boolean }) {
             </div>
           </div>
         </div>
+
+        {/* 通知詳細ポップアップ */}
+        {tappedNotif !== null && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center px-4" onClick={() => setTappedNotif(null)}>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <div
+              className="relative w-full rounded-2xl border p-4 phone-detail-pop"
+              style={{ background: "#151c2c", borderColor: `${notifDetails[tappedNotif].color}30` }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {tappedNotif === 0 ? (
+                <>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "#06C755" }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.95 1.96 5.55 4.88 7.06l-.84 3.05c-.08.29.25.52.49.34l3.56-2.59c.62.09 1.26.14 1.91.14 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+                      </div>
+                      <p className="text-white/90 text-[11px] font-bold">LINE 新規予約</p>
+                    </div>
+                    <button onClick={() => setTappedNotif(null)} className="text-white/30 hover:text-white/60 text-sm">✕</button>
+                  </div>
+                  <div className="space-y-2">
+                    {[
+                      ["お客様", "田中 美咲"],
+                      ["メニュー", "カット＆カラー"],
+                      ["日時", "4/5（土）14:00〜"],
+                      ["経由", "LINE予約"],
+                      ["メモ", "初来店。カラーはアッシュ系希望。"],
+                    ].map(([label, value]) => (
+                      <div key={label} className="flex items-start gap-2">
+                        <span className="text-white/25 text-[9px] w-12 flex-shrink-0">{label}</span>
+                        <span className="text-white/70 text-[10px]">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <div className="flex-1 text-center py-1.5 rounded-lg text-[9px] font-bold bg-[#06C755]/20 text-[#06C755] border border-[#06C755]/20">承認する</div>
+                    <div className="flex-1 text-center py-1.5 rounded-lg text-[9px] font-bold bg-white/5 text-white/40 border border-white/10">詳細を見る</div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-[#F5A623]/20 flex items-center justify-center">
+                        <span className="text-[#F5A623] text-[9px] font-black">T</span>
+                      </div>
+                      <p className="text-white/90 text-[11px] font-bold">システム通知</p>
+                    </div>
+                    <button onClick={() => setTappedNotif(null)} className="text-white/30 hover:text-white/60 text-sm">✕</button>
+                  </div>
+                  <p className="text-white/60 text-[10px] leading-relaxed mb-3">
+                    田中 美咲さんの予約（4/5 14:00〜 カット＆カラー）を予約台帳に自動反映しました。
+                  </p>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-[9px]">
+                      <span className="text-[#2ECC71]">✓</span>
+                      <span className="text-white/50">予約台帳に追加済み</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[9px]">
+                      <span className="text-[#2ECC71]">✓</span>
+                      <span className="text-white/50">確認メール自動送信済み</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[9px]">
+                      <span className="text-[#2ECC71]">✓</span>
+                      <span className="text-white/50">スタッフに通知済み</span>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <div className="text-center py-1.5 rounded-lg text-[9px] font-bold bg-[#F5A623]/20 text-[#F5A623] border border-[#F5A623]/20">台帳を確認する</div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-// スマホ画面 Step2: 予約台帳に反映
+// スマホ画面 Step2: 飲食店の予約台帳
 function PhoneScreenBooking({ visible }: { visible: boolean }) {
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+
   const bookings = [
-    { time: "10:00", name: "鈴木 健太", menu: "カット", status: "完了", color: "#666" },
-    { time: "11:30", name: "山田 花子", menu: "パーマ", status: "施術中", color: "#4A90D9" },
-    { time: "13:00", name: "佐藤 一郎", menu: "カラー", status: "来店待ち", color: "#F5A623" },
-    { time: "14:00", name: "田中 美咲", menu: "カット＆カラー", status: "NEW!", color: "#06C755" },
+    { time: "11:30", name: "山田様", detail: "テーブルA / 2名", menu: "ランチセットA ×2", status: "来店済", color: "#666", note: "窓側希望", tel: "090-XXXX-2345" },
+    { time: "12:00", name: "佐藤様", detail: "座敷 / 6名", menu: "宴会コース ×6", status: "調理中", color: "#4A90D9", note: "アレルギー：エビ", tel: "090-XXXX-6789" },
+    { time: "18:00", name: "中村様", detail: "カウンター / 2名", menu: "おまかせコース ×2", status: "予約確定", color: "#F5A623", note: "記念日・デザートプレート希望", tel: "090-XXXX-1122" },
+    { time: "19:00", name: "高橋様", detail: "テーブルB / 4名", menu: "島料理コース ×4", status: "NEW!", color: "#06C755", note: "Web予約・子供1名あり", tel: "090-XXXX-3344" },
   ];
+
+  useEffect(() => {
+    if (!visible) setSelectedIdx(null);
+  }, [visible]);
+
+  const selected = selectedIdx !== null ? bookings[selectedIdx] : null;
 
   return (
     <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
@@ -604,17 +734,31 @@ function PhoneScreenBooking({ visible }: { visible: boolean }) {
           <p className="text-white text-sm font-bold">予約台帳</p>
           <p className="text-white/30 text-[10px]">4月5日（土）</p>
         </div>
+        <div className="flex gap-2 mt-1.5">
+          {[
+            { label: "テーブル", count: "2/4", color: "#2ECC71" },
+            { label: "座敷", count: "1/2", color: "#F5A623" },
+            { label: "カウンター", count: "1/6", color: "#4A90D9" },
+          ].map((s) => (
+            <div key={s.label} className="flex items-center gap-1 text-[7px]">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: s.color }} />
+              <span className="text-white/30">{s.label}</span>
+              <span className="text-white/50 font-bold tabular-nums">{s.count}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* 予約リスト */}
-      <div className="flex-1 px-3 space-y-1.5 overflow-hidden">
+      <div className="flex-1 px-3 space-y-1.5 overflow-hidden relative">
         {bookings.map((b, i) => (
           <div
             key={b.name}
-            className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all ${
+            onClick={() => setSelectedIdx(i)}
+            className={`flex items-center gap-2.5 p-2.5 rounded-xl border transition-all cursor-pointer active:scale-[0.97] ${
               i === bookings.length - 1
                 ? "border-[#06C755]/30 bg-[#06C755]/[0.08] phone-booking-new"
-                : "border-white/[0.06] bg-white/[0.03]"
+                : "border-white/[0.06] bg-white/[0.03] hover:bg-white/[0.06]"
             }`}
             style={{ animationDelay: `${i * 0.08}s` }}
           >
@@ -624,10 +768,10 @@ function PhoneScreenBooking({ visible }: { visible: boolean }) {
             <div className="h-8 w-[2px] rounded-full flex-shrink-0" style={{ background: b.color }} />
             <div className="flex-1 min-w-0">
               <p className="text-white/80 text-[11px] font-semibold truncate">{b.name}</p>
-              <p className="text-white/30 text-[9px]">{b.menu}</p>
+              <p className="text-white/30 text-[8px]">{b.detail}</p>
             </div>
             <span
-              className="text-[8px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+              className="text-[7px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
               style={{
                 background: `${b.color}20`,
                 color: b.color,
@@ -638,14 +782,58 @@ function PhoneScreenBooking({ visible }: { visible: boolean }) {
             </span>
           </div>
         ))}
+
+        {/* 詳細ポップアップ */}
+        {selected && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center px-3" onClick={() => setSelectedIdx(null)}>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-xl" />
+            <div
+              className="relative w-full rounded-xl border p-4 phone-detail-pop"
+              style={{ background: "#151c2c", borderColor: `${selected.color}30` }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: `${selected.color}20`, color: selected.color }}>
+                    {selected.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-white/90 text-[11px] font-bold">{selected.name}</p>
+                    <p className="text-white/30 text-[8px]">{selected.tel}</p>
+                  </div>
+                </div>
+                <button onClick={() => setSelectedIdx(null)} className="text-white/30 hover:text-white/60 text-sm leading-none">✕</button>
+              </div>
+              <div className="space-y-2">
+                {[
+                  ["席", selected.detail],
+                  ["注文", selected.menu],
+                  ["時間", `${selected.time}〜`],
+                  ["メモ", selected.note],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-start gap-2">
+                    <span className="text-white/25 text-[9px] w-8 flex-shrink-0">{label}</span>
+                    <span className="text-white/70 text-[10px]">{value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[9px] font-bold px-2.5 py-1 rounded-full" style={{ background: `${selected.color}20`, color: selected.color, border: `1px solid ${selected.color}30` }}>
+                  {selected.status}
+                </span>
+                <span className="text-white/15 text-[8px]">タップで閉じる</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* ボトムの合計 */}
+      {/* ボトム */}
       <div className="px-4 py-2 border-t border-white/[0.06] mt-auto">
         <div className="flex items-center justify-between">
           <span className="text-white/30 text-[10px]">本日の予約</span>
           <div className="flex items-center gap-2">
-            <span className="text-white/70 text-sm font-bold tabular-nums">4<span className="text-white/30 text-[10px] font-normal">件</span></span>
+            <span className="text-white/70 text-sm font-bold tabular-nums">4<span className="text-white/30 text-[10px] font-normal">組</span></span>
             <span className="text-emerald-400 text-[9px] font-semibold phone-count-bump">+1 NEW</span>
           </div>
         </div>
@@ -654,70 +842,207 @@ function PhoneScreenBooking({ visible }: { visible: boolean }) {
   );
 }
 
-// スマホ画面 Step3: 売上グラフが伸びる
+// スマホ画面 Step3: 建設業の売上・案件管理
 function PhoneScreenSales({ visible }: { visible: boolean }) {
-  const bars = [28, 45, 38, 55, 42, 62, 50, 72, 58, 68, 75, 88];
+  const [selectedBar, setSelectedBar] = useState<number | null>(null);
+  const [tab, setTab] = useState<"overview" | "menu" | "time">("overview");
+  const bars = [30, 35, 42, 48, 52, 58, 60, 65, 72, 78, 85, 95];
+  const months = ["4","5","6","7","8","9","10","11","12","1","2","3"];
+  const salesData = [
+    "¥2.8M", "¥3.2M", "¥3.8M", "¥4.3M", "¥4.8M", "¥5.2M",
+    "¥5.5M", "¥5.9M", "¥6.5M", "¥7.1M", "¥7.8M", "¥8.6M",
+  ];
+
+  const menuRanking = [
+    { name: "住宅リフォーム", count: 12, revenue: "¥3,200,000", ratio: 90 },
+    { name: "外壁塗装", count: 8, revenue: "¥2,400,000", ratio: 65 },
+    { name: "内装工事", count: 6, revenue: "¥1,500,000", ratio: 45 },
+    { name: "水回り修繕", count: 10, revenue: "¥980,000", ratio: 35 },
+    { name: "エクステリア", count: 3, revenue: "¥520,000", ratio: 18 },
+  ];
+
+  const timeSlots = [
+    { time: "見積中", count: 5, ratio: 30 },
+    { time: "契約済", count: 3, ratio: 55 },
+    { time: "施工中", count: 4, ratio: 70 },
+    { time: "検査待", count: 2, ratio: 40 },
+    { time: "完了", count: 12, ratio: 95 },
+  ];
+
+  useEffect(() => {
+    if (!visible) { setSelectedBar(null); setTab("overview"); }
+  }, [visible]);
 
   return (
     <div className={`absolute inset-0 flex flex-col transition-all duration-500 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
-      <div className="px-4 pt-2 pb-2">
-        <p className="text-white text-sm font-bold">売上レポート</p>
+      {/* ヘッダー */}
+      <div className="px-4 pt-2 pb-1">
+        <p className="text-white text-sm font-bold">案件ダッシュボード</p>
       </div>
 
-      <div className="px-4 pb-3">
+      {/* 売上サマリー */}
+      <div className="px-4 pb-2">
         <div className="flex items-end gap-2">
-          <p className="text-white text-2xl font-black tabular-nums phone-sales-count">¥1,284,000</p>
-          <span className="text-emerald-400 text-[10px] font-bold mb-1 phone-sales-badge">+18.2%</span>
+          <p className="text-white text-xl font-black tabular-nums phone-sales-count">¥8,600,000</p>
+          <span className="text-emerald-400 text-[9px] font-bold mb-0.5 phone-sales-badge">+18.3%</span>
         </div>
-        <p className="text-white/25 text-[9px] mt-0.5">2026年3月の売上</p>
+        <p className="text-white/25 text-[8px]">2026年3月の売上（過去最高）</p>
       </div>
 
-      {/* グラフ */}
-      <div className="px-4 flex-1">
-        <div className="rounded-xl border border-white/[0.06] p-3 h-full flex flex-col" style={{ background: "rgba(255,255,255,0.02)" }}>
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-white/40 text-[9px]">月次推移</span>
-            <span className="text-[#F5A623] text-[9px] font-semibold">過去最高 ↑</span>
-          </div>
-          <div className="flex items-end gap-[4px] flex-1 min-h-0">
-            {bars.map((h, i) => (
-              <div key={i} className="flex-1 flex items-end h-full">
-                <div
-                  className="w-full rounded-t-sm phone-bar-grow"
-                  style={{
+      {/* タブ切り替え */}
+      <div className="px-4 mb-2">
+        <div className="flex gap-1 bg-white/[0.03] rounded-lg p-0.5">
+          {([["overview", "概要"], ["menu", "工事別"], ["time", "進捗"]] as const).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`flex-1 text-[8px] py-1 rounded-md font-semibold transition-all ${
+                tab === key ? "bg-[#F5A623]/15 text-[#F5A623]" : "text-white/25 hover:text-white/40"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* タブコンテンツ */}
+      <div className="flex-1 px-4 overflow-y-auto phone-scroll">
+        {/* 概要タブ */}
+        {tab === "overview" && (
+          <div className="space-y-2">
+            {/* 月次グラフ */}
+            <div className="rounded-xl border border-white/[0.06] p-2.5" style={{ background: "rgba(255,255,255,0.02)" }}>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-white/40 text-[8px]">月次推移</span>
+                <span className="text-[#F5A623] text-[8px] font-semibold">
+                  {selectedBar !== null ? `${months[selectedBar]}月: ${salesData[selectedBar]}` : "過去最高 ↑"}
+                </span>
+              </div>
+              <div className="flex items-end gap-[3px] h-14">
+                {bars.map((h, i) => (
+                  <div key={i} className="flex-1 flex items-end h-full cursor-pointer" onClick={() => setSelectedBar(selectedBar === i ? null : i)}>
+                    <div
+                      className={`w-full rounded-t-sm phone-bar-grow transition-all duration-200 ${selectedBar !== null && selectedBar !== i ? "opacity-25" : ""}`}
+                      style={{
+                        height: `${h}%`,
+                        background: selectedBar === i
+                          ? "linear-gradient(180deg, #FFD700, #F5A623)"
+                          : i === bars.length - 1
+                          ? "linear-gradient(180deg, #F5A623, #E09510)"
+                          : i >= bars.length - 3
+                          ? "linear-gradient(180deg, rgba(245,166,35,0.5), rgba(245,166,35,0.15))"
+                          : "linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03))",
+                        animationDelay: `${i * 0.06}s`,
+                        transform: selectedBar === i ? "scaleX(1.3)" : "scaleX(1)",
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between mt-1">
+                {months.map((m, i) => (
+                  <span key={i} className={`text-[5px] flex-1 text-center tabular-nums transition-colors ${selectedBar === i ? "text-[#F5A623] font-bold" : "text-white/15"}`}>{m}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* KPIカード */}
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { label: "案件数", val: "26", sub: "+5", icon: "📋", prev: "21" },
+                { label: "案件単価", val: "¥330K", sub: "+¥42K", icon: "💰", prev: "¥288K" },
+                { label: "完了率", val: "92%", sub: "+8%", icon: "🔄", prev: "84%" },
+              ].map((k) => (
+                <div key={k.label} className="rounded-lg border border-white/[0.06] p-2 text-center" style={{ background: "rgba(255,255,255,0.02)" }}>
+                  <p className="text-white/20 text-[7px] mb-0.5">{k.label}</p>
+                  <p className="text-white text-[11px] font-bold tabular-nums">{k.val}</p>
+                  <p className="text-emerald-400/70 text-[7px] font-semibold">{k.sub}</p>
+                  <p className="text-white/10 text-[6px] mt-0.5">前月 {k.prev}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* 日別ミニグラフ */}
+            <div className="rounded-xl border border-white/[0.06] p-2.5" style={{ background: "rgba(255,255,255,0.02)" }}>
+              <p className="text-white/40 text-[8px] mb-1.5">直近7日間</p>
+              <div className="flex items-end gap-[3px] h-8">
+                {[45, 62, 38, 71, 55, 80, 68].map((h, i) => (
+                  <div key={i} className="flex-1 rounded-t-sm" style={{
                     height: `${h}%`,
-                    background: i === bars.length - 1
-                      ? "linear-gradient(180deg, #F5A623, #E09510)"
-                      : i >= bars.length - 2
-                      ? "linear-gradient(180deg, rgba(245,166,35,0.5), rgba(245,166,35,0.15))"
-                      : "linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03))",
-                    animationDelay: `${i * 0.06}s`,
-                  }}
-                />
+                    background: i === 5 ? "linear-gradient(180deg, #2ECC71, #1a9c58)" : "linear-gradient(180deg, rgba(46,204,113,0.3), rgba(46,204,113,0.08))",
+                  }} />
+                ))}
+              </div>
+              <div className="flex justify-between mt-1">
+                {["月","火","水","木","金","土","日"].map((d, i) => (
+                  <span key={d} className={`text-[5px] flex-1 text-center ${i === 5 ? "text-[#2ECC71]" : "text-white/15"}`}>{d}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* メニュータブ */}
+        {tab === "menu" && (
+          <div className="space-y-1.5">
+            <p className="text-white/40 text-[8px] mb-1">工事種別 売上ランキング（3月）</p>
+            {menuRanking.map((m, i) => (
+              <div key={m.name} className="rounded-lg border border-white/[0.06] p-2" style={{ background: "rgba(255,255,255,0.02)" }}>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-[9px] font-black w-4 text-center ${i === 0 ? "text-[#F5A623]" : i === 1 ? "text-white/50" : "text-white/25"}`}>
+                      {i + 1}
+                    </span>
+                    <span className="text-white/80 text-[10px] font-semibold">{m.name}</span>
+                  </div>
+                  <span className="text-white/50 text-[9px] tabular-nums">{m.revenue}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
+                    <div className="h-full rounded-full transition-all duration-700" style={{
+                      width: `${m.ratio}%`,
+                      background: i === 0 ? "#F5A623" : i === 1 ? "#4A90D9" : "#2ECC71",
+                      opacity: 0.6,
+                    }} />
+                  </div>
+                  <span className="text-white/25 text-[8px] tabular-nums w-8 text-right">{m.count}件</span>
+                </div>
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-1.5">
-            {["4","5","6","7","8","9","10","11","12","1","2","3"].map((m, i) => (
-              <span key={i} className="text-[6px] text-white/15 flex-1 text-center tabular-nums">{m}月</span>
-            ))}
-          </div>
-        </div>
-      </div>
+        )}
 
-      {/* KPI */}
-      <div className="px-4 py-2.5 grid grid-cols-3 gap-2">
-        {[
-          { label: "予約数", val: "156", sub: "+24" },
-          { label: "客単価", val: "¥8,230", sub: "+¥820" },
-          { label: "リピ率", val: "68%", sub: "+5.3%" },
-        ].map((k) => (
-          <div key={k.label} className="text-center">
-            <p className="text-white/25 text-[7px]">{k.label}</p>
-            <p className="text-white text-[11px] font-bold tabular-nums">{k.val}</p>
-            <p className="text-emerald-400/70 text-[7px] font-semibold">{k.sub}</p>
+        {/* 時間帯タブ */}
+        {tab === "time" && (
+          <div className="space-y-1">
+            <p className="text-white/40 text-[8px] mb-1">案件ステータス別（3月）</p>
+            {timeSlots.map((s) => (
+              <div key={s.time} className="flex items-center gap-2 py-0.5">
+                <span className="text-white/25 text-[8px] tabular-nums w-10 flex-shrink-0">{s.time}</span>
+                <div className="flex-1 h-2.5 rounded-full bg-white/[0.04] overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{
+                      width: `${s.ratio}%`,
+                      background: s.ratio >= 60
+                        ? "linear-gradient(90deg, #F5A623, #FFD700)"
+                        : s.ratio >= 40
+                        ? "linear-gradient(90deg, rgba(245,166,35,0.5), rgba(245,166,35,0.3))"
+                        : "linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+                    }}
+                  />
+                </div>
+                <span className="text-white/30 text-[8px] tabular-nums w-6 text-right">{s.count}</span>
+              </div>
+            ))}
+            <div className="mt-2 rounded-lg border border-[#F5A623]/15 p-2 bg-[#F5A623]/[0.03]">
+              <p className="text-[#F5A623] text-[8px] font-semibold">今月の進捗</p>
+              <p className="text-white/60 text-[9px] font-bold">完了12件 / 施工中4件</p>
+              <p className="text-white/25 text-[7px]">前月比 完了数+3件 ↑</p>
+            </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
@@ -727,6 +1052,7 @@ function PhoneScreenSales({ visible }: { visible: boolean }) {
 function PhoneMockup() {
   const [step, setStep] = useState(0); // 0: 通知, 1: 予約台帳, 2: 売上
   const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const currentTime = useCurrentTime();
 
   useEffect(() => {
     const cycle = () => {
@@ -743,9 +1069,9 @@ function PhoneMockup() {
 
   // ステップのラベル
   const steps = [
-    { label: "LINE通知", icon: "📱" },
-    { label: "自動反映", icon: "📋" },
-    { label: "売上集計", icon: "📊" },
+    { label: "美容室", icon: "💇" },
+    { label: "飲食店", icon: "🍽️" },
+    { label: "建設業", icon: "🏗️" },
   ];
 
   return (
@@ -766,7 +1092,7 @@ function PhoneMockup() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-[26px] bg-black rounded-b-2xl z-20" />
           {/* ステータスバー */}
           <div className="absolute top-[6px] left-4 right-4 flex items-center justify-between z-10">
-            <span className="text-white/50 text-[9px] font-semibold tabular-nums">14:32</span>
+            <span className="text-white/50 text-[9px] font-semibold tabular-nums">{currentTime || "00:00"}</span>
             <div className="flex items-center gap-1">
               <div className="flex gap-[2px]">
                 {[1,2,3,4].map(i => (
@@ -779,7 +1105,7 @@ function PhoneMockup() {
 
           {/* 画面コンテンツ */}
           <div className="absolute inset-[3px] top-[30px] bottom-[4px] rounded-[32px] overflow-hidden" style={{ background: "linear-gradient(180deg, #111118, #0a0a12)" }}>
-            <PhoneScreenNotification visible={step === 0} />
+            <PhoneScreenNotification visible={step === 0} currentTime={currentTime} />
             <PhoneScreenBooking visible={step === 1} />
             <PhoneScreenSales visible={step === 2} />
           </div>
@@ -809,11 +1135,11 @@ function PhoneMockup() {
 
       {/* フローの矢印表示 */}
       <div className="flex items-center gap-2 mt-4 text-white/20 text-[10px]">
-        <span className={`transition-colors ${step === 0 ? "text-[#06C755]" : ""}`}>予約が入る</span>
+        <span className={`transition-colors ${step === 0 ? "text-[#06C755]" : ""}`}>LINE予約</span>
         <span>→</span>
-        <span className={`transition-colors ${step === 1 ? "text-[#F5A623]" : ""}`}>自動で台帳に</span>
+        <span className={`transition-colors ${step === 1 ? "text-[#F5A623]" : ""}`}>予約管理</span>
         <span>→</span>
-        <span className={`transition-colors ${step === 2 ? "text-[#F5A623]" : ""}`}>売上も見える</span>
+        <span className={`transition-colors ${step === 2 ? "text-[#F5A623]" : ""}`}>売上分析</span>
       </div>
     </div>
   );
@@ -841,9 +1167,9 @@ export default function Hero() {
             <p className="font-display text-[#F5A623]/60 text-xs tracking-[0.4em] mb-6 animate-[fadeInUp_0.8s_ease-out_0.1s_both] font-semibold">TIDA WORKS — AMAMI OSHIMA</p>
 
             <h1 className="text-[8.5vw] md:text-[5.5vw] lg:text-[4vw] font-black leading-[1.12] mb-8 md:mb-10 tracking-tight">
-              <span className="text-white/80 whitespace-nowrap"><WobblyText text="予約も売上も、" lineDelay={0.2} /></span>
+              <span className="text-white/80 whitespace-nowrap"><WobblyText text="あなた専用に作る、" lineDelay={0.2} /></span>
               <br />
-              <span className="whitespace-nowrap"><WobblyText text="スマホひとつ" className="text-[#F5A623]" lineDelay={0.7} /><WobblyText text="で。" className="text-white" lineDelay={1.1} /></span>
+              <span className="whitespace-nowrap"><WobblyText text="業務アプリ" className="text-[#F5A623]" lineDelay={0.7} /><WobblyText text="。" className="text-white" lineDelay={1.1} /></span>
             </h1>
 
             <p className="text-white/45 text-sm md:text-base max-w-lg leading-[1.9] mb-8 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
