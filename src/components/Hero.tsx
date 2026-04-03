@@ -242,6 +242,10 @@ function seededRandom(seed: number) {
 function WobblyText({ text, className = "", lineDelay = 0 }: { text: string; className?: string; lineDelay?: number }) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [landed, setLanded] = useState<Set<number>>(new Set());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
   const seeds = text.split("").map((_, i) => ({
     delay: seededRandom(i * 3 + 1) * 0.5,
     rotate: (seededRandom(i * 3 + 2) - 0.5) * 25,
@@ -286,10 +290,10 @@ function WobblyText({ text, className = "", lineDelay = 0 }: { text: string; cla
       {text.split("").map((c, i) => (
         <span
           key={`${c}${i}`}
-          className={`hero-char ${landed.has(i) ? "" : "hero-char-drop"}`}
+          className={`hero-char ${landed.has(i) || !mounted ? "" : "hero-char-drop"}`}
           style={{
             ...getNeighborStyle(i),
-            ...(landed.has(i) ? {} : {
+            ...(landed.has(i) || !mounted ? {} : {
               animationDelay: `${lineDelay + seeds[i].delay}s`,
               "--drop-rotate": `${seeds[i].rotate}deg`,
               "--drop-distance": `${seeds[i].dropDistance}px`,
