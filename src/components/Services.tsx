@@ -1,13 +1,20 @@
 "use client";
 
+import Image from "next/image";
 import { useFadeIn } from "@/hooks/useFadeIn";
 import { useParallax } from "@/hooks/useParallax";
 
-function ParallaxText({ children }: { children: React.ReactNode }) {
-  const ref = useParallax(0.15);
+function ParallaxLogo() {
+  const ref = useParallax(0.2);
   return (
-    <div ref={ref} className="absolute top-[10%] left-[-3%] text-[15vw] font-black text-white/[0.015] leading-none select-none tracking-tighter parallax-text">
-      {children}
+    <div ref={ref} className="absolute top-[10%] left-1/2 -translate-x-1/2 select-none pointer-events-none parallax-text">
+      <Image
+        src="/images/tida-works-logo.png"
+        alt=""
+        width={800}
+        height={800}
+        className="w-[65vw] max-w-[800px] h-auto opacity-[0.05]"
+      />
     </div>
   );
 }
@@ -20,11 +27,7 @@ export default function Services() {
 
   return (
     <section id="services" className="relative py-20 md:py-36 bg-[#111] text-white overflow-hidden noise-overlay">
-      <ParallaxText>
-        PRI
-        <br />
-        CE
-      </ParallaxText>
+      <ParallaxLogo />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="mb-20">
