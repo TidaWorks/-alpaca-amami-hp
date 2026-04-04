@@ -16,7 +16,12 @@
 - SEOコンサルは範囲外（基本的なSEO設定は開発に含む）
 
 ## ホームページ構成
-Header → Hero → BusyPersonSection → Strengths → Benefits → Services → Flow → FAQ → About → Contact → Footer
+Header → Hero → BusyPersonSection → Benefits → Services → Flow → FAQ → About → Contact → Footer
+
+- KeywordMarquee・Strengthsは削除済み（2026-04-04）
+- Heroのスマホモックアップは3業種切替（美容室・飲食店・建設業）
+- BusyPersonSectionはSVGキャラ→カード演出に刷新済み
+- Services背景にTIDA WORKSロゴのパララックス効果あり
 
 ## サービス内容
 - ホームページ制作（店舗・コーポレート・LP）
