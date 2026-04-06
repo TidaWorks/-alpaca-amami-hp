@@ -14,9 +14,7 @@ export default function About() {
           <div className="md:w-1/3">
             <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">ABOUT</p>
             <h2 className="text-4xl md:text-5xl font-black leading-tight">
-              会社
-              <br />
-              <span className="text-white/50">概要</span>
+              About
             </h2>
           </div>
 
@@ -35,8 +33,8 @@ export default function About() {
                   />
                 </div>
                 <div className="flex-1">
-                  <p className="text-white/90 text-lg md:text-xl font-bold mb-1">作田 大地<span className="text-white/30 text-sm font-normal ml-2">Daichi Sakuta</span></p>
-                  <p className="text-[#F5A623] text-xs tracking-wider font-medium mb-3">TIDA WORKS 代表</p>
+                  <p className="text-white/90 text-lg md:text-xl font-bold mb-1">作田 大地<span className="text-white/30 text-sm font-normal ml-2">Daichi Sakuda</span></p>
+                  <p className="text-[#F5A623] text-xs tracking-wider font-medium mb-3">TIDA WORKS</p>
                   <p className="text-white/50 text-sm leading-[1.9]">
                     奄美大島出身・在住。「島の事業者さんが本業に集中できる環境をつくりたい」
                     という想いから、TIDA WORKSを立ち上げました。

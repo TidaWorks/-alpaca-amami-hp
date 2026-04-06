@@ -24,6 +24,7 @@ export default function Services() {
   const fade2 = useFadeIn();
   const fade3 = useFadeIn();
   const fade4 = useFadeIn();
+  const fade5 = useFadeIn();
 
   return (
     <section id="services" className="relative py-20 md:py-36 bg-[#111] text-white overflow-hidden noise-overlay">
@@ -36,30 +37,66 @@ export default function Services() {
             料金
           </h2>
           <p className="text-white/50 text-base mt-4 max-w-xl leading-relaxed">
-            ホームページ制作からシステム開発まで。規模やご要望に合わせて柔軟に対応します。
+            ホームページ制作から業務改善システムまで。規模やご要望に合わせて柔軟に対応します。
           </p>
         </div>
 
-        {/* ホームページ制作 */}
+        {/* ライトプラン */}
         <div ref={fade1.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-white/20 hover:bg-white/[0.01] ${fade1.className}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
-              <p className="text-[#4A90D9] text-xs tracking-[0.3em] font-medium mb-3">WEB DESIGN</p>
-              <h3 className="text-3xl md:text-5xl font-black mb-4">ホームページ制作</h3>
+              <p className="text-[#4A90D9] text-xs tracking-[0.3em] font-medium mb-3">LIGHT PLAN</p>
+              <h3 className="text-3xl md:text-5xl font-black mb-4">ライトプラン</h3>
               <p className="text-[#4A90D9] text-2xl md:text-3xl font-black">
-                ¥150,000<span className="text-lg font-medium text-white/40">〜</span>
+                ¥100,000<span className="text-lg font-medium text-white/40">〜150,000</span>
               </p>
+              <p className="text-white/30 text-xs mt-3">納期目安：約2週間</p>
             </div>
             <div className="md:w-1/2">
               <p className="text-white/60 text-base leading-relaxed mb-6">
-                お店や会社の顔となるホームページを制作します。スマホ対応はもちろん、お問い合わせフォームやアクセスマップなど必要な機能をまとめて。
+                お店や事業の紹介を1ページにまとめたランディングページを制作します。まずはWebで情報を発信したい方に。
               </p>
               <div className="space-y-3">
                 {[
-                  "店舗サイト・コーポレートサイト・LP制作",
+                  "ランディングページ（1ページ）制作",
+                  "スマホ・タブレット完全対応",
+                  "メールお問い合わせフォーム設置",
+                  "基本的なSEO初期設定込み",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <span className="text-[#4A90D9] mt-1 text-sm">&#10003;</span>
+                    <span className="text-white/70 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/30 text-xs mt-6 leading-relaxed">
+                ※ LINE連携はオプション（別途お見積り）
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* スタンダードプラン */}
+        <div ref={fade2.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-[#4A90D9]/30 hover:bg-[#4A90D9]/[0.01] ${fade2.className}`}>
+          <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+            <div className="md:w-1/2">
+              <p className="text-[#4A90D9] text-xs tracking-[0.3em] font-medium mb-3">STANDARD PLAN</p>
+              <h3 className="text-3xl md:text-5xl font-black mb-4">スタンダードプラン</h3>
+              <p className="text-[#4A90D9] text-2xl md:text-3xl font-black">
+                ¥150,000<span className="text-lg font-medium text-white/40">〜300,000</span>
+              </p>
+              <p className="text-white/30 text-xs mt-3">納期目安：約1ヶ月</p>
+            </div>
+            <div className="md:w-1/2">
+              <p className="text-white/60 text-base leading-relaxed mb-6">
+                しっかりとしたホームページが欲しい方へ。複数ページ構成で、お店や会社の情報を網羅的に伝えます。
+              </p>
+              <div className="space-y-3">
+                {[
+                  "複数ページ構成（トップ・サービス・料金・アクセス・お問い合わせ等）",
                   "スマホ・タブレット完全対応",
                   "お問い合わせフォーム・Googleマップ設置",
-                  "基本的なSEO設定（タイトル・メタ情報）込み",
+                  "SEO初期設定込み（継続的なSEO対策は含みません）",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <span className="text-[#4A90D9] mt-1 text-sm">&#10003;</span>
@@ -71,29 +108,28 @@ export default function Services() {
           </div>
         </div>
 
-        {/* システム開発 */}
-        <div ref={fade2.ref} className={`border border-[#F5A623]/30 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 relative overflow-hidden bg-gradient-to-br from-[#F5A623]/[0.03] to-transparent hover:border-[#F5A623]/50 hover:shadow-[0_0_60px_rgba(245,166,35,0.08)] ${fade2.className}`}>
-          <div className="absolute top-4 right-4 md:top-6 md:right-6">
-            <span className="font-display bg-[#F5A623] text-black text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">POPULAR</span>
-          </div>
+        {/* 業務改善システム構築 */}
+        <div ref={fade3.ref} className={`border border-[#F5A623]/30 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 relative overflow-hidden bg-gradient-to-br from-[#F5A623]/[0.03] to-transparent hover:border-[#F5A623]/50 hover:shadow-[0_0_60px_rgba(245,166,35,0.08)] ${fade3.className}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+
             <div className="md:w-1/2">
-              <p className="text-[#F5A623] text-xs tracking-[0.3em] font-medium mb-3">SYSTEM DEVELOPMENT</p>
-              <h3 className="text-3xl md:text-5xl font-black mb-4">オーダーメイド<br />システム開発</h3>
+              <p className="text-[#F5A623] text-xs tracking-[0.3em] font-medium mb-3">BUSINESS SYSTEM</p>
+              <h3 className="text-3xl md:text-5xl font-black mb-4">業務改善<br />システム構築</h3>
               <p className="text-[#F5A623] text-2xl md:text-3xl font-black">
-                ¥300,000<span className="text-lg font-medium text-white/40">〜</span>
+                ¥300,000<span className="text-lg font-medium text-white/40">〜（要見積）</span>
               </p>
+              <p className="text-white/30 text-xs mt-3">納期目安：規模に応じてご相談</p>
             </div>
             <div className="md:w-1/2">
               <p className="text-white/60 text-base leading-relaxed mb-6">
-                予約管理、顧客管理、売上集計、LINE予約・自動応答まで。業務を丸ごとシステム化して、あなたの時間を取り戻します。
+                予約管理、スケジュール自動連携、顧客管理など、業務フローをまるごとシステム化。手作業・紙・Excel管理から脱却し、業務効率を劇的に改善します。納品後もお客様と一緒に、満足のいく形になるまで作り上げていきます。
               </p>
               <div className="space-y-3">
                 {[
-                  "ヒアリングからデザイン・開発・納品まで一貫対応",
-                  "LINE予約システム・自動応答Bot構築",
-                  "スマホ対応・管理画面・印刷機能など柔軟に",
-                  "納品後の操作説明・導入サポート付き",
+                  "業務フローに合わせたオーダーメイド設計",
+                  "予約管理・スケジュール自動連携・顧客管理など",
+                  "スマホ対応・管理画面・印刷機能など柔軟に対応",
+                  "納品後も継続的にサポート・改善",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <span className="text-[#F5A623] mt-1 text-sm">&#10003;</span>
@@ -106,24 +142,24 @@ export default function Services() {
         </div>
 
         {/* 保守サポート */}
-        <div ref={fade3.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-[#2ECC71]/20 hover:bg-[#2ECC71]/[0.01] ${fade3.className}`}>
+        <div ref={fade4.ref} className={`border border-white/10 rounded-2xl p-8 md:p-12 mb-8 transition-all duration-700 hover:border-[#2ECC71]/20 hover:bg-[#2ECC71]/[0.01] ${fade4.className}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <p className="text-[#2ECC71] text-xs tracking-[0.3em] font-medium mb-3">MAINTENANCE & SUPPORT</p>
-              <h3 className="text-3xl md:text-4xl font-black mb-4">保守・運用サポート</h3>
+              <h3 className="text-3xl md:text-4xl font-black mb-4">保守サポート</h3>
               <p className="text-[#2ECC71] text-2xl md:text-3xl font-black">
                 ¥12,000<span className="text-lg font-medium text-white/40">/月〜</span>
               </p>
             </div>
             <div className="md:w-1/2">
               <p className="text-white/60 text-base leading-relaxed mb-6">
-                納品後も安心。サーバー・ドメイン管理からちょっとした修正まで、月額でまるごとお任せください。自社で運用できるなら不要です。
+                納品後も安心。サーバー・ドメイン管理から日々の修正まで、まるごとお任せください。ちょっとした変更なら気軽にご相談いただけます。
               </p>
               <div className="space-y-3">
                 {[
-                  "サーバー・ドメイン代込み",
-                  "バグ修正・不具合対応",
-                  "小さな変更・テキスト修正",
+                  "サーバー・ドメイン管理込み",
+                  "テキスト差し替え・画像変更など随時対応",
+                  "不具合・バグ修正",
                   "電話・メールでの相談対応",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
@@ -133,17 +169,18 @@ export default function Services() {
                 ))}
               </div>
               <p className="text-white/30 text-xs mt-6 leading-relaxed">
-                ※ 大幅な仕様変更や機能実装がある場合は、別途お見積りとなります。
+                ※ 大規模な改修・機能追加は別途お見積りとなります。
               </p>
             </div>
           </div>
         </div>
 
         {/* 注釈 */}
-        <div ref={fade4.ref} className={`text-white/30 text-xs leading-relaxed mt-6 space-y-1 transition-all duration-700 ${fade4.className}`}>
+        <div ref={fade5.ref} className={`text-white/30 text-xs leading-relaxed mt-6 space-y-1 transition-all duration-700 ${fade5.className}`}>
           <p>※ 料金は案件の規模・機能数によって変動します。お見積りは無料です。</p>
+          <p>※ 写真・ロゴ等の素材はお客様にご用意いただきます。</p>
           <p>※ 保守サポートは任意です。自社で運用される場合は不要です。</p>
-          <p>※ 大規模な機能追加は別途お見積りとなります。</p>
+          <p>※ 初回相談無料。まずはお気軽にお問い合わせください。</p>
         </div>
 
         {/* CTA */}

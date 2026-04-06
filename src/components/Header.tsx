@@ -42,7 +42,7 @@ export default function Header() {
             { href: "#services", label: "料金" },
             { href: "#flow", label: "ご利用の流れ" },
             { href: "#faq", label: "よくある質問" },
-            { href: "#about", label: "会社概要" },
+            { href: "#about", label: "About" },
           ].map((item) => (
             <a
               key={item.href}
@@ -81,7 +81,7 @@ export default function Header() {
           <a href="#services" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">料金</a>
           <a href="#flow" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">ご利用の流れ</a>
           <a href="#faq" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">よくある質問</a>
-          <a href="#about" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">会社概要</a>
+          <a href="#about" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">About</a>
           <a href="#contact" onClick={() => setMenuOpen(false)} className="bg-[#F5A623] text-black font-bold text-center px-5 py-2 rounded-full">無料相談</a>
         </nav>
       )}
