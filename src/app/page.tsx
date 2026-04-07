@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import BusyPersonSection from "@/components/BusyPersonSection";
 
 import Benefits from "@/components/Benefits";
+import WhySolo from "@/components/WhySolo";
 import Services from "@/components/Services";
 import Flow from "@/components/Flow";
 
@@ -22,6 +23,7 @@ export default function Home() {
         <BusyPersonSection />
 
         <Benefits />
+        <WhySolo />
         <Services />
         <Flow />
 
