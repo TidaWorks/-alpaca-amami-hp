@@ -184,16 +184,7 @@ html {
 
 /* ─── ヒーロー ─── */
 
-/* マーキー（無限スクロール） */
-@keyframes marqueeLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marqueeRight {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
+/* マーキー（無限スクロール） — 定義は globals.css 末尾の -33.333% 版を使用 */
 
 .marquee-track {
   display: flex;
@@ -447,15 +438,7 @@ html {
   animation: marqueeLeft 18s linear infinite;
 }
 
-@keyframes marqueeRight {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
-}
-
-@keyframes marqueeLeft {
-  0% { transform: translateX(-25%); }
-  100% { transform: translateX(0); }
-}
+/* marqueeRight / marqueeLeft — 定義は globals.css 末尾の -33.333% 版を使用 */
 
 /* ─── 作業消失アニメーション ─── */
 
@@ -1117,4 +1100,36 @@ html {
 .parallax-text {
   transition: transform 0.1s linear;
   will-change: transform;
+}
+
+/* ─── Web制作LP用アニメーション ─── */
+
+/* スクロールインジケーター */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.3; transform: scaleY(0.6); }
+}
+
+/* フェードイン */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ギャラリーマーキー — 左へ */
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+/* ギャラリーマーキー — 右へ */
+@keyframes marqueeRight {
+  0% { transform: translateX(-33.333%); }
+  100% { transform: translateX(0); }
+}
+
+/* Intersection Observer用: 表示時 */
+.animate-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }

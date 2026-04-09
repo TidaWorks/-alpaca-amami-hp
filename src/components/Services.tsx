@@ -48,7 +48,7 @@ export default function Services() {
               <p className="text-[#4A90D9] text-xs tracking-[0.3em] font-medium mb-3">LIGHT PLAN</p>
               <h3 className="text-3xl md:text-5xl font-black mb-4">ライトプラン</h3>
               <p className="text-[#4A90D9] text-2xl md:text-3xl font-black">
-                ¥100,000<span className="text-lg font-medium text-white/40">〜150,000</span>
+                ¥50,000<span className="text-lg font-medium text-white/40">〜150,000</span>
               </p>
               <p className="text-white/30 text-xs mt-3">納期目安：約2週間</p>
             </div>
