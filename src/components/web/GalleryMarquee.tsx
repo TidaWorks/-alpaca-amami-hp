@@ -266,16 +266,104 @@ export default function GalleryMarquee() {
     };
   }, []);
 
+  const [transition, setTransition] = useState<{ title: string; accent: string; cx: number; cy: number } | null>(null);
+
   const handleCardClick = (
     e: React.MouseEvent<HTMLDivElement>,
     slug: string
   ) => {
+    if (transition) return;
     const work = works.find((w) => w.slug === slug);
     const destination = work?.demoUrl || work?.url || `/works/${slug}`;
-    router.push(destination);
+    const accent = work?.thumbnail.accent || "#F5A623";
+    const title = work?.title || "";
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    setTransition({ title, accent, cx, cy });
+
+    setTimeout(() => {
+      router.push(destination);
+    }, 1000);
   };
 
   return (
+    <>
+    {/* Transition overlay — ripple + aura + title */}
+    {transition && (
+      <>
+        <style>{`
+          @keyframes tidaRippleExpand {
+            from { width: 0; height: 0; opacity: 0.5; border-width: 2px; }
+            to   { width: 300vmax; height: 300vmax; opacity: 0; border-width: 1px; }
+          }
+          @keyframes tidaAuraExpand {
+            from { width: 0; height: 0; opacity: 0; }
+            to   { width: 200vmax; height: 200vmax; opacity: 1; }
+          }
+          @keyframes tidaOverlayIn {
+            from { backdrop-filter: blur(0px); background: rgba(5,5,5,0); }
+            to   { backdrop-filter: blur(20px); background: rgba(5,5,5,0.92); }
+          }
+          @keyframes tidaTitleIn {
+            from { opacity: 0; transform: translate(-50%,-50%) scale(0.9); }
+            to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+          }
+          @keyframes tidaTitleOut {
+            from { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            to   { opacity: 0; transform: translate(-50%,-50%) scale(1.08); }
+          }
+          @keyframes tidaLogoIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes tidaSpin {
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+
+        {/* Ripple ring from click point */}
+        <div className="fixed z-[9998] pointer-events-none rounded-full border border-white/25"
+          style={{
+            left: transition.cx, top: transition.cy,
+            transform: "translate(-50%,-50%)",
+            animation: "tidaRippleExpand 1s cubic-bezier(0.16,1,0.3,1) forwards",
+          }}
+        />
+
+        {/* Accent color aura */}
+        <div className="fixed z-[9997] pointer-events-none rounded-full"
+          style={{
+            left: transition.cx, top: transition.cy,
+            transform: "translate(-50%,-50%)",
+            background: `radial-gradient(circle, ${transition.accent}40 0%, ${transition.accent}15 40%, transparent 70%)`,
+            animation: "tidaAuraExpand 1.2s cubic-bezier(0.16,1,0.3,1) forwards",
+          }}
+        />
+
+        {/* Blur + darken overlay */}
+        <div className="fixed inset-0 z-[9999] pointer-events-none"
+          style={{ animation: "tidaOverlayIn 1s cubic-bezier(0.4,0,0.2,1) forwards" }}
+        />
+
+        {/* Site title flash */}
+        <div className="fixed z-[10000] pointer-events-none text-white text-3xl md:text-5xl font-bold tracking-wider whitespace-nowrap"
+          style={{
+            left: "50%", top: "50%",
+            fontFamily: "'Shippori Mincho B1', 'Noto Serif JP', serif",
+            textShadow: `0 0 60px ${transition.accent}60, 0 0 120px ${transition.accent}30`,
+            animation: "tidaTitleIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.2s forwards, tidaTitleOut 0.3s ease 0.8s forwards",
+            opacity: 0,
+          }}
+        >
+          {transition.title}
+        </div>
+
+      </>
+    )}
+
     <section
       id="gallery"
       className="relative bg-[#0A0A0A] overflow-hidden"
@@ -360,5 +448,6 @@ export default function GalleryMarquee() {
       <div className="absolute inset-y-0 left-0 w-32 md:w-48 bg-gradient-to-r from-[#0A0A0A] to-transparent pointer-events-none z-10" />
       <div className="absolute inset-y-0 right-0 w-32 md:w-48 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none z-10" />
     </section>
+    </>
   );
 }

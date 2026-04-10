@@ -287,9 +287,6 @@ function ServiceBlock({
         }}
       >
         <div className={`px-8 md:px-12 py-10 ${isEven ? "md:-ml-8" : "md:-mr-8"}`}>
-          <div className="w-12 h-12 bg-[#1E3A5F] rounded flex items-center justify-center mb-5">
-            {icon}
-          </div>
           <h3 className="text-2xl font-bold mb-4 font-serif-jp text-[#1E293B]">{title}</h3>
           <p className="text-slate-600 leading-relaxed font-sans-jp text-sm">{desc}</p>
         </div>
@@ -737,8 +734,8 @@ export default function ConstructionDemoPage() {
       </header>
 
       {/* Back to Gallery */}
-      <div className="fixed top-[68px] left-0 right-0 z-40 bg-slate-100 border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 py-2">
+      <div className="fixed top-[52px] left-0 right-0 z-50 bg-slate-100 border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 py-1.5">
           <a href="/web#gallery" className="text-sm text-[#3B82F6] hover:text-blue-700 transition flex items-center gap-1">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5" />
@@ -750,7 +747,7 @@ export default function ConstructionDemoPage() {
       </div>
 
       {/* ===== Hero Section ===== */}
-      <section className="relative pt-[120px]">
+      <section className="relative pt-[100px]">
         <div className="relative text-white">
           <Image
             src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
@@ -855,142 +852,26 @@ export default function ConstructionDemoPage() {
           </div>
         </div>
 
-        {/* Stats bar — blueprint stroke-draw numbers */}
-        <div className="bg-[#1E3A5F] border-b border-blue-900 grain-texture">
-          <div className="max-w-6xl mx-auto px-4 py-0 grid grid-cols-2 md:grid-cols-4 divide-x divide-blue-800/60">
-            {/* Stat 1: 20年 */}
-            <div ref={bpStat1.wrapperRef} className="relative flex flex-col items-center py-8 px-4 overflow-hidden">
-              {/* Blueprint grid bg — denser */}
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: "linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }} />
-              <svg width="100" height="70" viewBox="0 0 100 70" className="relative z-10" style={{ overflow: "visible" }}>
-                {/* Glow layer */}
-                <text x="50" y="56" textAnchor="middle" fontSize="52" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-glow${bpStat1.drawn ? " animate" : ""}`}>20</text>
-                {/* Main stroke text */}
-                <text x="50" y="56" textAnchor="middle" fontSize="52" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-text${bpStat1.drawn ? " animate" : ""}`}>20</text>
-              </svg>
-              <div className="text-[#93C5FD] text-xs mt-1 font-sans-jp tracking-wider relative z-10">年以上の実績</div>
-            </div>
-
-            {/* Stat 2: 350+ */}
-            <div ref={bpStat2.wrapperRef} className="relative flex flex-col items-center py-8 px-4 overflow-hidden">
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: "linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }} />
-              <svg width="130" height="70" viewBox="0 0 130 70" className="relative z-10" style={{ overflow: "visible" }}>
-                <text x="65" y="56" textAnchor="middle" fontSize="44" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-glow${bpStat2.drawn ? " animate" : ""}`}
-                  style={bpStat2.drawn ? { animationDelay: "0.15s" } as React.CSSProperties : undefined}>350+</text>
-                <text x="65" y="56" textAnchor="middle" fontSize="44" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-text${bpStat2.drawn ? " animate" : ""}`}
-                  style={bpStat2.drawn ? { animationDelay: "0.15s" } as React.CSSProperties : undefined}>350+</text>
-              </svg>
-              <div className="text-[#93C5FD] text-xs mt-1 font-sans-jp tracking-wider relative z-10">施工件数</div>
-            </div>
-
-            {/* Stat 3: 98% */}
-            <div ref={bpStat3.wrapperRef} className="relative flex flex-col items-center py-8 px-4 overflow-hidden">
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: "linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }} />
-              <svg width="120" height="70" viewBox="0 0 120 70" className="relative z-10" style={{ overflow: "visible" }}>
-                <text x="60" y="56" textAnchor="middle" fontSize="46" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-glow${bpStat3.drawn ? " animate" : ""}`}
-                  style={bpStat3.drawn ? { animationDelay: "0.3s" } as React.CSSProperties : undefined}>98%</text>
-                <text x="60" y="56" textAnchor="middle" fontSize="46" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-text${bpStat3.drawn ? " animate" : ""}`}
-                  style={bpStat3.drawn ? { animationDelay: "0.3s" } as React.CSSProperties : undefined}>98%</text>
-              </svg>
-              <div className="text-[#93C5FD] text-xs mt-1 font-sans-jp tracking-wider relative z-10">お客様満足度</div>
-            </div>
-
-            {/* Stat 4: 8名 */}
-            <div ref={bpStat4.wrapperRef} className="relative flex flex-col items-center py-8 px-4 overflow-hidden">
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: "linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }} />
-              <svg width="90" height="70" viewBox="0 0 90 70" className="relative z-10" style={{ overflow: "visible" }}>
-                <text x="45" y="56" textAnchor="middle" fontSize="52" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-glow${bpStat4.drawn ? " animate" : ""}`}
-                  style={bpStat4.drawn ? { animationDelay: "0.5s" } as React.CSSProperties : undefined}>8</text>
-                <text x="45" y="56" textAnchor="middle" fontSize="52" fontWeight="700" fontFamily="var(--font-noto-sans-jp), sans-serif"
-                  className={`blueprint-stat-text${bpStat4.drawn ? " animate" : ""}`}
-                  style={bpStat4.drawn ? { animationDelay: "0.5s" } as React.CSSProperties : undefined}
-                >8</text>
-              </svg>
-              <div className="text-[#93C5FD] text-xs mt-1 font-sans-jp tracking-wider relative z-10">名の専門スタッフ</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 会社の強み — highlight strip ===== */}
-      <div className="bg-white border-y border-slate-100">
-        <div className="max-w-6xl mx-auto px-4 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {/* Stats bar — bold & simple */}
+        <div className="bg-[#0F172A]">
+          <div className="max-w-6xl mx-auto px-4 py-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             {[
-              {
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                ),
-                value: "創業20年",
-                label: "地域密着の信頼と実績",
-              },
-              {
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                    <polyline points="9,22 9,12 15,12 15,22" />
-                  </svg>
-                ),
-                value: "施工実績350件以上",
-                label: "新築・リフォーム・公共工事",
-              },
-              {
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 00-3-3.87" />
-                    <path d="M16 3.13a4 4 0 010 7.75" />
-                  </svg>
-                ),
-                value: "有資格者8名",
-                label: "一級建築士・施工管理技士在籍",
-              },
-              {
-                icon: (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                ),
-                value: "顧客満足度98%",
-                label: "丁寧な対応と明朗な見積り",
-              },
-            ].map(({ icon, value, label }) => (
-              <div key={value} className="flex flex-col items-center text-center gap-3 p-4 rounded-lg border border-slate-100 bg-[#F8FAFC]">
-                <div className="w-12 h-12 rounded-full bg-[#EFF6FF] flex items-center justify-center flex-shrink-0">
-                  {icon}
+              { number: "20", unit: "年+", label: "地域密着の実績" },
+              { number: "350", unit: "件+", label: "累計施工件数" },
+              { number: "98", unit: "%", label: "お客様満足度" },
+              { number: "8", unit: "名", label: "専門スタッフ" },
+            ].map(({ number, unit, label }, i) => (
+              <div key={i} className="text-center">
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-white text-5xl md:text-6xl font-black font-sans-jp leading-none">{number}</span>
+                  <span className="text-blue-400 text-lg md:text-xl font-bold">{unit}</span>
                 </div>
-                <div>
-                  <div className="text-[#1E293B] font-bold text-base font-sans-jp leading-tight">{value}</div>
-                  <div className="text-slate-500 text-xs mt-0.5 font-sans-jp leading-snug">{label}</div>
-                </div>
+                <div className="text-slate-400 text-xs mt-3 font-sans-jp tracking-wider">{label}</div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ===== Services Section — full-width alternating blocks ===== */}
       <section

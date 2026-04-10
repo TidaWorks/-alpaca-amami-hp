@@ -796,21 +796,6 @@ export default function BistroAdanPage() {
         /* Menu Book Styles */
         .menu-book {
           background-color: #1c1710;
-          background-image:
-            repeating-linear-gradient(
-              0deg,
-              transparent,
-              transparent 27px,
-              rgba(212, 163, 115, 0.025) 27px,
-              rgba(212, 163, 115, 0.025) 28px
-            ),
-            repeating-linear-gradient(
-              90deg,
-              transparent,
-              transparent 27px,
-              rgba(212, 163, 115, 0.012) 27px,
-              rgba(212, 163, 115, 0.012) 28px
-            );
           box-shadow:
             0 0 0 1px rgba(212, 163, 115, 0.12),
             0 8px 40px rgba(0, 0, 0, 0.6),
@@ -818,23 +803,7 @@ export default function BistroAdanPage() {
           position: relative;
         }
         .menu-book::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 50%;
-          width: 1px;
-          background: linear-gradient(
-            180deg,
-            transparent 0%,
-            rgba(212, 163, 115, 0.25) 8%,
-            rgba(212, 163, 115, 0.18) 50%,
-            rgba(212, 163, 115, 0.25) 92%,
-            transparent 100%
-          );
-          box-shadow: 1px 0 6px rgba(0,0,0,0.4), -1px 0 6px rgba(0,0,0,0.4);
-          transform: translateX(-50%);
-          pointer-events: none;
+          display: none;
         }
 
         .menu-category-header {
@@ -1332,7 +1301,7 @@ export default function BistroAdanPage() {
               </div>
 
               {/* RIGHT PAGE — Meat & Drinks */}
-              <div className="px-7 sm:px-10 py-10" style={{ borderTop: "1px solid rgba(212,163,115,0.08)", position: "relative" }}>
+              <div className="px-7 sm:px-10 py-10" style={{ position: "relative" }}>
                 {/* Page category header */}
                 <div className="mb-8">
                   <p className="menu-category-header text-xs" style={{ color: "#D4A373" }}>
@@ -1681,33 +1650,6 @@ export default function BistroAdanPage() {
             </div>
           </div>
 
-          {/* Atmosphere details */}
-          <div
-            className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center py-10 rounded-sm"
-            style={{
-              backgroundColor: "rgba(212, 163, 115, 0.03)",
-              border: "1px solid rgba(212, 163, 115, 0.06)",
-            }}
-          >
-            {[
-              { label: "総席数", value: "20席" },
-              { label: "ワイン", value: "30種+" },
-              { label: "創業", value: "2008年" },
-              { label: "BGM", value: "島唄" },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div
-                  className="text-2xl sm:text-3xl font-light"
-                  style={{ color: "#D4A373", fontFamily: "var(--font-cormorant), serif" }}
-                >
-                  {stat.value}
-                </div>
-                <div className="mt-1 text-xs tracking-widest" style={{ color: "rgba(245, 240, 232, 0.35)" }}>
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
