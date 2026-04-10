@@ -1617,14 +1617,13 @@ export default function OsteopathicPage() {
                 <div className="space-y-2 text-sm text-[#1A2B3C]/65">
                   <p><span className="font-medium text-[#1A2B3C]">住所：</span>鹿児島県奄美市名瀬XX-XX</p>
                   <p><span className="font-medium text-[#1A2B3C]">電話：</span><a href="tel:0997-XX-XXXX" className="text-[#2E86AB]">0997-XX-XXXX</a></p>
-                  <p><span className="font-medium text-[#1A2B3C]">メール：</span><a href="mailto:info@shimatsumugi.example.com" className="text-[#2E86AB]">info@shimatsumugi.example.com</a></p>
+                  <p><span className="font-medium text-[#1A2B3C]">メール：</span><a href="mailto:info@shimatsumugi.com" className="text-[#2E86AB]">info@shimatsumugi.com</a></p>
                   <p><span className="font-medium text-[#1A2B3C]">駐車場：</span>院前に6台分あり（無料）</p>
                   <p><span className="font-medium text-[#1A2B3C]">バス：</span>名瀬バスターミナルより徒歩10分</p>
                 </div>
               </div>
             </div>
 
-            {/* Map placeholder */}
             <div>
               <div
                 className="rounded-xl overflow-hidden h-80 flex items-center justify-center relative"
@@ -1830,7 +1829,7 @@ export default function OsteopathicPage() {
               <div className="space-y-2 text-xs">
                 <p>鹿児島県奄美市名瀬XX-XX</p>
                 <p><a href="tel:0997-XX-XXXX" className="hover:text-white transition-colors">TEL: 0997-XX-XXXX</a></p>
-                <p><a href="mailto:info@shimatsumugi.example.com" className="hover:text-white transition-colors text-[10px]">info@shimatsumugi.example.com</a></p>
+                <p><a href="mailto:info@shimatsumugi.com" className="hover:text-white transition-colors text-[10px]">info@shimatsumugi.com</a></p>
                 <p className="pt-2">月〜金 9:00〜19:00（昼休み 12:00〜14:00）<br />土 9:00〜13:00 / 日祝 休診</p>
               </div>
             </div>

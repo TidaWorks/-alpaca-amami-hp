@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { NumberTicker } from "@/components/ui/number-ticker";
 
 function SinglePageWireframe({ active }: { active: boolean }) {
   return (
@@ -97,9 +99,6 @@ export default function WebPricing() {
     return () => observer.disconnect();
   }, []);
 
-  const lightPrice = useCountUp(50000, visible, 800);
-  const standardPrice = useCountUp(150000, visible, 1000);
-
   const fmt = (n: number) => n.toLocaleString("ja-JP");
 
   return (
@@ -170,12 +169,14 @@ export default function WebPricing() {
                 <div className="mb-6">
                   <div className="flex items-baseline gap-0.5">
                     <span className="text-xs text-[#8A8070]">¥</span>
-                    <span className="text-4xl font-black text-[#1A1A1A] tabular-nums leading-none">
-                      {fmt(lightPrice)}
-                    </span>
+                    <NumberTicker
+                      value={50000}
+                      className="text-4xl font-black text-[#1A1A1A] tabular-nums leading-none"
+                      delay={0.3}
+                    />
                     <span className="text-sm text-[#8A8070] ml-1">〜</span>
                   </div>
-                  <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥120,000 / 納期 約2週間</p>
+                  <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥150,000 / 納期 約2週間</p>
                 </div>
 
                 <ul className="space-y-2.5 mb-7">
@@ -215,6 +216,9 @@ export default function WebPricing() {
           >
             <div className="relative bg-white border border-[#E8E2DA] rounded-2xl overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.07)] hover:shadow-[0_6px_32px_rgba(0,0,0,0.11)] transition-shadow duration-300 md:scale-[1.06]">
 
+              {/* border beam — 光がボーダーを走る */}
+              <BorderBeam size={120} duration={8} colorFrom="#F5A623" colorTo="#E8A435" borderWidth={2} />
+
               {/* left accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#F5A623] z-10" />
 
@@ -236,9 +240,11 @@ export default function WebPricing() {
                 <div className="mb-6">
                   <div className="flex items-baseline gap-0.5">
                     <span className="text-xs text-[#8A8070]">¥</span>
-                    <span className="text-4xl font-black text-[#1A1A1A] tabular-nums leading-none">
-                      {fmt(standardPrice)}
-                    </span>
+                    <NumberTicker
+                      value={150000}
+                      className="text-4xl font-black text-[#1A1A1A] tabular-nums leading-none"
+                      delay={0.5}
+                    />
                     <span className="text-sm text-[#8A8070] ml-1">〜</span>
                   </div>
                   <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥300,000 / 納期 約1ヶ月</p>

@@ -36,9 +36,9 @@ const features = [
   },
   {
     number: "04",
-    title: "SEO・集客もおまかせ",
+    title: "SEO初期設定を標準対応",
     description:
-      "「お店の名前 奄美」で検索して出てくる——それが最低ライン。構造化データ、メタ情報、表示速度最適化まで標準で対応。Googleに正しく認識されるための基盤を最初から組み込む。",
+      "「お店の名前 奄美」で検索して出てくる——それが最低ライン。構造化データ、メタ情報、表示速度最適化まで初期設定で対応。Googleに正しく認識されるための基盤を最初から組み込む。",
     imageUrl:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "アナリティクスダッシュボード",

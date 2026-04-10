@@ -2390,7 +2390,6 @@ export default function FarmDemoPage() {
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* Map placeholder */}
               <div
                 className="rounded-2xl overflow-hidden flex items-center justify-center"
                 style={{ height: "320px", backgroundColor: "#F0F7EE", border: "2px dashed rgba(74,124,63,0.3)" }}
@@ -2419,7 +2418,7 @@ export default function FarmDemoPage() {
                       ["定休日", "水曜日・年末年始"],
                       ["駐車場", "あり（無料・10台）"],
                       ["電話番号", "0997-XX-XXXX"],
-                      ["メール", "info@taiyo-shizuku.example.com"],
+                      ["メール", "info@taiyo-shizuku.com"],
                     ].map(([label, value], i) => (
                       <tr key={i} style={{ borderBottom: "1px solid rgba(139,94,52,0.1)" }}>
                         <td
@@ -2691,7 +2690,7 @@ export default function FarmDemoPage() {
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                     </svg>
                     <p className="text-xs" style={{ color: "rgba(255,253,247,0.7)" }}>
-                      info@taiyo-shizuku.example.com
+                      info@taiyo-shizuku.com
                     </p>
                   </div>
                   <div className="flex items-start gap-3">

@@ -1780,7 +1780,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-ticket-row">
               <span className="sol-ticket-label">メール</span>
-              <span className="sol-ticket-value">info@soleil-amami.example.com</span>
+              <span className="sol-ticket-value">info@soleil-amami.com</span>
             </div>
             <hr className="sol-ticket-divider" />
             <div className="sol-ticket-row">
@@ -1880,7 +1880,7 @@ export default function PatisseriePage() {
           <p className="sol-footer-brand">Patisserie Soleil</p>
           <p className="sol-footer-info">
             鹿児島県奄美市名瀬末広町1-23<br />
-            TEL: 0997-XX-XXXX / info@soleil-amami.example.com<br />
+            TEL: 0997-XX-XXXX / info@soleil-amami.com<br />
             営業時間: 10:00 - 19:00 / 定休日: 火曜日
           </p>
           <p className="sol-footer-copy">&copy; 2026 Patisserie Soleil. All rights reserved.</p>

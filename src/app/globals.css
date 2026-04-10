@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-orange-accent: #F5A623;
   --color-orange-hover: #E09510;
@@ -7,9 +9,7 @@
   --font-display: var(--font-outfit), sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* scroll-behavior: smooth は Lenis が制御するため無効化 */
 
 /* 英字見出し用フォント */
 .font-display {
@@ -580,7 +580,6 @@ html {
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-
 /* システムカードのアニメーション */
 @keyframes systemCardPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
@@ -596,7 +595,6 @@ html {
 .system-status-spin {
   animation: systemStatusSpin 1s linear infinite;
 }
-
 
 /* ヒーロー: 手を振るアニメーション */
 @keyframes heroWave {
@@ -1133,3 +1131,45 @@ html {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+
+@theme inline {
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite
+;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }}

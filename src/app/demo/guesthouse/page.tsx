@@ -3217,7 +3217,6 @@ export default function GuesthousePage() {
               </div>
             </div>
 
-            {/* Map placeholder */}
             <div
               style={{
                 background: "rgba(135,206,235,0.08)",
@@ -3318,7 +3317,7 @@ export default function GuesthousePage() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "center", marginBottom: 48 }}>
             {[
               { icon: <PhoneIcon />, label: "TEL", value: "0997-XX-XXXX", note: "9:00〜20:00（年中無休）" },
-              { icon: <MailIcon />, label: "MAIL", value: "info@isokaze-amami.example.com", note: "24時間受付" },
+              { icon: <MailIcon />, label: "MAIL", value: "info@isokaze-amami.com", note: "24時間受付" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -3608,7 +3607,7 @@ export default function GuesthousePage() {
                 {[
                   { icon: <MapPinIcon className="w-4 h-4" />, text: "鹿児島県大島郡笠利町浜崎XX-XX" },
                   { icon: <PhoneIcon className="w-4 h-4" />, text: "0997-XX-XXXX" },
-                  { icon: <MailIcon className="w-4 h-4" />, text: "info@isokaze-amami.example.com" },
+                  { icon: <MailIcon className="w-4 h-4" />, text: "info@isokaze-amami.com" },
                   { icon: <ClockIcon className="w-4 h-4" />, text: "受付時間 9:00〜20:00" },
                 ].map((item, i) => (
                   <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>

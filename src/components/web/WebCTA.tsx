@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { TextAnimate } from "@/components/ui/text-animate";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 function HibiscusIcon({ size, opacity }: { size: number; opacity: number | string }) {
   return (
@@ -137,12 +139,17 @@ export default function WebCTA() {
         </p>
 
         {/* Main heading — word-reveal via CSS, triggered by IntersectionObserver */}
-        <h2 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-6 drop-shadow-lg">
-          <span className={`inline-block ${visible ? "animate-wordReveal" : "opacity-0"}`} style={{ animationDelay: "0.2s" }}>島の</span>
-          <span className={`inline-block ${visible ? "animate-wordReveal" : "opacity-0"}`} style={{ animationDelay: "0.45s" }}>お店に、</span>
-          <span className={`text-[#F5A623] inline-block ${visible ? "animate-wordReveal" : "opacity-0"}`} style={{ animationDelay: "0.7s" }}>もっと光</span>
-          <span className={`inline-block ${visible ? "animate-wordReveal" : "opacity-0"}`} style={{ animationDelay: "0.9s" }}>を。</span>
-        </h2>
+        <TextAnimate
+          as="h2"
+          animation="blurInUp"
+          by="character"
+          once
+          delay={0.2}
+          duration={0.8}
+          className="text-white text-4xl md:text-6xl font-bold leading-tight mb-6 drop-shadow-lg"
+        >
+          島のお店に、もっと光を。
+        </TextAnimate>
 
         <p className="text-white/80 text-base md:text-lg leading-relaxed mb-14 max-w-xl mx-auto drop-shadow">
           「こんなホームページが欲しいな」そう思ったら、気軽にご相談ください。
@@ -152,20 +159,24 @@ export default function WebCTA() {
 
         {/* Contact cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14">
-          {/* Phone — primary card */}
-          <a
-            href="tel:0997-XX-XXXX"
-            aria-label="電話で相談する"
-            className={`group relative bg-[#F5A623]/90 hover:bg-[#F5A623] text-black rounded-2xl p-6 flex flex-col items-center gap-2 shadow-lg hover:shadow-[0_8px_40px_rgba(245,166,35,0.45)] transition-all duration-300 hover:-translate-y-1 ${visible ? "animate-cardReveal" : "opacity-0"}`}
-            style={{ animationDelay: "0.3s" }}
+          {/* Phone — primary card with shimmer */}
+          <ShimmerButton
+            shimmerColor="#ffffff"
+            shimmerSize="0.05em"
+            shimmerDuration="3s"
+            borderRadius="16px"
+            background="rgba(245, 166, 35, 0.9)"
+            className={`w-full p-6 flex flex-col items-center gap-2 shadow-lg ${visible ? "animate-cardReveal" : "opacity-0"}`}
+            style={{ animationDelay: "0.3s" } as React.CSSProperties}
+            onClick={() => window.location.href = "tel:08027906757"}
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
             </svg>
-            <span className="font-bold text-sm">電話相談</span>
-            <span className="font-bold text-lg tracking-wide leading-tight">0997-XX-XXXX</span>
-            <span className="text-xs opacity-70">平日 9:00 - 18:00</span>
-          </a>
+            <span className="font-bold text-sm text-black">電話相談</span>
+            <span className="font-bold text-lg tracking-wide leading-tight text-black">080-2790-6757</span>
+            <span className="text-xs text-black/70">平日 9:00 - 18:00</span>
+          </ShimmerButton>
 
           {/* Instagram */}
           <a

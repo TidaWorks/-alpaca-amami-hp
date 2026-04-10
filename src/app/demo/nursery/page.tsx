@@ -2048,7 +2048,6 @@ export default function NurseryPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 items-start">
-            {/* Map placeholder */}
             <div
               className="rounded-3xl overflow-hidden"
               style={{ height: "300px", backgroundColor: "#D4EDE1", boxShadow: "0 4px 16px rgba(126,200,160,0.15)" }}
@@ -2097,7 +2096,7 @@ export default function NurseryPage() {
                       </svg>
                     ),
                     label: "メール",
-                    value: "info@hidamari-hoikuen.example.com",
+                    value: "info@hidamari-hoikuen.com",
                   },
                   {
                     icon: (
@@ -2395,7 +2394,7 @@ export default function NurseryPage() {
                   TEL: 0997-XX-XXXX
                 </p>
                 <p className="text-sm" style={{ color: "rgba(255,248,240,0.65)" }}>
-                  info@hidamari-hoikuen.example.com
+                  info@hidamari-hoikuen.com
                 </p>
                 <p className="text-sm" style={{ color: "rgba(255,248,240,0.65)" }}>
                   受付: 7:00〜19:00（日祝除く）
