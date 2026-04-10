@@ -2,18 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { works } from "@/data/works";
-
-// Helper: remove all tracked overlay elements and reset transition flag
-function cleanupOverlays(
-  overlayRefs: React.MutableRefObject<HTMLElement[]>,
-  isTransitioning: React.MutableRefObject<boolean>
-) {
-  overlayRefs.current.forEach((el) => el.parentNode?.removeChild(el));
-  overlayRefs.current = [];
-  isTransitioning.current = false;
-}
 
 // Unsplash images keyed by slug — single source of truth for gallery visuals
 const slugImageMap: Record<string, string> = {
@@ -241,31 +231,9 @@ function GalleryCTA() {
 
 export default function GalleryMarquee() {
   const router = useRouter();
-  const pathname = usePathname();
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
-  const isTransitioning = useRef(false);
-  const navigatingTo = useRef<string | null>(null);
-  // Track all DOM elements created during transition so they can be cleaned up
-  const overlayRefs = useRef<HTMLElement[]>([]);
-
   const duplicated = [...works, ...works, ...works];
-
-  // Cleanup all overlay elements on component unmount
-  useEffect(() => {
-    return () => {
-      cleanupOverlays(overlayRefs, isTransitioning);
-    };
-  }, []);
-
-  // Detect pathname change = navigation completed → cleanup overlays
-  useEffect(() => {
-    if (navigatingTo.current && pathname === navigatingTo.current) {
-      // Navigation completed — clean up overlays
-      cleanupOverlays(overlayRefs, isTransitioning);
-      navigatingTo.current = null;
-    }
-  }, [pathname]);
 
   useEffect(() => {
     const row1 = row1Ref.current;
@@ -276,13 +244,13 @@ export default function GalleryMarquee() {
       row1.style.animationPlayState = "paused";
     };
     const resumeRow1 = () => {
-      if (!isTransitioning.current) row1.style.animationPlayState = "running";
+      row1.style.animationPlayState = "running";
     };
     const pauseRow2 = () => {
       row2.style.animationPlayState = "paused";
     };
     const resumeRow2 = () => {
-      if (!isTransitioning.current) row2.style.animationPlayState = "running";
+      row2.style.animationPlayState = "running";
     };
 
     row1.addEventListener("mouseenter", pauseRow1);
@@ -304,261 +272,7 @@ export default function GalleryMarquee() {
   ) => {
     const work = works.find((w) => w.slug === slug);
     const destination = work?.demoUrl || work?.url || `/works/${slug}`;
-
-    if (isTransitioning.current) return;
-    isTransitioning.current = true;
-
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-
-    // ── Step 1: Ripple ring from click point ──
-    const ripple = document.createElement("div");
-    ripple.style.cssText = `
-      position: fixed;
-      left: ${cx}px; top: ${cy}px;
-      width: 0; height: 0;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.25);
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      pointer-events: none;
-      transition: width 1s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 1s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 1s ease,
-                  border-width 1s ease;
-    `;
-    document.body.appendChild(ripple);
-    overlayRefs.current.push(ripple);
-
-    // Second ripple (delayed, wider)
-    const ripple2 = ripple.cloneNode() as HTMLDivElement;
-    ripple2.style.border = "1px solid rgba(255,255,255,0.12)";
-    ripple2.style.transitionDelay = "0.12s";
-    document.body.appendChild(ripple2);
-    overlayRefs.current.push(ripple2);
-
-    const accent = work?.thumbnail.accent || "#F5A623";
-    const title = work?.title || "";
-
-    // ── Step 2: Accent color aura (にじみ) ──
-    const aura = document.createElement("div");
-    aura.style.cssText = `
-      position: fixed;
-      left: ${cx}px; top: ${cy}px;
-      width: 0; height: 0;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9996;
-      pointer-events: none;
-      background: radial-gradient(circle, ${accent}40 0%, ${accent}15 40%, transparent 70%);
-      opacity: 0;
-      transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.8s ease;
-    `;
-    document.body.appendChild(aura);
-    overlayRefs.current.push(aura);
-
-    // ── Step 3: Full-page overlay that blurs + darkens ──
-    const overlay = document.createElement("div");
-    overlay.style.cssText = `
-      position: fixed; inset: 0; z-index: 9997;
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-      background: radial-gradient(circle at ${cx}px ${cy}px, rgba(5,5,5,0) 0%, rgba(5,5,5,0) 100%);
-      transition: backdrop-filter 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  -webkit-backdrop-filter 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    `;
-    document.body.appendChild(overlay);
-    overlayRefs.current.push(overlay);
-
-    // Global click on overlay cancels transition
-    const handleOverlayClick = () => {
-      cleanupOverlays(overlayRefs, isTransitioning);
-      card.style.transform = "";
-      card.style.zIndex = "";
-      card.style.filter = "";
-      card.style.opacity = "";
-      card.style.transition = "";
-    };
-    overlay.addEventListener("click", handleOverlayClick, { once: true });
-
-    // ── Step 4: Site name title flash ──
-    const titleEl = document.createElement("div");
-    titleEl.textContent = title;
-    titleEl.style.cssText = `
-      position: fixed;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      z-index: 10000;
-      pointer-events: none;
-      font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif;
-      font-size: clamp(2rem, 6vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: white;
-      opacity: 0;
-      white-space: nowrap;
-      text-shadow: 0 0 60px ${accent}60, 0 0 120px ${accent}30;
-      transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    `;
-    document.body.appendChild(titleEl);
-    overlayRefs.current.push(titleEl);
-
-    // ── Step 5: Card itself scales up and becomes the portal ──
-    card.style.transition = "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease, opacity 1.2s ease";
-    card.style.transform = "scale(2.5)";
-    card.style.zIndex = "9999";
-    card.style.filter = "brightness(1.1) saturate(1.2)";
-
-    // ── Execute animations ──
-    requestAnimationFrame(() => {
-      // Ripples expand
-      const maxDim = Math.max(window.innerWidth, window.innerHeight) * 2.5;
-      ripple.style.width = `${maxDim}px`;
-      ripple.style.height = `${maxDim}px`;
-      ripple.style.opacity = "0";
-      ripple.style.borderWidth = "1px";
-
-      ripple2.style.width = `${maxDim * 1.2}px`;
-      ripple2.style.height = `${maxDim * 1.2}px`;
-      ripple2.style.opacity = "0";
-
-      // Accent aura expands (color bleed)
-      const auraDim = maxDim * 0.8;
-      aura.style.width = `${auraDim}px`;
-      aura.style.height = `${auraDim}px`;
-      aura.style.opacity = "1";
-
-      // Overlay blurs and darkens
-      overlay.style.backdropFilter = "blur(20px)";
-      (overlay.style as unknown as Record<string, string>).webkitBackdropFilter = "blur(20px)";
-      overlay.style.background = `radial-gradient(circle at ${cx}px ${cy}px, ${accent}18 0%, rgba(5,5,5,0.92) 65%)`;
-    });
-
-    // ── Title flash appears (0.4s in) ──
-    setTimeout(() => {
-      if (!isTransitioning.current) return;
-      titleEl.style.opacity = "1";
-      titleEl.style.transform = "translate(-50%, -50%) scale(1)";
-    }, 400);
-
-    // ── Title fades out (0.9s in) ──
-    setTimeout(() => {
-      if (!isTransitioning.current) return;
-      titleEl.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-      titleEl.style.opacity = "0";
-      titleEl.style.transform = "translate(-50%, -50%) scale(1.08)";
-    }, 900);
-
-    // ── Card fades into the blur (0.7s in) ──
-    setTimeout(() => {
-      if (!isTransitioning.current) return;
-      card.style.opacity = "0";
-      card.style.filter = "brightness(2) saturate(0) blur(8px)";
-    }, 700);
-
-    // ── Aura fades, overlay solidifies (1.1s in) ──
-    setTimeout(() => {
-      if (!isTransitioning.current) return;
-      aura.style.transition = "opacity 0.3s ease";
-      aura.style.opacity = "0";
-      overlay.style.transition = "background 0.3s ease";
-      overlay.style.background = "rgba(5,5,5,1)";
-    }, 1100);
-
-    // ── TIDA WORKS logo loading (1.4s in) ──
-    setTimeout(() => {
-      if (!isTransitioning.current) return;
-
-      const logoWrap = document.createElement("div");
-      logoWrap.style.cssText = `
-        position: fixed; inset: 0; z-index: 10001;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        background: #050505;
-        pointer-events: none;
-      `;
-
-      const logoText = document.createElement("div");
-      logoText.textContent = "TIDA WORKS";
-      logoText.style.cssText = `
-        font-family: 'Outfit', var(--font-outfit), sans-serif;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.35em;
-        text-transform: uppercase;
-        color: rgba(245,237,224,0.5);
-        opacity: 0;
-        transform: translateY(6px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      `;
-
-      const spinner = document.createElement("div");
-      spinner.style.cssText = `
-        width: 24px; height: 24px;
-        border: 2px solid rgba(245,237,224,0.1);
-        border-top-color: rgba(232,164,53,0.6);
-        border-radius: 50%;
-        margin-bottom: 16px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        animation: tidaSpin 0.8s linear infinite;
-      `;
-
-      const spinStyle = document.createElement("style");
-      spinStyle.textContent = `@keyframes tidaSpin { to { transform: rotate(360deg); } }`;
-
-      logoWrap.appendChild(spinStyle);
-      logoWrap.appendChild(spinner);
-      logoWrap.appendChild(logoText);
-      document.body.appendChild(logoWrap);
-      overlayRefs.current.push(logoWrap);
-
-      // Fade in logo
-      requestAnimationFrame(() => {
-        spinner.style.opacity = "1";
-        logoText.style.opacity = "1";
-        logoText.style.transform = "translateY(0)";
-      });
-
-      // SPA navigate (1.8s in — logo visible for ~0.4s)
-      setTimeout(() => {
-        if (!isTransitioning.current) return;
-
-        // Record where we're navigating to — cleanup happens when pathname changes
-        navigatingTo.current = destination;
-
-        // Reset card styles (it will unmount anyway)
-        card.style.transform = "";
-        card.style.zIndex = "";
-        card.style.filter = "";
-        card.style.opacity = "";
-        card.style.transition = "";
-
-        try {
-          router.push(destination);
-        } catch {
-          // Fallback: navigate directly
-          cleanupOverlays(overlayRefs, isTransitioning);
-          navigatingTo.current = null;
-          window.location.href = destination;
-          return;
-        }
-
-        // Safety net: if pathname change isn't detected within 5s, force cleanup
-        setTimeout(() => {
-          if (isTransitioning.current) {
-            cleanupOverlays(overlayRefs, isTransitioning);
-            navigatingTo.current = null;
-          }
-        }, 5000);
-      }, 400);
-    }, 1400);
+    router.push(destination);
   };
 
   return (
