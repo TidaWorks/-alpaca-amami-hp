@@ -596,7 +596,9 @@ export default function PatisseriePage() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(to bottom, rgba(44,24,16,0.35) 0%, rgba(44,24,16,0.55) 100%);
+          background:
+            radial-gradient(ellipse at 50% 40%, rgba(44,24,16,0.15) 0%, rgba(44,24,16,0.5) 60%, rgba(44,24,16,0.75) 100%),
+            linear-gradient(to bottom, rgba(255,245,240,0.08) 0%, transparent 30%, rgba(44,24,16,0.6) 100%);
         }
         .sol-hero-content {
           position: relative;
@@ -741,6 +743,23 @@ export default function PatisseriePage() {
         .sol-concept-visual {
           display: flex;
           justify-content: center;
+          position: relative;
+        }
+        .sol-concept-visual::before {
+          content: '';
+          position: absolute;
+          inset: -12px;
+          border: 1px solid rgba(212,165,116,0.15);
+          border-radius: 16px;
+          pointer-events: none;
+        }
+        .sol-concept-visual::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 12px;
+          box-shadow: inset 0 0 40px rgba(44,24,16,0.15), 0 12px 40px rgba(44,24,16,0.12);
+          pointer-events: none;
         }
 
         /* --- showcase --- */
@@ -784,21 +803,7 @@ export default function PatisseriePage() {
           overflow: hidden;
         }
         .sol-glass-top::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 60%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
-          animation: glassReflect 4s ease-in-out infinite;
-        }
-        @keyframes glassReflect {
-          0%   { left: -70%; opacity: 0; }
-          10%  { opacity: 1; }
-          60%  { left: 110%; opacity: 1; }
-          70%  { opacity: 0; }
-          100% { left: 110%; opacity: 0; }
+          display: none;
         }
         .sol-glass-body {
           border: 1px solid rgba(255,255,255,0.08);
@@ -1531,8 +1536,14 @@ export default function PatisseriePage() {
                 ここにしかない味わいを生み出しています。
               </p>
             </div>
-            <div className="sol-concept-visual">
-              <CakeCrossSection cakeProgress={cakeProgress} cakeLayerRef={cakeLayerRef} />
+            <div className="sol-concept-visual" style={{ borderRadius: 12, overflow: "hidden" }}>
+              <Image
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+                alt="美しいケーキの断面"
+                width={800}
+                height={600}
+                className="w-full aspect-[4/5] object-cover"
+              />
             </div>
           </div>
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
@@ -1546,9 +1557,9 @@ export default function PatisseriePage() {
           id="showcase"
           ref={(el) => addSectionRef(el, 1)}
         >
-          <p className="sol-section-label" style={{ color: "#8B6F5E", textAlign: "center" }}>Showcase</p>
-          <h2>ショーケース</h2>
-          <p className="sol-showcase-sub">本日のラインナップ</p>
+          <p className="sol-section-label" style={{ color: "#8B6F5E", textAlign: "center" }}>Lineup</p>
+          <h2>ラインナップ</h2>
+          <p className="sol-showcase-sub">季節のおすすめ</p>
           <div className="sol-glass-frame">
             <div className="sol-glass-top" />
             <div className="sol-glass-body">
@@ -1736,15 +1747,35 @@ export default function PatisseriePage() {
           <h2>ギフト</h2>
           <p className="sol-gift-sub">大切な方への贈り物に</p>
           <div className="sol-gift-grid">
-            <GiftBox label="Petit Cadeau" price="&yen;2,400">
-              焼き菓子5種の詰め合わせ。ちょっとした手土産に最適です。黒糖カヌレ、マドレーヌ、フィナンシェなど季節の焼き菓子をセレクト。
-            </GiftBox>
-            <GiftBox label="Coffret Soleil" price="&yen;4,800">
-              人気の焼き菓子とコンフィチュール、パートドフリュイを詰め合わせた当店の看板ギフト。奄美のフルーツの魅力を余すことなくお届けします。
-            </GiftBox>
-            <GiftBox label="Celebration" price="&yen;8,000">
-              特別な日のためのプレミアムギフト。生菓子と焼き菓子の贅沢なアソートに、オリジナルのメッセージカードを添えてお届けします。
-            </GiftBox>
+            {[
+              {
+                label: "Petit Cadeau",
+                price: "¥2,400（税込）",
+                desc: "焼き菓子5種の小箱。黒糖カヌレ、マドレーヌ、島バナナのフィナンシェなど。日持ち約2週間。ちょっとしたお礼やご挨拶に。",
+                img: "https://images.unsplash.com/photo-1558312657-b2dead03d494?auto=format&fit=crop&w=600&q=80",
+              },
+              {
+                label: "Coffret Soleil",
+                price: "¥4,800（税込）",
+                desc: "当店人気の焼き菓子8種にタンカンのコンフィチュール、パッションフルーツのパートドフリュイを添えた看板ギフト。のし対応可。",
+                img: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=600&q=80",
+              },
+              {
+                label: "Celebration",
+                price: "¥8,000（税込）",
+                desc: "記念日や特別な贈り物に。生菓子と焼き菓子の贅沢なアソート。メッセージカード付き。3日前までの要予約。",
+                img: "https://images.unsplash.com/photo-1486427944544-d2c246c4df14?auto=format&fit=crop&w=600&q=80",
+              },
+            ].map((item, i) => (
+              <div key={i} className="sol-gift-card" style={{ background: "none", border: "none", padding: 0 }}>
+                <div style={{ borderRadius: 12, overflow: "hidden", marginBottom: 16 }}>
+                  <Image src={item.img} alt={item.label} width={600} height={400} className="w-full aspect-[3/2] object-cover" />
+                </div>
+                <p style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.1rem", fontWeight: 600, color: "#D4A574", letterSpacing: "0.05em", marginBottom: 4 }}>{item.label}</p>
+                <p style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.2rem", fontWeight: 700, color: "#F5F0E8", marginBottom: 8 }}>{item.price}</p>
+                <p style={{ fontSize: "0.82rem", color: "rgba(245,240,232,0.5)", lineHeight: 1.7 }}>{item.desc}</p>
+              </div>
+            ))}
           </div>
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
             <CreamWave id="w2" color="#2C1810" />
