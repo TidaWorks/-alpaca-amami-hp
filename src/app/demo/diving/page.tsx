@@ -1994,7 +1994,7 @@ export default function BluAmamiDivingPage() {
                     <div>
                       <p className="font-bold text-white/90">集合場所</p>
                       <p className="text-white/60">BLUE AMAMI ショップ</p>
-                      <p className="text-white/50">鹿児島県奄美市名瀬港町1-23</p>
+                      <p className="text-white/50">鹿児島県奄美市名瀬</p>
                       <p className="text-white/50">奄美空港から車で約50分</p>
                     </div>
                   </div>
@@ -2163,7 +2163,7 @@ export default function BluAmamiDivingPage() {
                 ))}
               </div>
               <div className="text-center sm:text-right text-sm text-white/40">
-                <p>鹿児島県奄美市名瀬港町1-23</p>
+                <p>鹿児島県奄美市名瀬</p>
                 <p>TEL: 0997-XX-XXXX</p>
               </div>
             </div>

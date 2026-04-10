@@ -1417,7 +1417,7 @@ export default function CampDemoPage() {
                 <tbody className="divide-y divide-gray-100">
                   {[
                     ["施設名", "AMAMI FOREST CAMP（奄美フォレストキャンプ）"],
-                    ["所在地", "〒894-1205 鹿児島県奄美市住用町大字役勝"],
+                    ["所在地", "鹿児島県奄美市住用町"],
                     ["アクセス", "奄美空港から車で約40分 / 名瀬市街地から車で約20分"],
                     ["チェックイン", "15:00〜18:00"],
                     ["チェックアウト", "〜10:00"],
@@ -1603,7 +1603,7 @@ export default function CampDemoPage() {
               <p className="text-white/50 text-sm">奄美フォレストキャンプ</p>
             </div>
             <div className="text-center text-white/50 text-sm mb-8 space-y-1">
-              <p>〒894-1205 鹿児島県奄美市住用町大字役勝</p>
+              <p>鹿児島県奄美市住用町</p>
               <p>TEL: 0997-XX-XXXX</p>
               <p>MAIL: <a href="mailto:info@amami-forest-camp.jp" className="hover:text-white/80 transition-colors">info@amami-forest-camp.jp</a></p>
             </div>

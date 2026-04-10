@@ -1464,19 +1464,19 @@ export default function OsteopathicPage() {
             <div className="md:w-64 h-64 md:h-auto flex-shrink-0 overflow-hidden relative">
               <Image
                 src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80"
-                alt="院長 作田 健一"
+                alt="院長 高橋 健一"
                 className="w-full h-full object-cover"
                 width={400}
                 height={400}
               />
               <div className="absolute bottom-0 left-0 right-0 p-3 md:hidden" style={{ background: "linear-gradient(0deg, rgba(26,43,60,0.7) 0%, transparent 100%)" }}>
-                <p className="text-white font-serif-jp text-lg">作田 健一</p>
+                <p className="text-white font-serif-jp text-lg">高橋 健一</p>
               </div>
             </div>
             <div className="p-8 flex flex-col justify-center">
               <div className="hidden md:block mb-1">
                 <p className="text-xs text-[#2E86AB] tracking-widest mb-1">DIRECTOR</p>
-                <h3 className="font-serif-jp text-2xl text-[#1A2B3C] mb-1">作田 健一</h3>
+                <h3 className="font-serif-jp text-2xl text-[#1A2B3C] mb-1">高橋 健一</h3>
                 <p className="text-xs text-[#1A2B3C]/50 mb-4">Kenichi Sakuta</p>
               </div>
               <div className="flex flex-wrap gap-2 mb-5">

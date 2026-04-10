@@ -1754,10 +1754,7 @@ export default function BistroAdanPage() {
                   所在地
                 </h3>
                 <p className="text-base" style={{ color: "#F5F0E8" }}>
-                  〒894-0034
-                </p>
-                <p className="text-base" style={{ color: "#F5F0E8" }}>
-                  鹿児島県奄美市名瀬入舟町11-5
+                  鹿児島県奄美市名瀬
                 </p>
                 <p className="text-sm mt-2" style={{ color: "rgba(245, 240, 232, 0.5)" }}>
                   屋仁川通り中央付近、赤提灯が目印

@@ -3176,8 +3176,7 @@ export default function GuesthousePage() {
                   所在地
                 </h3>
                 <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.8 }}>
-                  〒894-0501<br />
-                  鹿児島県大島郡笠利町浜崎XX-XX<br />
+                  鹿児島県大島郡笠利町<br />
                   珊瑚の宿 いそかぜ
                 </p>
               </div>
@@ -3272,8 +3271,7 @@ export default function GuesthousePage() {
                   珊瑚の宿 いそかぜ
                 </p>
                 <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.78rem", lineHeight: 1.8, marginBottom: 20 }}>
-                  〒894-0501<br />
-                  鹿児島県大島郡笠利町浜崎XX-XX
+                  鹿児島県大島郡笠利町
                 </p>
                 <div
                   style={{
@@ -3605,7 +3603,7 @@ export default function GuesthousePage() {
               </h4>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  { icon: <MapPinIcon className="w-4 h-4" />, text: "鹿児島県大島郡笠利町浜崎XX-XX" },
+                  { icon: <MapPinIcon className="w-4 h-4" />, text: "鹿児島県大島郡笠利町" },
                   { icon: <PhoneIcon className="w-4 h-4" />, text: "0997-XX-XXXX" },
                   { icon: <MailIcon className="w-4 h-4" />, text: "info@isokaze-amami.com" },
                   { icon: <ClockIcon className="w-4 h-4" />, text: "受付時間 9:00〜20:00" },

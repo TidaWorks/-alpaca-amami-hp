@@ -1291,8 +1291,8 @@ export default function ConstructionDemoPage() {
             <div className="divide-y divide-slate-200">
               {[
                 ["商号", "有限会社 南風建設"],
-                ["所在地", "〒894-0005 鹿児島県奄美市名瀬長浜町1-2-3"],
-                ["代表者", "代表取締役 南 太郎"],
+                ["所在地", "鹿児島県奄美市名瀬"],
+                ["代表者", "代表取締役 山本 太郎"],
                 ["設立", "平成15年（2003年）4月"],
                 ["資本金", "1,000万円"],
                 ["従業員数", "8名"],
@@ -1376,7 +1376,7 @@ export default function ConstructionDemoPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="南 太郎"
+                    placeholder="山本 太郎"
                     className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition font-sans-jp"
                   />
                 </div>
@@ -1489,7 +1489,7 @@ export default function ConstructionDemoPage() {
                 <li>TEL: 0997-XX-XXXX</li>
                 <li>FAX: 0997-XX-XXXX</li>
                 <li>受付: 平日 8:00 - 17:00</li>
-                <li>鹿児島県奄美市名瀬長浜町1-2-3</li>
+                <li>鹿児島県奄美市名瀬</li>
               </ul>
             </div>
           </div>

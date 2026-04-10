@@ -1704,7 +1704,7 @@ export default function PatisseriePage() {
             <div className="sol-patissier-text">
               <p className="sol-section-label" style={{ color: "#8B6F5E" }}>Patissier</p>
               <h2>Chef Patissier</h2>
-              <h3>作田 陽子 / Yoko Sakuta</h3>
+              <h3>鈴木 陽子 / Yoko Sakuta</h3>
               <p>
                 東京の製菓学校を卒業後、パリの名店「Pierre Herme」で3年間の修業。
                 帰国後は都内のパティスリーでシェフパティシエを務め、2023年に故郷・奄美大島で
@@ -1763,7 +1763,7 @@ export default function PatisseriePage() {
             <hr className="sol-ticket-divider" />
             <div className="sol-ticket-row">
               <span className="sol-ticket-label">所在地</span>
-              <span className="sol-ticket-value">鹿児島県奄美市名瀬末広町1-23</span>
+              <span className="sol-ticket-value">鹿児島県奄美市名瀬</span>
             </div>
             <div className="sol-ticket-row">
               <span className="sol-ticket-label">営業時間</span>
@@ -1879,7 +1879,7 @@ export default function PatisseriePage() {
           </div>
           <p className="sol-footer-brand">Patisserie Soleil</p>
           <p className="sol-footer-info">
-            鹿児島県奄美市名瀬末広町1-23<br />
+            鹿児島県奄美市名瀬<br />
             TEL: 0997-XX-XXXX / info@soleil-amami.com<br />
             営業時間: 10:00 - 19:00 / 定休日: 火曜日
           </p>

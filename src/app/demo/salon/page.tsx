@@ -437,10 +437,7 @@ export default function SalonPage() {
           to   { clip-path: circle(75% at 50% 50%); }
         }
         .mask-reveal-wrapper {
-          clip-path: inset(0 100% 0 0);
-        }
-        .mask-reveal-wrapper.mask-revealed {
-          animation: maskReveal 1s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+          clip-path: inset(0 0 0 0);
         }
         /* Circle variant for round portraits */
         .mask-reveal-circle {
@@ -1189,67 +1186,45 @@ export default function SalonPage() {
           <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Menu</p>
           <SalonDivider inView={menuSection.inView} />
           <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">メニュー・料金</h2>
-          <p className="text-xs text-[#3D2E0A]/40 mt-4 tracking-wider">スワイプして他のメニューを見る</p>
         </div>
 
-        {/* ---- Horizontal scroll carousel with decorative frame ---- */}
-        <div className="relative carousel-frame mx-6 rounded-2xl" style={{ padding: "16px 0" }}>
-          {/* Corner ornaments */}
-          <div className="carousel-corner" style={{ top: 8, left: 8 }} />
-          <div className="carousel-corner" style={{ top: 8, right: 8 }} />
-          <div className="carousel-corner" style={{ bottom: 8, left: 8 }} />
-          <div className="carousel-corner" style={{ bottom: 8, right: 8 }} />
+        {/* ---- Menu: elegant list + feature image ---- */}
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
 
-          {/* Decorative golden thread behind cards */}
-          <div className="carousel-thread" />
-
-          <div
-            ref={carouselRef}
-            className="carousel-track px-[calc(50vw-130px)]"
-          >
-            {menuItems.map((item, i) => (
-              <div
-                key={i}
-                className="carousel-card"
-                ref={(el) => { carouselItemRefs.current[i] = el; }}
-              >
-                <div className="bg-[#F5F0E8] border border-[#8B6914]/10 rounded-2xl p-8 h-full flex flex-col shadow-sm">
-                  {/* Decorative icon top-right */}
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="w-10 h-10 rounded-full bg-[#8B6914]/10 flex items-center justify-center flex-shrink-0">
-                      {item.icon}
+            {/* Left: menu list */}
+            <div className="bg-[#F5F0E8]/60 border border-[#8B6914]/10 rounded-2xl p-8 md:p-10">
+              <div className="space-y-0">
+                {menuItems.map((item, i) => (
+                  <div key={i} className={`flex items-baseline gap-3 py-4 ${i < menuItems.length - 1 ? "border-b border-[#8B6914]/8" : ""}`}>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-2">
+                        <h3 className="font-serif-jp text-base md:text-lg tracking-wider text-[#3D2E0A]">{item.label}</h3>
+                        <div className="flex-1 border-b border-dotted border-[#8B6914]/20 translate-y-[-4px] mx-1" />
+                        <span className="font-serif-jp text-base md:text-lg text-[#8B6914] tabular-nums whitespace-nowrap">{item.price}</span>
+                      </div>
+                      <p className="text-xs text-[#3D2E0A]/40 mt-1 font-light">{item.desc}</p>
                     </div>
-                    <div className="w-6 h-px bg-[#8B6914]/20 self-center" />
-                    <span className="font-serif-jp text-xl text-[#8B6914] tabular-nums">{item.price}</span>
                   </div>
-
-                  <h3 className="font-serif-jp text-xl tracking-wider mb-3">{item.label}</h3>
-                  <p className="text-sm text-[#3D2E0A]/55 leading-relaxed font-light flex-1">{item.desc}</p>
-
-                  {/* Bottom accent line */}
-                  <div className="mt-6 pt-5 border-t border-[#8B6914]/10 flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-[#8B6914]/30" />
-                    <span className="text-xs text-[#3D2E0A]/35 tracking-widest uppercase">kukuru</span>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+              <p className="text-xs text-[#3D2E0A]/30 mt-6 text-right">
+                ※ 表示価格はすべて税込みです
+              </p>
+            </div>
+
+            {/* Right: feature image */}
+            <div className="rounded-2xl overflow-hidden shadow-md">
+              <Image
+                src="https://images.unsplash.com/photo-1562322140-8baeacacf376?auto=format&fit=crop&w=800&q=80"
+                alt="ヘアスタイリングの様子"
+                className="w-full aspect-[3/4] object-cover"
+                width={800}
+                height={1000}
+              />
+            </div>
+
           </div>
-        </div>
-
-        <p className="text-center text-xs text-[#3D2E0A]/40 mt-6 px-6">
-          ※ 表示価格はすべて税込みです
-        </p>
-
-        {/* Menu section feature image */}
-        <div className="mt-12 mx-6 max-w-3xl md:mx-auto rounded-2xl overflow-hidden shadow-md">
-          <Image
-            src="https://images.unsplash.com/photo-1562322140-8baeacacf376?auto=format&fit=crop&w=800&q=80"
-            alt="ヘアスタイリングの様子"
-            className="w-full aspect-[16/7] object-cover"
-            width={1200}
-            height={800}
-          />
         </div>
       </section>
 
@@ -1321,7 +1296,7 @@ export default function SalonPage() {
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=400&q=80"
-                    alt="スタイリスト 結城 美咲"
+                    alt="スタイリスト 佐藤 美咲"
                     className="w-full h-full object-cover"
                     width={400}
                     height={400}
@@ -1329,7 +1304,7 @@ export default function SalonPage() {
                 </div>
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Owner Stylist</p>
-                <h3 className="font-serif-jp text-xl tracking-wider mb-1">結城 美咲</h3>
+                <h3 className="font-serif-jp text-xl tracking-wider mb-1">佐藤 美咲</h3>
                 <p className="text-xs text-[#3D2E0A]/50 mb-4">Misaki Yuki</p>
                 <div className="w-8 h-px bg-[#8B6914]/20 mx-auto mb-4" />
                 <p className="text-sm leading-relaxed text-[#3D2E0A]/70 font-light">
@@ -1353,7 +1328,7 @@ export default function SalonPage() {
                 >
                   <Image
                     src="https://images.unsplash.com/photo-1595959183082-7b570b7e1e2b?auto=format&fit=crop&w=400&q=80"
-                    alt="スタイリスト 島袋 陽菜"
+                    alt="スタイリスト 田中 陽菜"
                     className="w-full h-full object-cover"
                     width={400}
                     height={400}
@@ -1361,7 +1336,7 @@ export default function SalonPage() {
                 </div>
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Stylist</p>
-                <h3 className="font-serif-jp text-xl tracking-wider mb-1">島袋 陽菜</h3>
+                <h3 className="font-serif-jp text-xl tracking-wider mb-1">田中 陽菜</h3>
                 <p className="text-xs text-[#3D2E0A]/50 mb-4">Hina Shimabukuro</p>
                 <div className="w-8 h-px bg-[#8B6914]/20 mx-auto mb-4" />
                 <p className="text-sm leading-relaxed text-[#3D2E0A]/70 font-light">
@@ -1637,11 +1612,7 @@ export default function SalonPage() {
                 <div>
                   <p className="text-xs tracking-wider text-[#8B6914] mb-2">住所</p>
                   <p className="text-sm leading-relaxed">
-                    〒894-0036
-                    <br />
-                    鹿児島県奄美市名瀬長浜町1-23
-                    <br />
-                    長浜ビル 2F
+                    鹿児島県奄美市名瀬
                   </p>
                 </div>
               </div>
@@ -1729,7 +1700,7 @@ export default function SalonPage() {
           <p className="text-xs tracking-wider opacity-50 mb-6">Hair Salon</p>
           <div className="w-8 h-px bg-[#F5F0E8]/20 mx-auto mb-6" />
           <p className="text-xs opacity-40 leading-loose">
-            鹿児島県奄美市名瀬長浜町1-23 長浜ビル 2F
+            鹿児島県奄美市名瀬
             <br />
             TEL: 0997-XX-XXXX
           </p>
