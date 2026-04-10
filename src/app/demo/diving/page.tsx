@@ -1396,7 +1396,7 @@ export default function BluAmamiDivingPage() {
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-widest mb-4 drop-shadow-2xl">
               BLUE AMAMI
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mb-6" />
+            <div className="w-16 h-px bg-white/30 mx-auto mb-6" />
             <p className="text-lg sm:text-xl md:text-2xl text-cyan-100 font-light tracking-wide mb-2">
               奄美大島のダイビングショップ
             </p>
@@ -1542,60 +1542,96 @@ export default function BluAmamiDivingPage() {
             {/* Depth meter layout */}
             <div className="relative flex gap-0 md:gap-4">
 
-              {/* ─── Left: Depth Ruler ─── */}
-              <div className="hidden md:flex flex-col items-center flex-shrink-0 w-20 relative pt-2 pb-2">
-                {/* Ruler track background */}
-                <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-[5px] rounded-full"
-                  style={{
-                    height: "100%",
-                    background: "rgba(255,255,255,0.1)",
-                    boxShadow: "0 0 4px rgba(255,255,255,0.05)",
-                  }}
-                />
-                {/* Scroll-linked fill — glowing edge */}
-                <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-[5px] rounded-full"
-                  style={{
-                    height: `${Math.min(100, depthProgress * 100)}%`,
-                    background: "linear-gradient(to bottom, rgba(52,211,153,1) 0%, rgba(34,211,238,1) 25%, rgba(56,189,248,0.9) 60%, rgba(99,102,241,0.9) 100%)",
-                    boxShadow: "0 0 14px rgba(34,211,238,0.9), 0 0 28px rgba(34,211,238,0.45), 0 0 48px rgba(99,102,241,0.25)",
-                    transition: "height 0.1s linear",
-                  }}
-                />
-                {/* Glowing leading dot at fill tip */}
-                <div
-                  className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10"
-                  style={{
-                    top: `calc(${Math.min(100, depthProgress * 100)}% - 6px)`,
-                    background: "rgba(34,211,238,1)",
-                    boxShadow: "0 0 10px rgba(34,211,238,1), 0 0 20px rgba(34,211,238,0.7)",
-                    transition: "top 0.1s linear",
-                  }}
-                />
-                {/* Depth tick marks with labels */}
-                {[
-                  { label: "0m", top: "2%" },
-                  { label: "5m", top: "22%" },
-                  { label: "10m", top: "42%" },
-                  { label: "15m", top: "62%" },
-                  { label: "20m", top: "82%" },
-                  { label: "30m", top: "96%" },
-                ].map(({ label, top }) => (
-                  <div
-                    key={label}
-                    className="absolute flex items-center gap-1.5"
-                    style={{ top, left: 0, right: 0 }}
-                  >
-                    <span className="ml-auto text-xs text-white/60 font-mono font-bold tracking-tight leading-none">{label}</span>
-                    <div className="w-4 h-[2px] bg-white/45 flex-shrink-0 rounded-full" />
+              {/* ─── Left: Depth Ruler with glow point ─── */}
+              {(() => {
+                const depthLabels = [
+                  { label: "0m", pct: 2 },
+                  { label: "5m", pct: 22 },
+                  { label: "10m", pct: 42 },
+                  { label: "15m", pct: 62 },
+                  { label: "20m", pct: 82 },
+                  { label: "30m", pct: 96 },
+                ];
+                const currentPct = depthProgress * 100;
+                return (
+                  <div className="hidden md:flex flex-col items-center flex-shrink-0 w-16 relative pt-2 pb-2">
+                    {/* Track — dim background */}
+                    <div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-px"
+                      style={{ height: "100%", background: "rgba(255,255,255,0.08)" }}
+                    />
+                    {/* Filled portion */}
+                    <div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-px"
+                      style={{
+                        height: `${Math.min(100, currentPct)}%`,
+                        background: "linear-gradient(to bottom, rgba(34,211,238,0.4), rgba(99,102,241,0.25))",
+                        transition: "height 0.2s ease-out",
+                      }}
+                    />
+                    {/* Glow point */}
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full z-10"
+                      style={{
+                        top: `calc(${Math.min(98, currentPct)}% - 4px)`,
+                        background: "rgba(34,211,238,0.9)",
+                        boxShadow: "0 0 8px rgba(34,211,238,0.8), 0 0 20px rgba(34,211,238,0.4)",
+                        transition: "top 0.2s ease-out",
+                      }}
+                    />
+                    {/* Micro bubbles rising from glow point */}
+                    {[0, 1, 2].map((bi) => {
+                      const bTop = Math.max(0, currentPct - (bi + 1) * 3);
+                      return (
+                        <div
+                          key={bi}
+                          className="absolute left-1/2 rounded-full"
+                          style={{
+                            width: 3 - bi * 0.5,
+                            height: 3 - bi * 0.5,
+                            top: `${bTop}%`,
+                            transform: `translateX(${-1 + bi * 2}px)`,
+                            background: "rgba(34,211,238,0.3)",
+                            opacity: 0.5 - bi * 0.15,
+                            transition: "top 0.3s ease-out",
+                          }}
+                        />
+                      );
+                    })}
+                    {/* Depth labels — active one glows */}
+                    {depthLabels.map(({ label, pct }) => {
+                      const isActive = Math.abs(currentPct - pct) < 12;
+                      return (
+                        <div
+                          key={label}
+                          className="absolute flex items-center gap-1.5"
+                          style={{ top: `${pct}%`, left: 0, right: 0, transition: "opacity 0.3s ease" }}
+                        >
+                          <span
+                            className="ml-auto text-xs font-mono tracking-tight leading-none"
+                            style={{
+                              color: isActive ? "rgba(34,211,238,0.9)" : "rgba(255,255,255,0.25)",
+                              textShadow: isActive ? "0 0 8px rgba(34,211,238,0.5)" : "none",
+                              transition: "color 0.3s ease, text-shadow 0.3s ease",
+                            }}
+                          >
+                            {label}
+                          </span>
+                          <div
+                            className="flex-shrink-0"
+                            style={{
+                              width: isActive ? 8 : 4,
+                              height: 1,
+                              background: isActive ? "rgba(34,211,238,0.6)" : "rgba(255,255,255,0.2)",
+                              transition: "all 0.3s ease",
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-                {/* Water surface label */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-[10px] text-cyan-300/70 font-mono whitespace-nowrap tracking-wider font-bold">
-                  水面
-                </div>
-              </div>
+                );
+              })()}
 
               {/* ─── Right: Course Cards ─── */}
               <div className="flex-1 space-y-0">
@@ -1636,7 +1672,7 @@ export default function BluAmamiDivingPage() {
                     </div>
 
                     {/* The glass course card */}
-                    <StaggerItem index={i} className="group course-card-wrap relative rounded-2xl overflow-hidden cursor-default">
+                    <div className="group course-card-wrap relative rounded-2xl overflow-hidden cursor-default">
                       <div
                         className="course-card-inner rounded-2xl overflow-hidden border"
                         style={{
@@ -1706,15 +1742,16 @@ export default function BluAmamiDivingPage() {
                           </div>
                         </div>
                       </div>
-                    </StaggerItem>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <p className="text-center text-white/35 text-xs mt-12">
+            <p className="text-center text-white/35 text-xs mt-12 relative z-10">
               * 全コース税込み価格 / 器材レンタル・保険料込み / 水中写真データプレゼント
             </p>
+            <div className="h-16" />
           </div>
           <SeabedDecorations variant="a" />
         </section>
