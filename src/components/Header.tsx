@@ -23,7 +23,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight group">
           <img
-            src="/images/alpaca-logo.svg"
+            src="/images/alpaca-logo.png"
             alt="ALPACA ロゴ"
             className="h-10 w-auto transition-transform group-hover:scale-110"
           />

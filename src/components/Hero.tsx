@@ -16,7 +16,7 @@ function Sidebar({ active }: { active: string }) {
   return (
     <div className="w-[100px] bg-[#0D9488] text-white flex-shrink-0">
       <div className="px-2.5 py-3 flex items-center gap-1.5 border-b border-white/10">
-        <img src="/images/alpaca-logo.svg" alt="" className="w-5 h-5 brightness-0 invert" />
+        <img src="/images/alpaca-logo.png" alt="" className="w-5 h-5 brightness-0 invert" />
         <span className="font-black text-[8px] tracking-wide">ALPACA</span>
       </div>
       <nav className="px-1.5 py-2">
@@ -190,22 +190,21 @@ function CalendarScreen() {
 
 export default function Hero() {
   return (
-    <section className="relative pt-36 pb-20 md:pt-44 md:pb-32 bg-[#FAFAFA] overflow-hidden">
+    <section className="relative pt-28 pb-16 md:pt-44 md:pb-32 bg-[#FAFAFA] overflow-hidden">
       {/* 背景ロゴ — 見出しの真後ろに堂々と */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] pointer-events-none">
-        <img src="/images/alpaca-logo.svg" alt="" className="w-[280px] md:w-[380px] h-auto opacity-[0.07]" />
+        <img src="/images/alpaca-logo.png" alt="" className="w-[280px] md:w-[380px] h-auto opacity-[0.07]" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
         {/* テキスト */}
         <div className="text-center mb-14 md:mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] text-[#0D9488] mb-5">奄美大島の業務システム開発</p>
-          <h1 className="text-4xl md:text-[3.5rem] font-black leading-[1.15] text-gray-900 tracking-tight mb-5">
+          <p className="text-xs font-semibold tracking-[0.12em] text-[#0D9488] mb-4">奄美大島の業務システム開発</p>
+          <h1 className="text-[1.85rem] sm:text-4xl md:text-[3.5rem] font-black leading-[1.15] text-gray-900 tracking-tight mb-5">
             業務を、仕組みで変える。
           </h1>
-          <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-8">
-            予約・顧客・売上管理をひとつに。<br />
-            あなたの業務に合わせた専用システムを構築します。
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
+            予約・顧客・売上管理をひとつに。あなたの業務に合わせた専用システムを構築します。
           </p>
           <div className="flex items-center justify-center gap-5 mb-8">
             <a href="#contact" className="inline-block bg-[#0D9488] text-white font-semibold px-7 py-3 rounded-full text-sm hover:bg-[#0F766E] transition-all">

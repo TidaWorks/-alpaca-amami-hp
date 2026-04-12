@@ -19,7 +19,7 @@ export default function About() {
             <div className="mb-10 p-6 md:p-8 rounded-2xl border border-[#0D9488]/15 bg-[#0D9488]/[0.04]">
               <div className="flex items-start gap-5">
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#0D9488]/10 border-2 border-[#0D9488]/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  <img src="/images/alpaca-logo.svg" alt="ALPACA ロゴ" className="w-[70%] h-[70%] object-contain" />
+                  <img src="/images/alpaca-logo.png" alt="ALPACA ロゴ" className="w-[70%] h-[70%] object-contain" />
                 </div>
                 <div className="flex-1">
                   <p className="text-gray-800 text-lg md:text-xl font-bold mb-1">作田 大地<span className="text-gray-400 text-sm font-normal ml-2">Daichi Sakuda</span></p>
