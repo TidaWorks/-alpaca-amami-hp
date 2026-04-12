@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Outfit } from "next/font/google";
 import "./globals.css";
-// import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -89,7 +88,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/opengraph-image`,
   image: `${siteUrl}/opengraph-image`,
-  telephone: "",
+  telephone: "080-2790-6757",
   email: "alpaca.amami@gmail.com",
   address: {
     "@type": "PostalAddress",

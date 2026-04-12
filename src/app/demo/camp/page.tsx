@@ -29,8 +29,6 @@ export default function CampDemoPage() {
   }, []);
 
   useEffect(() => {
-    document.title = "AMAMI FOREST CAMP | 奄美フォレストキャンプ";
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

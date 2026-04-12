@@ -263,11 +263,6 @@ export default function PatisseriePage() {
   const [formSent, setFormSent] = useState(false);
   const [showCta, setShowCta] = useState(false);
 
-  // ---- document title ----
-  useEffect(() => {
-    document.title = "Patisserie Soleil | 奄美大島のフレンチパティスリー";
-  }, []);
-
   // ---- show CTA bar after scrolling 500px ----
   useEffect(() => {
     const onScroll = () => setShowCta(window.scrollY > 500);

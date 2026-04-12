@@ -233,16 +233,9 @@ export default function WebCTA() {
           from { opacity: 0.3; transform: translateY(0px) scale(1); }
           to   { opacity: 0.7; transform: translateY(-18px) scale(1.2); }
         }
-        @keyframes wordReveal {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
         @keyframes cardReveal {
           from { opacity: 0; transform: translateY(28px); }
           to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-wordReveal {
-          animation: wordReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .animate-cardReveal {
           animation: cardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;

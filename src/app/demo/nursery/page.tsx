@@ -34,10 +34,6 @@ export default function NurseryPage() {
   const crayonRef = useRef<HTMLDivElement>(null);
   const walkMapRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    document.title = "ひだまり保育園 | 奄美大島の認可保育園";
-  }, []);
-
   // ---- Merged scroll + intersection observers ----
   useEffect(() => {
     // Scroll: floating CTA + walk map path progress

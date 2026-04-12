@@ -15,7 +15,6 @@ const PHASE = { HIDDEN: 0, WIPE: 1, CONTENT: 2, FULL: 3 } as const;
 
 export default function WebHero() {
   const [phase, setPhase] = useState<number>(PHASE.HIDDEN);
-  const sectionRef = useRef<HTMLDivElement>(null);
   const grainRef = useRef<HTMLCanvasElement>(null);
 
   // Orchestrated reveal sequence
@@ -148,7 +147,6 @@ export default function WebHero() {
       `}</style>
 
       <section
-        ref={sectionRef}
         className="hero-editorial relative min-h-screen overflow-hidden flex items-center"
         style={{ backgroundColor: "var(--dark)" }}
       >

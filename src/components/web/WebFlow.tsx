@@ -92,7 +92,6 @@ const CARD_OFFSETS = [-115, 95, -115, 95, -115];
 export default function WebFlow() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const measurePathRef = useRef<SVGPathElement>(null);
-  const drawPathRef = useRef<SVGPathElement>(null);
   const [progress, setProgress] = useState(0);
   const [pathLength, setPathLength] = useState(0);
 
@@ -205,7 +204,6 @@ export default function WebFlow() {
             {/* Animated draw line */}
             {pathLength > 0 && (
               <path
-                ref={drawPathRef}
                 d={PATH_D}
                 fill="none"
                 stroke="#F5A623"

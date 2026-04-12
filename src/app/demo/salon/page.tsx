@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback, useState } from "react";
 import Image from "next/image";
+import { useReveal } from "../hooks/useReveal";
 
 // --- Salon Ornamental Divider (scissors centered in decorative lines) ---
 function SalonDivider({
@@ -67,23 +68,6 @@ function SalonDivider({
   );
 }
 
-// --- Intersection observer hook for divider inView state ---
-function useSectionInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
-
 export default function SalonPage() {
   const headerRef = useRef<HTMLElement>(null);
   const conceptImageRef = useRef<HTMLDivElement>(null);
@@ -95,12 +79,12 @@ export default function SalonPage() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const carouselItemRefs = useRef<(HTMLDivElement | null)[]>([]);
   // Section divider inView hooks
-  const conceptSection = useSectionInView(0.2);
-  const menuSection = useSectionInView(0.1);
-  const stylistSection = useSectionInView(0.15);
-  const gallerySection = useSectionInView(0.15);
-  const reservationSection = useSectionInView(0.1);
-  const accessSection = useSectionInView(0.15);
+  const conceptSection = useReveal(0.2);
+  const menuSection = useReveal(0.1);
+  const stylistSection = useReveal(0.15);
+  const gallerySection = useReveal(0.15);
+  const reservationSection = useReveal(0.1);
+  const accessSection = useReveal(0.15);
 
   // --- Reservation form state ---
   const [formData, setFormData] = useState({
@@ -179,12 +163,8 @@ export default function SalonPage() {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- closeLightbox/galleryItems are stable
   }, [lightboxIndex]);
-
-  useEffect(() => {
-    document.title = "Hair Salon kukuru | 奄美大島の美容室";
-  }, []);
 
   // Stylist photo parallax on scroll
   useEffect(() => {
@@ -209,7 +189,7 @@ export default function SalonPage() {
 
     window.addEventListener("scroll", applyParallax, { passive: true });
     return () => window.removeEventListener("scroll", applyParallax);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only: refs are stable
   }, []);
 
   // Scroll-linked header opacity
@@ -1128,7 +1108,7 @@ export default function SalonPage() {
             {/* Text */}
             <div className="order-1 md:order-2 text-center md:text-left">
               <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Concept</p>
-              <SalonDivider inView={conceptSection.inView} />
+              <SalonDivider inView={conceptSection.visible} />
               <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mb-8 leading-relaxed mt-4">
                 心がほどける、
                 <br />
@@ -1184,7 +1164,7 @@ export default function SalonPage() {
       <section id="menu" className="py-20 bg-white/40 overflow-hidden" ref={menuSection.ref}>
         <div className="text-center mb-10 px-6">
           <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Menu</p>
-          <SalonDivider inView={menuSection.inView} />
+          <SalonDivider inView={menuSection.visible} />
           <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">メニュー・料金</h2>
         </div>
 
@@ -1280,7 +1260,7 @@ export default function SalonPage() {
         <div className="max-w-3xl mx-auto relative">
           <div className="text-center mb-16">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Stylist</p>
-            <SalonDivider inView={stylistSection.inView} />
+            <SalonDivider inView={stylistSection.visible} />
             <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">スタイリスト</h2>
           </div>
 
@@ -1357,7 +1337,7 @@ export default function SalonPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Atmosphere</p>
-            <SalonDivider inView={gallerySection.inView} />
+            <SalonDivider inView={gallerySection.visible} />
             <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">サロンの雰囲気</h2>
           </div>
 
@@ -1407,7 +1387,7 @@ export default function SalonPage() {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Reservation</p>
-            <SalonDivider inView={reservationSection.inView} />
+            <SalonDivider inView={reservationSection.visible} />
             <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">Web予約</h2>
             <p className="text-sm text-[#3D2E0A]/55 mt-4 font-light leading-relaxed">
               ご希望の内容をご入力ください。<br />
@@ -1594,7 +1574,7 @@ export default function SalonPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Access</p>
-            <SalonDivider inView={accessSection.inView} />
+            <SalonDivider inView={accessSection.visible} />
             <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">アクセス・営業時間</h2>
           </div>
 

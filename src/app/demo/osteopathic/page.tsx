@@ -5,10 +5,6 @@ import Image from "next/image";
 
 export default function OsteopathicPage() {
   useEffect(() => {
-    document.title = "島つむぎ整骨院 | 奄美大島の整骨院";
-  }, []);
-
-  useEffect(() => {
     const onScroll = () => setShowCta(window.scrollY > 500);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

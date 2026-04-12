@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useReveal } from "../hooks/useReveal";
 
 // --- Animated construction crane SVG ---
 function CraneWatermark() {
@@ -95,34 +96,10 @@ function useBlueprintDraw(count: number = 1) {
       return observer;
     });
     return () => observers.forEach((obs) => obs?.disconnect());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only: refs are stable
   }, []);
 
   return refs.map((wrapperRef, i) => ({ wrapperRef, drawn: drawn[i] }));
-}
-
-// --- Reveal hook (for scroll-triggered class toggle) ---
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, visible };
 }
 
 // --- Individual work-card for staggered layout ---
@@ -439,8 +416,6 @@ export default function ConstructionDemoPage() {
   }, []);
 
   useEffect(() => {
-    document.title = "南風建設 | 奄美大島の建設会社";
-
     const onScroll = () => {
       handleScroll();
       setShowCta(window.scrollY > 500);

@@ -26,5 +26,5 @@ export function useFadeIn() {
     return () => observer.disconnect();
   }, []);
 
-  return { ref, isVisible, className: isVisible ? "visible" : "" };
+  return { ref, isVisible, className: isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6" };
 }

@@ -39,10 +39,6 @@ export default function FarmDemoPage() {
   const [shippingVisible, setShippingVisible] = useState(false);
 
   useEffect(() => {
-    document.title = "あまみ果樹園 太陽のしずく | 奄美大島の直売農園";
-  }, []);
-
-  useEffect(() => {
     const onScroll = () => setShowCta(window.scrollY > 500);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
