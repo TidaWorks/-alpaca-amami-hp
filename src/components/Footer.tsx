@@ -15,9 +15,16 @@ export default function Footer() {
             <a href="#about" className="hover:text-gray-600 transition-colors">About</a>
             <a href="#contact" className="hover:text-gray-600 transition-colors">お問い合わせ</a>
           </nav>
-          <p className="text-gray-300 text-xs">
-            &copy; {new Date().getFullYear()} ALPACA
-          </p>
+          <div className="flex items-center gap-4">
+            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gray-500 transition-colors" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <p className="text-gray-300 text-xs">
+              &copy; {new Date().getFullYear()} ALPACA
+            </p>
+          </div>
         </div>
       </div>
     </footer>

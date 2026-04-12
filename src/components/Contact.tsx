@@ -50,6 +50,12 @@ export default function Contact() {
                 </svg>
                 <a href="mailto:alpaca.amami@gmail.com" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">alpaca.amami@gmail.com</a>
               </div>
+              <div className="flex items-center gap-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#0D9488" stroke="none"/>
+                </svg>
+                <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">@alpaca_amami</a>
+              </div>
             </div>
           </div>
 
