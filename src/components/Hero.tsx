@@ -500,7 +500,7 @@ function HeroStoryAnimation() {
             <span className="text-[#F5A623] text-[10px] font-black">T</span>
           </div>
           <div>
-            <p className="text-white/80 text-xs font-bold">TIDA WORKS</p>
+            <p className="text-white/80 text-xs font-bold">ALPACA</p>
             <p className="text-[#2ECC71] text-[10px]">オンライン</p>
           </div>
         </div>
@@ -1073,9 +1073,21 @@ function PhoneMockup() {
 
   // ステップのラベル
   const steps = [
-    { label: "美容室", icon: "💇" },
-    { label: "飲食店", icon: "🍽️" },
-    { label: "建設業", icon: "🏗️" },
+    { label: "美容室", icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="8" cy="6" r="3" /><path d="M5 6v8a3 3 0 006 0V6" /><circle cx="16" cy="6" r="3" /><path d="M13 6v8a3 3 0 006 0V6" />
+      </svg>
+    )},
+    { label: "飲食店", icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2" /><path d="M7 2v20" /><path d="M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
+      </svg>
+    )},
+    { label: "建設業", icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="18" width="20" height="4" rx="1" /><path d="M9 18V8h6v10" /><path d="M5 18v-4h4" /><path d="M15 18v-4h4" /><path d="M12 8V4l-3 4h6l-3-4" />
+      </svg>
+    )},
   ];
 
   return (
@@ -1131,7 +1143,7 @@ function PhoneMockup() {
                 : "bg-white/[0.04] text-white/30 border border-white/[0.06] hover:border-white/10"
             }`}
           >
-            <span>{s.icon}</span>
+            <span className="flex items-center">{s.icon}</span>
             <span>{s.label}</span>
           </button>
         ))}
@@ -1168,7 +1180,7 @@ export default function Hero() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
           {/* 左: テキスト */}
           <div className="lg:w-1/2">
-            <p className="font-display text-[#F5A623]/60 text-xs tracking-[0.4em] mb-6 animate-[fadeInUp_0.8s_ease-out_0.1s_both] font-semibold">TIDA WORKS — AMAMI OSHIMA</p>
+            <p className="font-display text-[#F5A623]/60 text-xs tracking-[0.4em] mb-6 animate-[fadeInUp_0.8s_ease-out_0.1s_both] font-semibold">ALPACA — AMAMI OSHIMA</p>
 
             <h1 className="text-[8.5vw] md:text-[5.5vw] lg:text-[4vw] font-black leading-[1.12] mb-8 md:mb-10 tracking-tight">
               <span className="text-white/80 whitespace-nowrap"><WobblyText text="あなた専用に作る、" lineDelay={0.2} /></span>

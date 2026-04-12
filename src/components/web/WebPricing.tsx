@@ -176,7 +176,7 @@ export default function WebPricing() {
                     />
                     <span className="text-sm text-[#8A8070] ml-1">〜</span>
                   </div>
-                  <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥150,000 / 納期 約2週間</p>
+                  <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥80,000 / 納期 約2週間</p>
                 </div>
 
                 <ul className="space-y-2.5 mb-7">
@@ -287,31 +287,40 @@ export default function WebPricing() {
             transitionDelay: "400ms",
           }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 border-t border-[#E8E2DA] pt-6">
-            <svg
-              className="flex-shrink-0 w-7 h-7 text-[#B0A898]"
-              viewBox="0 0 28 28"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle cx="14" cy="14" r="11.5" stroke="currentColor" strokeWidth="1.4" />
-              <path d="M14 9v5l3.5 1.75" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#1A1A1A]">
-                保守サポート
-                <span className="mx-2 text-xl font-black tabular-nums">¥12,000</span>
-                <span className="text-sm font-normal text-[#8A8070]">/月〜</span>
-              </p>
-              <p className="text-xs text-[#8A8070] mt-0.5 leading-relaxed">
-                サーバー・ドメイン管理込み。テキスト・画像の変更は随時対応。大規模改修は別途お見積もり。
-              </p>
+          <div className="border-t border-[#E8E2DA] pt-6">
+            <div className="flex items-center gap-2.5 mb-4">
+              <svg
+                className="flex-shrink-0 w-7 h-7 text-[#B0A898]"
+                viewBox="0 0 28 28"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle cx="14" cy="14" r="11.5" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M14 9v5l3.5 1.75" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="text-sm font-semibold text-[#1A1A1A]">保守サポート</p>
             </div>
+
+            <div className="grid grid-cols-3 gap-3 mb-3">
+              {[
+                { label: "LP", price: "¥7,000" },
+                { label: "HP", price: "¥10,000" },
+                { label: "システム", price: "¥20,000" },
+              ].map((plan) => (
+                <div key={plan.label} className="text-center border border-[#E8E2DA] rounded-lg py-3 px-2">
+                  <p className="text-[10px] text-[#8A8070] tracking-wider mb-1">{plan.label}</p>
+                  <p className="text-sm font-bold text-[#1A1A1A]">{plan.price}<span className="text-xs font-normal text-[#8A8070]">/月</span></p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs text-[#8A8070] leading-relaxed mb-3">
+              サーバー・ドメイン管理込み。テキスト・画像の変更は随時対応。基本当日対応。
+            </p>
 
             <a
               href="#contact"
-              className="self-start sm:self-auto flex-shrink-0 text-xs text-[#8A8070] border border-[#D4CEC5] rounded-lg px-4 py-2 hover:border-[#8A8070] hover:text-[#5A5248] transition-colors duration-200 whitespace-nowrap"
+              className="inline-block text-xs text-[#8A8070] border border-[#D4CEC5] rounded-lg px-4 py-2 hover:border-[#8A8070] hover:text-[#5A5248] transition-colors duration-200 whitespace-nowrap"
             >
               保守について相談する
             </a>
