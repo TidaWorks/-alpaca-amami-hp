@@ -304,8 +304,8 @@ export default function GalleryMarquee() {
             to   { width: 200vmax; height: 200vmax; opacity: 1; }
           }
           @keyframes tidaOverlayIn {
-            from { backdrop-filter: blur(0px); background: rgba(5,5,5,0); }
-            to   { backdrop-filter: blur(20px); background: rgba(5,5,5,0.92); }
+            from { backdrop-filter: blur(0px); background: rgba(10,10,10,0); }
+            to   { backdrop-filter: blur(20px); background: rgba(10,10,10,1); }
           }
           @keyframes tidaTitleIn {
             from { opacity: 0; transform: translate(-50%,-50%) scale(0.9); }

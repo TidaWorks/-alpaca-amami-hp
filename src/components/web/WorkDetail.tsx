@@ -174,7 +174,7 @@ export default function WorkDetail({ work }: { work: Work }) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://instagram.com/tida_works"
+              href="https://instagram.com/alpaca_amami"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#F5A623] text-black font-bold px-8 py-4 rounded-full hover:bg-[#E09510] hover:scale-105 hover:shadow-[0_0_30px_rgba(245,166,35,0.3)] transition-all duration-300"

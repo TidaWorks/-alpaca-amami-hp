@@ -180,7 +180,7 @@ export default function WebCTA() {
 
           {/* Instagram */}
           <a
-            href="https://instagram.com/tida_works"
+            href="https://instagram.com/alpaca_amami"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram DMで相談"
@@ -193,13 +193,13 @@ export default function WebCTA() {
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
             <span className="font-bold text-sm">Instagram DM</span>
-            <span className="font-semibold text-base tracking-wide">@tida_works</span>
+            <span className="font-semibold text-base tracking-wide">@alpaca_amami</span>
             <span className="text-xs text-white/50">DMでお気軽に</span>
           </a>
 
           {/* Mail */}
           <a
-            href="mailto:tida1997amami@gmail.com"
+            href="mailto:alpaca.amami@gmail.com"
             aria-label="メールで相談"
             className={`group bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-white rounded-2xl p-6 flex flex-col items-center gap-2 shadow-md transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm ${visible ? "animate-cardReveal" : "opacity-0"}`}
             style={{ animationDelay: "0.7s" }}
@@ -209,7 +209,7 @@ export default function WebCTA() {
               <polyline points="22,6 12,13 2,6"/>
             </svg>
             <span className="font-bold text-sm">メール</span>
-            <span className="font-medium text-sm break-all">tida1997amami@gmail.com</span>
+            <span className="font-medium text-sm break-all">alpaca.amami@gmail.com</span>
             <span className="text-xs text-white/50">24時間受付</span>
           </a>
         </div>
