@@ -2,91 +2,67 @@
 
 import { useFadeIn } from "@/hooks/useFadeIn";
 
-/* ─── Hooks違反修正: .map()内でuseFadeInを呼ばないよう、個別コンポーネントに切り出し ─── */
-
-const benefits = [
+const advantages = [
   {
-    number: "01",
+    num: "01",
     title: "あなた専用だから、使いやすい",
-    description: "既製品のアプリじゃ痒いところに手が届かない。あなたのやりたいことに合わせてゼロから作るから、無駄な機能ゼロ、欲しい機能だけ。",
-    keyword: "CUSTOM",
-    accent: "#F5A623",
+    desc: "既製品のアプリじゃ痒いところに手が届かない。あなたの業務に合わせてゼロから作るから、無駄な機能ゼロ、欲しい機能だけ。",
   },
   {
-    number: "02",
-    title: "業務が、まるごと見える化",
-    description: "予約・顧客・売上・在庫——バラバラだった情報がひとつのシステムでつながります。今どうなってるか、いつでもすぐ確認できる。",
-    keyword: "EFFICIENT",
-    accent: "#4A90D9",
+    num: "02",
+    title: "作る人と直接やりとり。伝言ゲームなし",
+    desc: "営業→ディレクター→エンジニアの伝言ゲームは起きません。要望を聞いた本人がそのまま作るから、ニュアンスのズレも最小限。困った時もメッセージひとつで基本当日対応。",
   },
   {
-    number: "03",
-    title: "ツライ作業から解放される",
-    description: "電話対応、手書きの台帳、Excelの転記。毎日やってた作業をアプリに任せれば、あなたの時間がもっと自由になります。",
-    keyword: "FREEDOM",
-    accent: "#2ECC71",
+    num: "03",
+    title: "納品して終わりじゃない",
+    desc: "作って渡して終わり、ではありません。使い始めてから出てくる「ここ変えたい」「この機能も欲しい」に、継続的に対応していきます。",
+  },
+  {
+    num: "04",
+    title: "余計なコストが、かからない",
+    desc: "大きな会社の管理コストがないぶん、品質を落とさず価格を抑えられます。浮いた予算は、もっと大事なことに使えます。",
   },
 ];
 
-/* 各Benefitカードを個別コンポーネントにしてHooks違反を解消 */
-function BenefitCard({ b, i }: { b: typeof benefits[number]; i: number }) {
+function AdvantageCard({ item, index }: { item: typeof advantages[number]; index: number }) {
   const fade = useFadeIn();
-  const isReversed = i % 2 === 1;
   return (
-    <div
-      key={b.number}
-      ref={fade.ref}
-      className={`flex flex-col ${isReversed ? "md:flex-row-reverse" : "md:flex-row"} items-start gap-8 md:gap-16`}
-    >
-      {/* 数字 + キーワード */}
-      <div className={`md:w-1/3 flex-shrink-0 benefit-number ${fade.className}`}>
-        <span
-          className="text-[8rem] md:text-[10rem] font-black leading-none block"
-          style={{ color: b.accent, opacity: 0.15 }}
-        >
-          {b.number}
-        </span>
-        <p
-          className="text-xs font-bold tracking-[0.4em] -mt-8 ml-2"
-          style={{ color: b.accent, opacity: 0.6 }}
-        >
-          {b.keyword}
-        </p>
+    <div ref={fade.ref} className={`flex items-start gap-6 transition-all duration-700 ${fade.className}`}>
+      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#0D9488]/10 border border-[#0D9488]/20 flex items-center justify-center">
+        <span className="text-[#0D9488] font-black text-sm">{item.num}</span>
       </div>
-
-      {/* テキスト */}
-      <div className={`md:w-2/3 md:pt-12 ${isReversed ? "benefit-text-reverse" : "benefit-text"} ${fade.className}`}>
-        <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-snug">
-          {b.title}
-        </h3>
-        <div className={`w-16 h-[2px] mb-6 line-grow ${fade.className}`} style={{ background: b.accent }} />
-        <p className="text-white/40 text-base md:text-lg leading-relaxed max-w-xl">
-          {b.description}
-        </p>
+      <div className={`flex-1 ${index < advantages.length - 1 ? "pb-10 border-b border-gray-100" : ""}`}>
+        <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
+        <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
       </div>
     </div>
   );
 }
 
 export default function Benefits() {
+  const fade = useFadeIn();
   return (
-    <section id="benefits" className="relative py-20 md:py-36 bg-[#0a0a0a] text-white overflow-hidden noise-overlay">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F5A623]/20 to-transparent" />
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
-        <div className="mb-24">
-          <p className="font-display text-[#F5A623] font-semibold tracking-[0.4em] text-xs mb-4">BENEFITS</p>
-          <h2 className="text-4xl md:text-6xl font-black leading-tight">
-            選ばれる
-            <br />
-            <span className="text-white/40">3つの理由</span>
-          </h2>
-          <div className="w-20 h-[2px] bg-[#F5A623]/40 mt-6" />
-        </div>
+    <section id="advantage" className="relative py-20 md:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="flex flex-col md:flex-row md:gap-20">
+          {/* 左: 見出し */}
+          <div ref={fade.ref} className={`md:w-2/5 mb-14 md:mb-0 md:sticky md:top-32 md:self-start transition-all duration-700 ${fade.className}`}>
+            <p className="text-xs font-semibold tracking-[0.25em] text-[#0D9488] mb-3">ADVANTAGE</p>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">
+              選ばれる
+              <br />
+              4つの理由
+            </h2>
+            <div className="w-12 h-[2px] bg-[#0D9488]/40" />
+          </div>
 
-        <div className="space-y-24 md:space-y-32">
-          {benefits.map((b, i) => (
-            <BenefitCard key={b.number} b={b} i={i} />
-          ))}
+          {/* 右: カード */}
+          <div className="md:w-3/5 space-y-8">
+            {advantages.map((item, i) => (
+              <AdvantageCard key={item.num} item={item} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -16,7 +16,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5"
+          ? "bg-white/95 backdrop-blur-md border-b border-gray-200/60 shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -28,29 +28,28 @@ export default function Header() {
             className="h-10 w-auto transition-transform group-hover:scale-110"
           />
           <span className="font-display font-extrabold tracking-wider">
-            <span className="text-[#00C9C9]">ALPACA</span>
+            <span className="text-gray-800">ALPACA</span>
           </span>
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
           {[
-            { href: "#benefits", label: "選ばれる理由" },
-            { href: "#services", label: "料金" },
+            { href: "#services", label: "サービス・料金" },
+            { href: "#advantage", label: "選ばれる理由" },
             { href: "#flow", label: "ご利用の流れ" },
-            { href: "#faq", label: "よくある質問" },
-            { href: "#about", label: "About" },
+            { href: "#faq", label: "FAQ" },
           ].map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-white/70 hover:text-white transition-colors"
+              className="text-gray-500 hover:text-gray-800 transition-colors"
             >
               {item.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="bg-[#F5A623] text-black font-bold px-5 py-2 rounded-full hover:bg-[#FFD700] transition-colors text-sm"
+            className="bg-gray-800 text-white font-bold px-5 py-2 rounded-full hover:bg-gray-700 transition-colors text-sm"
           >
             無料相談
           </a>
@@ -61,7 +60,7 @@ export default function Header() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="メニュー"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -72,13 +71,12 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-md border-t border-white/5 px-6 pb-6 flex flex-col gap-4 text-sm">
-          <a href="#benefits" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">選ばれる理由</a>
-          <a href="#services" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">料金</a>
-          <a href="#flow" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">ご利用の流れ</a>
-          <a href="#faq" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">よくある質問</a>
-          <a href="#about" onClick={() => setMenuOpen(false)} className="py-2 text-white/70">About</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)} className="bg-[#F5A623] text-black font-bold text-center px-5 py-2 rounded-full">無料相談</a>
+        <nav className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 px-6 pb-6 flex flex-col gap-4 text-sm">
+          <a href="#services" onClick={() => setMenuOpen(false)} className="py-2 text-gray-600">サービス・料金</a>
+          <a href="#advantage" onClick={() => setMenuOpen(false)} className="py-2 text-gray-600">選ばれる理由</a>
+          <a href="#flow" onClick={() => setMenuOpen(false)} className="py-2 text-gray-600">ご利用の流れ</a>
+          <a href="#faq" onClick={() => setMenuOpen(false)} className="py-2 text-gray-600">FAQ</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)} className="bg-gray-800 text-white font-bold text-center px-5 py-2 rounded-full">無料相談</a>
         </nav>
       )}
     </header>
