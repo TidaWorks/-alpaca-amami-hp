@@ -17,16 +17,16 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
-const siteName = "TIDA WORKS";
-const siteUrl = "https://tidaworks.com";
+const siteName = "ALPACA";
+const siteUrl = "https://alpaca-amami.com";
 const siteDescription =
-  "奄美大島を拠点に業務システム開発・Web制作・保守運用を提供するTIDA WORKS。予約管理・顧客管理・売上集計など、島のビジネスの「困った」を仕組みで解決します。";
+  "奄美大島を拠点に業務システム開発・Web制作・保守運用を提供するALPACA。予約管理・顧客管理・売上集計など、島のビジネスの「困った」を仕組みで解決します。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "TIDA WORKS | 奄美大島の業務システム開発・Web制作",
-    template: "%s | TIDA WORKS",
+    default: "ALPACA | 奄美大島の業務システム開発・Web制作",
+    template: "%s | ALPACA",
   },
   description: siteDescription,
   keywords: [
@@ -43,9 +43,9 @@ export const metadata: Metadata = {
     "鹿児島",
     "島のIT",
   ],
-  authors: [{ name: "TIDA WORKS（作田 大地）" }],
-  creator: "TIDA WORKS",
-  publisher: "TIDA WORKS",
+  authors: [{ name: "ALPACA（作田 大地）" }],
+  creator: "ALPACA",
+  publisher: "ALPACA",
   formatDetection: {
     telephone: false,
     email: false,
@@ -55,12 +55,12 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: siteUrl,
     siteName,
-    title: "TIDA WORKS | 奄美大島の業務システム開発・Web制作",
+    title: "ALPACA | 奄美大島の業務システム開発・Web制作",
     description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "TIDA WORKS | 奄美大島の業務システム開発・Web制作",
+    title: "ALPACA | 奄美大島の業務システム開発・Web制作",
     description: siteDescription,
   },
   alternates: {
@@ -83,14 +83,14 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "TIDA WORKS",
-  alternateName: "ティダ ワークス",
+  name: "ALPACA",
+  alternateName: "アルパカ",
   description: siteDescription,
   url: siteUrl,
   logo: `${siteUrl}/opengraph-image`,
   image: `${siteUrl}/opengraph-image`,
   telephone: "",
-  email: "tida1997amami@gmail.com",
+  email: "alpaca.amami@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressRegion: "鹿児島県",

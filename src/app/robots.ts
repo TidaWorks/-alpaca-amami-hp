@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://tidaworks.com/sitemap.xml",
+    sitemap: "https://alpaca-amami.com/sitemap.xml",
   };
 }

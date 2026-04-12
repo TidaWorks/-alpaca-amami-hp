@@ -1628,7 +1628,7 @@ export default function CampDemoPage() {
             <div className="text-center mt-8 pt-6 border-t border-white/10">
               <p className="text-xs opacity-30">
                 &copy; 2026 AMAMI FOREST CAMP. All rights reserved. — デモサイト Designed by{" "}
-                <a href="/web#gallery" className="hover:opacity-60 transition-opacity">TIDA WORKS</a>
+                <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
               </p>
             </div>
           </div>

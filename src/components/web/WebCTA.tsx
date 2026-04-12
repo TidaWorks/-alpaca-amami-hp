@@ -135,7 +135,7 @@ export default function WebCTA() {
           className="text-[#F5A623] text-xs font-semibold tracking-[0.35em] uppercase mb-6"
           style={{ fontFamily: "'Outfit', sans-serif", animationDelay: "0.1s" }}
         >
-          TIDA WORKS
+          ALPACA
         </p>
 
         {/* Main heading — word-reveal via CSS, triggered by IntersectionObserver */}
@@ -217,13 +217,13 @@ export default function WebCTA() {
         {/* Footer identity */}
         <div className="border-t border-white/10 pt-10">
           <p className="text-white font-bold text-xl tracking-widest mb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
-            TIDA WORKS（ティダワークス）
+            ALPACA（アルパカ）
           </p>
           <p className="text-white/50 text-sm mb-6">
             奄美大島を拠点に、島の事業者さまのWeb制作を承ります。
           </p>
           <p className="text-white/30 text-xs">
-            &copy; 2026 TIDA WORKS. All rights reserved.
+            &copy; 2026 ALPACA. All rights reserved.
           </p>
         </div>
       </div>

@@ -1713,7 +1713,7 @@ export default function SalonPage() {
         <div className="text-center mt-8 pt-6 border-t border-current/10">
           <p className="text-xs opacity-30">
             デモサイト — Designed by{" "}
-            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">TIDA WORKS</a>
+            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
           </p>
         </div>
       </footer>

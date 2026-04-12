@@ -244,7 +244,7 @@ export default function WebHero() {
                 fontWeight: 600,
               }}
             >
-              TIDA WORKS &mdash; Amami Oshima
+              ALPACA &mdash; Amami Oshima
             </span>
           </div>
 

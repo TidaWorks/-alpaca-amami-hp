@@ -2716,7 +2716,7 @@ export default function FarmDemoPage() {
               <p className="text-xs" style={{ color: "rgba(255,253,247,0.25)" }}>
                 デモサイト — Designed by{" "}
                 <a href="/web#gallery" className="hover:opacity-60 transition-opacity" style={{ color: "rgba(255,253,247,0.4)" }}>
-                  TIDA WORKS
+                  ALPACA
                 </a>
               </p>
             </div>

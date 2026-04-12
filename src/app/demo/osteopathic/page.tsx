@@ -1839,7 +1839,7 @@ export default function OsteopathicPage() {
             <p>&copy; 2026 島つむぎ整骨院 All Rights Reserved.</p>
             <p>
               このサイトは{" "}
-              <a href="/web#gallery" className="text-[#2E86AB] hover:text-[#48B89C] transition-colors">TIDA WORKS</a>
+              <a href="/web#gallery" className="text-[#2E86AB] hover:text-[#48B89C] transition-colors">ALPACA</a>
               {" "}によるデモサイトです
             </p>
           </div>

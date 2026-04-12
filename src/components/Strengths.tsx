@@ -788,7 +788,7 @@ export default function Strengths() {
                 <div className="ml-3 flex-1 flex items-center gap-2">
                   <div className="flex items-center bg-white/5 rounded-lg px-3 py-1 flex-1 max-w-md">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="mr-2 shrink-0"><path d="M8 1L4 5h8L8 1z" fill="rgba(40,200,64,0.6)" /><rect x="2" y="6" width="12" height="8" rx="1" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" /></svg>
-                    <span className="text-white/40 text-xs font-mono truncate">https://your-app.tidaworks.com/{sys.file.replace(/\.\w+$/, "")}</span>
+                    <span className="text-white/40 text-xs font-mono truncate">https://your-app.alpaca-amami.com/{sys.file.replace(/\.\w+$/, "")}</span>
                   </div>
                 </div>
               ) : (

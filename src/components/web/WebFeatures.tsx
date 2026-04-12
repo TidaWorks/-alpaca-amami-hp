@@ -110,7 +110,7 @@ export default function WebFeatures() {
             FEATURES
           </p>
           <h2 className="text-[#0A0A0A] text-3xl md:text-5xl font-bold leading-tight mb-5">
-            TIDA WORKSの<br className="md:hidden" />4つの強み
+            ALPACAの<br className="md:hidden" />4つの強み
           </h2>
           <p className="text-gray-500 text-lg max-w-xl leading-relaxed">
             島内に拠点を持つからこそ実現できる、

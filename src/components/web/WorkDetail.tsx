@@ -39,7 +39,7 @@ export default function WorkDetail({ work }: { work: Work }) {
             WORKSに戻る
           </Link>
           <span className="text-white/40 text-xs font-display tracking-widest">
-            TIDA WORKS
+            ALPACA
           </span>
         </div>
       </nav>

@@ -2408,7 +2408,7 @@ export default function NurseryPage() {
             style={{ borderTop: "1px solid rgba(255,248,240,0.1)", color: "rgba(255,248,240,0.4)" }}
           >
             <p>© 2026 ひだまり保育園 All Rights Reserved.</p>
-            <p>このページは TIDA WORKS のデモサイトです</p>
+            <p>このページは ALPACA のデモサイトです</p>
           </div>
         </div>
       </footer>

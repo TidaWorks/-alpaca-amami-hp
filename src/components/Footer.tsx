@@ -4,8 +4,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-3">
           <span className="font-display font-extrabold text-lg tracking-wider">
-            <span className="text-[#F5A623]">TIDA</span>{" "}
-            <span className="text-white/70">WORKS</span>
+            <span className="text-[#00C9C9]">ALPACA</span>
           </span>
         </div>
         <div className="flex flex-wrap justify-center gap-6 text-xs">
@@ -17,7 +16,7 @@ export default function Footer() {
           <a href="#contact" className="hover:text-[#F5A623] transition-colors">お問い合わせ</a>
         </div>
         <p className="text-xs text-white/30">
-          &copy; {new Date().getFullYear()} TIDA WORKS
+          &copy; {new Date().getFullYear()} ALPACA
         </p>
       </div>
     </footer>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useFadeIn } from "@/hooks/useFadeIn";
 
 export default function About() {
@@ -24,20 +23,18 @@ export default function About() {
             <div className="mb-10 p-6 md:p-8 rounded-2xl border border-white/10 bg-white/[0.02]">
               <div className="flex items-start gap-5">
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#F5A623]/10 border-2 border-[#F5A623]/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  <Image
-                    src="/images/tida-works-logo.png"
-                    alt="TIDA WORKS ロゴ"
-                    width={80}
-                    height={80}
+                  <img
+                    src="/images/alpaca-logo.svg"
+                    alt="ALPACA ロゴ"
                     className="w-[70%] h-[70%] object-contain"
                   />
                 </div>
                 <div className="flex-1">
                   <p className="text-white/90 text-lg md:text-xl font-bold mb-1">作田 大地<span className="text-white/30 text-sm font-normal ml-2">Daichi Sakuda</span></p>
-                  <p className="text-[#F5A623] text-xs tracking-wider font-medium mb-3">TIDA WORKS</p>
+                  <p className="text-[#00C9C9] text-xs tracking-wider font-medium mb-3">ALPACA</p>
                   <p className="text-white/50 text-sm leading-[1.9]">
                     奄美大島出身・在住。「島の事業者さんが本業に集中できる環境をつくりたい」
-                    という想いから、TIDA WORKSを立ち上げました。
+                    という想いから、ALPACAを立ち上げました。
                     地元だからこそ、対面でじっくりお話を聞いて、ぴったりのシステムをお届けします。
                   </p>
                 </div>
@@ -47,11 +44,11 @@ export default function About() {
             {/* 事業情報テーブル */}
             <div className="border-t border-white/10">
               {[
-                ["屋号", "TIDA WORKS（ティダ ワークス）"],
+                ["屋号", "ALPACA（アルパカ）"],
                 ["代表者", "作田 大地"],
                 ["事業内容", "Webアプリ開発 / LINE構築 / 業務システム構築 / 保守運用"],
                 ["所在地", "鹿児島県 奄美大島"],
-                ["メール", "tida1997amami@gmail.com"],
+                ["メール", "alpaca.amami@gmail.com"],
               ].map(([label, value]) => (
                 <div key={label} className="flex flex-col md:flex-row border-b border-white/10 py-5 md:py-6">
                   <span className="text-[#F5A623]/50 text-sm font-medium md:w-1/4 mb-1 md:mb-0">{label}</span>

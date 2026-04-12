@@ -1785,14 +1785,14 @@ export default function BistroAdanPage() {
           &copy; 2026 Bistro ADAN. All rights reserved.
         </p>
         <p className="mt-2 text-xs" style={{ color: "rgba(245, 240, 232, 0.15)" }}>
-          ※ これはTIDA WORKSが制作したデモサイトです。実在する店舗ではありません。
+          ※ これはALPACAが制作したデモサイトです。実在する店舗ではありません。
         </p>
 
-        {/* TIDA WORKS credit */}
+        {/* ALPACA credit */}
         <div className="text-center mt-8 pt-6 border-t border-white/10">
           <p className="text-xs opacity-30">
             デモサイト — Designed by{" "}
-            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">TIDA WORKS</a>
+            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
           </p>
         </div>
       </footer>

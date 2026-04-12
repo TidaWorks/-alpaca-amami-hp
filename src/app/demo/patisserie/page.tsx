@@ -1916,13 +1916,13 @@ export default function PatisseriePage() {
           </p>
           <p className="sol-footer-copy">&copy; 2026 Patisserie Soleil. All rights reserved.</p>
           <p className="sol-footer-tida">
-            Designed by <a href="/web#gallery">TIDA WORKS</a>
+            Designed by <a href="/web#gallery">ALPACA</a>
           </p>
         </footer>
 
         {/* ============ DEMO BANNER ============ */}
         <div className="sol-demo-banner">
-          <p>これはTIDA WORKSが制作したデモサイトです</p>
+          <p>これはALPACAが制作したデモサイトです</p>
           <a href="/web#gallery">ギャラリーに戻る</a>
         </div>
       </div>

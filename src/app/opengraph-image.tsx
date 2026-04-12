@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "TIDA WORKS - 奄美大島の業務システム開発・Web制作";
+export const alt = "ALPACA - 奄美大島の業務システム開発・Web制作";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -34,17 +34,7 @@ export default async function OgImage() {
               color: "#F5A623",
             }}
           >
-            TIDA
-          </span>
-          <span
-            style={{
-              fontSize: "64px",
-              fontWeight: 900,
-              color: "#ffffff",
-              marginLeft: "16px",
-            }}
-          >
-            WORKS
+            ALPACA
           </span>
         </div>
 
@@ -89,7 +79,7 @@ export default async function OgImage() {
             }}
           />
           <span style={{ fontSize: "20px", color: "rgba(255,255,255,0.4)" }}>
-            tidaworks.com
+            alpaca-amami.com
           </span>
         </div>
       </div>

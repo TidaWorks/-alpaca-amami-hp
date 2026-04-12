@@ -163,20 +163,20 @@ export const works: Work[] = [
   },
   {
     slug: "tida-works-hp",
-    title: "TIDA WORKS",
+    title: "ALPACA",
     category: "コーポレートサイト",
     description:
       "自社の公式ホームページ。アニメーションを多用したインタラクティブなデザインで、業務改善サービスの価値を直感的に伝える。",
     thumbnail: {
       bg: "from-gray-900 to-gray-800",
       accent: "#F5A623",
-      text: "TIDA",
+      text: "ALPACA",
       icon: "code",
     },
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     url: "/",
     year: "2026",
-    client: "TIDA WORKS（自社）",
+    client: "ALPACA（自社）",
     challenge:
       "奄美の小規模事業者に「ITって難しそう」というイメージを払拭し、親しみやすさと技術力を両立させる必要があった。",
     solution:

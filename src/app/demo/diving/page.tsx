@@ -2165,7 +2165,7 @@ export default function BluAmamiDivingPage() {
               </span>
             </div>
             <p className="text-white/30 text-xs mt-6">
-              * これはTIDA WORKSが制作したデモサイトです。実在の店舗ではありません。
+              * これはALPACAが制作したデモサイトです。実在の店舗ではありません。
             </p>
           </div>
         </section>
@@ -2207,7 +2207,7 @@ export default function BluAmamiDivingPage() {
             <div className="text-center mt-8 pt-6 border-t border-white/10">
               <p className="text-xs opacity-30">
                 &copy; 2026 デモサイト — Designed by{" "}
-                <a href="/web#gallery" className="hover:opacity-60 transition-opacity">TIDA WORKS</a>
+                <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
               </p>
             </div>
           </div>
