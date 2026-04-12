@@ -65,6 +65,12 @@ export default function BusyPersonSection() {
             </p>
           </div>
         </div>
+
+        <div className="text-center mt-12">
+          <a href="#contact" className="inline-block px-8 py-3 bg-gray-800 text-white text-sm font-semibold rounded-full hover:bg-gray-700 transition-colors">
+            無料で相談する
+          </a>
+        </div>
       </div>
     </section>
   );

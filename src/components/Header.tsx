@@ -59,6 +59,7 @@ export default function Header() {
           className="md:hidden p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="メニュー"
+          aria-expanded={menuOpen}
         >
           <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (

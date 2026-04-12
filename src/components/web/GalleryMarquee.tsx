@@ -63,6 +63,7 @@ function GalleryCard({
   return (
     <div
       role="link"
+      aria-label={`${work.title}のデモサイトを見る`}
       tabIndex={0}
       onClick={(e) => onClick(e, work.slug)}
       onKeyDown={(e) => {
@@ -255,14 +256,22 @@ export default function GalleryMarquee() {
 
     row1.addEventListener("mouseenter", pauseRow1);
     row1.addEventListener("mouseleave", resumeRow1);
+    row1.addEventListener("touchstart", pauseRow1, { passive: true });
+    row1.addEventListener("touchend", resumeRow1);
     row2.addEventListener("mouseenter", pauseRow2);
     row2.addEventListener("mouseleave", resumeRow2);
+    row2.addEventListener("touchstart", pauseRow2, { passive: true });
+    row2.addEventListener("touchend", resumeRow2);
 
     return () => {
       row1.removeEventListener("mouseenter", pauseRow1);
       row1.removeEventListener("mouseleave", resumeRow1);
+      row1.removeEventListener("touchstart", pauseRow1);
+      row1.removeEventListener("touchend", resumeRow1);
       row2.removeEventListener("mouseenter", pauseRow2);
       row2.removeEventListener("mouseleave", resumeRow2);
+      row2.removeEventListener("touchstart", pauseRow2);
+      row2.removeEventListener("touchend", resumeRow2);
     };
   }, []);
 

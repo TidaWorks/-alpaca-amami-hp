@@ -193,7 +193,7 @@ export default function WebPainPoints() {
 
                 {/* Mobile downward arrow — visible only when tail is hidden */}
                 <div className="flex justify-center mt-4 md:hidden">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M12 4v16M5 14l7 7 7-7" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
@@ -201,7 +201,7 @@ export default function WebPainPoints() {
 
               {/* Arrow connector — desktop only */}
               <div className="hidden md:flex flex-col items-center shrink-0">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M4 14h20M16 7l8 7-8 7" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>

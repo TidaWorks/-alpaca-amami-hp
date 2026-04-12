@@ -14,7 +14,7 @@ export default function Services() {
           <h2 className="text-3xl md:text-4xl font-black text-gray-800 leading-tight">
             サービス内容
           </h2>
-          <p className="text-gray-400 text-sm mt-3 max-w-lg">
+          <p className="text-gray-500 text-sm mt-3 max-w-lg">
             業務の「困った」を仕組みで解決。システム構築からWeb制作まで対応します。
           </p>
         </div>
@@ -28,9 +28,9 @@ export default function Services() {
               </span>
               <h3 className="text-2xl md:text-3xl font-black text-gray-800 mb-3">業務改善システム構築</h3>
               <p className="text-2xl font-black text-[#0D9488] mb-1">
-                ¥300,000<span className="text-sm font-medium text-gray-400">〜（要見積）</span>
+                ¥300,000<span className="text-sm font-medium text-gray-500">〜（要見積）</span>
               </p>
-              <p className="text-xs text-gray-400">納期：規模に応じてご相談</p>
+              <p className="text-xs text-gray-500">納期：規模に応じてご相談</p>
             </div>
             <div className="md:w-1/2">
               <p className="text-sm text-gray-500 leading-relaxed mb-5">
@@ -63,21 +63,21 @@ export default function Services() {
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <h4 className="text-sm font-bold text-gray-700 mb-2">Web制作</h4>
-              <p className="text-xs text-gray-400 leading-relaxed mb-2">LP ¥50,000〜 / HP ¥150,000〜</p>
+              <p className="text-xs text-gray-500 leading-relaxed mb-2">LP ¥50,000〜 / HP ¥150,000〜</p>
               <a href="/web" className="text-[#0D9488] text-xs font-medium hover:text-[#0F766E] transition-colors">
                 詳細・デモサイトを見る →
               </a>
             </div>
             <div className="md:w-1/2">
               <h4 className="text-sm font-bold text-gray-700 mb-2">保守サポート</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">LP ¥7,000/月 / HP ¥10,000/月 / システム ¥20,000/月</p>
-              <p className="text-xs text-gray-400 mt-1">サーバー管理・修正対応・基本当日対応</p>
+              <p className="text-xs text-gray-500 leading-relaxed">LP ¥7,000/月 / HP ¥10,000/月 / システム ¥20,000/月</p>
+              <p className="text-xs text-gray-500 mt-1">サーバー管理・修正対応・基本当日対応</p>
             </div>
           </div>
         </div>
 
         {/* 注釈 */}
-        <div className="text-gray-400 text-xs leading-relaxed mt-8 space-y-1">
+        <div className="text-gray-500 text-xs leading-relaxed mt-8 space-y-1">
           <p>※ 料金は案件の規模・機能数によって変動します。お見積りは無料です。</p>
           <p>※ 写真・ロゴ等の素材はお客様にご用意いただきます。</p>
           <p>※ 初回相談無料。まずはお気軽にお問い合わせください。</p>

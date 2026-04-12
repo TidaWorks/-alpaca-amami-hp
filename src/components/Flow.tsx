@@ -46,7 +46,7 @@ export default function Flow() {
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-gray-400 text-sm mb-4">「こんなの作れる？」だけでOKです。</p>
+          <p className="text-gray-500 text-sm mb-4">「こんなの作れる？」だけでOKです。</p>
           <a href="#contact" className="inline-block bg-gray-800 text-white font-bold px-8 py-3.5 rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105">
             無料で相談する
           </a>

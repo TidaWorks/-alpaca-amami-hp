@@ -45,11 +45,11 @@ function BrowserFrame({ title, children }: { title: string; children: React.Reac
       </div>
       <div className="bg-gray-100 px-2.5 py-1 flex items-center gap-1.5">
         <div className="flex gap-1 text-gray-400">
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          <svg aria-hidden="true" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          <svg aria-hidden="true" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
         </div>
         <div className="flex-1 bg-white rounded px-2 py-0.5 text-[7px] text-gray-400 flex items-center gap-1">
-          <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg aria-hidden="true" width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           app.alpaca-amami.com
         </div>
       </div>
@@ -63,7 +63,7 @@ function DashboardScreen() {
     <div className="flex min-h-[280px]">
       <Sidebar active="ホーム" />
       <div className="flex-1 bg-white p-3">
-        <h2 className="text-[10px] font-black text-gray-900 mb-3">業務ダッシュボード</h2>
+        <p className="text-[10px] font-black text-gray-900 mb-3">業務ダッシュボード</p>
 
         {/* 月間売上グラフ */}
         <div className="border border-gray-200 rounded-lg p-2.5 mb-2.5">
@@ -135,7 +135,7 @@ function CalendarScreen() {
         {/* カレンダー */}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[10px] font-black text-gray-900">予約管理カレンダー</h2>
+            <p className="text-[10px] font-black text-gray-900">予約管理カレンダー</p>
           </div>
           <div className="flex items-center justify-between mb-2">
             <p className="text-[9px] font-bold text-gray-800">2024年7月</p>
@@ -203,7 +203,7 @@ export default function Hero() {
           <h1 className="text-4xl md:text-[3.5rem] font-black leading-[1.15] text-gray-900 tracking-tight mb-5">
             業務を、仕組みで変える。
           </h1>
-          <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-8">
+          <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-8">
             予約・顧客・売上管理をひとつに。<br />
             あなたの業務に合わせた専用システムを構築します。
           </p>
@@ -217,7 +217,7 @@ export default function Hero() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {["予約管理", "顧客管理", "売上集計", "在庫管理", "スタッフ管理", "ホームページ制作"].map((tag) => (
-              <span key={tag} className="text-[11px] text-gray-400 border border-gray-200 rounded-full px-3 py-1">
+              <span key={tag} className="text-xs text-gray-500 border border-gray-200 rounded-full px-3 py-1">
                 {tag}
               </span>
             ))}

@@ -74,9 +74,6 @@ export default function WebHero() {
 
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&display=swap" rel="stylesheet" />
       <style>{`
         .hero-editorial {
           --accent: #E8A435;
@@ -288,7 +285,7 @@ export default function WebHero() {
             className="max-w-md mb-10 md:mb-14 leading-relaxed"
             style={{
               fontSize: "clamp(0.9rem, 1.8vw, 1.15rem)",
-              color: "rgba(245, 237, 224, 0.55)",
+              color: "rgba(245, 237, 224, 0.7)",
               fontFamily: "'Shippori Mincho B1', serif",
               fontWeight: 600,
               opacity: phase >= PHASE.CONTENT ? 1 : 0,
@@ -310,7 +307,7 @@ export default function WebHero() {
           >
             <a
               href="#gallery"
-              className="group relative inline-flex items-center justify-center overflow-hidden"
+              className="group relative inline-flex items-center justify-center overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F5A623] outline-none"
               style={{
                 padding: "14px 36px",
                 backgroundColor: "var(--accent)",
@@ -337,7 +334,7 @@ export default function WebHero() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center"
+              className="inline-flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F5A623] outline-none"
               style={{
                 padding: "14px 36px",
                 color: "var(--warm)",

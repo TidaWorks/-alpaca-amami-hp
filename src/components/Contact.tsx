@@ -39,19 +39,19 @@ export default function Contact() {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
                 </svg>
                 <a href="tel:080-2790-6757" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">080-2790-6757</a>
               </div>
               <div className="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
                 </svg>
                 <a href="mailto:alpaca.amami@gmail.com" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">alpaca.amami@gmail.com</a>
               </div>
               <div className="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#0D9488" stroke="none"/>
                 </svg>
                 <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">@alpaca_amami</a>
@@ -73,16 +73,16 @@ export default function Contact() {
             ) : (
               <form className="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 space-y-5" onSubmit={handleSubmit}>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">お名前</label>
-                  <input type="text" name="name" required className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all" placeholder="山田 太郎" />
+                  <label htmlFor="contact-name" className="block text-xs font-medium text-gray-500 mb-1.5">お名前</label>
+                  <input type="text" name="name" id="contact-name" required className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all" placeholder="山田 太郎" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">メールアドレス</label>
-                  <input type="email" name="email" required className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all" placeholder="example@email.com" />
+                  <label htmlFor="contact-email" className="block text-xs font-medium text-gray-500 mb-1.5">メールアドレス</label>
+                  <input type="email" name="email" id="contact-email" required className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all" placeholder="example@email.com" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">ご相談内容</label>
-                  <select name="service" required defaultValue="" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all">
+                  <label htmlFor="contact-service" className="block text-xs font-medium text-gray-500 mb-1.5">ご相談内容</label>
+                  <select name="service" id="contact-service" required defaultValue="" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all">
                     <option value="" disabled>選択してください</option>
                     <option value="system">システム開発の相談</option>
                     <option value="website">ホームページ制作の相談</option>
@@ -92,8 +92,8 @@ export default function Contact() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">メッセージ</label>
-                  <textarea name="message" required rows={4} className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] resize-none transition-all" placeholder="ご相談内容をお聞かせください" />
+                  <label htmlFor="contact-message" className="block text-xs font-medium text-gray-500 mb-1.5">メッセージ</label>
+                  <textarea name="message" id="contact-message" required rows={4} className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] resize-y transition-all" placeholder="ご相談内容をお聞かせください" />
                 </div>
                 {status === "error" && (
                   <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3">

@@ -28,6 +28,8 @@ export default function FAQ() {
               <button
                 onClick={() => setOpenIdx(openIdx === i ? null : i)}
                 className="w-full flex items-center justify-between py-5 text-left group"
+                aria-expanded={openIdx === i}
+                aria-controls={`faq-answer-${i}`}
               >
                 <span className="text-gray-700 text-sm font-medium pr-4 group-hover:text-gray-900 transition-colors">
                   {faq.q}
@@ -36,7 +38,7 @@ export default function FAQ() {
                   +
                 </span>
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openIdx === i ? "max-h-40 pb-5" : "max-h-0"}`}>
+              <div id={`faq-answer-${i}`} role="region" className={`overflow-hidden transition-all duration-300 ${openIdx === i ? "max-h-40 pb-5" : "max-h-0"}`}>
                 <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
               </div>
             </div>

@@ -301,7 +301,7 @@ export default function WebPricing() {
 
             <a
               href="#contact"
-              className="inline-block text-xs text-[#8A8070] border border-[#D4CEC5] rounded-lg px-4 py-2 hover:border-[#8A8070] hover:text-[#5A5248] transition-colors duration-200 whitespace-nowrap"
+              className="inline-block text-sm text-[#8A8070] border border-[#D4CEC5] rounded-lg px-6 py-3 hover:border-[#8A8070] hover:text-[#5A5248] transition-colors duration-200 whitespace-nowrap"
             >
               保守について相談する
             </a>
