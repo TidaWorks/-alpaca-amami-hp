@@ -89,8 +89,7 @@ export default function WebCTA() {
           ref={bgRef}
           className="absolute inset-0 w-full h-full will-change-transform"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80')",
+            backgroundImage: "url('/images/demo/guesthouse/hero.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             transform: "scale(1.0) translateY(0px)",

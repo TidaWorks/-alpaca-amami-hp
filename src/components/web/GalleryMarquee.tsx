@@ -7,28 +7,17 @@ import { works } from "@/data/works";
 
 // Unsplash images keyed by slug — single source of truth for gallery visuals
 const slugImageMap: Record<string, string> = {
-  "salon-kukuru":
-    "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=840&q=80",
-  "restaurant-adan":
-    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=840&q=80",
-  "construction-hae":
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=840&q=80",
-  "camp-amami":
-    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=840&q=80",
-  "diving-blue":
-    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=840&q=80",
-  "tida-works-hp":
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=840&q=80",
-  "nursery-hidamari":
-    "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=840&q=80",
-  "osteopathic-shimatsumugi":
-    "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=840&q=80",
-  "guesthouse-isokaze":
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=840&q=80",
-  "farm-taiyo":
-    "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=840&q=80",
-  "patisserie-soleil":
-    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=840&q=80",
+  "salon-kukuru": "/images/demo/salon/hero.jpg",
+  "restaurant-adan": "/images/demo/restaurant/hero.jpg",
+  "construction-hae": "/images/demo/construction/hero.jpg",
+  "camp-amami": "/images/demo/camp/hero.jpg",
+  "diving-blue": "/images/demo/diving/hero.jpg",
+  "tida-works-hp": "/images/web/gallery-dashboard.jpg",
+  "nursery-hidamari": "/images/demo/nursery/hero.jpg",
+  "osteopathic-shimatsumugi": "/images/demo/osteopathic/hero.jpg",
+  "guesthouse-isokaze": "/images/demo/guesthouse/hero.jpg",
+  "farm-taiyo": "/images/demo/farm/hero.jpg",
+  "patisserie-soleil": "/images/demo/patisserie/hero.jpg",
 };
 
 function getWorkImage(slug: string): string {
