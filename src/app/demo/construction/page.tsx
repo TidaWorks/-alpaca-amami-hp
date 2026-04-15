@@ -740,7 +740,7 @@ export default function ConstructionDemoPage() {
       <section className="relative pt-[100px]">
         <div className="relative text-white">
           <Image
-            src="https://images.unsplash.com/photo-1674705093416-543e77f84dee?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/construction/hero.jpg"
             alt="建設現場の様子"
             width={1200}
             height={800}
@@ -876,7 +876,7 @@ export default function ConstructionDemoPage() {
         <div className="space-y-2">
           <ServiceBlock
             index={0}
-            src="https://images.unsplash.com/photo-1732192553146-268f9428eea3?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/construction/service-new-house.jpg"
             alt="新築住宅の外観"
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -889,7 +889,7 @@ export default function ConstructionDemoPage() {
           />
           <ServiceBlock
             index={1}
-            src="https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/construction/service-reform.jpg"
             alt="リフォーム後の室内"
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -901,7 +901,7 @@ export default function ConstructionDemoPage() {
           />
           <ServiceBlock
             index={2}
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/construction/service-shop-interior.jpg"
             alt="店舗内装の施工例"
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -916,7 +916,7 @@ export default function ConstructionDemoPage() {
           />
           <ServiceBlock
             index={3}
-            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/construction/service-public-works.jpg"
             alt="公共工事の施工現場"
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1005,7 +1005,7 @@ export default function ConstructionDemoPage() {
             {/* Card 1: large, cols 1-7, row 1 */}
             <div className="col-span-12 md:col-span-7 md:mt-0">
               <WorkCard
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/construction/work-new-house.jpg"
                 alt="名瀬 S様邸 新築住宅の外観"
                 badge="新築住宅"
                 title="名瀬 S様邸 新築工事"
@@ -1018,7 +1018,7 @@ export default function ConstructionDemoPage() {
             {/* Card 2: small, cols 8-12, row 1, pushed down */}
             <div className="col-span-12 md:col-span-5 md:mt-12">
               <WorkCard
-                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/construction/work-reform.jpg"
                 alt="龍郷町 M様邸 リフォーム後の外観"
                 badge="リフォーム"
                 title="龍郷町 M様邸 全面リフォーム"
@@ -1031,7 +1031,7 @@ export default function ConstructionDemoPage() {
             {/* Card 3: small, cols 1-5, row 2, pushed down */}
             <div className="col-span-12 md:col-span-5 md:mt-6">
               <WorkCard
-                src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/construction/work-cafe.jpg"
                 alt="島カフェ てぃだ 店舗内装の施工例"
                 badge="店舗内装"
                 title="名瀬 島カフェ「てぃだ」内装工事"
@@ -1044,7 +1044,7 @@ export default function ConstructionDemoPage() {
             {/* Card 4: large, cols 6-12, row 2 */}
             <div className="col-span-12 md:col-span-7">
               <WorkCard
-                src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/construction/work-public-hall.jpg"
                 alt="奄美市立公民館 改修工事の完成写真"
                 badge="公共工事"
                 title="奄美市立○○公民館 改修工事"
@@ -1111,12 +1111,12 @@ export default function ConstructionDemoPage() {
               style={{ transform: `translateX(${galleryX}px)` }}
             >
               {[
-                { src: "https://images.unsplash.com/photo-1563175452-d3aa37c6d908?auto=format&fit=crop&w=800&q=80", alt: "建設現場での作業風景" },
-                { src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80", alt: "完成した建物の外観" },
-                { src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80", alt: "モダン建築の外観" },
-                { src: "https://images.unsplash.com/photo-1563174759-bdaaa5256c81?auto=format&fit=crop&w=800&q=80", alt: "完成物件の内装" },
-                { src: "https://images.unsplash.com/photo-1674705093416-543e77f84dee?auto=format&fit=crop&w=800&q=80", alt: "施工現場の全景" },
-                { src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80", alt: "外構工事の様子" },
+                { src: "/images/demo/construction/gallery-worksite.jpg", alt: "建設現場での作業風景" },
+                { src: "/images/demo/construction/gallery-exterior.jpg", alt: "完成した建物の外観" },
+                { src: "/images/demo/construction/gallery-modern.jpg", alt: "モダン建築の外観" },
+                { src: "/images/demo/construction/gallery-interior.jpg", alt: "完成物件の内装" },
+                { src: "/images/demo/construction/hero.jpg", alt: "施工現場の全景" },
+                { src: "/images/demo/construction/service-public-works.jpg", alt: "外構工事の様子" },
               ].map(({ src, alt }, i) => (
                 <div key={i} className="h-gallery-item">
                   <Image

@@ -540,7 +540,7 @@ export default function NurseryPage() {
       <section className="relative pt-14" id="hero">
         <div className="relative overflow-hidden" style={{ height: "88vh", minHeight: "520px" }}>
           <Image
-            src="https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/nursery/hero.jpg"
             alt="子どもたちが笑顔で遊ぶ様子"
             className="absolute inset-0 w-full h-full object-cover hero-img-kenburns"
             width={1200}
@@ -1553,7 +1553,7 @@ export default function NurseryPage() {
           <div className="facility-container relative md:block flex flex-col" ref={facilityRef} style={{ minHeight: "680px" }}>
             {[
               {
-                src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-classroom.jpg",
                 alt: "保育室",
                 label: "明るい保育室",
                 desc: "木のぬくもりを大切にした、明るく広い保育室。",
@@ -1563,7 +1563,7 @@ export default function NurseryPage() {
                 zIndex: 3,
               },
               {
-                src: "https://images.unsplash.com/photo-1576495199011-eb94736d05d6?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-playground.jpg",
                 alt: "園庭",
                 label: "広々した園庭",
                 desc: "思い切り走り回れる広い園庭。砂場・滑り台も完備。",
@@ -1573,7 +1573,7 @@ export default function NurseryPage() {
                 zIndex: 2,
               },
               {
-                src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-kitchen.jpg",
                 alt: "給食室",
                 label: "手作り給食室",
                 desc: "栄養士が毎日、地元の旬の食材で手作りしています。",
@@ -1583,7 +1583,7 @@ export default function NurseryPage() {
                 zIndex: 3,
               },
               {
-                src: "https://images.unsplash.com/photo-1594708767771-a5e9d3012f89?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-reading.jpg",
                 alt: "絵本コーナー",
                 label: "絵本コーナー",
                 desc: "500冊以上の絵本を揃えた、落ち着いた読書スペース。",
@@ -1593,7 +1593,7 @@ export default function NurseryPage() {
                 zIndex: 4,
               },
               {
-                src: "https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-nap-room.jpg",
                 alt: "お昼寝室",
                 label: "安全なお昼寝室",
                 desc: "換気・温度管理を徹底し、安心して眠れる環境です。",
@@ -1603,7 +1603,7 @@ export default function NurseryPage() {
                 zIndex: 2,
               },
               {
-                src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/nursery/facility-garden.jpg",
                 alt: "菜園",
                 label: "みんなの菜園",
                 desc: "子どもたちが野菜を育て、収穫し、食卓へ。食育の場です。",
@@ -1723,7 +1723,7 @@ export default function NurseryPage() {
           <div className="flex flex-col md:flex-row justify-center items-end gap-2 md:gap-0 md:items-start" ref={staffRef} style={{ paddingBottom: "16px", paddingTop: "8px" }}>
             {[
               {
-                src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+                src: "/images/demo/nursery/staff-yamada.jpg",
                 name: "山田 恵子 先生",
                 role: "園長 / 保育士歴20年",
                 msg: "子どもたちの「なんで?」という目の輝きが大好きです。一人ひとりの個性を大切に、のびのびと育てていきます。",
@@ -1733,7 +1733,7 @@ export default function NurseryPage() {
                 accentColor: "#F59E42",
               },
               {
-                src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+                src: "/images/demo/nursery/staff-tanaka.jpg",
                 name: "田中 美穂 先生",
                 role: "主任保育士 / 保育士歴12年",
                 msg: "子どもたちの笑顔が私の原動力。安心してお預けいただけるよう、毎日丁寧に関わっています。",
@@ -1743,7 +1743,7 @@ export default function NurseryPage() {
                 accentColor: "#7EC8A0",
               },
               {
-                src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=400&q=80",
+                src: "/images/demo/nursery/staff-maeda.jpg",
                 name: "前田 葵 先生",
                 role: "保育士 / 保育士歴4年",
                 msg: "子どもたちと一緒に成長できる毎日がうれしい。元気いっぱい、一緒に遊びましょう！",

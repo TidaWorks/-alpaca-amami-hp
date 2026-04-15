@@ -880,7 +880,7 @@ export default function BistroAdanPage() {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/restaurant/hero.jpg"
             alt="料理の背景写真"
             width={1200}
             height={800}
@@ -1448,7 +1448,7 @@ export default function BistroAdanPage() {
               }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80"
+                src="/images/demo/restaurant/interior-main.jpg"
                 alt="落ち着いた雰囲気の店内"
                 width={800}
                 height={600}
@@ -1477,7 +1477,7 @@ export default function BistroAdanPage() {
               }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/restaurant/interior-counter.jpg"
                 alt="カウンター席の様子"
                 width={600}
                 height={400}
@@ -1500,7 +1500,7 @@ export default function BistroAdanPage() {
               }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/restaurant/interior-counter-wood.jpg"
                 alt="一枚板のカウンター"
                 width={600}
                 height={400}
@@ -1512,7 +1512,7 @@ export default function BistroAdanPage() {
             {/* Mobile: show second image below */}
             <div className="sm:hidden mt-3">
               <Image
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/restaurant/interior-counter.jpg"
                 alt="カウンター席の様子"
                 width={600}
                 height={400}

@@ -256,7 +256,7 @@ export default function FarmDemoPage() {
       unit: "3kg",
       desc: "奄美の温暖な気候が育てた甘みたっぷりの柑橘。皮が薄く、濃厚な果汁が特徴です。",
       season: "2〜3月",
-      img: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-tankan.jpg",
       alt: "新鮮なたんかん",
     },
     {
@@ -266,7 +266,7 @@ export default function FarmDemoPage() {
       unit: "6個",
       desc: "南国の香り漂う芳醇な果実。甘酸っぱさの中に深いコクがあり、ヨーグルトとも相性抜群。",
       season: "6〜8月",
-      img: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-passionfruit.jpg",
       alt: "パッションフルーツ",
     },
     {
@@ -276,7 +276,7 @@ export default function FarmDemoPage() {
       unit: "1kg",
       desc: "木で完熟させてから収穫するため、とろけるような甘さと豊かな香り。贈り物にも人気。",
       season: "7〜8月",
-      img: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-mango.jpg",
       alt: "完熟マンゴー",
     },
     {
@@ -286,7 +286,7 @@ export default function FarmDemoPage() {
       unit: "1房",
       desc: "市販のものと違い、小粒ながら甘みが凝縮された島バナナ。もちもちとした食感も魅力。",
       season: "通年",
-      img: "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-banana.jpg",
       alt: "島バナナ",
     },
     {
@@ -296,7 +296,7 @@ export default function FarmDemoPage() {
       unit: "300g",
       desc: "自家栽培のサトウキビを昔ながらの製法で炊き上げた純黒糖。コクと深みが違います。",
       season: "通年",
-      img: "https://images.unsplash.com/photo-1606788075772-de37ce4e3a98?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-guava.jpg",
       alt: "自家製黒糖",
     },
     {
@@ -306,7 +306,7 @@ export default function FarmDemoPage() {
       unit: "3個",
       desc: "鮮やかなピンクの果肉が特徴。さっぱりとした甘さで南国気分を味わえる。",
       season: "8〜10月",
-      img: "https://images.unsplash.com/photo-1527325678964-54921661f888?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-dragon-fruit.jpg",
       alt: "ドラゴンフルーツ",
     },
     {
@@ -316,7 +316,7 @@ export default function FarmDemoPage() {
       unit: "セット",
       desc: "旬の果物で作ったジャム2本とフレッシュジュース1本のセット。お土産に大変人気です。",
       season: "通年",
-      img: "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?auto=format&fit=crop&w=600&q=80",
+      img: "/images/demo/farm/product-jam.jpg",
       alt: "ジャムとジュースのセット",
     },
   ];
@@ -333,12 +333,12 @@ export default function FarmDemoPage() {
   const monthLabels = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 
   const galleryPhotos = [
-    { src: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80", alt: "農園の果樹と青空", h: "h-64" },
-    { src: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=600&q=80", alt: "収穫のようす", h: "h-48" },
-    { src: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80", alt: "島の果樹園風景", h: "h-72" },
-    { src: "https://images.unsplash.com/photo-1592921870789-04563d55041c?auto=format&fit=crop&w=600&q=80", alt: "南国の色鮮やかな果物", h: "h-56" },
-    { src: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80", alt: "果物の断面", h: "h-64" },
-    { src: "https://images.unsplash.com/photo-1526399543710-61d2a26cd2ea?auto=format&fit=crop&w=600&q=80", alt: "果樹の枝と実", h: "h-52" },
+    { src: "/images/demo/farm/hero.jpg", alt: "農園の果樹と青空", h: "h-64" },
+    { src: "/images/demo/farm/about-working.jpg", alt: "収穫のようす", h: "h-48" },
+    { src: "/images/demo/farm/gallery-orchard.jpg", alt: "島の果樹園風景", h: "h-72" },
+    { src: "/images/demo/farm/experience.jpg", alt: "南国の色鮮やかな果物", h: "h-56" },
+    { src: "/images/demo/farm/gallery-fruit-section.jpg", alt: "果物の断面", h: "h-64" },
+    { src: "/images/demo/farm/gallery-branch.jpg", alt: "果樹の枝と実", h: "h-52" },
   ];
 
   return (
@@ -988,7 +988,7 @@ export default function FarmDemoPage() {
           <div className="hero-bg-wrap">
             <Image
               ref={heroImgRef}
-              src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80"
+              src="/images/demo/farm/hero.jpg"
               alt="奄美の農園風景"
               className="hero-parallax-img"
               width={1200}
@@ -1367,7 +1367,7 @@ export default function FarmDemoPage() {
               <div className="space-y-4">
                 <div className="rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80"
+                    src="/images/demo/farm/about-working.jpg"
                     alt="農園で働く様子"
                     width={800}
                     height={600}
@@ -1377,7 +1377,7 @@ export default function FarmDemoPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-xl overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80"
+                      src="/images/demo/farm/about-tree.jpg"
                       alt="果樹の木と実"
                       width={600}
                       height={400}
@@ -1386,7 +1386,7 @@ export default function FarmDemoPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1536657464919-892534f60d6e?auto=format&fit=crop&w=400&q=80"
+                      src="/images/demo/farm/about-harvest.jpg"
                       alt="収穫した果物"
                       width={600}
                       height={400}
@@ -2154,7 +2154,7 @@ export default function FarmDemoPage() {
             <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
               <div className="rounded-2xl overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1592921870789-04563d55041c?auto=format&fit=crop&w=800&q=80"
+                  src="/images/demo/farm/experience.jpg"
                   alt="農園体験の様子"
                   width={800}
                   height={600}

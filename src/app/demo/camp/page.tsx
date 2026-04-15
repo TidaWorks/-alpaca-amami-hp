@@ -995,7 +995,7 @@ export default function CampDemoPage() {
               </div>
               <div className="rounded-2xl overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80"
+                  src="/images/demo/camp/hero.jpg"
                   alt="奄美の森の中のキャンプ場"
                   width={1200}
                   height={800}
@@ -1042,21 +1042,21 @@ export default function CampDemoPage() {
                   name: "グランピングテント",
                   price: "¥18,000~/泊",
                   desc: "エアコン完備のラグジュアリーテント。ベッド・家具付きで快適な滞在を。",
-                  img: "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/stay-glamping.jpg",
                   alt: "グランピングテントの外観",
                 },
                 {
                   name: "コテージ",
                   price: "¥25,000~/泊",
                   desc: "木のぬくもり溢れるプライベートコテージ。キッチン・バス付き。ファミリーに人気。",
-                  img: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/stay-cottage.jpg",
                   alt: "森の中のコテージ",
                 },
                 {
                   name: "テントサイト",
                   price: "¥3,000~/泊",
                   desc: "自分のテントで本格キャンプ。電源付きサイトもあり。",
-                  img: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/stay-tent-site.jpg",
                   alt: "テントサイトの風景",
                 },
               ].map((item, i) => (
@@ -1121,7 +1121,7 @@ export default function CampDemoPage() {
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div className="rounded-2xl overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80"
+                  src="/images/demo/camp/bbq.jpg"
                   alt="BBQグリルの様子"
                   width={800}
                   height={600}
@@ -1212,21 +1212,21 @@ export default function CampDemoPage() {
                   name: "カヤック体験",
                   price: "¥4,000/人",
                   desc: "マングローブの森をカヤックで探検。ガイド付きで初心者でも安心。",
-                  img: "https://images.unsplash.com/photo-1642647219795-b42946151a14?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/activity-kayak.jpg",
                   alt: "カヤック体験の様子",
                 },
                 {
                   name: "星空観察ツアー",
                   price: "¥2,000/人",
                   desc: "光害のない奄美の空に広がる満天の星。天体望遠鏡で惑星観測も。",
-                  img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/activity-stargazing.jpg",
                   alt: "奄美の星空",
                 },
                 {
                   name: "ビーチまで徒歩5分",
                   price: "無料",
                   desc: "透明度抜群の海がすぐそこ。シュノーケリングや海水浴を満喫。",
-                  img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+                  img: "/images/demo/camp/activity-beach.jpg",
                   alt: "奄美のビーチ",
                 },
               ].map((item, i) => (
@@ -1289,12 +1289,12 @@ export default function CampDemoPage() {
             </div>
             <div className="columns-2 md:columns-3 gap-4 space-y-4">
               {[
-                { src: "https://images.unsplash.com/photo-1533873984035-25970ab07461?auto=format&fit=crop&w=600&q=80", alt: "キャンプファイヤーの様子", h: "h-64", dir: "gallery-item-left" },
-                { src: "https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=600&q=80", alt: "テントの中から見る景色", h: "h-48", dir: "gallery-item-bottom" },
-                { src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80", alt: "奄美の湖と山々", h: "h-72", dir: "gallery-item-right" },
-                { src: "https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=600&q=80", alt: "山の上からの絶景", h: "h-56", dir: "gallery-item-right" },
-                { src: "https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=600&q=80", alt: "夕暮れのキャンプ場", h: "h-64", dir: "gallery-item-bottom" },
-                { src: "https://images.unsplash.com/photo-1532339142463-fd0a8979791a?auto=format&fit=crop&w=600&q=80", alt: "自然の中のハンモック", h: "h-52", dir: "gallery-item-left" },
+                { src: "/images/demo/camp/gallery-campfire.jpg", alt: "キャンプファイヤーの様子", h: "h-64", dir: "gallery-item-left" },
+                { src: "/images/demo/camp/gallery-tent-view.jpg", alt: "テントの中から見る景色", h: "h-48", dir: "gallery-item-bottom" },
+                { src: "/images/demo/camp/gallery-lake-mountain.jpg", alt: "奄美の湖と山々", h: "h-72", dir: "gallery-item-right" },
+                { src: "/images/demo/camp/gallery-mountain-top.jpg", alt: "山の上からの絶景", h: "h-56", dir: "gallery-item-right" },
+                { src: "/images/demo/camp/gallery-sunset-camp.jpg", alt: "夕暮れのキャンプ場", h: "h-64", dir: "gallery-item-bottom" },
+                { src: "/images/demo/camp/gallery-hammock.jpg", alt: "自然の中のハンモック", h: "h-52", dir: "gallery-item-left" },
               ].map((photo, i) => (
                 <div
                   key={i}

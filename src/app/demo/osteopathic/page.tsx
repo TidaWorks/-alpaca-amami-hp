@@ -555,7 +555,7 @@ export default function OsteopathicPage() {
       <section className="relative pt-[60px]">
         <div className="relative h-[88vh] min-h-[560px] flex items-center justify-center overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/osteopathic/hero.jpg"
             alt="島つむぎ整骨院 施術風景"
             className="absolute inset-0 w-full h-full object-cover"
             width={1200}
@@ -1273,7 +1273,7 @@ export default function OsteopathicPage() {
                 desc: "骨盤の歪みを整え、腰痛・肩こり・姿勢の改善を図ります。産後骨盤矯正にも対応。体のバランスを根本から整えることで慢性的な不調を改善します。",
                 price: "¥3,500〜",
                 duration: "30〜45分",
-                img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/osteopathic/menu-pelvis.jpg",
                 tag: "人気No.1",
                 tagColor: "#2E86AB",
                 accentBorder: "#2E86AB",
@@ -1284,7 +1284,7 @@ export default function OsteopathicPage() {
                 desc: "東洋医学の知識を活かした鍼灸で、慢性痛・自律神経の乱れ・頭痛・冷えなど幅広いお悩みに対応。国家資格を持つ鍼灸師が担当します。",
                 price: "¥4,000〜",
                 duration: "40〜60分",
-                img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/osteopathic/menu-acupuncture.jpg",
                 tag: "慢性痛に",
                 tagColor: "#48B89C",
                 accentBorder: "#48B89C",
@@ -1295,7 +1295,7 @@ export default function OsteopathicPage() {
                 desc: "筋肉の緊張をほぐし、血行を促進するマッサージ療法。疲労回復・肩こり・腰痛など日常の疲れをリセットします。コース選択で全身・部分施術も可能。",
                 price: "¥2,800〜",
                 duration: "20〜60分",
-                img: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/osteopathic/menu-massage.jpg",
                 tag: "リラックス",
                 tagColor: "#2E86AB",
                 accentBorder: "#2E86AB",
@@ -1306,7 +1306,7 @@ export default function OsteopathicPage() {
                 desc: "捻挫・打撲・肉離れなどのスポーツ障害の早期回復をサポート。テーピング・アイシング・リハビリ指導も含む包括的なケアで競技復帰までを支援します。",
                 price: "¥3,000〜",
                 duration: "30〜60分",
-                img: "https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/osteopathic/menu-sports-care.jpg",
                 tag: "アスリート向け",
                 tagColor: "#48B89C",
                 accentBorder: "#48B89C",
@@ -1540,7 +1540,7 @@ export default function OsteopathicPage() {
           >
             <div className="md:w-64 h-64 md:h-auto flex-shrink-0 overflow-hidden relative">
               <Image
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/osteopathic/director.jpg"
                 alt="院長 高橋 健一"
                 className="w-full h-full object-cover"
                 width={400}
@@ -1590,27 +1590,27 @@ export default function OsteopathicPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
               {
-                src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/osteopathic/clinic-reception.jpg",
                 label: "受付・待合室",
                 span: "md:col-span-2",
               },
               {
-                src: "https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/osteopathic/clinic-treatment.jpg",
                 label: "施術室",
                 span: "",
               },
               {
-                src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/osteopathic/clinic-pelvis-room.jpg",
                 label: "骨盤矯正ルーム",
                 span: "",
               },
               {
-                src: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/osteopathic/clinic-acupuncture-room.jpg",
                 label: "鍼灸室",
                 span: "",
               },
               {
-                src: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80",
+                src: "/images/demo/osteopathic/clinic-rehab.jpg",
                 label: "リハビリエリア",
                 span: "",
               },
@@ -1707,7 +1707,7 @@ export default function OsteopathicPage() {
                 style={{ background: "linear-gradient(135deg, #EEF4F9, #DDF0F3)", border: "1px solid rgba(46,134,171,0.12)" }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80"
+                  src="/images/demo/osteopathic/access-bg.jpg"
                   alt="奄美大島の風景"
                   className="absolute inset-0 w-full h-full object-cover opacity-30"
                   width={600}

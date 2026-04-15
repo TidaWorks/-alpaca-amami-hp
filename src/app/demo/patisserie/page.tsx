@@ -10,12 +10,12 @@ import Image from "next/image";
 
 // ---------- data ----------
 const PRODUCTS = [
-  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "https://images.unsplash.com/photo-1694837492750-46c9464d1b9d?auto=format&fit=crop&w=400&q=80" },
-  { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "https://images.unsplash.com/photo-1712723246766-3eaea22e52ff?auto=format&fit=crop&w=400&q=80" },
-  { name: "パッションフルーツのムース", price: 650, desc: "南国の情熱を閉じ込めた軽やかな一品", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=400&q=80" },
-  { name: "島バナナのミルフィーユ", price: 700, desc: "サクサクのパイ生地と濃厚な島バナナ", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-  { name: "黒糖カヌレ", price: 380, desc: "外はカリッと中はもっちり、黒糖の芳醇な香り", img: "https://images.unsplash.com/photo-1712723246675-4c0e8c2bc717?auto=format&fit=crop&w=400&q=80" },
-  { name: "マンゴーのシャルロット", price: 680, desc: "完熟マンゴーとビスキュイの華やかなハーモニー", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
+  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "/images/demo/patisserie/concept.jpg" },
+  { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "/images/demo/patisserie/product-tankan-tart.jpg" },
+  { name: "パッションフルーツのムース", price: 650, desc: "南国の情熱を閉じ込めた軽やかな一品", img: "/images/demo/patisserie/product-passionfruit-mousse.jpg" },
+  { name: "島バナナのミルフィーユ", price: 700, desc: "サクサクのパイ生地と濃厚な島バナナ", img: "/images/demo/patisserie/product-banana-millefeuille.jpg" },
+  { name: "黒糖カヌレ", price: 380, desc: "外はカリッと中はもっちり、黒糖の芳醇な香り", img: "/images/demo/patisserie/product-brown-sugar-canele.jpg" },
+  { name: "マンゴーのシャルロット", price: 680, desc: "完熟マンゴーとビスキュイの華やかなハーモニー", img: "/images/demo/patisserie/product-mango-charlotte.jpg" },
 ];
 
 const SEASONS = ["春", "夏", "秋", "冬"] as const;
@@ -589,7 +589,7 @@ export default function PatisseriePage() {
         .hero-bg {
           position: absolute;
           inset: 0;
-          background-image: url('https://images.unsplash.com/photo-1486427944544-d2c246c4df4c?auto=format&fit=crop&w=1200&q=80');
+          background-image: url('/images/demo/patisserie/hero.jpg');
           background-size: cover;
           background-position: center;
           will-change: transform;
@@ -926,7 +926,7 @@ export default function PatisseriePage() {
         .sol-seasonal-bg {
           position: absolute;
           inset: 0;
-          background-image: url('https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=1600&q=80');
+          background-image: url('/images/demo/patisserie/seasonal-bg.jpg');
           background-size: cover;
           background-position: center;
           background-attachment: fixed;
@@ -1609,7 +1609,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-concept-visual" style={{ borderRadius: 12, overflow: "hidden" }}>
               <Image
-                src="https://images.unsplash.com/photo-1694837492750-46c9464d1b9d?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/patisserie/concept.jpg"
                 alt="美しいケーキの断面"
                 width={800}
                 height={600}
@@ -1712,7 +1712,7 @@ export default function PatisseriePage() {
           <div className="sol-atelier-collage">
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1556217477-d325251ece38?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/patisserie/atelier.jpg"
                 alt="アトリエ風景"
                 width={600}
                 height={400}
@@ -1720,7 +1720,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1572897306051-abf270479682?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/patisserie/atelier-baking.jpg"
                 alt="焼き上がり"
                 width={600}
                 height={400}
@@ -1728,7 +1728,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1486427944544-d2c246c4df14?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/patisserie/atelier-decoration.jpg"
                 alt="デコレーション"
                 width={600}
                 height={400}
@@ -1736,7 +1736,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/patisserie/atelier-ingredients.jpg"
                 alt="素材"
                 width={600}
                 height={400}
@@ -1744,7 +1744,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=400&q=80"
+                src="/images/demo/patisserie/atelier-display.jpg"
                 alt="仕上げ"
                 width={600}
                 height={400}
@@ -1777,7 +1777,7 @@ export default function PatisseriePage() {
           <div className="sol-patissier-inner">
             <div className="sol-patissier-photo" ref={patissierPhotoRef}>
               <Image
-                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/patisserie/patissier.jpg"
                 alt="パティシエ"
                 width={800}
                 height={600}
@@ -1823,19 +1823,19 @@ export default function PatisseriePage() {
                 label: "Petit Cadeau",
                 price: "¥2,400（税込）",
                 desc: "焼き菓子5種の小箱。黒糖カヌレ、マドレーヌ、島バナナのフィナンシェなど。日持ち約2週間。ちょっとしたお礼やご挨拶に。",
-                img: "https://images.unsplash.com/photo-1558312657-b2dead03d494?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/patisserie/gift-petit.jpg",
               },
               {
                 label: "Coffret Soleil",
                 price: "¥4,800（税込）",
                 desc: "当店人気の焼き菓子8種にタンカンのコンフィチュール、パッションフルーツのパートドフリュイを添えた看板ギフト。のし対応可。",
-                img: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/patisserie/gift-coffret.jpg",
               },
               {
                 label: "Celebration",
                 price: "¥8,000（税込）",
                 desc: "記念日や特別な贈り物に。生菓子と焼き菓子の贅沢なアソート。メッセージカード付き。3日前までの要予約。",
-                img: "https://images.unsplash.com/photo-1486427944544-d2c246c4df14?auto=format&fit=crop&w=600&q=80",
+                img: "/images/demo/patisserie/atelier-decoration.jpg",
               },
             ].map((item, i) => (
               <div key={i} className="sol-gift-card" style={{ background: "none", border: "none", padding: 0 }}>

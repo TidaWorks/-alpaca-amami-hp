@@ -380,12 +380,12 @@ export default function SalonPage() {
   ];
 
   const galleryItems = [
-    { src: "https://images.unsplash.com/photo-1633681926035-ec0e5e7ca5b1?auto=format&fit=crop&w=800&q=80", label: "カウンセリングスペース" },
-    { src: "https://images.unsplash.com/photo-1626379501846-0df4067b8bb9?auto=format&fit=crop&w=800&q=80", label: "カットブース" },
-    { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80", label: "ヘアスタイリング" },
-    { src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", label: "オーガニック商品" },
-    { src: "https://images.unsplash.com/photo-1637777277337-f114350fb088?auto=format&fit=crop&w=800&q=80", label: "店内の雰囲気" },
-    { src: "https://images.unsplash.com/photo-1600948836587-02c1842c9140?auto=format&fit=crop&w=800&q=80", label: "リラックス空間" },
+    { src: "/images/demo/salon/gallery-counseling.jpg", label: "カウンセリングスペース" },
+    { src: "/images/demo/salon/gallery-cut-booth.jpg", label: "カットブース" },
+    { src: "/images/demo/salon/styling.jpg", label: "ヘアスタイリング" },
+    { src: "/images/demo/salon/gallery-organic.jpg", label: "オーガニック商品" },
+    { src: "/images/demo/salon/hero.jpg", label: "店内の雰囲気" },
+    { src: "/images/demo/salon/gallery-relax.jpg", label: "リラックス空間" },
   ];
 
   const heroLetters = "kukuru".split("");
@@ -960,7 +960,7 @@ export default function SalonPage() {
         <div className="relative h-[85vh] min-h-[500px] flex items-center justify-center overflow-hidden">
           {/* Hero background image */}
           <Image
-            src="https://images.unsplash.com/photo-1637777277337-f114350fb088?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/salon/hero.jpg"
             alt="美容室の店内風景"
             className="absolute inset-0 w-full h-full object-cover"
             width={1200}
@@ -1220,7 +1220,7 @@ export default function SalonPage() {
                 className="rounded-2xl overflow-hidden shadow-lg mask-reveal-wrapper"
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1626383120723-2a941488860d?auto=format&fit=crop&w=800&q=80"
+                  src="/images/demo/salon/concept.jpg"
                   alt="サロンの落ち着いた内装"
                   className="w-full aspect-[4/5] object-cover"
                   width={600}
@@ -1319,7 +1319,7 @@ export default function SalonPage() {
             {/* Right: feature image */}
             <div className="rounded-2xl overflow-hidden shadow-md">
               <Image
-                src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80"
+                src="/images/demo/salon/styling.jpg"
                 alt="ヘアスタイリングの様子"
                 className="w-full aspect-[3/4] object-cover"
                 width={800}
@@ -1398,7 +1398,7 @@ export default function SalonPage() {
                   className="w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=400&q=80"
+                    src="/images/demo/salon/stylist-misaki.jpg"
                     alt="スタイリスト 佐藤 美咲"
                     className="w-full h-full object-cover"
                     width={400}
@@ -1430,7 +1430,7 @@ export default function SalonPage() {
                   className="w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1595959183082-7b570b7e1e2b?auto=format&fit=crop&w=400&q=80"
+                    src="/images/demo/salon/stylist-hina.jpg"
                     alt="スタイリスト 田中 陽菜"
                     className="w-full h-full object-cover"
                     width={400}
@@ -1779,7 +1779,7 @@ export default function SalonPage() {
             <div>
               <div className="aspect-square md:aspect-[4/5] rounded-xl overflow-hidden relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80"
+                  src="/images/demo/salon/exterior.jpg"
                   alt="サロンの外観"
                   className="w-full h-full object-cover"
                   width={600}

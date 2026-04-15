@@ -139,7 +139,7 @@ const SURROUNDINGS_DATA = [
     name: "あやまる岬",
     distance: "車で約10分",
     desc: "珊瑚礁の海と太平洋が見渡せる絶景の岬。夕日スポットとして地元でも人気の場所です。",
-    img: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-ayamaru.jpg",
     category: "観光スポット",
     top: "12%", left: "15%", rotate: -1.5, width: 200,
   },
@@ -147,7 +147,7 @@ const SURROUNDINGS_DATA = [
     name: "マングローブカヌー",
     distance: "車で約15分",
     desc: "日本最大級のマングローブ林を小さなカヌーで探索。神秘的な自然を間近で体感できます。",
-    img: "https://images.unsplash.com/photo-1642647219795-b42946151a14?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-mangrove-canoe.jpg",
     category: "アクティビティ",
     top: "8%", left: "60%", rotate: 2, width: 210,
   },
@@ -155,7 +155,7 @@ const SURROUNDINGS_DATA = [
     name: "大浜海浜公園",
     distance: "車で約20分",
     desc: "奄美大島屈指の美しいビーチ。エメラルドグリーンの海でシュノーケリングを楽しめます。",
-    img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-ohama-beach.jpg",
     category: "ビーチ",
     top: "30%", left: "82%", rotate: -2, width: 190,
   },
@@ -163,7 +163,7 @@ const SURROUNDINGS_DATA = [
     name: "海洋展示館",
     distance: "車で約25分",
     desc: "大浜海浜公園内の海洋展示館。ウミガメの観察ができ、奄美の海の生き物を間近で体感できます。",
-    img: "https://images.unsplash.com/photo-1544552866-d3ed42536cfd?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-ocean-museum.jpg",
     category: "体験施設",
     top: "60%", left: "10%", rotate: 1.5, width: 195,
   },
@@ -171,7 +171,7 @@ const SURROUNDINGS_DATA = [
     name: "名瀬市場通り",
     distance: "車で約30分",
     desc: "奄美の中心地にある昔ながらの商店街。黒糖焼酎や大島紬など奄美ならではのお土産が揃います。",
-    img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-naze-market.jpg",
     category: "グルメ",
     top: "72%", left: "48%", rotate: -1, width: 205,
   },
@@ -179,7 +179,7 @@ const SURROUNDINGS_DATA = [
     name: "金作原原生林",
     distance: "車で約35分",
     desc: "国の天然記念物であるルリカケスが棲む原始の森。ガイドツアーで亜熱帯の自然を歩きます。",
-    img: "https://images.unsplash.com/photo-1723536415988-318f84346aac?auto=format&fit=crop&w=500&q=75",
+    img: "/images/demo/guesthouse/spot-kinsakubaru.jpg",
     category: "自然",
     top: "68%", left: "78%", rotate: 1.8, width: 195,
   },
@@ -187,14 +187,14 @@ const SURROUNDINGS_DATA = [
 
 // ─── Gallery images list (for lightbox prev/next navigation) ─────────────────
 const GALLERY_IMAGES = [
-  { src: "https://images.unsplash.com/photo-1763096007838-08d53daa4b79?auto=format&fit=crop&w=1400&q=90", alt: "奄美の海" },
-  { src: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=90", alt: "客室の朝" },
-  { src: "https://images.unsplash.com/photo-1727359223218-1e31dc8d224b?auto=format&fit=crop&w=1400&q=90", alt: "海の夕日" },
-  { src: "https://images.unsplash.com/photo-1758945185414-d9e08cb60baf?auto=format&fit=crop&w=1400&q=90", alt: "島料理" },
-  { src: "https://images.unsplash.com/photo-1757852801748-8cfdb4f8b619?auto=format&fit=crop&w=1400&q=90", alt: "テラス" },
-  { src: "https://images.unsplash.com/photo-1706724728271-a81750af4b8f?auto=format&fit=crop&w=1400&q=90", alt: "マングローブ" },
-  { src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1400&q=90", alt: "テラスからの眺め" },
-  { src: "https://images.unsplash.com/photo-1502673530728-f79b4cab31b1?auto=format&fit=crop&w=1400&q=90", alt: "夜の海" },
+  { src: "/images/demo/guesthouse/gallery-sea.jpg", alt: "奄美の海" },
+  { src: "/images/demo/guesthouse/gallery-room-morning.jpg", alt: "客室の朝" },
+  { src: "/images/demo/guesthouse/gallery-sunset.jpg", alt: "海の夕日" },
+  { src: "/images/demo/guesthouse/gallery-island-food.jpg", alt: "島料理" },
+  { src: "/images/demo/guesthouse/gallery-terrace.jpg", alt: "テラス" },
+  { src: "/images/demo/guesthouse/gallery-mangrove.jpg", alt: "マングローブ" },
+  { src: "/images/demo/guesthouse/gallery-terrace-view.jpg", alt: "テラスからの眺め" },
+  { src: "/images/demo/guesthouse/gallery-night-sea.jpg", alt: "夜の海" },
 ];
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -1376,7 +1376,7 @@ export default function GuesthousePage() {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1578809606407-567084e461a6?auto=format&fit=crop&w=1600&q=85"
+            src="/images/demo/guesthouse/hero.jpg"
             alt="奄美大島の海"
             width={1200}
             height={800}
@@ -1623,7 +1623,7 @@ export default function GuesthousePage() {
                 }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1722229808606-d060bf607028?auto=format&fit=crop&w=700&q=80"
+                  src="/images/demo/guesthouse/concept.jpg"
                   alt="いそかぜの縁側"
                   width={800}
                   height={600}
@@ -1707,7 +1707,7 @@ export default function GuesthousePage() {
             {
               name: "和室 オーシャンビュー",
               nameEn: "Japanese Room / Ocean View",
-              img: "https://images.unsplash.com/photo-1757852823730-8bf5b66af780?auto=format&fit=crop&w=1400&q=85",
+              img: "/images/demo/guesthouse/room-japanese.jpg",
               capacity: "1〜3名",
               size: "18畳",
               amenities: ["オーシャンビュー", "縁側付き", "エアコン", "Wi-Fi", "バス・トイレ"],
@@ -1719,7 +1719,7 @@ export default function GuesthousePage() {
             {
               name: "洋室 ガーデンビュー",
               nameEn: "Western Room / Garden View",
-              img: "https://images.unsplash.com/photo-1632790929202-a79cd10d9076?auto=format&fit=crop&w=1400&q=85",
+              img: "/images/demo/guesthouse/room-western.jpg",
               capacity: "1〜2名",
               size: "14m²",
               amenities: ["ガーデンビュー", "デスク付き", "エアコン", "Wi-Fi", "バス・トイレ"],
@@ -1731,7 +1731,7 @@ export default function GuesthousePage() {
             {
               name: "ファミリールーム",
               nameEn: "Family Room",
-              img: "https://images.unsplash.com/photo-1759310706740-e486ec5622c9?auto=format&fit=crop&w=1400&q=85",
+              img: "/images/demo/guesthouse/room-family.jpg",
               capacity: "2〜5名",
               size: "28畳",
               amenities: ["半露天バス", "リビングスペース", "エアコン", "Wi-Fi", "ロフト付き"],
@@ -2308,7 +2308,7 @@ export default function GuesthousePage() {
               aria-label="奄美の海 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1763096007838-08d53daa4b79?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-sea.jpg"
                 alt="奄美の海"
                 width={600}
                 height={400}
@@ -2325,7 +2325,7 @@ export default function GuesthousePage() {
               aria-label="客室の朝 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-room-morning.jpg"
                 alt="客室の朝"
                 width={600}
                 height={400}
@@ -2342,7 +2342,7 @@ export default function GuesthousePage() {
               aria-label="海の夕日 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1727359223218-1e31dc8d224b?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-sunset.jpg"
                 alt="海の夕日"
                 width={600}
                 height={400}
@@ -2359,7 +2359,7 @@ export default function GuesthousePage() {
               aria-label="島料理 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1758945185414-d9e08cb60baf?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-island-food.jpg"
                 alt="島料理"
                 width={600}
                 height={400}
@@ -2376,7 +2376,7 @@ export default function GuesthousePage() {
               aria-label="テラス を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1757852801748-8cfdb4f8b619?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-terrace.jpg"
                 alt="テラス"
                 width={600}
                 height={400}
@@ -2393,7 +2393,7 @@ export default function GuesthousePage() {
               aria-label="マングローブ を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1706724728271-a81750af4b8f?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-mangrove.jpg"
                 alt="マングローブ"
                 width={600}
                 height={400}
@@ -2408,7 +2408,7 @@ export default function GuesthousePage() {
               aria-label="テラスからの眺め を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-terrace-view.jpg"
                 alt="テラスからの眺め"
                 width={600}
                 height={400}
@@ -2423,7 +2423,7 @@ export default function GuesthousePage() {
               aria-label="夜の海 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1502673530728-f79b4cab31b1?auto=format&fit=crop&w=600&q=80"
+                src="/images/demo/guesthouse/gallery-night-sea.jpg"
                 alt="夜の海"
                 width={600}
                 height={400}

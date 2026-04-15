@@ -930,7 +930,7 @@ export default function BluAmamiDivingPage() {
       accentColor: "rgba(52,211,153,0.7)",
       depthLabel: "0m",
       depthPercent: 2,
-      image: "https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/menu-snorkeling.jpg",
       imageAlt: "シュノーケリングを楽しむ様子",
     },
     {
@@ -943,7 +943,7 @@ export default function BluAmamiDivingPage() {
       accentColor: "rgba(34,211,238,0.7)",
       depthLabel: "5m",
       depthPercent: 22,
-      image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/reserve-bg.jpg",
       imageAlt: "水中を泳ぐダイバー",
     },
     {
@@ -956,7 +956,7 @@ export default function BluAmamiDivingPage() {
       accentColor: "rgba(56,189,248,0.7)",
       depthLabel: "12m",
       depthPercent: 52,
-      image: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/menu-license.jpg",
       imageAlt: "美しい青い海",
     },
     {
@@ -970,7 +970,7 @@ export default function BluAmamiDivingPage() {
       accentColor: "rgba(99,102,241,0.7)",
       depthLabel: "20m",
       depthPercent: 82,
-      image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/menu-fun-dive.jpg",
       imageAlt: "美しいサンゴ礁の海中風景",
     },
   ];
@@ -982,7 +982,7 @@ export default function BluAmamiDivingPage() {
       features: ["ウミガメ遭遇率70%以上", "初心者OK", "ビーチエントリー"],
       color: "bg-cyan-500/20 border-cyan-400/30",
       depth: "5〜18m",
-      image: "https://images.unsplash.com/photo-1591025207163-942350e47db2?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/spot-turtle.jpg",
       imageAlt: "海中を泳ぐウミガメ",
     },
     {
@@ -991,7 +991,7 @@ export default function BluAmamiDivingPage() {
       features: ["透明度20〜30m", "白砂のパラダイス", "フォトジェニック"],
       color: "bg-blue-500/20 border-blue-400/30",
       depth: "8〜25m",
-      image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/menu-fun-dive.jpg",
       imageAlt: "透明度の高いサンゴ礁の海",
     },
     {
@@ -1000,7 +1000,7 @@ export default function BluAmamiDivingPage() {
       features: ["大物遭遇チャンス", "ダイナミック地形", "上級者向け"],
       color: "bg-indigo-500/20 border-indigo-400/30",
       depth: "10〜35m",
-      image: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80",
+      image: "/images/demo/diving/menu-license.jpg",
       imageAlt: "深く青い海の風景",
     },
   ];
@@ -1011,7 +1011,7 @@ export default function BluAmamiDivingPage() {
       role: "代表 / チーフインストラクター",
       description: "奄美大島生まれ、ダイビング歴20年。2,000本以上の潜水経験を持ち、奄美の海を知り尽くしたベテランガイド。初めての方にも丁寧に、一生忘れられない海の思い出を作ります。",
       certifications: ["PADI IDCスタッフインストラクター", "潜水士", "EFR インストラクター", "小型船舶1級"],
-      image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=400&q=80",
+      image: "/images/demo/diving/staff-yamada.jpg",
       imageAlt: "インストラクター 山田 海斗",
     },
     {
@@ -1019,39 +1019,39 @@ export default function BluAmamiDivingPage() {
       role: "インストラクター / 水中カメラマン",
       description: "元水族館スタッフ。海洋生物の知識が豊富で、生き物の名前や生態を楽しく解説。水中写真の撮影サービスも担当し、最高の瞬間を写真に残します。",
       certifications: ["PADI オープンウォーターインストラクター", "潜水士", "水中写真家認定", "救急救命士"],
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+      image: "/images/demo/diving/staff-sato.jpg",
       imageAlt: "インストラクター 佐藤 美波",
     },
   ];
 
   const galleryImages = [
     {
-      src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/hero.jpg",
       alt: "透き通った海の中を泳ぐダイバー",
       span: "col-span-1 md:col-span-2 row-span-2",
     },
     {
-      src: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/menu-fun-dive.jpg",
       alt: "色鮮やかなサンゴ礁",
       span: "",
     },
     {
-      src: "https://images.unsplash.com/photo-1591025207163-942350e47db2?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/spot-turtle.jpg",
       alt: "優雅に泳ぐウミガメ",
       span: "",
     },
     {
-      src: "https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/menu-snorkeling.jpg",
       alt: "シュノーケリングで海を楽しむ",
       span: "",
     },
     {
-      src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/scenic-beach.jpg",
       alt: "奄美大島の美しいビーチ",
       span: "col-span-1 md:col-span-2",
     },
     {
-      src: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80",
+      src: "/images/demo/diving/menu-license.jpg",
       alt: "どこまでも続く青い海",
       span: "",
     },
@@ -1303,7 +1303,7 @@ export default function BluAmamiDivingPage() {
           {/* Full-screen background photo */}
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80"
+              src="/images/demo/diving/hero.jpg"
               alt="奄美大島の美しい海中風景"
               width={1200}
               height={800}
@@ -1869,7 +1869,7 @@ export default function BluAmamiDivingPage() {
         {/* ─── Full-width scenic break ─── */}
         <section className="relative h-[50vh] overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+            src="/images/demo/diving/scenic-beach.jpg"
             alt="奄美大島のトロピカルビーチ"
             width={1200}
             height={800}
@@ -2054,7 +2054,7 @@ export default function BluAmamiDivingPage() {
           {/* Background with photo */}
           <div className="absolute inset-0">
             <Image
-              src="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&w=1200&q=80"
+              src="/images/demo/diving/reserve-bg.jpg"
               alt="ダイバーが海中を泳ぐ風景"
               width={1200}
               height={800}
