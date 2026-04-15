@@ -1233,7 +1233,7 @@ export default function BluAmamiDivingPage() {
         {/* ─── Back to Gallery ─── */}
         <a
           href="/web#gallery"
-          className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300 text-sm"
+          className="hidden md:flex fixed top-4 left-4 z-50 items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300 text-sm"
         >
           <ArrowLeftIcon className="w-4 h-4" />
           ギャラリーに戻る

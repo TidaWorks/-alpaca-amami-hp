@@ -90,12 +90,20 @@ function useBlueprintDraw(count: number = 1) {
             observer.disconnect();
           }
         },
-        { threshold: 0.4 }
+        { threshold: 0.05, rootMargin: "50px 0px" }
       );
       observer.observe(el);
       return observer;
     });
-    return () => observers.forEach((obs) => obs?.disconnect());
+    // フォールバック: 2秒後に全stat強制表示
+    const timer = setTimeout(() => {
+      setDrawn((prev) => prev.map(() => true));
+    }, 2000);
+
+    return () => {
+      observers.forEach((obs) => obs?.disconnect());
+      clearTimeout(timer);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only: refs are stable
   }, []);
 
@@ -704,12 +712,19 @@ export default function ConstructionDemoPage() {
                 {item.label}
               </a>
             ))}
+            <a
+              href="/web#gallery"
+              className="text-slate-400 hover:text-[#3B82F6] transition py-1 border-t border-slate-700 pt-3 flex items-center gap-1 text-xs"
+              onClick={() => setMenuOpen(false)}
+            >
+              &#8592; ギャラリーに戻る
+            </a>
           </div>
         )}
       </header>
 
       {/* Back to Gallery */}
-      <div className="fixed top-[52px] left-0 right-0 z-50 bg-slate-100 border-b border-slate-200">
+      <div className="hidden md:block fixed top-[52px] left-0 right-0 z-50 bg-slate-100 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 py-1.5">
           <a href="/web#gallery" className="text-sm text-[#3B82F6] hover:text-blue-700 transition flex items-center gap-1">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -725,7 +740,7 @@ export default function ConstructionDemoPage() {
       <section className="relative pt-[100px]">
         <div className="relative text-white">
           <Image
-            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1674705093416-543e77f84dee?auto=format&fit=crop&w=1200&q=80"
             alt="建設現場の様子"
             width={1200}
             height={800}
@@ -851,7 +866,7 @@ export default function ConstructionDemoPage() {
       {/* ===== Services Section — full-width alternating blocks ===== */}
       <section
         id="services"
-        className="scroll-mt-24 diagonal-section-top bg-[#F8FAFC] pt-20 pb-4"
+        className="scroll-mt-24 diagonal-section-top bg-[#F8FAFC] pt-[60px] pb-4"
         ref={servicesReveal.ref}
       >
         <div className="max-w-6xl mx-auto px-4 mb-12">
@@ -861,7 +876,7 @@ export default function ConstructionDemoPage() {
         <div className="space-y-2">
           <ServiceBlock
             index={0}
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1732192553146-268f9428eea3?auto=format&fit=crop&w=1200&q=80"
             alt="新築住宅の外観"
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -970,7 +985,7 @@ export default function ConstructionDemoPage() {
       </div>
 
       {/* ===== Works Section — staggered scrapbook layout ===== */}
-      <section id="works" className="py-20 bg-white scroll-mt-24 diagonal-section-both">
+      <section id="works" className="py-[60px] bg-white scroll-mt-24 diagonal-section-both">
         <div className="max-w-6xl mx-auto px-4">
           <div className="relative">
             {/* Hard hat watermark behind heading */}
@@ -1079,7 +1094,7 @@ export default function ConstructionDemoPage() {
       </div>
 
       {/* ===== 施工の様子 — horizontal scroll gallery ===== */}
-      <section className="py-20 bg-[#F8FAFC] scroll-mt-24">
+      <section className="py-[60px] bg-[#F8FAFC] scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4">
           <div>
             <SectionHeading label="Process" title="施工の様子" />
@@ -1096,11 +1111,11 @@ export default function ConstructionDemoPage() {
               style={{ transform: `translateX(${galleryX}px)` }}
             >
               {[
-                { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80", alt: "建設現場での作業風景" },
+                { src: "https://images.unsplash.com/photo-1563175452-d3aa37c6d908?auto=format&fit=crop&w=800&q=80", alt: "建設現場での作業風景" },
                 { src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80", alt: "完成した建物の外観" },
                 { src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80", alt: "モダン建築の外観" },
-                { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80", alt: "完成物件の内装" },
-                { src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80", alt: "施工現場の全景" },
+                { src: "https://images.unsplash.com/photo-1563174759-bdaaa5256c81?auto=format&fit=crop&w=800&q=80", alt: "完成物件の内装" },
+                { src: "https://images.unsplash.com/photo-1674705093416-543e77f84dee?auto=format&fit=crop&w=800&q=80", alt: "施工現場の全景" },
                 { src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80", alt: "外構工事の様子" },
               ].map(({ src, alt }, i) => (
                 <div key={i} className="h-gallery-item">
@@ -1137,7 +1152,7 @@ export default function ConstructionDemoPage() {
       {/* ===== Company Profile Section — diagonal top ===== */}
       <section
         id="company"
-        className="py-20 scroll-mt-24 diagonal-section-top bg-white"
+        className="py-[60px] scroll-mt-24 diagonal-section-top bg-white"
         ref={companyReveal.ref}
       >
         <div className="max-w-6xl mx-auto px-4">
@@ -1173,7 +1188,7 @@ export default function ConstructionDemoPage() {
       </section>
 
       {/* ===== Contact Section ===== */}
-      <section id="contact" className="py-20 bg-[#1E293B] text-white scroll-mt-24 grain-texture">
+      <section id="contact" className="py-[60px] bg-[#1E293B] text-white scroll-mt-24 grain-texture">
         <div className="max-w-6xl mx-auto px-4">
           <div>
             <SectionHeading label="Contact" title="お問い合わせ" light={true} />

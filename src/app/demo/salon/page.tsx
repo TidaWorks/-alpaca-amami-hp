@@ -87,6 +87,15 @@ export default function SalonPage() {
   const accessSection = useReveal(0.15);
 
   // --- Reservation form state ---
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navItems = [
+    { href: "#menu", label: "メニュー" },
+    { href: "#stylist", label: "スタイリスト" },
+    { href: "#reservation", label: "ご予約" },
+    { href: "#access", label: "アクセス" },
+  ];
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -371,12 +380,12 @@ export default function SalonPage() {
   ];
 
   const galleryItems = [
-    { src: "https://images.unsplash.com/photo-1633681122956-4be685046038?auto=format&fit=crop&w=800&q=80", label: "カウンセリングスペース" },
-    { src: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80", label: "カットブース" },
-    { src: "https://images.unsplash.com/photo-1562322140-8baeacacf376?auto=format&fit=crop&w=800&q=80", label: "ヘアスタイリング" },
+    { src: "https://images.unsplash.com/photo-1633681926035-ec0e5e7ca5b1?auto=format&fit=crop&w=800&q=80", label: "カウンセリングスペース" },
+    { src: "https://images.unsplash.com/photo-1626379501846-0df4067b8bb9?auto=format&fit=crop&w=800&q=80", label: "カットブース" },
+    { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80", label: "ヘアスタイリング" },
     { src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", label: "オーガニック商品" },
-    { src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80", label: "店内の雰囲気" },
-    { src: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=800&q=80", label: "リラックス空間" },
+    { src: "https://images.unsplash.com/photo-1637777277337-f114350fb088?auto=format&fit=crop&w=800&q=80", label: "店内の雰囲気" },
+    { src: "https://images.unsplash.com/photo-1600948836587-02c1842c9140?auto=format&fit=crop&w=800&q=80", label: "リラックス空間" },
   ];
 
   const heroLetters = "kukuru".split("");
@@ -810,6 +819,39 @@ export default function SalonPage() {
         button[type="submit"]:active, a[href="#reservation"]:active, a[href*="tel:"]:active {
           transform: scale(0.98) !important;
         }
+
+        /* ---- Desktop Nav / Mobile Menu ---- */
+        .salon-nav-link {
+          font-size: 0.78rem;
+          letter-spacing: 0.1em;
+          color: #8B6914;
+          text-decoration: none;
+          opacity: 0.75;
+          transition: opacity 0.2s ease;
+          position: relative;
+        }
+        .salon-nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #8B6914;
+          transition: width 0.25s ease;
+        }
+        .salon-nav-link:hover { opacity: 1; }
+        .salon-nav-link:hover::after { width: 100%; }
+
+        @media (max-width: 768px) {
+          .salon-desktop-nav { display: none !important; }
+          .salon-mobile-menu-btn { display: flex !important; }
+        }
+
+        @media (min-width: 769px) {
+          .salon-mobile-menu-btn { display: none !important; }
+          .salon-mobile-menu { display: none !important; }
+        }
       `}</style>
 
       {/* ===== Fixed Header ===== */}
@@ -819,7 +861,7 @@ export default function SalonPage() {
         style={{ backgroundColor: "rgba(245, 240, 232, 0.6)", transition: "background-color 0.3s ease, box-shadow 0.3s ease" }}
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="/web#gallery" className="text-sm text-[#8B6914] hover:text-[#3D2E0A] transition-colors flex items-center gap-1">
+          <a href="/web#gallery" className="text-sm text-[#8B6914] hover:text-[#3D2E0A] transition-colors hidden md:flex items-center gap-1">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
@@ -828,8 +870,89 @@ export default function SalonPage() {
           <div className="text-center">
             <span className="font-serif-jp text-lg tracking-widest text-[#8B6914]">kukuru</span>
           </div>
-          <div className="w-[100px]" />
+
+          {/* Desktop Nav */}
+          <nav className="salon-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} className="salon-nav-link">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="salon-mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+              padding: 4,
+            }}
+            aria-label="メニュー"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 22,
+                  height: 1.5,
+                  background: "#8B6914",
+                  transition: "background 0.4s",
+                }}
+              />
+            ))}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div
+            className="salon-mobile-menu"
+            style={{
+              background: "rgba(245, 240, 232, 0.98)",
+              borderTop: "1px solid rgba(139, 105, 20, 0.15)",
+              padding: "16px 24px 24px",
+            }}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "12px 0",
+                  color: "#3D2E0A",
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(139, 105, 20, 0.1)",
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="/web#gallery"
+              style={{
+                display: "block",
+                paddingTop: 16,
+                color: "#8B6914",
+                fontSize: "0.8rem",
+                textDecoration: "none",
+                opacity: 0.6,
+              }}
+            >
+              &#8592; ギャラリーに戻る
+            </a>
+          </div>
+        )}
       </header>
 
       {/* ===== Hero Section ===== */}
@@ -837,7 +960,7 @@ export default function SalonPage() {
         <div className="relative h-[85vh] min-h-[500px] flex items-center justify-center overflow-hidden">
           {/* Hero background image */}
           <Image
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1637777277337-f114350fb088?auto=format&fit=crop&w=1200&q=80"
             alt="美容室の店内風景"
             className="absolute inset-0 w-full h-full object-cover"
             width={1200}
@@ -1054,7 +1177,7 @@ export default function SalonPage() {
       </div>
 
       {/* ===== Concept Section ===== */}
-      <section className="relative py-20 px-6 overflow-hidden" ref={conceptSection.ref}>
+      <section className="relative py-[60px] px-6 overflow-hidden" ref={conceptSection.ref}>
         {/* ---- 4. Floating shapes in concept section ---- */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           {/* Flower — top-right */}
@@ -1097,7 +1220,7 @@ export default function SalonPage() {
                 className="rounded-2xl overflow-hidden shadow-lg mask-reveal-wrapper"
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.unsplash.com/photo-1626383120723-2a941488860d?auto=format&fit=crop&w=800&q=80"
                   alt="サロンの落ち着いた内装"
                   className="w-full aspect-[4/5] object-cover"
                   width={600}
@@ -1161,7 +1284,7 @@ export default function SalonPage() {
       </div>
 
       {/* ===== Menu Section ===== */}
-      <section id="menu" className="py-20 bg-white/40 overflow-hidden" ref={menuSection.ref}>
+      <section id="menu" className="py-[60px] bg-white/40 overflow-hidden" ref={menuSection.ref}>
         <div className="text-center mb-10 px-6">
           <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Menu</p>
           <SalonDivider inView={menuSection.visible} />
@@ -1196,7 +1319,7 @@ export default function SalonPage() {
             {/* Right: feature image */}
             <div className="rounded-2xl overflow-hidden shadow-md">
               <Image
-                src="https://images.unsplash.com/photo-1562322140-8baeacacf376?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80"
                 alt="ヘアスタイリングの様子"
                 className="w-full aspect-[3/4] object-cover"
                 width={800}
@@ -1223,7 +1346,7 @@ export default function SalonPage() {
       </div>
 
       {/* ===== Stylist Section ===== */}
-      <section id="stylist" className="relative py-20 px-6 overflow-hidden" ref={stylistSection.ref}>
+      <section id="stylist" className="relative py-[60px] px-6 overflow-hidden" ref={stylistSection.ref}>
         {/* ---- 4. Floating shapes in stylist section ---- */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           {/* Comb — top-center */}
@@ -1333,7 +1456,7 @@ export default function SalonPage() {
       </section>
 
       {/* ===== Gallery-like atmosphere section ===== */}
-      <section className="py-20 px-6 bg-white/40" ref={gallerySection.ref}>
+      <section className="py-[60px] px-6 bg-white/40" ref={gallerySection.ref}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Atmosphere</p>
@@ -1383,7 +1506,7 @@ export default function SalonPage() {
       </section>
 
       {/* ===== Reservation Section ===== */}
-      <section id="reservation" className="py-20 px-6 bg-white/40" ref={reservationSection.ref}>
+      <section id="reservation" className="py-[60px] px-6 bg-white/40" ref={reservationSection.ref}>
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Reservation</p>
@@ -1570,7 +1693,7 @@ export default function SalonPage() {
       </div>
 
       {/* ===== Access Section ===== */}
-      <section id="access" className="py-20 px-6" ref={accessSection.ref}>
+      <section id="access" className="py-[60px] px-6" ref={accessSection.ref}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <p className="font-serif-jp text-xs tracking-[0.3em] text-[#8B6914] mb-4 uppercase">Access</p>
@@ -1656,7 +1779,7 @@ export default function SalonPage() {
             <div>
               <div className="aspect-square md:aspect-[4/5] rounded-xl overflow-hidden relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1633681122956-4be685046038?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80"
                   alt="サロンの外観"
                   className="w-full h-full object-cover"
                   width={600}
@@ -1669,6 +1792,20 @@ export default function SalonPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Google Map */}
+          <div className="mt-12 rounded-xl overflow-hidden shadow-md">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.8!2d129.4946!3d28.3785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5aWE576O5biC5ZCN54CoI!5e0!3m2!1sja!2sjp!4v1"
+              width="100%"
+              height="300"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="サロンの場所"
+            />
           </div>
         </div>
       </section>

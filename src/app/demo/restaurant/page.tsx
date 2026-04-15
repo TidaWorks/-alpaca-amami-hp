@@ -39,7 +39,7 @@ function NavBar() {
         {/* Left: back link */}
         <a
           href="/web#gallery"
-          className="flex items-center gap-2 text-sm transition-all duration-300 hover:gap-3"
+          className="hidden md:flex items-center gap-2 text-sm transition-all duration-300 hover:gap-3"
           style={{ color: "#D4A373" }}
         >
           <ArrowLeftIcon className="w-4 h-4" />

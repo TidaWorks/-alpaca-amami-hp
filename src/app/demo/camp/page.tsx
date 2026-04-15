@@ -743,7 +743,7 @@ export default function CampDemoPage() {
             {/* Left: back link */}
             <a
               href="/web#gallery"
-              className="inline-flex items-center gap-1.5 text-white/90 hover:text-white text-sm font-medium transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 text-white/90 hover:text-white text-sm font-medium transition-colors"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
               ギャラリーに戻る

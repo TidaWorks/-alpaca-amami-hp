@@ -447,7 +447,7 @@ export default function OsteopathicPage() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <a
             href="/web#gallery"
-            className="text-sm text-[#2E86AB] hover:text-[#1A2B3C] transition-colors flex items-center gap-1"
+            className="text-sm text-[#2E86AB] hover:text-[#1A2B3C] transition-colors hidden md:flex items-center gap-1"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />

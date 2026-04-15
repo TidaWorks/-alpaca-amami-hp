@@ -10,11 +10,11 @@ import Image from "next/image";
 
 // ---------- data ----------
 const PRODUCTS = [
-  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-  { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=400&q=80" },
+  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "https://images.unsplash.com/photo-1694837492750-46c9464d1b9d?auto=format&fit=crop&w=400&q=80" },
+  { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "https://images.unsplash.com/photo-1712723246766-3eaea22e52ff?auto=format&fit=crop&w=400&q=80" },
   { name: "パッションフルーツのムース", price: 650, desc: "南国の情熱を閉じ込めた軽やかな一品", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=400&q=80" },
   { name: "島バナナのミルフィーユ", price: 700, desc: "サクサクのパイ生地と濃厚な島バナナ", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-  { name: "黒糖カヌレ", price: 380, desc: "外はカリッと中はもっちり、黒糖の芳醇な香り", img: "https://images.unsplash.com/photo-1558326567-98ae2405596b?auto=format&fit=crop&w=400&q=80" },
+  { name: "黒糖カヌレ", price: 380, desc: "外はカリッと中はもっちり、黒糖の芳醇な香り", img: "https://images.unsplash.com/photo-1712723246675-4c0e8c2bc717?auto=format&fit=crop&w=400&q=80" },
   { name: "マンゴーのシャルロット", price: 680, desc: "完熟マンゴーとビスキュイの華やかなハーモニー", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
 ];
 
@@ -208,39 +208,39 @@ const SEASON_DETAILS = [
 const MapIllustration = () => (
   <svg viewBox="0 0 600 200" width="100%" height="100%" aria-label="店舗周辺の地図イラスト">
     {/* background */}
-    <rect width="600" height="200" fill="rgba(255,245,240,0.05)" rx="8" />
+    <rect width="600" height="200" fill="rgba(255,245,240,0.12)" rx="8" />
     {/* streets - horizontal */}
-    <line x1="0" y1="80" x2="600" y2="80" stroke="rgba(212,165,116,0.2)" strokeWidth="12" />
-    <line x1="0" y1="140" x2="600" y2="140" stroke="rgba(212,165,116,0.12)" strokeWidth="8" />
+    <line x1="0" y1="80" x2="600" y2="80" stroke="rgba(212,165,116,0.4)" strokeWidth="12" />
+    <line x1="0" y1="140" x2="600" y2="140" stroke="rgba(212,165,116,0.25)" strokeWidth="8" />
     {/* streets - vertical */}
-    <line x1="200" y1="0" x2="200" y2="200" stroke="rgba(212,165,116,0.15)" strokeWidth="10" />
-    <line x1="400" y1="0" x2="400" y2="200" stroke="rgba(212,165,116,0.12)" strokeWidth="8" />
+    <line x1="200" y1="0" x2="200" y2="200" stroke="rgba(212,165,116,0.3)" strokeWidth="10" />
+    <line x1="400" y1="0" x2="400" y2="200" stroke="rgba(212,165,116,0.25)" strokeWidth="8" />
     {/* blocks */}
-    <rect x="40" y="95" width="140" height="35" rx="3" fill="rgba(139,111,94,0.08)" />
-    <rect x="220" y="15" width="160" height="55" rx="3" fill="rgba(139,111,94,0.08)" />
-    <rect x="420" y="95" width="140" height="35" rx="3" fill="rgba(139,111,94,0.08)" />
-    <rect x="220" y="150" width="160" height="40" rx="3" fill="rgba(139,111,94,0.08)" />
+    <rect x="40" y="95" width="140" height="35" rx="3" fill="rgba(139,111,94,0.18)" />
+    <rect x="220" y="15" width="160" height="55" rx="3" fill="rgba(139,111,94,0.18)" />
+    <rect x="420" y="95" width="140" height="35" rx="3" fill="rgba(139,111,94,0.18)" />
+    <rect x="220" y="150" width="160" height="40" rx="3" fill="rgba(139,111,94,0.18)" />
     {/* road labels */}
-    <text x="100" y="76" fill="rgba(139,111,94,0.35)" fontSize="8" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle">末広通り</text>
-    <text x="196" y="190" fill="rgba(139,111,94,0.35)" fontSize="8" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle" transform="rotate(-90, 196, 190)">港町通り</text>
+    <text x="100" y="76" fill="rgba(212,165,116,0.6)" fontSize="8" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle">末広通り</text>
+    <text x="196" y="190" fill="rgba(212,165,116,0.6)" fontSize="8" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle" transform="rotate(-90, 196, 190)">港町通り</text>
     {/* store building */}
-    <rect x="270" y="88" width="60" height="40" rx="4" fill="rgba(201,115,107,0.25)" stroke="rgba(201,115,107,0.4)" strokeWidth="1" />
+    <rect x="270" y="88" width="60" height="40" rx="4" fill="rgba(201,115,107,0.4)" stroke="rgba(201,115,107,0.6)" strokeWidth="1" />
     {/* pin marker */}
     <g transform="translate(300, 60)">
       <path d="M0,0 C-8,-14 -14,-20 -14,-28 A14,14 0 1,1 14,-28 C14,-20 8,-14 0,0 Z" fill="#C9736B" />
       <circle cx="0" cy="-28" r="5" fill="#FFF5F0" />
     </g>
     {/* store label */}
-    <rect x="255" y="98" width="90" height="20" rx="3" fill="rgba(44,24,16,0.6)" />
+    <rect x="255" y="98" width="90" height="20" rx="3" fill="rgba(201,115,107,0.7)" />
     <text x="300" y="112" fill="#FFF5F0" fontSize="9" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle" fontWeight="400">Patisserie Soleil</text>
     {/* compass */}
     <g transform="translate(550, 30)">
-      <circle cx="0" cy="0" r="14" fill="rgba(44,24,16,0.3)" stroke="rgba(212,165,116,0.3)" strokeWidth="1" />
+      <circle cx="0" cy="0" r="14" fill="rgba(212,165,116,0.2)" stroke="rgba(212,165,116,0.5)" strokeWidth="1" />
       <text x="0" y="4" fill="#D4A574" fontSize="10" fontFamily="var(--font-cormorant), serif" textAnchor="middle" fontWeight="600">N</text>
       <line x1="0" y1="-10" x2="0" y2="-6" stroke="#D4A574" strokeWidth="1.5" />
     </g>
     {/* port indicator */}
-    <text x="530" y="145" fill="rgba(139,111,94,0.4)" fontSize="9" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle">名瀬港 --&gt;</text>
+    <text x="530" y="145" fill="rgba(212,165,116,0.6)" fontSize="9" fontFamily="var(--font-noto-sans-jp), sans-serif" textAnchor="middle">名瀬港 --&gt;</text>
   </svg>
 );
 
@@ -262,6 +262,7 @@ export default function PatisseriePage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [formSent, setFormSent] = useState(false);
   const [showCta, setShowCta] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // ---- show CTA bar after scrolling 500px ----
   useEffect(() => {
@@ -556,6 +557,12 @@ export default function PatisseriePage() {
           .sol-header-nav { gap: 12px; }
           .sol-header-nav a { font-size: 11px; }
           .sol-header-brand { font-size: 16px; }
+          .sol-desktop-nav { display: none !important; }
+          .sol-mobile-menu-btn { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .sol-mobile-menu-btn { display: none !important; }
+          .sol-mobile-menu { display: none !important; }
         }
 
         /* --- section reveal --- */
@@ -687,7 +694,7 @@ export default function PatisseriePage() {
 
         /* --- concept / story --- */
         .sol-concept {
-          padding: 120px 5vw;
+          padding: 60px 5vw;
           background: #FFF5F0;
           position: relative;
           overflow: hidden;
@@ -760,7 +767,7 @@ export default function PatisseriePage() {
         /* --- showcase --- */
         .sol-showcase {
           background: #2C1810;
-          padding: 100px 0 80px;
+          padding: 60px 0;
           position: relative;
         }
         .sol-showcase h2 {
@@ -935,14 +942,14 @@ export default function PatisseriePage() {
           z-index: 2;
           max-width: 900px;
           margin: 0 auto;
-          padding: 100px 5vw;
+          padding: 60px 5vw;
           display: grid;
           grid-template-columns: auto 1fr;
           gap: 60px;
           align-items: center;
         }
         @media (max-width: 768px) {
-          .sol-seasonal-content { grid-template-columns: 1fr; gap: 32px; padding: 80px 5vw; }
+          .sol-seasonal-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 5vw; }
         }
         .sol-season-wheel {
           width: 120px;
@@ -988,7 +995,7 @@ export default function PatisseriePage() {
 
         /* --- atelier --- */
         .sol-atelier {
-          padding: 120px 5vw;
+          padding: 60px 5vw;
           background: #FFF5F0;
           position: relative;
         }
@@ -1072,7 +1079,7 @@ export default function PatisseriePage() {
         /* --- patissier --- */
         .sol-patissier {
           background: #2C1810;
-          padding: 120px 5vw;
+          padding: 60px 5vw;
           position: relative;
           overflow: hidden;
         }
@@ -1159,7 +1166,7 @@ export default function PatisseriePage() {
 
         /* --- gift --- */
         .sol-gift {
-          padding: 120px 5vw;
+          padding: 60px 5vw;
           background: #FFF5F0;
           position: relative;
           overflow: hidden;
@@ -1216,7 +1223,7 @@ export default function PatisseriePage() {
         /* --- access --- */
         .sol-access {
           background: #2C1810;
-          padding: 100px 5vw;
+          padding: 60px 5vw;
           position: relative;
         }
         .sol-access h2 {
@@ -1282,7 +1289,7 @@ export default function PatisseriePage() {
 
         /* --- contact --- */
         .sol-contact {
-          padding: 120px 5vw;
+          padding: 60px 5vw;
           background: #FFF5F0;
           position: relative;
           overflow: hidden;
@@ -1479,7 +1486,7 @@ export default function PatisseriePage() {
         {/* ============ HEADER ============ */}
         <header ref={headerRef} className="sol-header">
           <span className="sol-header-brand">Soleil</span>
-          <nav>
+          <nav className="sol-desktop-nav" style={{ display: "flex" }}>
             <ul className="sol-header-nav">
               <li><a href="/web#gallery">ギャラリーに戻る</a></li>
               <li><a href="#showcase">ショーケース</a></li>
@@ -1487,7 +1494,76 @@ export default function PatisseriePage() {
               <li><a href="#contact">お問い合わせ</a></li>
             </ul>
           </nav>
+          {/* Mobile Menu Button */}
+          <button
+            className="sol-mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+              padding: 4,
+            }}
+            aria-label="メニュー"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 22,
+                  height: 1.5,
+                  background: "#FFF5F0",
+                  transition: "background 0.4s",
+                }}
+              />
+            ))}
+          </button>
         </header>
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div
+            className="sol-mobile-menu"
+            style={{
+              position: "fixed",
+              top: 48,
+              left: 0,
+              right: 0,
+              zIndex: 99,
+              background: "rgba(44,24,16,0.97)",
+              backdropFilter: "blur(12px)",
+              padding: "16px 24px 24px",
+            }}
+          >
+            {[
+              { href: "/web#gallery", label: "ギャラリーに戻る" },
+              { href: "#showcase", label: "ショーケース" },
+              { href: "#atelier", label: "アトリエ" },
+              { href: "#contact", label: "お問い合わせ" },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "12px 0",
+                  color: "#FFF5F0",
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(212,165,116,0.2)",
+                  fontFamily: "var(--font-noto-sans-jp), sans-serif",
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        )}
 
         {/* ============ HERO ============ */}
         <div className="sol-hero" ref={heroRef}>
@@ -1533,7 +1609,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-concept-visual" style={{ borderRadius: 12, overflow: "hidden" }}>
               <Image
-                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1694837492750-46c9464d1b9d?auto=format&fit=crop&w=800&q=80"
                 alt="美しいケーキの断面"
                 width={800}
                 height={600}
@@ -1644,7 +1720,7 @@ export default function PatisseriePage() {
             </div>
             <div className="sol-atelier-img">
               <Image
-                src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=400&q=80"
+                src="https://images.unsplash.com/photo-1572897306051-abf270479682?auto=format&fit=crop&w=400&q=80"
                 alt="焼き上がり"
                 width={600}
                 height={400}
@@ -1767,8 +1843,8 @@ export default function PatisseriePage() {
                   <Image src={item.img} alt={item.label} width={600} height={400} className="w-full aspect-[3/2] object-cover" />
                 </div>
                 <p style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.1rem", fontWeight: 600, color: "#D4A574", letterSpacing: "0.05em", marginBottom: 4 }}>{item.label}</p>
-                <p style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.2rem", fontWeight: 700, color: "#F5F0E8", marginBottom: 8 }}>{item.price}</p>
-                <p style={{ fontSize: "0.82rem", color: "rgba(245,240,232,0.5)", lineHeight: 1.7 }}>{item.desc}</p>
+                <p style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.2rem", fontWeight: 700, color: "#C9736B", marginBottom: 8 }}>{item.price}</p>
+                <p style={{ fontSize: "0.82rem", color: "#5C4A3D", lineHeight: 1.7 }}>{item.desc}</p>
               </div>
             ))}
           </div>

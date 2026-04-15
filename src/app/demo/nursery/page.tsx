@@ -444,7 +444,7 @@ export default function NurseryPage() {
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <a
             href="/web#gallery"
-            className="text-sm flex items-center gap-1 transition-colors text-[#F59E42] hover:text-[#d4862e]"
+            className="text-sm hidden md:flex items-center gap-1 transition-colors text-[#F59E42] hover:text-[#d4862e]"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />

@@ -100,24 +100,6 @@ function ChevronDownIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 // ─── Particle data ───────────────────────────────────────────────────────────
 
-// Bokeh-style glowing circles (8-15px, bright)
-const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
-  id: i,
-  left: 4 + (i * 7.1) % 93,
-  size: 8 + (i * 2.3) % 8,          // 8–15px
-  delay: (i * 0.75) % 7,
-  duration: 9 + (i * 1.1) % 6,
-  opacity: 0.55 + (i * 0.03) % 0.35, // 0.55–0.90
-  // type: 0=bokeh circle, 1=petal, 2=sea-spray droplet
-  type: i % 3,
-}));
-
-// Hibiscus decorative SVG paths (3 floating instances)
-const HIBISCUS_INSTANCES = [
-  { top: "18%", left: "7%",  delay: 0,   duration: 12, opacity: 0.18, scale: 1.1 },
-  { top: "62%", left: "91%", delay: 2.5, duration: 15, opacity: 0.14, scale: 0.9 },
-  { top: "38%", left: "3%",  delay: 5,   duration: 13, opacity: 0.12, scale: 1.0 },
-];
 
 // Shared journey stops data (used by both desktop and mobile layouts)
 const JOURNEY_STOPS = [
@@ -165,7 +147,7 @@ const SURROUNDINGS_DATA = [
     name: "マングローブカヌー",
     distance: "車で約15分",
     desc: "日本最大級のマングローブ林を小さなカヌーで探索。神秘的な自然を間近で体感できます。",
-    img: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=500&q=75",
+    img: "https://images.unsplash.com/photo-1642647219795-b42946151a14?auto=format&fit=crop&w=500&q=75",
     category: "アクティビティ",
     top: "8%", left: "60%", rotate: 2, width: 210,
   },
@@ -197,7 +179,7 @@ const SURROUNDINGS_DATA = [
     name: "金作原原生林",
     distance: "車で約35分",
     desc: "国の天然記念物であるルリカケスが棲む原始の森。ガイドツアーで亜熱帯の自然を歩きます。",
-    img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=75",
+    img: "https://images.unsplash.com/photo-1723536415988-318f84346aac?auto=format&fit=crop&w=500&q=75",
     category: "自然",
     top: "68%", left: "78%", rotate: 1.8, width: 195,
   },
@@ -205,12 +187,12 @@ const SURROUNDINGS_DATA = [
 
 // ─── Gallery images list (for lightbox prev/next navigation) ─────────────────
 const GALLERY_IMAGES = [
-  { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=90", alt: "奄美の海" },
+  { src: "https://images.unsplash.com/photo-1763096007838-08d53daa4b79?auto=format&fit=crop&w=1400&q=90", alt: "奄美の海" },
   { src: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=90", alt: "客室の朝" },
-  { src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=90", alt: "海の夕日" },
-  { src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=90", alt: "島料理" },
-  { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=90", alt: "テラス" },
-  { src: "https://images.unsplash.com/photo-1587749091230-8fdb2a5f6723?auto=format&fit=crop&w=1400&q=90", alt: "マングローブ" },
+  { src: "https://images.unsplash.com/photo-1727359223218-1e31dc8d224b?auto=format&fit=crop&w=1400&q=90", alt: "海の夕日" },
+  { src: "https://images.unsplash.com/photo-1758945185414-d9e08cb60baf?auto=format&fit=crop&w=1400&q=90", alt: "島料理" },
+  { src: "https://images.unsplash.com/photo-1757852801748-8cfdb4f8b619?auto=format&fit=crop&w=1400&q=90", alt: "テラス" },
+  { src: "https://images.unsplash.com/photo-1706724728271-a81750af4b8f?auto=format&fit=crop&w=1400&q=90", alt: "マングローブ" },
   { src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1400&q=90", alt: "テラスからの眺め" },
   { src: "https://images.unsplash.com/photo-1502673530728-f79b4cab31b1?auto=format&fit=crop&w=1400&q=90", alt: "夜の海" },
 ];
@@ -818,7 +800,7 @@ export default function GuesthousePage() {
         }
 
         @media (max-width: 768px) {
-          .desktop-nav { display: none; }
+          .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
         }
 
@@ -979,73 +961,7 @@ export default function GuesthousePage() {
           object-fit: cover;
         }
 
-        /* ── Particles ── */
-        @keyframes particleFloat {
-          0%   { transform: translateY(0) translateX(0) scale(1); opacity: var(--p-opacity); }
-          25%  { transform: translateY(-28%) translateX(10px) scale(1.15); opacity: calc(var(--p-opacity) * 1.1); }
-          55%  { transform: translateY(-62%) translateX(-8px) scale(0.92); }
-          100% { transform: translateY(-115%) translateX(4px) scale(1.05); opacity: 0; }
-        }
 
-        @keyframes petalDrift {
-          0%   { transform: translateY(0) translateX(0) rotate(0deg) scale(1); opacity: var(--p-opacity); }
-          30%  { transform: translateY(-25%) translateX(14px) rotate(45deg) scale(1.1); }
-          65%  { transform: translateY(-60%) translateX(-10px) rotate(120deg) scale(0.9); }
-          100% { transform: translateY(-110%) translateX(6px) rotate(200deg) scale(0.8); opacity: 0; }
-        }
-
-        @keyframes sprayBurst {
-          0%   { transform: translateY(0) translateX(0) scaleX(1.6) scaleY(0.7); opacity: var(--p-opacity); }
-          40%  { transform: translateY(-30%) translateX(-12px) scaleX(1) scaleY(1); opacity: calc(var(--p-opacity) * 1.2); }
-          100% { transform: translateY(-100%) translateX(8px) scaleX(0.6) scaleY(1.4); opacity: 0; }
-        }
-
-        .hero-particle {
-          position: absolute;
-          pointer-events: none;
-        }
-
-        .hero-particle-bokeh {
-          border-radius: 50%;
-          background: radial-gradient(circle at 35% 35%, rgba(255,255,255,1) 0%, rgba(255,245,220,0.9) 40%, rgba(232,168,124,0.4) 70%, transparent 100%);
-          box-shadow: 0 0 var(--p-glow) var(--p-glow-half) rgba(255,255,255,0.7), 0 0 calc(var(--p-glow) * 2) var(--p-glow) rgba(232,200,160,0.4);
-          animation: particleFloat var(--p-duration) ease-in var(--p-delay) infinite;
-        }
-
-        .hero-particle-petal {
-          border-radius: 80% 0 80% 0;
-          background: linear-gradient(135deg, rgba(255,180,200,0.9) 0%, rgba(255,120,160,0.7) 50%, rgba(232,80,120,0.4) 100%);
-          box-shadow: 0 0 6px 2px rgba(255,150,180,0.5);
-          animation: petalDrift var(--p-duration) ease-in var(--p-delay) infinite;
-        }
-
-        .hero-particle-spray {
-          border-radius: 50% 50% 50% 0;
-          background: radial-gradient(circle, rgba(200,235,255,0.95) 0%, rgba(135,206,235,0.7) 60%, transparent 100%);
-          box-shadow: 0 0 5px 1px rgba(135,206,235,0.6);
-          animation: sprayBurst var(--p-duration) ease-in var(--p-delay) infinite;
-        }
-
-        /* ── Hibiscus floating animation ── */
-        @keyframes hibiscusDrift {
-          0%   { transform: translateY(0) rotate(-5deg) scale(var(--h-scale)); }
-          40%  { transform: translateY(-18px) rotate(4deg) scale(calc(var(--h-scale) * 1.05)); }
-          100% { transform: translateY(0) rotate(-5deg) scale(var(--h-scale)); }
-        }
-
-        .hibiscus-float {
-          position: absolute;
-          pointer-events: none;
-          animation: hibiscusDrift var(--h-duration) ease-in-out var(--h-delay) infinite;
-        }
-
-        /* ── Palm tree decoration ── */
-        .palm-bg-deco {
-          position: absolute;
-          bottom: 0;
-          pointer-events: none;
-          opacity: 0.06;
-        }
 
         /* ── Wave section divider ── */
         .wave-divider {
@@ -1354,7 +1270,7 @@ export default function GuesthousePage() {
               </a>
               <a
                 href="/web#gallery"
-                className={`back-link ${scrolled ? "back-link-dark" : ""}`}
+                className={`back-link ${scrolled ? "back-link-dark" : ""} hidden md:inline-flex`}
                 style={{ color: scrolled ? "#1A2332" : "white", borderLeft: `1px solid ${scrolled ? "#CCC" : "rgba(255,255,255,0.3)"}`, paddingLeft: 16, marginLeft: 4, opacity: 0.7, fontSize: "0.72rem" }}
               >
                 &#8592; ギャラリーに戻る
@@ -1460,7 +1376,7 @@ export default function GuesthousePage() {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85"
+            src="https://images.unsplash.com/photo-1578809606407-567084e461a6?auto=format&fit=crop&w=1600&q=85"
             alt="奄美大島の海"
             width={1200}
             height={800}
@@ -1498,86 +1414,7 @@ export default function GuesthousePage() {
         {/* Pulsing vignette for cinematic depth */}
         <div className="hero-vignette-pulse" aria-hidden="true" />
 
-        {/* Ambient Particles — bokeh + petals + sea spray */}
-        {PARTICLES.map((p) => {
-          const glowPx = Math.round(p.size * 1.8);
-          const petalW = p.size;
-          const petalH = Math.round(p.size * 0.55);
-          const sprayW = Math.round(p.size * 1.4);
-          const sprayH = Math.round(p.size * 0.8);
-          return (
-            <div
-              key={p.id}
-              className={`hero-particle ${p.type === 0 ? "hero-particle-bokeh" : p.type === 1 ? "hero-particle-petal" : "hero-particle-spray"}`}
-              style={{
-                left: `${p.left}%`,
-                bottom: `${8 + (p.id * 5.7) % 30}%`,
-                width:  p.type === 1 ? petalW  : p.type === 2 ? sprayW  : p.size,
-                height: p.type === 1 ? petalH  : p.type === 2 ? sprayH  : p.size,
-                ["--p-opacity" as string]:   p.opacity,
-                ["--p-duration" as string]:  `${p.duration}s`,
-                ["--p-delay" as string]:     `${p.delay}s`,
-                ["--p-glow" as string]:      `${glowPx}px`,
-                ["--p-glow-half" as string]: `${Math.round(glowPx / 2)}px`,
-              }}
-            />
-          );
-        })}
 
-        {/* Palm Tree Silhouette (bottom-right, subtle) */}
-        <svg
-          className="palm-bg-deco"
-          viewBox="0 0 160 280"
-          style={{ right: "2%", width: 140, height: 260, fill: "rgba(255,255,255,0.9)" }}
-          aria-hidden="true"
-        >
-          {/* trunk */}
-          <path d="M76 280 C74 220, 70 160, 80 100 C90 160, 86 220, 84 280Z" />
-          {/* fronds */}
-          <path d="M80 110 C40 70, 0 90, 10 70 C30 50, 70 80, 80 100Z" />
-          <path d="M80 110 C120 70, 155 90, 148 70 C130 50, 90 80, 80 100Z" />
-          <path d="M80 105 C50 55, 15 40, 20 20 C40 10, 72 70, 80 95Z" />
-          <path d="M80 105 C110 55, 145 40, 138 20 C118 10, 88 70, 80 95Z" />
-          <path d="M80 100 C68 50, 55 10, 38 0 C45 20, 70 65, 78 95Z" />
-          <path d="M80 100 C92 50, 104 10, 120 0 C115 20, 90 65, 82 95Z" />
-        </svg>
-
-        {/* Hibiscus floating decorations */}
-        {HIBISCUS_INSTANCES.map((h, hi) => (
-          <svg
-            key={hi}
-            className="hibiscus-float"
-            viewBox="0 0 80 80"
-            style={{
-              top: h.top,
-              left: h.left,
-              width: 64,
-              height: 64,
-              opacity: h.opacity,
-              ["--h-scale" as string]: h.scale,
-              ["--h-duration" as string]: `${h.duration}s`,
-              ["--h-delay" as string]: `${h.delay}s`,
-              zIndex: 1,
-            }}
-            aria-hidden="true"
-          >
-            {/* 5 petals */}
-            <g transform="translate(40,40)">
-              {[0, 72, 144, 216, 288].map((angle, pi) => (
-                <ellipse
-                  key={pi}
-                  cx={0} cy={-18}
-                  rx={9} ry={16}
-                  fill="rgba(255,80,120,0.85)"
-                  transform={`rotate(${angle})`}
-                />
-              ))}
-              {/* center stamen */}
-              <circle cx={0} cy={0} r={6} fill="rgba(255,220,50,0.95)" />
-              <circle cx={0} cy={0} r={3} fill="rgba(255,160,30,1)" />
-            </g>
-          </svg>
-        ))}
 
         {/* Hero Content */}
         <div
@@ -1689,7 +1526,7 @@ export default function GuesthousePage() {
       </div>
 
       {/* ── Concept ─────────────────────────────────────────────────────────── */}
-      <section id="concept" style={{ background: "#FAFAF5", padding: "100px 24px", position: "relative", overflow: "hidden" }}>
+      <section id="concept" style={{ background: "#FAFAF5", padding: "60px 24px", position: "relative", overflow: "hidden" }}>
         {/* Seashell decorations */}
         <svg className="seashell-deco" viewBox="0 0 60 60" style={{ right: "4%", top: "8%", width: 54, animationDelay: "0s" }} aria-hidden="true">
           <path d="M30 52 C10 52, 4 36, 10 22 C16 8, 30 4, 44 10 C58 16, 58 36, 44 46 C38 50, 34 52, 30 52Z" fill="none" stroke="#E8A87C" strokeWidth="1.5" />
@@ -1786,7 +1623,7 @@ export default function GuesthousePage() {
                 }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1535827841776-24afc1e255ac?auto=format&fit=crop&w=700&q=80"
+                  src="https://images.unsplash.com/photo-1722229808606-d060bf607028?auto=format&fit=crop&w=700&q=80"
                   alt="いそかぜの縁側"
                   width={800}
                   height={600}
@@ -1870,7 +1707,7 @@ export default function GuesthousePage() {
             {
               name: "和室 オーシャンビュー",
               nameEn: "Japanese Room / Ocean View",
-              img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1400&q=85",
+              img: "https://images.unsplash.com/photo-1757852823730-8bf5b66af780?auto=format&fit=crop&w=1400&q=85",
               capacity: "1〜3名",
               size: "18畳",
               amenities: ["オーシャンビュー", "縁側付き", "エアコン", "Wi-Fi", "バス・トイレ"],
@@ -1882,7 +1719,7 @@ export default function GuesthousePage() {
             {
               name: "洋室 ガーデンビュー",
               nameEn: "Western Room / Garden View",
-              img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=85",
+              img: "https://images.unsplash.com/photo-1632790929202-a79cd10d9076?auto=format&fit=crop&w=1400&q=85",
               capacity: "1〜2名",
               size: "14m²",
               amenities: ["ガーデンビュー", "デスク付き", "エアコン", "Wi-Fi", "バス・トイレ"],
@@ -1894,7 +1731,7 @@ export default function GuesthousePage() {
             {
               name: "ファミリールーム",
               nameEn: "Family Room",
-              img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=85",
+              img: "https://images.unsplash.com/photo-1759310706740-e486ec5622c9?auto=format&fit=crop&w=1400&q=85",
               capacity: "2〜5名",
               size: "28畳",
               amenities: ["半露天バス", "リビングスペース", "エアコン", "Wi-Fi", "ロフト付き"],
@@ -2157,7 +1994,7 @@ export default function GuesthousePage() {
       </div>
 
       {/* ── Highlights ──────────────────────────────────────────────────────── */}
-      <section id="highlights" style={{ background: "#1A2332", padding: "100px 0", overflow: "hidden" }}>
+      <section id="highlights" style={{ background: "#1A2332", padding: "60px 0", overflow: "hidden" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 40px" }}>
           <div style={{ textAlign: "center", marginBottom: 72 }}>
             <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", color: "#E8A87C", textTransform: "uppercase", marginBottom: 12 }}>
@@ -2444,7 +2281,7 @@ export default function GuesthousePage() {
       </div>
 
       {/* ── Gallery ──────────────────────────────────────────────────────────── */}
-      <section id="gallery" style={{ background: "#FAFAF5", padding: "100px 24px", position: "relative", overflow: "hidden" }}>
+      <section id="gallery" style={{ background: "#FAFAF5", padding: "60px 24px", position: "relative", overflow: "hidden" }}>
         {/* Seashell near gallery */}
         <svg className="seashell-deco" viewBox="0 0 60 60" style={{ left: "1.5%", top: "6%", width: 48, animationDelay: "2.2s" }} aria-hidden="true">
           <path d="M30 52 C10 52, 4 36, 10 22 C16 8, 30 4, 44 10 C58 16, 58 36, 44 46 C38 50, 34 52, 30 52Z" fill="none" stroke="#E8A87C" strokeWidth="1.5" />
@@ -2452,31 +2289,6 @@ export default function GuesthousePage() {
           <path d="M30 52 C36 40, 46 32, 46 22 C46 14, 38 8, 30 8" fill="none" stroke="#E8A87C" strokeWidth="1" strokeOpacity="0.6" />
           <path d="M30 52 C30 36, 30 18, 30 8" fill="none" stroke="#E8A87C" strokeWidth="0.8" strokeOpacity="0.4" />
           <circle cx="30" cy="8" r="3" fill="#E8A87C" opacity="0.5" />
-        </svg>
-        {/* Hibiscus in gallery section */}
-        <svg
-          className="hibiscus-float"
-          viewBox="0 0 80 80"
-          style={{
-            right: "2%",
-            bottom: "8%",
-            width: 56,
-            height: 56,
-            opacity: 0.12,
-            ["--h-scale" as string]: 1,
-            ["--h-duration" as string]: "14s",
-            ["--h-delay" as string]: "3s",
-            zIndex: 0,
-          }}
-          aria-hidden="true"
-        >
-          <g transform="translate(40,40)">
-            {[0, 72, 144, 216, 288].map((angle, pi) => (
-              <ellipse key={pi} cx={0} cy={-18} rx={9} ry={16} fill="rgba(255,80,120,0.85)" transform={`rotate(${angle})`} />
-            ))}
-            <circle cx={0} cy={0} r={6} fill="rgba(255,220,50,0.95)" />
-            <circle cx={0} cy={0} r={3} fill="rgba(255,160,30,1)" />
-          </g>
         </svg>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
@@ -2496,7 +2308,7 @@ export default function GuesthousePage() {
               aria-label="奄美の海 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+                src="https://images.unsplash.com/photo-1763096007838-08d53daa4b79?auto=format&fit=crop&w=600&q=80"
                 alt="奄美の海"
                 width={600}
                 height={400}
@@ -2530,7 +2342,7 @@ export default function GuesthousePage() {
               aria-label="海の夕日 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80"
+                src="https://images.unsplash.com/photo-1727359223218-1e31dc8d224b?auto=format&fit=crop&w=600&q=80"
                 alt="海の夕日"
                 width={600}
                 height={400}
@@ -2547,7 +2359,7 @@ export default function GuesthousePage() {
               aria-label="島料理 を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+                src="https://images.unsplash.com/photo-1758945185414-d9e08cb60baf?auto=format&fit=crop&w=600&q=80"
                 alt="島料理"
                 width={600}
                 height={400}
@@ -2564,7 +2376,7 @@ export default function GuesthousePage() {
               aria-label="テラス を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
+                src="https://images.unsplash.com/photo-1757852801748-8cfdb4f8b619?auto=format&fit=crop&w=600&q=80"
                 alt="テラス"
                 width={600}
                 height={400}
@@ -2581,7 +2393,7 @@ export default function GuesthousePage() {
               aria-label="マングローブ を拡大表示"
             >
               <Image
-                src="https://images.unsplash.com/photo-1587749091230-8fdb2a5f6723?auto=format&fit=crop&w=600&q=80"
+                src="https://images.unsplash.com/photo-1706724728271-a81750af4b8f?auto=format&fit=crop&w=600&q=80"
                 alt="マングローブ"
                 width={600}
                 height={400}
@@ -2631,7 +2443,7 @@ export default function GuesthousePage() {
       </div>
 
       {/* ── Surroundings ─────────────────────────────────────────────────────── */}
-      <section id="surroundings" style={{ background: "#FAFAF5", padding: "100px 24px", overflow: "hidden", position: "relative" }}>
+      <section id="surroundings" style={{ background: "#FAFAF5", padding: "60px 24px", overflow: "hidden", position: "relative" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
             <p className="section-title-en" style={{ marginBottom: 12 }}>Surroundings</p>
@@ -2918,7 +2730,7 @@ export default function GuesthousePage() {
       </section>
 
       {/* ── Booking Info ─────────────────────────────────────────────────────── */}
-      <section id="booking" style={{ background: "#F5F3EF", padding: "100px 24px" }}>
+      <section id="booking" style={{ background: "#F5F3EF", padding: "60px 24px" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
             <p className="section-title-en" style={{ marginBottom: 12 }}>Booking</p>
@@ -3087,7 +2899,7 @@ export default function GuesthousePage() {
       </div>
 
       {/* ── Access ───────────────────────────────────────────────────────────── */}
-      <section id="access" style={{ background: "#1A2332", padding: "100px 24px" }}>
+      <section id="access" style={{ background: "#1A2332", padding: "60px 24px" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
             <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", color: "#E8A87C", textTransform: "uppercase", marginBottom: 12 }}>
@@ -3237,7 +3049,7 @@ export default function GuesthousePage() {
       </section>
 
       {/* ── Contact ──────────────────────────────────────────────────────────── */}
-      <section id="contact" style={{ background: "#FAFAF5", padding: "100px 24px" }}>
+      <section id="contact" style={{ background: "#FAFAF5", padding: "60px 24px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
             <p className="section-title-en" style={{ marginBottom: 12 }}>Contact</p>
