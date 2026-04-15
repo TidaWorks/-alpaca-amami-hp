@@ -113,7 +113,16 @@ export default function FarmDemoPage() {
 
   // Calendar, stats, shipping, gallery Intersection Observers
   useEffect(() => {
-    const options = { threshold: 0.15 };
+    const options = { threshold: 0.05, rootMargin: "50px 0px" };
+
+    // IntersectionObserverが使えない環境のフォールバック
+    if (typeof IntersectionObserver === "undefined") {
+      setCalendarVisible(true);
+      setStatsVisible(true);
+      setShippingVisible(true);
+      galleryRefs.current.forEach((el) => { if (el) el.classList.add("gallery-revealed"); });
+      return;
+    }
 
     const calObs = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
@@ -151,19 +160,39 @@ export default function FarmDemoPage() {
           galObs.unobserve(el);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05, rootMargin: "50px 0px" });
     galleryRefs.current.forEach((el) => { if (el) galObs.observe(el); });
+
+    // フォールバック: 2秒後に強制表示（Observerが発火しなかった場合の保険）
+    const timer = setTimeout(() => {
+      setCalendarVisible(true);
+      setStatsVisible(true);
+      setShippingVisible(true);
+      galleryRefs.current.forEach((el) => { if (el) el.classList.add("gallery-revealed"); });
+    }, 2000);
 
     return () => {
       calObs.disconnect();
       statsObs.disconnect();
       shipObs.disconnect();
       galObs.disconnect();
+      clearTimeout(timer);
     };
   }, []);
 
 
   useEffect(() => {
+    // IntersectionObserverが使えない環境のフォールバック
+    if (typeof IntersectionObserver === "undefined") {
+      sectionsRef.current.forEach((el) => {
+        if (el) {
+          el.classList.add("opacity-100", "translate-y-0");
+          el.classList.remove("opacity-0", "translate-y-8");
+        }
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -173,14 +202,27 @@ export default function FarmDemoPage() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.05, rootMargin: "50px 0px" }
     );
 
     sectionsRef.current.forEach((el) => {
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    // フォールバック: 2秒後に全セクション強制表示（Observerが発火しなかった場合の保険）
+    const timer = setTimeout(() => {
+      sectionsRef.current.forEach((el) => {
+        if (el) {
+          el.classList.add("opacity-100", "translate-y-0");
+          el.classList.remove("opacity-0", "translate-y-8");
+        }
+      });
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
   }, []);
 
   const addRef = (el: HTMLDivElement | null) => {

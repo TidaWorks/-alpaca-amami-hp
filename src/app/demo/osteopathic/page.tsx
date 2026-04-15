@@ -10,6 +10,7 @@ export default function OsteopathicPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", date: "", menu: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [showCta, setShowCta] = useState(false);
@@ -437,6 +438,16 @@ export default function OsteopathicPage() {
         }
         button[type="submit"]:hover { transform: scale(1.03) !important; }
         button[type="submit"]:active { transform: scale(0.98) !important; }
+
+        @media (max-width: 768px) {
+          .osteo-desktop-nav { display: none !important; }
+          .osteo-mobile-menu-btn { display: flex !important; }
+        }
+
+        @media (min-width: 769px) {
+          .osteo-mobile-menu-btn { display: none !important; }
+          .osteo-mobile-menu { display: none !important; }
+        }
       `}</style>
 
       {/* ===== Fixed Header ===== */}
@@ -457,7 +468,8 @@ export default function OsteopathicPage() {
           <div className="text-center">
             <span className="font-serif-jp text-base tracking-widest text-[#1A2B3C]">島つむぎ整骨院</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-[#1A2B3C]/70">
+          {/* Desktop Nav */}
+          <nav className="osteo-desktop-nav hidden md:flex items-center gap-6 text-sm text-[#1A2B3C]/70">
             <a href="#menu" className="hover:text-[#2E86AB] transition-colors">施術メニュー</a>
             <a href="#access" className="hover:text-[#2E86AB] transition-colors">アクセス</a>
             <a
@@ -467,7 +479,76 @@ export default function OsteopathicPage() {
               ご予約
             </a>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="osteo-mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+              padding: 4,
+            }}
+            aria-label="メニュー"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 22,
+                  height: 1.5,
+                  background: "#2E86AB",
+                  transition: "background 0.4s",
+                }}
+              />
+            ))}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div
+            className="osteo-mobile-menu"
+            style={{
+              background: "rgba(247, 249, 252, 0.98)",
+              borderTop: "1px solid rgba(46, 134, 171, 0.15)",
+              padding: "16px 24px 24px",
+            }}
+          >
+            {[
+              { href: "#symptoms", label: "こんな症状に" },
+              { href: "#menu", label: "施術メニュー" },
+              { href: "#features", label: "当院の特徴" },
+              { href: "#flow", label: "施術の流れ" },
+              { href: "#staff", label: "院長紹介" },
+              { href: "#gallery", label: "院内の様子" },
+              { href: "#access", label: "アクセス" },
+              { href: "#contact", label: "ご予約・お問い合わせ" },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "12px 0",
+                  color: "#1A2B3C",
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(46, 134, 171, 0.1)",
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
       {/* ===== Hero Section ===== */}

@@ -1022,7 +1022,7 @@ export default function BistroAdanPage() {
       </section>
 
       {/* ===== ABOUT SECTION ===== */}
-      <section id="about" className="relative py-24 sm:py-32 px-6">
+      <section id="about" className="relative py-[60px] sm:py-32 px-6">
         <div ref={aboutSection.ref} className="max-w-3xl mx-auto text-center">
           {/* Section divider */}
           <div className="mb-12">
@@ -1093,7 +1093,7 @@ export default function BistroAdanPage() {
       </section>
 
       {/* ===== MENU SECTION ===== */}
-      <section id="menu" className="relative py-24 sm:py-32 px-4 sm:px-6">
+      <section id="menu" className="relative py-[60px] sm:py-32 px-4 sm:px-6">
         {/* Subtle warm background */}
         <div
           className="absolute inset-0"
@@ -1419,7 +1419,7 @@ export default function BistroAdanPage() {
       </section>
 
       {/* ===== INTERIOR / ATMOSPHERE SECTION ===== */}
-      <section id="interior" className="relative py-24 sm:py-32 px-4 sm:px-6">
+      <section id="interior" className="relative py-[60px] sm:py-32 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Section header */}
           <div className="text-center mb-16">
@@ -1598,7 +1598,7 @@ export default function BistroAdanPage() {
       </section>
 
       {/* ===== ACCESS SECTION ===== */}
-      <section id="access" className="relative py-24 sm:py-32 px-6">
+      <section id="access" className="relative py-[60px] sm:py-32 px-6">
         <div
           className="absolute inset-0"
           style={{

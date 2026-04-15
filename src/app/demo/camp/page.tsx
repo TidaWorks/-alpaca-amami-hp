@@ -1212,7 +1212,7 @@ export default function CampDemoPage() {
                   name: "カヤック体験",
                   price: "¥4,000/人",
                   desc: "マングローブの森をカヤックで探検。ガイド付きで初心者でも安心。",
-                  img: "https://images.unsplash.com/photo-1604715892639-3e53f8aeb6c3?auto=format&fit=crop&w=600&q=80",
+                  img: "https://images.unsplash.com/photo-1642647219795-b42946151a14?auto=format&fit=crop&w=600&q=80",
                   alt: "カヤック体験の様子",
                 },
                 {
