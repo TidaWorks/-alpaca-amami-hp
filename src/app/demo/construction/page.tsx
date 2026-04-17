@@ -1028,30 +1028,17 @@ export default function ConstructionDemoPage() {
                 size="medium"
               />
             </div>
-            {/* Card 3: small, cols 1-5, row 2, pushed down */}
-            <div className="col-span-12 md:col-span-5 md:mt-6">
+            {/* Card 3: medium, full row (公共工事削除後) */}
+            <div className="col-span-12 md:col-span-8 md:col-start-3 md:mt-6">
               <WorkCard
                 src="/images/demo/construction/work-cafe.jpg"
-                alt="島カフェ てぃだ 店舗内装の施工例"
+                alt="島カフェ アルパカ 店舗内装の施工例"
                 badge="店舗内装"
-                title="名瀬 島カフェ「てぃだ」内装工事"
+                title="名瀬 島カフェ「アルパカ」内装工事"
                 date="2024年1月完工"
                 desc="空きテナントを島の素材を活かしたカフェ空間にフルリノベーション。奄美大島産の木材を使用したカウンターと、観光客にも人気の開放的なテラス席を設計。"
                 delay={300}
                 size="medium"
-              />
-            </div>
-            {/* Card 4: large, cols 6-12, row 2 */}
-            <div className="col-span-12 md:col-span-7">
-              <WorkCard
-                src="/images/demo/construction/work-public-hall.jpg"
-                alt="奄美市立公民館 改修工事の完成写真"
-                badge="公共工事"
-                title="奄美市立○○公民館 改修工事"
-                date="2023年8月完工"
-                desc="老朽化した公民館の外壁・屋根の改修と内部のバリアフリー化。地域住民が安心して利用できるよう、耐震性能の向上も実施しました。"
-                delay={420}
-                size="large"
               />
             </div>
           </div>
