@@ -14,18 +14,6 @@
   font-family: var(--font-display);
 }
 
-/* ─── ギャラリーマーキー ─── */
-
-@keyframes marqueeLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
-}
-
-@keyframes marqueeRight {
-  0% { transform: translateX(-33.333%); }
-  100% { transform: translateX(0); }
-}
-
 /* ─── UIコンポーネント（shimmer-button, border-beam等） ─── */
 
 @theme inline {

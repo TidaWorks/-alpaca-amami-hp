@@ -1,6 +1,4 @@
 import WebHero from "@/components/web/WebHero";
-import GalleryMarquee from "@/components/web/GalleryMarquee";
-import WebPainPoints from "@/components/web/WebPainPoints";
 import WebFeatures from "@/components/web/WebFeatures";
 import WebPricing from "@/components/web/WebPricing";
 import WebFlow from "@/components/web/WebFlow";
@@ -14,14 +12,12 @@ export const metadata = {
 
 export default function WebPage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <WebHero />
-      <WebPainPoints />
       <WebFeatures />
-      <GalleryMarquee />
       <WebPricing />
       <WebFlow />
       <WebCTA />
-    </>
+    </div>
   );
 }

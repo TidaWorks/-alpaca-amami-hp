@@ -1,425 +1,447 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Zen_Maru_Gothic } from "next/font/google";
 
-/* ═══════════════════════════════════════════════════════════
-   WebHero — "Editorial Curtain"
+const zenMaru = Zen_Maru_Gothic({
+  weight: "700",
+  subsets: ["latin"],
+  display: "swap",
+});
 
-   Concept: A high-end Japanese design magazine spread.
-   Asymmetric layout. Cinematic horizontal mask reveal.
-   Film grain texture. Confident, left-aligned typography.
-   One unforgettable moment: the curtain wipe.
-   ═══════════════════════════════════════════════════════════ */
+const demos = [
+  { name: "Hair Salon kukuru", category: "美容室", url: "/demo/salon", image: "/images/demo-screenshots/salon.png" },
+  { name: "Bistro ADAN", category: "ビストロ", url: "/demo/restaurant", image: "/images/demo-screenshots/restaurant.png" },
+  { name: "珊瑚の宿 いそかぜ", category: "民泊", url: "/demo/guesthouse", image: "/images/demo-screenshots/guesthouse.png" },
+  { name: "南風建設", category: "建設業", url: "/demo/construction", image: "/images/demo-screenshots/construction.png" },
+  { name: "BLUE AMAMI", category: "ダイビング", url: "/demo/diving", image: "/images/demo-screenshots/diving.png" },
+  { name: "Pâtisserie Soleil", category: "パティスリー", url: "/demo/patisserie", image: "/images/demo-screenshots/patisserie.png" },
+  { name: "ひだまり保育園", category: "保育園", url: "/demo/nursery", image: "/images/demo-screenshots/nursery.png" },
+  { name: "AMAMI FOREST CAMP", category: "キャンプ場", url: "/demo/camp", image: "/images/demo-screenshots/camp.png" },
+  { name: "島つむぎ整骨院", category: "整骨院", url: "/demo/osteopathic", image: "/images/demo-screenshots/osteopathic.png" },
+  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png" },
+];
 
-const PHASE = { HIDDEN: 0, WIPE: 1, CONTENT: 2, FULL: 3 } as const;
+const stats = [
+  { value: "10", unit: "業種", label: "デモサイト公開中" },
+  { value: "¥50,000", unit: "〜", label: "LP制作プラン" },
+  { value: "対面", unit: "OK", label: "島内打ち合わせ" },
+];
+
+type Transition = {
+  name: string;
+  cx: number;
+  cy: number;
+};
 
 export default function WebHero() {
-  const [phase, setPhase] = useState<number>(PHASE.HIDDEN);
-  const grainRef = useRef<HTMLCanvasElement>(null);
+  const router = useRouter();
+  const [current, setCurrent] = useState(0);
+  const [isAuto, setIsAuto] = useState(true);
+  const [transition, setTransition] = useState<Transition | null>(null);
+  const touchStartX = useRef(0);
+  const touchStartTime = useRef(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const isDragging = useRef(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [scrollY, setScrollY] = useState(0);
+  const total = demos.length;
 
-  // Orchestrated reveal sequence
+  // Auto-advance
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase(PHASE.WIPE), 200);    // Start wipe
-    const t2 = setTimeout(() => setPhase(PHASE.CONTENT), 1000); // Content begins
-    const t3 = setTimeout(() => setPhase(PHASE.FULL), 2200);    // Everything settled
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    if (!isAuto) return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % total);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, [isAuto, total]);
+
+  // touchmoveをnon-passiveで登録（preventDefaultのため）
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      const dx = e.touches[0].clientX - touchStartX.current;
+      if (Math.abs(dx) > 10) e.preventDefault();
+      setDragOffset(dx);
+    };
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", onTouchMove);
   }, []);
 
-  // Film grain — canvas-based for authentic analog texture
+  // ⑥ スクロール連動パララックス
   useEffect(() => {
-    const canvas = grainRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let raf: number;
-    let frame = 0;
-    let paused = false;
-
-    const draw = () => {
-      if (paused) return;
-      frame++;
-      if (frame % 3 !== 0) { raf = requestAnimationFrame(draw); return; } // throttle to ~20fps
-
-      canvas.width = 256;
-      canvas.height = 256;
-      const imageData = ctx.createImageData(256, 256);
-      const data = imageData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const v = Math.random() * 255;
-        data[i] = v; data[i + 1] = v; data[i + 2] = v;
-        data[i + 3] = 18; // very subtle
-      }
-      ctx.putImageData(imageData, 0, 0);
-      raf = requestAnimationFrame(draw);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
     };
-
-    const handleVisibility = () => {
-      if (document.hidden) {
-        paused = true;
-        cancelAnimationFrame(raf);
-      } else {
-        paused = false;
-        raf = requestAnimationFrame(draw);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibility);
-    raf = requestAnimationFrame(draw);
-    return () => {
-      cancelAnimationFrame(raf);
-      document.removeEventListener("visibilitychange", handleVisibility);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const goTo = useCallback(
+    (index: number) => {
+      setCurrent(((index % total) + total) % total);
+      setIsAuto(false);
+      const timer = setTimeout(() => setIsAuto(true), 8000);
+      return () => clearTimeout(timer);
+    },
+    [total]
+  );
+
+  // ⑤ 指追従スワイプ + 慣性
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartTime.current = Date.now();
+    isDragging.current = true;
+    setIsAuto(false);
+    setDragOffset(0);
+  };
+
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    isDragging.current = false;
+    const endX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - endX;
+    const elapsed = Date.now() - touchStartTime.current;
+    const velocity = Math.abs(diff / Math.max(elapsed, 1));
+
+    setDragOffset(0);
+
+    if (Math.abs(diff) > 30) {
+      const direction = diff > 0 ? 1 : -1;
+      const slides = velocity > 1.5 ? 3 : velocity > 0.7 ? 2 : 1;
+      goTo(current + direction * slides);
+    } else {
+      // 戻す（スナップバック）
+      const timer = setTimeout(() => setIsAuto(true), 8000);
+      return () => clearTimeout(timer);
+    }
+  };
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    if (transition) return;
+    const demo = demos[index];
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    setIsAuto(false);
+    setTransition({ name: demo.name, cx, cy });
+
+    setTimeout(() => {
+      router.push(demo.url);
+    }, 900);
+  };
+
+  const getItemStyle = (index: number): React.CSSProperties => {
+    let diff = index - current;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    const abs = Math.abs(diff);
+
+    if (abs > 2 && dragOffset === 0) return { opacity: 0, visibility: "hidden", pointerEvents: "none" };
+    if (abs > 3) return { opacity: 0, visibility: "hidden", pointerEvents: "none" };
+
+    // ドラッグ中は指の動きに追従（px → %換算: phoneWidth≒200px, 88% offset ≒ 176px）
+    const dragPercent = dragOffset / 2;
+
+    return {
+      transform: `translateX(calc(${diff * 88}% + ${dragPercent}px)) scale(${1 - abs * 0.14}) rotateY(${-diff * 10}deg)`,
+      zIndex: 10 - abs,
+      opacity: Math.max(0, 1 - abs * 0.35),
+      pointerEvents: abs === 0 && dragOffset === 0 ? "auto" : "none",
+      filter: abs > 0 ? `brightness(${0.8})` : undefined,
+      transition: isDragging.current ? "none" : undefined,
+    };
+  };
 
   return (
     <>
+      {/* ── スタイル定義 ── */}
       <style>{`
-        .hero-editorial {
-          --accent: #E8A435;
-          --dark: #050505;
-          --warm: #F5EDE0;
-          font-family: 'Shippori Mincho B1', serif;
-        }
-
-        /* ── Curtain wipe mask ── */
-        @keyframes curtainWipe {
-          0%   { clip-path: inset(0 100% 0 0); }
-          100% { clip-path: inset(0 0 0 0); }
-        }
-        .curtain-reveal {
-          clip-path: inset(0 100% 0 0);
-          animation: curtainWipe 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-        }
-
-        /* ── Vertical line draw ── */
-        @keyframes lineGrow {
-          from { transform: scaleY(0); }
-          to   { transform: scaleY(1); }
-        }
-
-        /* ── Fade slide ── */
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(28px); }
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeSlideLeft {
-          from { opacity: 0; transform: translateX(-20px); }
-          to   { opacity: 1; transform: translateX(0); }
+        .hero-fade {
+          animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        /* ── Accent bar expand ── */
-        @keyframes barExpand {
-          from { transform: scaleX(0); }
-          to   { transform: scaleX(1); }
+        /* ① グラデーションテキスト */
+        @keyframes gradientFlow {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .gradient-text {
+          background: linear-gradient(90deg, #F5A623, #0D9488, #E8A435, #F5A623);
+          background-size: 300% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: gradientFlow 5s ease-in-out infinite;
         }
 
-        /* ── Scroll indicator pulse ── */
-        @keyframes scrollPulse {
-          0%, 100% { opacity: 0.4; transform: scaleY(0.6); }
-          50%      { opacity: 1; transform: scaleY(1); }
+        /* ③ アクティブフォンのグロー */
+        @keyframes phoneGlow {
+          0%, 100% { box-shadow: 0 0 30px rgba(245,166,35,0.15), 0 16px 48px rgba(0,0,0,0.12); }
+          50% { box-shadow: 0 0 50px rgba(245,166,35,0.25), 0 20px 60px rgba(0,0,0,0.15); }
+        }
+        .phone-glow {
+          animation: phoneGlow 3s ease-in-out infinite;
         }
 
-        /* ── Slow drift for decorative elements ── */
-        @keyframes slowDrift {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33%      { transform: translate(8px, -12px) rotate(0.5deg); }
-          66%      { transform: translate(-6px, -4px) rotate(-0.3deg); }
+        /* 遷移アニメーション */
+        @keyframes diveRipple {
+          from { width: 0; height: 0; opacity: 0.6; }
+          to   { width: 300vmax; height: 300vmax; opacity: 0; }
         }
-
-        /* ── Grain canvas ── */
-        .grain-overlay {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0.35;
-          mix-blend-mode: overlay;
+        @keyframes diveAura {
+          from { width: 0; height: 0; opacity: 0; }
+          to   { width: 250vmax; height: 250vmax; opacity: 1; }
         }
-        .grain-overlay canvas {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          image-rendering: pixelated;
+        @keyframes diveOverlay {
+          from { backdrop-filter: blur(0px); background: rgba(10,10,10,0); }
+          to   { backdrop-filter: blur(24px); background: rgba(10,10,10,0.95); }
+        }
+        @keyframes diveLabelIn {
+          from { opacity: 0; transform: translate(-50%,-50%) scale(0.85); }
+          to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+        }
+        @keyframes diveLabelOut {
+          from { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+          to   { opacity: 0; transform: translate(-50%,-50%) scale(1.1); }
         }
       `}</style>
 
-      <section
-        className="hero-editorial relative min-h-screen overflow-hidden flex items-center"
-        style={{ backgroundColor: "var(--dark)" }}
-      >
-        {/* ── Film grain ── */}
-        <div className="grain-overlay" aria-hidden="true">
-          <canvas ref={grainRef} />
-        </div>
-
-        {/* ── Background: warm gradient blob (top-right) ── */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "-20%", right: "-10%",
-            width: "70vw", height: "70vw",
-            maxWidth: "900px", maxHeight: "900px",
-            background: "radial-gradient(ellipse at 60% 40%, rgba(232,164,53,0.07) 0%, rgba(232,164,53,0.02) 40%, transparent 70%)",
-            animation: "slowDrift 20s ease-in-out infinite",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ── Background: cool gradient blob (bottom-left) ── */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            bottom: "-15%", left: "-15%",
-            width: "60vw", height: "60vw",
-            maxWidth: "800px", maxHeight: "800px",
-            background: "radial-gradient(ellipse at 40% 60%, rgba(100,140,180,0.04) 0%, transparent 60%)",
-            animation: "slowDrift 25s ease-in-out 3s infinite reverse",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ── Decorative vertical line (left accent) ── */}
-        <div
-          className="absolute left-[7%] md:left-[9%] top-[15%] w-px bg-gradient-to-b from-transparent via-[var(--accent)] to-transparent origin-top"
-          style={{
-            height: "55%",
-            opacity: phase >= PHASE.WIPE ? 0.25 : 0,
-            animation: phase >= PHASE.WIPE ? "lineGrow 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" : "none",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ── Decorative horizontal line (bottom accent) ── */}
-        <div
-          className="absolute bottom-[22%] left-[7%] md:left-[9%] h-px bg-gradient-to-r from-[var(--accent)] to-transparent origin-left"
-          style={{
-            width: "35%",
-            opacity: phase >= PHASE.CONTENT ? 0.2 : 0,
-            animation: phase >= PHASE.CONTENT ? "barExpand 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both" : "none",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ── Large decorative kanji watermark ── */}
-        <div
-          className="absolute pointer-events-none select-none"
-          style={{
-            right: "5%", top: "50%",
-            transform: "translateY(-50%)",
-            fontSize: "clamp(200px, 35vw, 500px)",
-            fontFamily: "'Shippori Mincho B1', serif",
-            fontWeight: 800,
-            color: "transparent",
-            WebkitTextStroke: "1px rgba(232,164,53,0.06)",
-            lineHeight: 1,
-            opacity: phase >= PHASE.WIPE ? 1 : 0,
-            transition: "opacity 2s ease 0.5s",
-          }}
-          aria-hidden="true"
-        >
-          届
-        </div>
-
-        {/* ── Main content: left-aligned, asymmetric ── */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
-
-          {/* Label */}
+      {/* ── 画面遷移オーバーレイ ── */}
+      {transition && (
+        <>
           <div
-            className="mb-6 md:mb-10"
+            className="fixed z-[9998] pointer-events-none rounded-full border-2 border-[#F5A623]/30"
             style={{
-              opacity: phase >= PHASE.CONTENT ? 1 : 0,
-              animation: phase >= PHASE.CONTENT ? "fadeSlideLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s both" : "none",
-            }}
-          >
-            <span
-              className="inline-block text-[10px] md:text-xs tracking-[0.35em] uppercase"
-              style={{
-                color: "var(--accent)",
-                fontFamily: "var(--font-outfit), 'Outfit', sans-serif",
-                fontWeight: 600,
-              }}
-            >
-              ALPACA &mdash; Amami Oshima
-            </span>
-          </div>
-
-          {/* ── Headline with curtain wipe ── */}
-          <div className="mb-8 md:mb-12">
-            <h1
-              className={phase >= PHASE.WIPE ? "curtain-reveal" : ""}
-              style={{
-                fontSize: "clamp(2.2rem, 7.5vw, 6rem)",
-                fontWeight: 800,
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-                clipPath: phase < PHASE.WIPE ? "inset(0 100% 0 0)" : undefined,
-              }}
-            >
-              <span style={{ color: "var(--warm)" }}>あなたのお店を、</span>
-              <br />
-              <span
-                style={{
-                  color: "var(--accent)",
-                  textShadow: "0 0 120px rgba(232,164,53,0.2)",
-                  animationDelay: phase >= PHASE.WIPE ? "0.25s" : undefined,
-                }}
-              >
-                ネットに届ける。
-              </span>
-            </h1>
-          </div>
-
-          {/* ── Accent bar ── */}
-          <div
-            className="h-[3px] mb-8 md:mb-10 origin-left"
-            style={{
-              width: "clamp(60px, 8vw, 120px)",
-              backgroundColor: "var(--accent)",
-              opacity: phase >= PHASE.CONTENT ? 1 : 0,
-              animation: phase >= PHASE.CONTENT ? "barExpand 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both" : "none",
+              left: transition.cx,
+              top: transition.cy,
+              transform: "translate(-50%,-50%)",
+              animation: "diveRipple 0.9s cubic-bezier(0.16,1,0.3,1) forwards",
             }}
           />
-
-          {/* ── Subtitle ── */}
-          <p
-            className="max-w-md mb-10 md:mb-14 leading-relaxed"
+          <div
+            className="fixed z-[9997] pointer-events-none rounded-full"
             style={{
-              fontSize: "clamp(0.9rem, 1.8vw, 1.15rem)",
-              color: "rgba(245, 237, 224, 0.7)",
-              fontFamily: "'Shippori Mincho B1', serif",
-              fontWeight: 600,
-              opacity: phase >= PHASE.CONTENT ? 1 : 0,
-              animation: phase >= PHASE.CONTENT ? "fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" : "none",
+              left: transition.cx,
+              top: transition.cy,
+              transform: "translate(-50%,-50%)",
+              background: "radial-gradient(circle, rgba(245,166,35,0.15) 0%, rgba(245,166,35,0.05) 40%, transparent 70%)",
+              animation: "diveAura 1s cubic-bezier(0.16,1,0.3,1) forwards",
+            }}
+          />
+          <div
+            className="fixed inset-0 z-[9999] pointer-events-none"
+            style={{ animation: "diveOverlay 0.8s cubic-bezier(0.4,0,0.2,1) forwards" }}
+          />
+          <div
+            className="fixed z-[10000] pointer-events-none text-white text-2xl md:text-4xl font-bold tracking-widest"
+            style={{
+              left: "50%",
+              top: "50%",
+              opacity: 0,
+              textShadow: "0 0 40px rgba(245,166,35,0.4)",
+              animation: "diveLabelIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.15s forwards, diveLabelOut 0.25s ease 0.7s forwards",
             }}
           >
-            奄美大島の小さなお店から、
-            <br />
-            ちょうどいいホームページを。
+            {transition.name}
+          </div>
+        </>
+      )}
+
+      <section ref={sectionRef} className="relative bg-[#FFFBF5] overflow-hidden pb-14 md:pb-20">
+        {/* 背景パターン */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.025]"
+          aria-hidden="true"
+          style={{
+            backgroundImage: "radial-gradient(circle, #B8A080 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+
+        {/* ⑥ 背景グラデーション（スクロール連動パララックス） */}
+        <div
+          className="absolute top-0 right-0 w-[70%] h-[60%] pointer-events-none"
+          aria-hidden="true"
+          style={{
+            background: "radial-gradient(ellipse at 80% 20%, rgba(245,166,35,0.07) 0%, transparent 60%)",
+            transform: `translateY(${scrollY * 0.05}px)`,
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[50%] h-[40%] pointer-events-none"
+          aria-hidden="true"
+          style={{
+            background: "radial-gradient(ellipse at 20% 80%, rgba(13,148,136,0.04) 0%, transparent 60%)",
+            transform: `translateY(${-scrollY * 0.03}px)`,
+          }}
+        />
+
+        {/* ── ヘッダー（ロゴ）── */}
+        <div className="relative max-w-5xl mx-auto px-6 pt-6 pb-12 md:pt-8 md:pb-16">
+          <a href="/" className="inline-block">
+            <div className="relative w-28 h-12 md:w-32 md:h-14">
+              <Image src="/images/alpaca-logo.png" alt="ALPACA" fill className="object-contain object-left" />
+            </div>
+          </a>
+        </div>
+
+        <div className="relative max-w-5xl mx-auto px-6">
+          {/* ラベル */}
+          <p className="hero-fade text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-5 font-display">
+            WEB DESIGN
           </p>
 
-          {/* ── CTAs ── */}
+          {/* ① 見出し（グラデーションテキスト） */}
+          <h1 className={`hero-fade text-[#2D2418] text-[1.5rem] md:text-[2.8rem] lg:text-[3.4rem] leading-[1.4] mb-5 ${zenMaru.className}`} style={{ animationDelay: "0.1s" }}>
+            奄美から、全国へ届く
+            <br />
+            ホームページ。
+          </h1>
+
+          {/* アクセントバー */}
+          <div className="hero-fade h-[3px] w-16 md:w-20 bg-[#F5A623] rounded-full mb-6" style={{ animationDelay: "0.2s" }} />
+
+          <p className="hero-fade text-[#8A7D6B] text-[0.95rem] md:text-base leading-relaxed mb-14 md:mb-18 max-w-md" style={{ animationDelay: "0.25s" }}>
+            島で対面打ち合わせ。スマホ対応。納品後もサポート。
+            <br />
+            まずはデモサイトをご覧ください。
+          </p>
+
+          {/* ── 3Dカルーセル ── */}
           <div
-            className="flex flex-col sm:flex-row gap-4"
-            style={{
-              opacity: phase >= PHASE.CONTENT ? 1 : 0,
-              animation: phase >= PHASE.CONTENT ? "fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both" : "none",
-            }}
+            className="relative h-[420px] md:h-[540px] -mx-6 md:mx-0 overflow-hidden"
+            style={{ perspective: "1000px" }}
+            ref={carouselRef}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-            <a
-              href="#gallery"
-              className="group relative inline-flex items-center justify-center overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F5A623] outline-none"
-              style={{
-                padding: "14px 36px",
-                backgroundColor: "var(--accent)",
-                color: "var(--dark)",
-                fontFamily: "var(--font-outfit), 'Outfit', sans-serif",
-                fontWeight: 700,
-                fontSize: "0.85rem",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                border: "none",
-                cursor: "pointer",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 8px 40px rgba(232,164,53,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+            <div className="absolute inset-0 flex items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
+              {demos.map((demo, i) => {
+                const style = getItemStyle(i);
+                const isActive = i === current;
+                return (
+                  <div
+                    key={demo.category}
+                    className={`absolute ${isDragging.current ? "" : "transition-all duration-[500ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"}`}
+                    style={style}
+                  >
+                    <div
+                      role="link"
+                      tabIndex={isActive ? 0 : -1}
+                      aria-label={`${demo.name}のデモサイトを見る`}
+                      className="block group cursor-pointer"
+                      onClick={(e) => isActive && handleCardClick(e, i)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && isActive) handleCardClick(e as unknown as React.MouseEvent<HTMLDivElement>, i);
+                      }}
+                    >
+                      {/* ③ Phone frame（アクティブ時グロー） */}
+                      <div
+                        data-phone-idx={i}
+                        className={`relative w-[185px] h-[380px] md:w-[235px] md:h-[480px] bg-[#1A1A1A] rounded-[36px] md:rounded-[44px] p-[5px] md:p-[7px] transition-shadow duration-500 ${
+                          isActive ? "phone-glow" : "shadow-[0_16px_48px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)]"
+                        }`}
+                      >
+                        {/* Dynamic island */}
+                        <div className="absolute top-[12px] md:top-[14px] left-1/2 -translate-x-1/2 w-[60px] md:w-[76px] h-[20px] md:h-[24px] bg-black rounded-full z-20" />
+                        {/* Screen */}
+                        <div className="relative w-full h-full rounded-[31px] md:rounded-[37px] overflow-hidden bg-white">
+                          <Image
+                            src={demo.image}
+                            alt={demo.name}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 768px) 185px, 235px"
+                            priority={Math.abs((() => { let d = i - current; if (d > total / 2) d -= total; if (d < -total / 2) d += total; return d; })()) <= 1}
+                          />
+                        </div>
+                        {/* 側面ハイライト */}
+                        <div className={`absolute inset-0 rounded-[36px] md:rounded-[44px] pointer-events-none transition-all duration-500 ${
+                          isActive ? "ring-2 ring-[#F5A623]/30" : "ring-1 ring-white/[0.08]"
+                        }`} />
+                      </div>
+                      {/* サイト名 + カテゴリー */}
+                      <div className="text-center mt-3 md:mt-4">
+                        <p className="text-sm font-semibold text-[#2D2418]">{demo.name}</p>
+                        <p className="text-[11px] text-[#8A7D6B] mt-0.5">{demo.category}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* 矢印ボタン（デスクトップ） */}
+            <button
+              onClick={() => goTo(current - 1)}
+              className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/80 hover:bg-white shadow-md hover:shadow-lg transition-all hover:scale-110"
+              aria-label="前のデモ"
             >
-              実績を見る
-            </a>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D2418" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              onClick={() => goTo(current + 1)}
+              className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/80 hover:bg-white shadow-md hover:shadow-lg transition-all hover:scale-110"
+              aria-label="次のデモ"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D2418" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          {/* ドットナビ */}
+          <div className="flex justify-center gap-1.5 mt-5">
+            {demos.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === current ? "bg-[#F5A623] w-5" : "bg-[#D4CEC5] w-2 hover:bg-[#B0A898]"
+                }`}
+                aria-label={`${demos[i].category}のデモに移動`}
+              />
+            ))}
+          </div>
+
+          {/* ② 数字バー */}
+          <div className="hero-fade grid grid-cols-3 gap-4 mt-12 max-w-lg mx-auto" style={{ animationDelay: "0.4s" }}>
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-[#2D2418]">
+                  <span className="text-2xl md:text-3xl font-black font-display">{stat.value}</span>
+                  <span className="text-sm font-semibold text-[#F5A623] ml-0.5">{stat.unit}</span>
+                </p>
+                <p className="text-[11px] text-[#8A7D6B] mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="flex justify-center mt-8">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F5A623] outline-none"
-              style={{
-                padding: "14px 36px",
-                color: "var(--warm)",
-                fontFamily: "var(--font-outfit), 'Outfit', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.85rem",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                border: "1px solid rgba(245,237,224,0.15)",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(245,237,224,0.06)";
-                e.currentTarget.style.borderColor = "rgba(245,237,224,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.borderColor = "rgba(245,237,224,0.15)";
-              }}
+              className="inline-flex items-center gap-2 bg-[#F5A623] text-[#2D2418] font-bold text-sm px-7 py-3 rounded-full hover:bg-[#E09510] active:scale-[0.97] transition-all duration-200 shadow-[0_4px_16px_rgba(245,166,35,0.25)] hover:shadow-[0_6px_24px_rgba(245,166,35,0.35)]"
             >
-              無料相談する
+              無料で相談する
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </a>
           </div>
-        </div>
-
-        {/* ── Right-side vertical text (editorial accent) ── */}
-        <div
-          className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3"
-          style={{
-            opacity: phase >= PHASE.FULL ? 0.3 : 0,
-            transition: "opacity 1.2s ease 0.5s",
-            writingMode: "vertical-rl",
-            fontFamily: "var(--font-outfit), 'Outfit', sans-serif",
-            fontSize: "10px",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "var(--warm)",
-          }}
-          aria-hidden="true"
-        >
-          Web Design & Development
-        </div>
-
-        {/* ── Scroll indicator ── */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          style={{
-            opacity: phase >= PHASE.FULL ? 1 : 0,
-            transition: "opacity 0.8s ease",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "9px",
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              color: "rgba(245,237,224,0.3)",
-              fontFamily: "var(--font-outfit), 'Outfit', sans-serif",
-            }}
-          >
-            Scroll
-          </span>
-          <div
-            className="w-px h-8 origin-top"
-            style={{
-              background: "linear-gradient(to bottom, var(--accent), transparent)",
-              animation: "scrollPulse 2.4s ease-in-out infinite",
-            }}
-          />
-        </div>
-
-        {/* ── Bottom wave transition to next section ── */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] pointer-events-none z-20">
-          <svg
-            className="block w-full h-[40px] md:h-[60px]"
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z"
-              fill="#FAFAF8"
-            />
-          </svg>
         </div>
       </section>
     </>
