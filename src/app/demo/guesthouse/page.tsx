@@ -2252,7 +2252,7 @@ export default function GuesthousePage() {
                   {ICONS_SM[idx]}
                 </div>
 
-                <div style={{ paddingTop: 4 }}>
+                <div style={{ paddingTop: 4, marginLeft: 20 }}>
                   <p style={{ fontSize: "0.58rem", letterSpacing: "0.16em", color: "rgba(232,168,124,0.45)", textTransform: "uppercase", marginBottom: 6 }}>
                     {item.step} / {item.time}
                   </p>

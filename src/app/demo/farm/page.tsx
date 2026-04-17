@@ -296,7 +296,7 @@ export default function FarmDemoPage() {
       unit: "300g",
       desc: "自家栽培のサトウキビを昔ながらの製法で炊き上げた純黒糖。コクと深みが違います。",
       season: "通年",
-      img: "/images/demo/farm/product-guava.jpg",
+      img: "/images/demo/farm/product-brown-sugar.jpg",
       alt: "自家製黒糖",
     },
     {
