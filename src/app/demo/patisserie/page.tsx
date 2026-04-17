@@ -198,10 +198,10 @@ const CakeCrossSection = ({ cakeProgress, cakeLayerRef }: { cakeProgress: number
 
 // ---------- seasonal descriptions ----------
 const SEASON_DETAILS = [
-  { title: "春限定 -- 島苺とピスタチオのフレジエ", desc: "奄美の温暖な気候で育った島苺をたっぷりと使い、ピスタチオのクレームムースリーヌで包み込んだ春だけの特別なフレジエ。苺の鮮やかな断面が、ショーケースでひときわ目を引く一品です。\n\nほのかな酸味と上品な甘さのバランスを、ぜひお楽しみください。" },
-  { title: "夏限定 -- マンゴーとパッションのヴェリーヌ", desc: "完熟マンゴーのピューレとパッションフルーツのジュレを層に重ねた、南国の夏を閉じ込めたヴェリーヌ。ココナッツのブランマンジェが爽やかなアクセントを添えます。\n\n暑い日にひとさじ、島のトロピカルな恵みをどうぞ。" },
-  { title: "秋限定 -- 紫芋と黒糖のモンブラン", desc: "奄美産の紫芋をたっぷり使った秋色のモンブラン。黒糖のメレンゲと栗のクリームが織りなす、深く優しい味わいです。\n\n秋の実りを一皿に凝縮した、この季節だけの贅沢をお楽しみください。" },
-  { title: "冬限定 -- タンカンとショコラのビュッシュ", desc: "島タンカンの爽やかな香りとビターショコラの濃厚なハーモニー。クリスマスシーズンにぴったりのビュッシュ・ド・ノエルです。\n\n冬の奄美から届く、心まで温まる一品をお楽しみください。" },
+  { title: "春限定 -- 島苺とピスタチオのフレジエ", desc: "奄美の温暖な気候で育った島苺をたっぷりと使い、ピスタチオのクレームムースリーヌで包み込んだ春だけの特別なフレジエ。苺の鮮やかな断面が、ショーケースでひときわ目を引く一品です。\n\nほのかな酸味と上品な甘さのバランスを、ぜひお楽しみください。", image: "/images/demo/patisserie/seasonal-spring.jpg" },
+  { title: "夏限定 -- マンゴーとパッションのヴェリーヌ", desc: "完熟マンゴーのピューレとパッションフルーツのジュレを層に重ねた、南国の夏を閉じ込めたヴェリーヌ。ココナッツのブランマンジェが爽やかなアクセントを添えます。\n\n暑い日にひとさじ、島のトロピカルな恵みをどうぞ。", image: "/images/demo/patisserie/seasonal-summer.jpg" },
+  { title: "秋限定 -- 紫芋と黒糖のモンブラン", desc: "奄美産の紫芋をたっぷり使った秋色のモンブラン。黒糖のメレンゲと栗のクリームが織りなす、深く優しい味わいです。\n\n秋の実りを一皿に凝縮した、この季節だけの贅沢をお楽しみください。", image: "/images/demo/patisserie/seasonal-autumn.jpg" },
+  { title: "冬限定 -- タンカンとショコラのビュッシュ", desc: "島タンカンの爽やかな香りとビターショコラの濃厚なハーモニー。クリスマスシーズンにぴったりのビュッシュ・ド・ノエルです。\n\n冬の奄美から届く、心まで温まる一品をお楽しみください。", image: "/images/demo/patisserie/seasonal-winter.jpg" },
 ];
 
 // ---------- Map illustration SVG ----------
@@ -926,10 +926,10 @@ export default function PatisseriePage() {
         .sol-seasonal-bg {
           position: absolute;
           inset: 0;
-          background-image: url('/images/demo/patisserie/seasonal-bg.jpg');
           background-size: cover;
           background-position: center;
           background-attachment: fixed;
+          transition: background-image 0.6s ease-in-out;
         }
         .sol-seasonal-bg::after {
           content: '';
@@ -1664,7 +1664,7 @@ export default function PatisseriePage() {
           className="sol-seasonal sol-section"
           ref={(el) => addSectionRef(el, 2)}
         >
-          <div className="sol-seasonal-bg" />
+          <div className="sol-seasonal-bg" style={{ backgroundImage: `url('${SEASON_DETAILS[seasonIdx].image}')` }} />
           <div className="sol-seasonal-content">
             <div className="sol-season-wheel">
               {SEASONS.map((s, i) => {
@@ -1710,14 +1710,6 @@ export default function PatisseriePage() {
           <h2>アトリエ</h2>
           <p className="sol-atelier-sub">お菓子が生まれる場所</p>
           <div className="sol-atelier-collage">
-            <div className="sol-atelier-img">
-              <Image
-                src="/images/demo/patisserie/atelier.jpg"
-                alt="アトリエ風景"
-                width={600}
-                height={400}
-              />
-            </div>
             <div className="sol-atelier-img">
               <Image
                 src="/images/demo/patisserie/atelier-baking.jpg"
