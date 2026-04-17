@@ -336,7 +336,7 @@ export default function FarmDemoPage() {
     { src: "/images/demo/farm/hero.jpg", alt: "農園の果樹と青空", h: "h-64" },
     { src: "/images/demo/farm/about-working.jpg", alt: "収穫のようす", h: "h-48" },
     { src: "/images/demo/farm/gallery-orchard.jpg", alt: "島の果樹園風景", h: "h-72" },
-    { src: "/images/demo/farm/experience.jpg", alt: "南国の色鮮やかな果物", h: "h-56" },
+    { src: "/images/demo/farm/experience.webp", alt: "南国の色鮮やかな果物", h: "h-56" },
     { src: "/images/demo/farm/gallery-fruit-section.jpg", alt: "果物の断面", h: "h-64" },
     { src: "/images/demo/farm/gallery-branch.jpg", alt: "果樹の枝と実", h: "h-52" },
   ];
@@ -1450,309 +1450,100 @@ export default function FarmDemoPage() {
         </section>
 
         {/* ===== PRODUCTS ===== */}
-        <section id="products" className="diagonal-both earth-texture" style={{ backgroundColor: "#FFF4E6", position: "relative", overflow: "hidden" }}>
-          {/* Basket silhouette watermark */}
-          <div className="absolute pointer-events-none" style={{ bottom: "5%", right: "-2%", opacity: 0.05, zIndex: 0 }}>
-            <svg width="220" height="180" viewBox="0 0 220 180">
-              {/* Basket weave body */}
-              <path d="M20 80 Q30 140 110 160 Q190 140 200 80 Z" fill="#8B5E34" />
-              {/* Horizontal weave lines */}
-              {[95, 110, 125, 140, 155].map((y, i) => (
-                <path key={i} d={`M${20 + i * 4} ${y} Q110 ${y + 5} ${200 - i * 4} ${y}`}
-                  stroke="#FFFDF7" strokeWidth="2" fill="none" opacity="0.4" />
-              ))}
-              {/* Vertical weave */}
-              {[50, 70, 90, 110, 130, 150, 170].map((x, i) => (
-                <path key={i} d={`M${x} 80 L${x + (i % 2 === 0 ? -5 : 5)} 158`}
-                  stroke="#FFFDF7" strokeWidth="1.5" fill="none" opacity="0.3" />
-              ))}
-              {/* Rim */}
-              <ellipse cx="110" cy="80" rx="90" ry="18" fill="#A0703E" />
-              {/* Handle */}
-              <path d="M60 78 Q110 30 160 78" stroke="#8B5E34" strokeWidth="12" fill="none" strokeLinecap="round" />
-              <path d="M60 78 Q110 30 160 78" stroke="#C49460" strokeWidth="6" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
+        <section id="products" className="py-20 md:py-28" style={{ backgroundColor: "#FFFDF7", position: "relative", overflow: "hidden" }}>
           <div
             ref={addRef}
-            className="max-w-6xl mx-auto px-6 opacity-0 translate-y-8 transition-all duration-700 ease-out"
+            className="opacity-0 translate-y-8 transition-all duration-700 ease-out"
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="h-px flex-1" style={{ backgroundColor: "#E07B39", opacity: 0.3 }} />
-              <p className="text-xs tracking-widest font-medium" style={{ color: "#E07B39" }}>PRODUCTS</p>
-              <div className="h-px flex-1" style={{ backgroundColor: "#E07B39", opacity: 0.3 }} />
-            </div>
-            <h2 className="font-serif-jp text-3xl md:text-4xl font-bold text-center mb-2" style={{ color: "#2C1810" }}>
-              商品紹介
-            </h2>
-            <p className="text-center text-sm mb-12" style={{ color: "#8B5E34" }}>
-              奄美の自然が育てた、季節の贈りもの
-            </p>
-
-            {/* Row 1: Large (60%) + Medium (40%) */}
-            <div className="flex flex-col sm:flex-row gap-5 mb-5">
-              {/* Large crate - たんかん */}
-              <div
-                ref={(el) => { addRef(el); addCardRef(el, 0); }}
-                className="market-crate market-crate-flex-large opacity-0 translate-y-8 transition-all duration-700 ease-out"
-                style={{ flex: "0 0 60%", minWidth: 0, boxShadow: "0 8px 32px rgba(44,24,16,0.16), inset 0 1px 0 rgba(255,253,247,0.4)", border: "1.5px solid rgba(139,94,52,0.25)", paddingBottom: 16 }}
-              >
-                <div className="crate-border-h" style={{ top: 0 }} />
-                <div className="crate-border-h" style={{ bottom: 0 }} />
-                <div className="crate-border-v" style={{ left: 0 }} />
-                <div className="crate-border-v" style={{ right: 0 }} />
-                <div className="shipping-badge">全国送料: ¥1,100〜</div>
-                {/* Wood grain SVG texture overlay */}
-                <div style={{ position: "absolute", inset: 0, borderRadius: 6, overflow: "hidden", pointerEvents: "none", zIndex: 1 }}>
-                  <svg width="100%" height="100%" preserveAspectRatio="none" style={{ position: "absolute", inset: 0 }}>
-                    <defs>
-                      <pattern id="woodgrain0" x="0" y="0" width="8" height="60" patternUnits="userSpaceOnUse">
-                        <path d="M4 0 Q5 15 3 30 Q5 45 4 60" stroke="rgba(139,94,52,0.07)" strokeWidth="1" fill="none" />
-                        <path d="M2 0 Q1 20 3 40 Q1 50 2 60" stroke="rgba(139,94,52,0.05)" strokeWidth="0.8" fill="none" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#woodgrain0)" />
-                  </svg>
-                </div>
-                {/* Straw/hay strands peeking at sides */}
-                <div style={{ position: "absolute", bottom: 28, left: 8, zIndex: 3, pointerEvents: "none" }}>
-                  <svg width="24" height="40" viewBox="0 0 24 40">
-                    <path d="M4 40 Q6 28 3 16 Q5 8 4 0" stroke="#C8A055" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity="0.7" />
-                    <path d="M10 40 Q8 26 11 14 Q9 6 10 0" stroke="#D4AA60" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.6" />
-                    <path d="M16 40 Q18 30 15 18 Q17 8 16 2" stroke="#C0983C" strokeWidth="1.3" fill="none" strokeLinecap="round" opacity="0.5" />
-                  </svg>
-                </div>
-                <div className="crate-img-overflow rounded-xl overflow-hidden" style={{ height: 200 }}>
-                  <Image src={products[0].img} alt={products[0].alt} width={600} height={400} className="w-full h-full object-cover" />
-                </div>
-                <div className="px-5 pt-3 pb-1 relative">
-                  <div className="price-tag">
-                    <p className="font-bold text-base" style={{ color: "#E07B39", lineHeight: 1 }}>{products[0].price}</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8B5E34" }}>{products[0].unit}</p>
-                  </div>
-                  <div className="mb-1">
-                    <span className="shun-badge" style={{ marginRight: 8 }}>旬 {products[0].season}</span>
-                  </div>
-                  <h3 className="handwritten-label text-xl font-bold mb-0.5 mt-2">{products[0].name}</h3>
-                  <p className="text-xs mb-2" style={{ color: "#8B5E34" }}>{products[0].sub}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#5C3D2E" }}>{products[0].desc}</p>
-                  <a
-                    href="#contact"
-                    className="crate-action-hint mt-3 inline-block text-xs font-bold px-5 py-2 rounded-full"
-                    style={{ backgroundColor: "#2C1810", color: "#FFFDF7" }}
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    カゴに入れる
-                  </a>
-                  <a
-                    href="#contact"
-                    className="order-btn"
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    この商品を注文する
-                  </a>
-                </div>
-              </div>
-
-              {/* Medium crate - パッションフルーツ */}
-              <div
-                ref={(el) => { addRef(el); addCardRef(el, 1); }}
-                className="market-crate market-crate-flex-small opacity-0 translate-y-8 transition-all duration-700 ease-out"
-                style={{ flex: "1 1 40%", minWidth: 0, boxShadow: "0 8px 32px rgba(44,24,16,0.14), inset 0 1px 0 rgba(255,253,247,0.4)", border: "1.5px solid rgba(139,94,52,0.25)", paddingBottom: 16, transitionDelay: "80ms" }}
-              >
-                <div className="crate-border-h" style={{ top: 0 }} />
-                <div className="crate-border-h" style={{ bottom: 0 }} />
-                <div className="crate-border-v" style={{ left: 0 }} />
-                <div className="crate-border-v" style={{ right: 0 }} />
-                <div className="shipping-badge">全国送料: ¥1,100〜</div>
-                <div style={{ position: "absolute", inset: 0, borderRadius: 6, overflow: "hidden", pointerEvents: "none", zIndex: 1 }}>
-                  <svg width="100%" height="100%" preserveAspectRatio="none" style={{ position: "absolute", inset: 0 }}>
-                    <defs>
-                      <pattern id="woodgrain1" x="0" y="0" width="8" height="60" patternUnits="userSpaceOnUse">
-                        <path d="M4 0 Q5 15 3 30 Q5 45 4 60" stroke="rgba(139,94,52,0.07)" strokeWidth="1" fill="none" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#woodgrain1)" />
-                  </svg>
-                </div>
-                <div style={{ position: "absolute", bottom: 26, right: 8, zIndex: 3, pointerEvents: "none" }}>
-                  <svg width="20" height="36" viewBox="0 0 20 36">
-                    <path d="M3 36 Q5 24 2 12 Q4 5 3 0" stroke="#C8A055" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.65" />
-                    <path d="M10 36 Q8 22 11 10 Q9 4 10 0" stroke="#D4AA60" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.55" />
-                  </svg>
-                </div>
-                <div className="crate-img-overflow rounded-xl overflow-hidden" style={{ height: 160 }}>
-                  <Image src={products[1].img} alt={products[1].alt} width={600} height={400} className="w-full h-full object-cover" />
-                </div>
-                <div className="px-4 pt-3 pb-1 relative">
-                  <div className="price-tag">
-                    <p className="font-bold text-sm" style={{ color: "#E07B39", lineHeight: 1 }}>{products[1].price}</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8B5E34" }}>{products[1].unit}</p>
-                  </div>
-                  <div className="mb-1">
-                    <span className="shun-badge" style={{ transform: "rotate(2deg)" }}>旬 {products[1].season}</span>
-                  </div>
-                  <h3 className="handwritten-label text-base font-bold mt-2 mb-0.5">{products[1].name}</h3>
-                  <p className="text-xs mb-2" style={{ color: "#8B5E34" }}>{products[1].sub}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#5C3D2E", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" } as React.CSSProperties}>{products[1].desc}</p>
-                  <a
-                    href="#contact"
-                    className="crate-action-hint mt-3 inline-block text-xs font-bold px-4 py-2 rounded-full"
-                    style={{ backgroundColor: "#2C1810", color: "#FFFDF7" }}
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    カゴに入れる
-                  </a>
-                  <a
-                    href="#contact"
-                    className="order-btn"
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    この商品を注文する
-                  </a>
-                </div>
-              </div>
+            <div className="max-w-6xl mx-auto px-6">
+              <p className="text-xs tracking-widest font-medium text-center mb-3" style={{ color: "#E07B39" }}>PRODUCTS</p>
+              <h2 className="font-serif-jp text-3xl md:text-4xl font-bold text-center mb-2" style={{ color: "#2C1810" }}>
+                商品紹介
+              </h2>
+              <p className="text-center text-sm mb-10" style={{ color: "#8B5E34" }}>
+                奄美の自然が育てた、季節の贈りもの
+              </p>
             </div>
 
-            {/* Row 2: Three small crates (33% each) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mb-5">
-              {[products[2], products[3], products[4]].map((product, ii) => (
+            {/* Horizontal scroll cards */}
+            <div
+              className="flex gap-5 overflow-x-auto px-6 pb-6 snap-x snap-mandatory"
+              style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch", msOverflowStyle: "none" }}
+            >
+              {products.map((product, i) => (
                 <div
-                  key={ii}
-                  ref={(el) => { addRef(el); addCardRef(el, ii + 2); }}
-                  className="market-crate opacity-0 translate-y-8 transition-all duration-700 ease-out"
-                  style={{ boxShadow: "0 6px 24px rgba(44,24,16,0.13), inset 0 1px 0 rgba(255,253,247,0.4)", border: "1.5px solid rgba(139,94,52,0.25)", paddingBottom: 14, transitionDelay: `${(ii + 2) * 80}ms` }}
+                  key={i}
+                  className="flex-shrink-0 snap-center"
+                  style={{ width: "min(85vw, 340px)" }}
                 >
-                  <div className="crate-border-h" style={{ top: 0 }} />
-                  <div className="crate-border-h" style={{ bottom: 0 }} />
-                  <div className="crate-border-v" style={{ left: 0 }} />
-                  <div className="crate-border-v" style={{ right: 0 }} />
-                  <div className="shipping-badge">全国送料: ¥1,100〜</div>
-                  <div className="crate-img-overflow rounded-lg overflow-hidden" style={{ height: 120 }}>
-                    <Image src={product.img} alt={product.alt} width={600} height={400} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="px-3 pt-2 pb-1 relative">
-                    <div className="price-tag" style={{ top: 8, right: -2 }}>
-                      <p className="font-bold text-xs" style={{ color: "#E07B39", lineHeight: 1 }}>{product.price}</p>
-                      <p style={{ fontSize: 10, color: "#8B5E34", marginTop: 2 }}>{product.unit}</p>
+                  <div
+                    className="relative rounded-2xl overflow-hidden"
+                    style={{ backgroundColor: "#fff", boxShadow: "0 4px 24px rgba(44,24,16,0.1)" }}
+                  >
+                    {/* Product image - large */}
+                    <div className="relative" style={{ height: 280 }}>
+                      <Image
+                        src={product.img}
+                        alt={product.alt}
+                        width={600}
+                        height={400}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Season badge */}
+                      <div
+                        className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold"
+                        style={{ backgroundColor: "rgba(255,255,255,0.95)", color: "#E07B39", backdropFilter: "blur(8px)" }}
+                      >
+                        旬 {product.season}
+                      </div>
+                      {/* Price overlay */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 px-5 py-4"
+                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.7))" }}
+                      >
+                        <div className="flex items-end justify-between">
+                          <div>
+                            <h3 className="text-white text-xl font-bold">{product.name}</h3>
+                            <p className="text-white/70 text-xs mt-0.5">{product.sub}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-white text-xl font-bold">{product.price}</p>
+                            <p className="text-white/60 text-xs">{product.unit}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <span className="shun-badge" style={{ fontSize: 9, padding: "2px 6px", transform: `rotate(${ii % 2 === 0 ? "-2deg" : "2deg"})` }}>
-                      旬
-                    </span>
-                    <h3 className="handwritten-label text-sm font-bold mt-2 mb-0.5">{product.name}</h3>
-                    <p style={{ fontSize: 10, color: "#8B5E34", marginBottom: 4 }}>{product.sub}</p>
-                    <p className="leading-relaxed" style={{ fontSize: 10, color: "#5C3D2E", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } as React.CSSProperties}>{product.desc}</p>
-                    <a
-                      href="#contact"
-                      className="crate-action-hint mt-2 inline-block font-bold rounded-full"
-                      style={{ fontSize: 10, padding: "4px 10px", backgroundColor: "#2C1810", color: "#FFFDF7" }}
-                      onClick={(e) => smoothScroll(e, "contact")}
-                    >
-                      カゴに入れる
-                    </a>
-                    <a
-                      href="#contact"
-                      className="order-btn"
-                      style={{ fontSize: 11 }}
-                      onClick={(e) => smoothScroll(e, "contact")}
-                    >
-                      この商品を注文する
-                    </a>
+                    {/* Description + CTA */}
+                    <div className="px-5 py-4">
+                      <p className="text-sm leading-relaxed mb-4" style={{ color: "#5C3D2E" }}>{product.desc}</p>
+                      <a
+                        href="#contact"
+                        className="block text-center text-sm font-bold py-3 rounded-full transition-all duration-200"
+                        style={{ backgroundColor: "#2C1810", color: "#FFFDF7" }}
+                        onClick={(e) => smoothScroll(e, "contact")}
+                        onMouseEnter={(e) => { (e.target as HTMLElement).style.backgroundColor = "#E07B39"; }}
+                        onMouseLeave={(e) => { (e.target as HTMLElement).style.backgroundColor = "#2C1810"; }}
+                      >
+                        この商品を注文する
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Row 3: Medium (40%) + Large (60%) */}
-            <div className="flex flex-col sm:flex-row gap-5">
-              {/* Medium - ドラゴンフルーツ */}
-              <div
-                ref={(el) => { addRef(el); addCardRef(el, 5); }}
-                className="market-crate market-crate-flex-small opacity-0 translate-y-8 transition-all duration-700 ease-out"
-                style={{ flex: "0 0 40%", minWidth: 0, boxShadow: "0 8px 32px rgba(44,24,16,0.14), inset 0 1px 0 rgba(255,253,247,0.4)", border: "1.5px solid rgba(139,94,52,0.25)", paddingBottom: 16, transitionDelay: "500ms" }}
-              >
-                <div className="crate-border-h" style={{ top: 0 }} />
-                <div className="crate-border-h" style={{ bottom: 0 }} />
-                <div className="crate-border-v" style={{ left: 0 }} />
-                <div className="crate-border-v" style={{ right: 0 }} />
-                <div className="shipping-badge">全国送料: ¥1,100〜</div>
-                <div className="crate-img-overflow rounded-xl overflow-hidden" style={{ height: 150 }}>
-                  <Image src={products[5].img} alt={products[5].alt} width={600} height={400} className="w-full h-full object-cover" />
-                </div>
-                <div className="px-4 pt-3 pb-1 relative">
-                  <div className="price-tag">
-                    <p className="font-bold text-sm" style={{ color: "#E07B39", lineHeight: 1 }}>{products[5].price}</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8B5E34" }}>{products[5].unit}</p>
-                  </div>
-                  <span className="shun-badge" style={{ transform: "rotate(-1deg)" }}>旬 {products[5].season}</span>
-                  <h3 className="handwritten-label text-base font-bold mt-2 mb-0.5">{products[5].name}</h3>
-                  <p className="text-xs mb-2" style={{ color: "#8B5E34" }}>{products[5].sub}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#5C3D2E", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" } as React.CSSProperties}>{products[5].desc}</p>
-                  <a
-                    href="#contact"
-                    className="crate-action-hint mt-3 inline-block text-xs font-bold px-4 py-2 rounded-full"
-                    style={{ backgroundColor: "#2C1810", color: "#FFFDF7" }}
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    カゴに入れる
-                  </a>
-                  <a
-                    href="#contact"
-                    className="order-btn"
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    この商品を注文する
-                  </a>
-                </div>
-              </div>
-
-              {/* Large crate - ジャム・ジュースセット */}
-              <div
-                ref={(el) => { addRef(el); addCardRef(el, 6); }}
-                className="market-crate market-crate-flex-large opacity-0 translate-y-8 transition-all duration-700 ease-out"
-                style={{ flex: "1 1 60%", minWidth: 0, boxShadow: "0 8px 32px rgba(44,24,16,0.16), inset 0 1px 0 rgba(255,253,247,0.4)", border: "1.5px solid rgba(139,94,52,0.25)", paddingBottom: 16, transitionDelay: "580ms" }}
-              >
-                <div className="crate-border-h" style={{ top: 0 }} />
-                <div className="crate-border-h" style={{ bottom: 0 }} />
-                <div className="crate-border-v" style={{ left: 0 }} />
-                <div className="crate-border-v" style={{ right: 0 }} />
-                <div className="shipping-badge">全国送料: ¥1,100〜</div>
-                <div className="crate-img-overflow rounded-xl overflow-hidden" style={{ height: 190 }}>
-                  <Image src={products[6].img} alt={products[6].alt} width={600} height={400} className="w-full h-full object-cover" />
-                </div>
-                <div className="px-5 pt-3 pb-1 relative">
-                  <div className="price-tag">
-                    <p className="font-bold text-base" style={{ color: "#E07B39", lineHeight: 1 }}>{products[6].price}</p>
-                    <p className="text-xs mt-0.5" style={{ color: "#8B5E34" }}>{products[6].unit}</p>
-                  </div>
-                  <span className="shun-badge" style={{ transform: "rotate(1.5deg)", backgroundColor: "#4A7C3F" }}>通年</span>
-                  <h3 className="handwritten-label text-xl font-bold mt-2 mb-0.5">{products[6].name}</h3>
-                  <p className="text-xs mb-2" style={{ color: "#8B5E34" }}>{products[6].sub}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#5C3D2E" }}>{products[6].desc}</p>
-                  <a
-                    href="#contact"
-                    className="crate-action-hint mt-3 inline-block text-xs font-bold px-5 py-2 rounded-full"
-                    style={{ backgroundColor: "#2C1810", color: "#FFFDF7" }}
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    カゴに入れる
-                  </a>
-                  <a
-                    href="#contact"
-                    className="order-btn"
-                    onClick={(e) => smoothScroll(e, "contact")}
-                  >
-                    この商品を注文する
-                  </a>
-                </div>
-              </div>
+            {/* Scroll indicator dots */}
+            <div className="flex justify-center gap-1.5 mt-4">
+              {products.map((_, i) => (
+                <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: i === 0 ? "#E07B39" : "#D9CFC0" }} />
+              ))}
             </div>
 
-            <div
-              ref={addRef}
-              className="mt-10 text-center opacity-0 translate-y-8 transition-all duration-700 ease-out"
-            >
-              <p className="text-sm" style={{ color: "#8B5E34" }}>
+            <div className="max-w-6xl mx-auto px-6 mt-6">
+              <p className="text-center text-xs" style={{ color: "#8B5E34" }}>
+                ← スワイプして商品を見る →
+              </p>
+              <p className="text-center text-xs mt-4" style={{ color: "#8B5E34" }}>
                 ※ 価格はすべて税込・送料別です。在庫状況によりご注文をお断りする場合がございます。
               </p>
             </div>
@@ -2154,7 +1945,7 @@ export default function FarmDemoPage() {
             <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
               <div className="rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/demo/farm/experience.jpg"
+                  src="/images/demo/farm/experience.webp"
                   alt="農園体験の様子"
                   width={800}
                   height={600}

@@ -112,7 +112,7 @@ function DashboardScreen() {
             </div>
             <div className="border border-gray-200 rounded-lg p-2.5">
               <p className="text-[6px] font-bold text-gray-800">売上</p>
-              <p className="text-xl font-black text-gray-900 tabular-nums leading-tight">¥850,000</p>
+              <p className="text-sm font-black text-gray-900 tabular-nums leading-tight whitespace-nowrap"><span className="text-[8px] font-semibold text-gray-400 mr-0.5">¥</span>850,000</p>
               <span className="inline-block text-[5px] font-bold text-white bg-[#0D9488] px-1 py-0.5 rounded mt-1">+8% 前月比</span>
             </div>
           </div>

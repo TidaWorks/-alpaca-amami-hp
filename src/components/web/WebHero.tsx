@@ -18,14 +18,13 @@ const demos = [
   { name: "南風建設", category: "建設業", url: "/demo/construction", image: "/images/demo-screenshots/construction.png" },
   { name: "BLUE AMAMI", category: "ダイビング", url: "/demo/diving", image: "/images/demo-screenshots/diving.png" },
   { name: "Pâtisserie Soleil", category: "パティスリー", url: "/demo/patisserie", image: "/images/demo-screenshots/patisserie.png" },
-  { name: "ひだまり保育園", category: "保育園", url: "/demo/nursery", image: "/images/demo-screenshots/nursery.png" },
   { name: "AMAMI FOREST CAMP", category: "キャンプ場", url: "/demo/camp", image: "/images/demo-screenshots/camp.png" },
   { name: "島つむぎ整骨院", category: "整骨院", url: "/demo/osteopathic", image: "/images/demo-screenshots/osteopathic.png" },
   { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png" },
 ];
 
 const stats = [
-  { value: "10", unit: "業種", label: "デモサイト公開中" },
+  { value: "9", unit: "業種", label: "デモサイト公開中" },
   { value: "¥50,000", unit: "〜", label: "LP制作プラン" },
   { value: "対面", unit: "OK", label: "島内打ち合わせ" },
 ];

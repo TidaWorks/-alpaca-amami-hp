@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function CampDemoPage() {
@@ -8,25 +8,9 @@ export default function CampDemoPage() {
   const galleryRefs = useRef<HTMLDivElement[]>([]);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [showCta, setShowCta] = useState(false);
   const [parallaxY, setParallaxY] = useState(0);
-  const vineRef = useRef<SVGPathElement>(null);
-  const [vineLength, setVineLength] = useState(1200);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  // --- Scroll velocity for vine sway (ref avoids re-render on every scroll) ---
-  const lastScrollY = useRef(0);
-  const scrollVelocity = useRef(0);
-
-  // Measure SVG path length at layout time for accurate first-paint dash-array
-  useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-    if (vineRef.current) {
-      const len = vineRef.current.getTotalLength();
-      if (len > 0) setVineLength(len);
-    }
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,18 +51,8 @@ export default function CampDemoPage() {
       setScrolled(scrollY > 60);
       setShowCta(scrollY > 500);
 
-      // Scroll progress for vine
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0;
-      setScrollProgress(progress);
-
       // Parallax offset for mountain dividers
       setParallaxY(scrollY * 0.15);
-
-      // Scroll velocity for leaf sway
-      const vel = Math.min(Math.abs(scrollY - lastScrollY.current) / 16, 1);
-      lastScrollY.current = scrollY;
-      scrollVelocity.current = vel;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -123,19 +97,6 @@ export default function CampDemoPage() {
     { top: "60%", left: "28%", delay: "2.0s", duration: "4.7s" },
     { top: "38%", left: "72%", delay: "1.4s", duration: "3.1s" },
   ];
-
-  const vineDashOffset = vineLength - vineLength * scrollProgress;
-
-  // Derive leaf sway intensity from scroll velocity
-  const leafSwayDeg = `${6 + scrollVelocity.current * 18}deg`;
-  const leafSwayDur = `${Math.max(0.7, 4 - scrollVelocity.current * 3.2)}s`;
-  const leafSwayStyle = (lr: string, lox: string, loy: string): React.CSSProperties => ({
-    "--lr": lr,
-    "--lox": lox,
-    "--loy": loy,
-    "--lsway": leafSwayDeg,
-    "--lsway-dur": leafSwayDur,
-  } as React.CSSProperties);
 
   return (
     <>
@@ -327,67 +288,6 @@ export default function CampDemoPage() {
           line-height: 0;
         }
 
-        /* ---- Vine scroll indicator ---- */
-        .vine-progress {
-          position: fixed;
-          left: 14px;
-          top: 0;
-          bottom: 0;
-          width: 32px;
-          z-index: 40;
-          pointer-events: none;
-        }
-        .vine-svg {
-          width: 32px;
-          height: 100%;
-          overflow: visible;
-        }
-        .vine-path {
-          fill: none;
-          stroke: #2D7D46;
-          stroke-width: 3.5;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          filter: drop-shadow(0 0 3px rgba(45,125,70,0.5));
-        }
-        .vine-glow {
-          fill: none;
-          stroke: #4CAF50;
-          stroke-width: 7;
-          stroke-linecap: round;
-          opacity: 0.25;
-          filter: blur(3px);
-        }
-        .vine-track {
-          fill: none;
-          stroke: #2D7D46;
-          stroke-width: 1.5;
-          stroke-linecap: round;
-          opacity: 0.1;
-        }
-        @keyframes leafSway {
-          0%, 100% { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(var(--lr, 0deg)); }
-          50% { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(calc(var(--lr, 0deg) + var(--lsway, 6deg))); }
-        }
-        @keyframes leafSway2 {
-          0%, 100% { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(var(--lr, 0deg)); }
-          50% { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(calc(var(--lr, 0deg) - var(--lsway, 5deg))); }
-        }
-        @keyframes leafSwayWind {
-          0%   { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(calc(var(--lr, 0deg) - var(--lsway-hi, 14deg))); }
-          30%  { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(calc(var(--lr, 0deg) + var(--lsway-hi, 14deg))); }
-          60%  { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(calc(var(--lr, 0deg) - calc(var(--lsway-hi, 14deg) * 0.5))); }
-          100% { transform-origin: var(--lox, 16px) var(--loy, 50px); transform: rotate(var(--lr, 0deg)); }
-        }
-        .vine-leaf { animation: leafSway var(--lsway-dur, 4s) ease-in-out infinite; }
-        .vine-leaf-alt { animation: leafSway2 var(--lsway-dur, 3.5s) ease-in-out infinite; }
-        .vine-leaf-wind { animation: leafSwayWind 0.8s ease-in-out forwards; }
-        .vine-leaf-wind-alt { animation: leafSwayWind 0.65s ease-in-out forwards; }
-        @media (max-width: 768px) {
-          .vine-progress { left: 4px; width: 24px; }
-          .vine-svg { width: 24px; }
-        }
-
         /* ---- Reservation CTA button pulse ---- */
         @keyframes pulseRing {
           0%   { transform: scale(1); opacity: 0.6; }
@@ -536,199 +436,6 @@ export default function CampDemoPage() {
         .cf-coal { animation: fCoal 2s ease-in-out infinite; }
         .cf-grnd { animation: fGround 3s ease-in-out infinite; transform-origin: center; }
       `}</style>
-
-      {/* ===== SCROLL VINE INDICATOR ===== */}
-      <div className="vine-progress" aria-hidden="true">
-        <svg className="vine-svg" viewBox="0 0 32 100" preserveAspectRatio="xMidYMin meet">
-          <defs>
-            <filter id="vineGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="1.5" result="blur" />
-              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-
-          {/* === Background track === */}
-          <path
-            d="M16 1 C11 7, 21 13, 16 20 C11 27, 21 33, 16 40 C11 47, 21 53, 16 60 C11 67, 21 73, 16 80 C11 87, 21 93, 16 99"
-            className="vine-track"
-          />
-
-          {/* === Decorative static leaves along track (always visible, faint) === */}
-          {/* Left leaf at ~20% */}
-          <path d="M16 20 C12 17, 7 18, 8 22 C9 25, 14 24, 16 20" fill="#2D7D46" opacity="0.12" />
-          {/* Right leaf at ~33% */}
-          <path d="M16 33 C20 30, 25 31, 24 35 C23 38, 18 37, 16 33" fill="#2D7D46" opacity="0.12" />
-          {/* Left leaf at ~53% */}
-          <path d="M16 53 C12 50, 7 51, 8 55 C9 58, 14 57, 16 53" fill="#2D7D46" opacity="0.12" />
-          {/* Right leaf at ~73% */}
-          <path d="M16 73 C20 70, 25 71, 24 75 C23 78, 18 77, 16 73" fill="#2D7D46" opacity="0.12" />
-
-          {/* === Glow layer (progress-clipped) === */}
-          <path
-            d="M16 1 C11 7, 21 13, 16 20 C11 27, 21 33, 16 40 C11 47, 21 53, 16 60 C11 67, 21 73, 16 80 C11 87, 21 93, 16 99"
-            className="vine-glow"
-            strokeDasharray={`${vineLength}`}
-            strokeDashoffset={`${vineDashOffset}`}
-          />
-
-          {/* === Active main vine === */}
-          <path
-            ref={vineRef}
-            d="M16 1 C11 7, 21 13, 16 20 C11 27, 21 33, 16 40 C11 47, 21 53, 16 60 C11 67, 21 73, 16 80 C11 87, 21 93, 16 99"
-            className="vine-path"
-            strokeDasharray={`${vineLength}`}
-            strokeDashoffset={`${vineDashOffset}`}
-          />
-
-          {/* === Leaves that appear as vine grows === */}
-          {/* Leaf group at 20% — left */}
-          {scrollProgress > 0.18 && (
-            <g opacity={Math.min((scrollProgress - 0.18) / 0.06, 1)}>
-              <path
-                d="M16 20 C11 15, 4 16, 5 21 C6 25, 13 24, 16 20"
-                fill="#4CAF50"
-                className="vine-leaf"
-                style={leafSwayStyle("-15deg", "16px", "20px")}
-              />
-              <path d="M16 20 C12 18, 9 19, 9.5 21.5" fill="none" stroke="#2D7D46" strokeWidth="0.8" opacity="0.8" />
-              {/* Tendril */}
-              <path
-                d="M13 19 C11 17, 9 16, 8 18 C7 20, 9 21, 10 20"
-                fill="none"
-                stroke="#4CAF50"
-                strokeWidth="0.7"
-                strokeLinecap="round"
-                opacity="0.7"
-              />
-            </g>
-          )}
-
-          {/* Leaf group at 33% — right */}
-          {scrollProgress > 0.31 && (
-            <g opacity={Math.min((scrollProgress - 0.31) / 0.06, 1)}>
-              <path
-                d="M16 33 C21 28, 28 29, 27 34 C26 38, 19 37, 16 33"
-                fill="#81C784"
-                className="vine-leaf-alt"
-                style={leafSwayStyle("10deg", "16px", "33px")}
-              />
-              <path d="M16 33 C19 31, 22 32, 23 34" fill="none" stroke="#2D7D46" strokeWidth="0.8" opacity="0.8" />
-              {/* Small flower/bud */}
-              <circle cx="27" cy="29" r="1.8" fill="#FEC352" opacity="0.9" />
-              <circle cx="25.5" cy="27.5" r="1.2" fill="#FEC352" opacity="0.7" />
-              {/* Tendril */}
-              <path
-                d="M19 32 C21 30, 23 29, 24 31 C25 33, 23 34, 22 33"
-                fill="none"
-                stroke="#4CAF50"
-                strokeWidth="0.7"
-                strokeLinecap="round"
-                opacity="0.7"
-              />
-            </g>
-          )}
-
-          {/* Leaf group at 46% — left (larger) */}
-          {scrollProgress > 0.44 && (
-            <g opacity={Math.min((scrollProgress - 0.44) / 0.06, 1)}>
-              <path
-                d="M16 46 C10 41, 3 42, 4 48 C5 53, 13 52, 16 46"
-                fill="#2D7D46"
-                className="vine-leaf"
-                style={leafSwayStyle("-20deg", "16px", "46px")}
-              />
-              {/* Second smaller leaf */}
-              <path
-                d="M16 44 C13 41, 8 41, 8.5 44 C9 47, 13 46, 16 44"
-                fill="#4CAF50"
-                opacity="0.8"
-                className="vine-leaf-alt"
-                style={leafSwayStyle("-8deg", "16px", "44px")}
-              />
-              {/* Berry cluster */}
-              <circle cx="4" cy="46" r="2.5" fill="#E53935" opacity="0.85" />
-              <circle cx="7" cy="44.5" r="2" fill="#C62828" opacity="0.8" />
-              <circle cx="5.5" cy="49" r="1.8" fill="#EF5350" opacity="0.75" />
-            </g>
-          )}
-
-          {/* Leaf group at 60% — right */}
-          {scrollProgress > 0.57 && (
-            <g opacity={Math.min((scrollProgress - 0.57) / 0.06, 1)}>
-              <path
-                d="M16 60 C22 55, 29 56, 28 62 C27 66, 20 65, 16 60"
-                fill="#81C784"
-                className="vine-leaf"
-                style={leafSwayStyle("18deg", "16px", "60px")}
-              />
-              <path d="M16 60 C20 58, 24 59, 25 62" fill="none" stroke="#2D7D46" strokeWidth="0.8" opacity="0.8" />
-              {/* Pink bud */}
-              <circle cx="29" cy="56" r="2" fill="#F48FB1" opacity="0.9" />
-              <circle cx="27" cy="54.5" r="1.3" fill="#F06292" opacity="0.75" />
-              {/* Tendril */}
-              <path
-                d="M19 59 C22 57, 24 56, 25 58 C26 60, 24 62, 23 61"
-                fill="none"
-                stroke="#4CAF50"
-                strokeWidth="0.7"
-                strokeLinecap="round"
-                opacity="0.7"
-              />
-            </g>
-          )}
-
-          {/* Leaf group at 73% — left (large) */}
-          {scrollProgress > 0.70 && (
-            <g opacity={Math.min((scrollProgress - 0.70) / 0.06, 1)}>
-              <path
-                d="M16 73 C10 67, 2 68, 3 74 C4 79, 13 78, 16 73"
-                fill="#4CAF50"
-                className="vine-leaf-alt"
-                style={leafSwayStyle("-12deg", "16px", "73px")}
-              />
-              {/* Second leaf */}
-              <path
-                d="M16 76 C11 74, 6 74, 6.5 77 C7 80, 13 79, 16 76"
-                fill="#2D7D46"
-                opacity="0.85"
-                className="vine-leaf"
-                style={leafSwayStyle("-5deg", "16px", "76px")}
-              />
-              {/* Berry cluster */}
-              <circle cx="3.5" cy="72" r="2.5" fill="#FF6F00" opacity="0.85" />
-              <circle cx="6" cy="70.5" r="2" fill="#E65100" opacity="0.8" />
-              <circle cx="5" cy="74.5" r="1.8" fill="#FF8F00" opacity="0.75" />
-            </g>
-          )}
-
-          {/* Leaf group at 86% — right */}
-          {scrollProgress > 0.83 && (
-            <g opacity={Math.min((scrollProgress - 0.83) / 0.06, 1)}>
-              <path
-                d="M16 86 C22 81, 30 82, 29 88 C28 93, 20 92, 16 86"
-                fill="#2D7D46"
-                className="vine-leaf"
-                style={leafSwayStyle("22deg", "16px", "86px")}
-              />
-              <path d="M16 86 C21 84, 25 85, 26 88" fill="none" stroke="#2D7D46" strokeWidth="0.8" opacity="0.8" />
-              {/* Yellow flower */}
-              <circle cx="30" cy="82" r="2.2" fill="#FEC352" opacity="0.9" />
-              <circle cx="28.5" cy="80" r="1.5" fill="#FFD54F" opacity="0.8" />
-            </g>
-          )}
-
-          {/* === Growing tip bud === */}
-          {scrollProgress > 0.01 && (
-            <g transform={`translate(16, ${1 + scrollProgress * 98})`}>
-              <circle r="3.5" fill="#4CAF50" opacity="0.95" filter="url(#vineGlow)" />
-              <circle r="1.8" fill="#81C784" opacity="1" />
-              {/* Tiny leaves at tip */}
-              <path d="M0 0 C-2 -3, -5 -2, -4 0" fill="#2D7D46" opacity="0.9" />
-              <path d="M0 0 C2 -3, 5 -2, 4 0" fill="#4CAF50" opacity="0.85" />
-            </g>
-          )}
-        </svg>
-      </div>
 
       <div className="min-h-screen bg-white text-[#000000]">
         {/* ===== HEADER ===== */}

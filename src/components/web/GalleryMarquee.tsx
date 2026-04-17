@@ -13,7 +13,6 @@ const slugImageMap: Record<string, string> = {
   "camp-amami": "/images/demo/camp/hero.jpg",
   "diving-blue": "/images/demo/diving/hero.jpg",
   "tida-works-hp": "/images/web/gallery-dashboard.jpg",
-  "nursery-hidamari": "/images/demo/nursery/hero.jpg",
   "osteopathic-shimatsumugi": "/images/demo/osteopathic/hero.jpg",
   "guesthouse-isokaze": "/images/demo/guesthouse/hero.jpg",
   "farm-taiyo": "/images/demo/farm/hero.jpg",
@@ -189,7 +188,7 @@ function GalleryCTA() {
         あなたの業種でも、作れます。
       </h2>
       <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
-        美容室、飲食店、建設業、ダイビング、保育園、整骨院、宿泊施設、農園、パティスリー...<br className="hidden sm:block" />
+        美容室、飲食店、建設業、ダイビング、整骨院、宿泊施設、農園、パティスリー、キャンプ場...<br className="hidden sm:block" />
         どんな業種にも対応します。
       </p>
       <a

@@ -10,7 +10,7 @@ import Image from "next/image";
 
 // ---------- data ----------
 const PRODUCTS = [
-  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "/images/demo/patisserie/concept.jpg" },
+  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "/images/demo/patisserie/product-gateau-chocolat.jpg" },
   { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "/images/demo/patisserie/product-tankan-tart.jpg" },
   { name: "パッションフルーツのムース", price: 650, desc: "南国の情熱を閉じ込めた軽やかな一品", img: "/images/demo/patisserie/product-passionfruit-mousse.jpg" },
   { name: "島バナナのミルフィーユ", price: 700, desc: "サクサクのパイ生地と濃厚な島バナナ", img: "/images/demo/patisserie/product-banana-millefeuille.jpg" },

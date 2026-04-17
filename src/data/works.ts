@@ -189,34 +189,6 @@ export const works: Work[] = [
     ],
   },
   {
-    slug: "nursery-hidamari",
-    title: "ひだまり保育園",
-    category: "保育園",
-    description:
-      "奄美大島の保育園。温かみのあるクリーム×オレンジの配色で、保護者に安心感を届けるサイト。",
-    thumbnail: {
-      bg: "from-orange-100 to-amber-50",
-      accent: "#F59E42",
-      text: "ひだまり",
-      icon: "sun",
-    },
-    tags: ["Next.js", "LP", "レスポンシブ"],
-    demoUrl: "/demo/nursery",
-    year: "2026",
-    client: "ひだまり保育園（架空）",
-    challenge:
-      "園の雰囲気がWebで伝わらず、見学予約が電話のみで保護者に不便。",
-    solution:
-      "温かみのあるデザインで園の日常を表現。一日の流れや先生紹介で安心感を演出し、見学予約をWebから可能に。",
-    features: [
-      "保育理念・3つの柱",
-      "一日の流れタイムライン",
-      "先生紹介セクション",
-      "入園案内・料金",
-      "お問い合わせフォーム",
-    ],
-  },
-  {
     slug: "osteopathic-shimatsumugi",
     title: "島つむぎ整骨院",
     category: "整骨院",

@@ -943,8 +943,8 @@ export default function BluAmamiDivingPage() {
       accentColor: "rgba(34,211,238,0.7)",
       depthLabel: "5m",
       depthPercent: 22,
-      image: "/images/demo/diving/reserve-bg.jpg",
-      imageAlt: "水中を泳ぐダイバー",
+      image: "/images/demo/diving/menu-trial-dive.jpg",
+      imageAlt: "イソギンチャクに遊ぶクマノミたち",
     },
     {
       title: "ライセンス講習",
@@ -958,20 +958,6 @@ export default function BluAmamiDivingPage() {
       depthPercent: 52,
       image: "/images/demo/diving/menu-license.jpg",
       imageAlt: "美しい青い海",
-    },
-    {
-      title: "ファンダイビング",
-      price: "15,000",
-      unit: "/ 1ダイブ",
-      description: "ライセンス保持者向け。奄美の豊かなサンゴ礁と多様な海洋生物を堪能できるガイド付きダイブ。",
-      duration: "約2時間",
-      highlight: "ライセンス保持者向け",
-      gradient: "from-blue-500 to-indigo-600",
-      accentColor: "rgba(99,102,241,0.7)",
-      depthLabel: "20m",
-      depthPercent: 82,
-      image: "/images/demo/diving/menu-fun-dive.jpg",
-      imageAlt: "美しいサンゴ礁の海中風景",
     },
   ];
 
@@ -2019,7 +2005,6 @@ export default function BluAmamiDivingPage() {
                     { item: "着替え", desc: "帰りの着替え", required: true },
                     { item: "日焼け止め", desc: "海に優しいタイプ推奨", required: false },
                     { item: "酔い止め薬", desc: "船酔いが心配な方", required: false },
-                    { item: "Cカード", desc: "ファンダイビングの方のみ", required: false },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 py-2 border-b border-white/5 last:border-0">
                       <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${item.required ? "bg-cyan-500/20" : "bg-white/5"}`}>
