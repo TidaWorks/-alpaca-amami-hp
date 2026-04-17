@@ -10,7 +10,7 @@ import Image from "next/image";
 
 // ---------- data ----------
 const PRODUCTS = [
-  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産カカオと黒糖の深い味わい", img: "/images/demo/patisserie/product-gateau-chocolat.jpg" },
+  { name: "ガトーショコラ奄美", price: 580, desc: "奄美産黒糖の深い甘みとビターショコラの贅沢な味わい", img: "/images/demo/patisserie/product-gateau-chocolat.jpg" },
   { name: "タンカンのタルト", price: 620, desc: "島タンカンの爽やかな酸味とアーモンドクリーム", img: "/images/demo/patisserie/product-tankan-tart.jpg" },
   { name: "パッションフルーツのムース", price: 650, desc: "南国の情熱を閉じ込めた軽やかな一品", img: "/images/demo/patisserie/product-passionfruit-mousse.jpg" },
   { name: "島バナナのミルフィーユ", price: 700, desc: "サクサクのパイ生地と濃厚な島バナナ", img: "/images/demo/patisserie/product-banana-millefeuille.jpg" },
@@ -1812,22 +1812,22 @@ export default function PatisseriePage() {
           <div className="sol-gift-grid">
             {[
               {
-                label: "Petit Cadeau",
+                label: "プティ・カドー",
                 price: "¥2,400（税込）",
                 desc: "焼き菓子5種の小箱。黒糖カヌレ、マドレーヌ、島バナナのフィナンシェなど。日持ち約2週間。ちょっとしたお礼やご挨拶に。",
                 img: "/images/demo/patisserie/gift-petit.jpg",
               },
               {
-                label: "Coffret Soleil",
+                label: "コフレ・ソレイユ",
                 price: "¥4,800（税込）",
                 desc: "当店人気の焼き菓子8種にタンカンのコンフィチュール、パッションフルーツのパートドフリュイを添えた看板ギフト。のし対応可。",
                 img: "/images/demo/patisserie/gift-coffret.jpg",
               },
               {
-                label: "Celebration",
+                label: "セレブレーション",
                 price: "¥8,000（税込）",
                 desc: "記念日や特別な贈り物に。生菓子と焼き菓子の贅沢なアソート。メッセージカード付き。3日前までの要予約。",
-                img: "/images/demo/patisserie/atelier-decoration.jpg",
+                img: "/images/demo/patisserie/gift-celebration.jpg",
               },
             ].map((item, i) => (
               <div key={i} className="sol-gift-card" style={{ background: "none", border: "none", padding: 0 }}>
