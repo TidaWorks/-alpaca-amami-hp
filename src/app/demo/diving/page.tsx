@@ -1648,7 +1648,7 @@ export default function BluAmamiDivingPage() {
                                 <span className="text-3xl sm:text-4xl font-black" style={{ color: course.accentColor }}>
                                   {course.price}
                                 </span>
-                                <span className="text-sm text-white/50">{course.unit || "〜 / 人"}</span>
+                                <span className="text-sm text-white/50">〜 / 人</span>
                               </div>
                               <p className="text-white/60 text-sm leading-relaxed">{course.description}</p>
                             </div>

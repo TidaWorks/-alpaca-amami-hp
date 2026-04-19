@@ -73,8 +73,6 @@ export default function SalonPage() {
   const conceptImageRef = useRef<HTMLDivElement>(null);
   const stylist1Ref = useRef<HTMLDivElement>(null);
   const stylist2Ref = useRef<HTMLDivElement>(null);
-  const stylist1CardRef = useRef<HTMLDivElement>(null);
-  const stylist2CardRef = useRef<HTMLDivElement>(null);
   const galleryItemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const carouselRef = useRef<HTMLDivElement>(null);
   const carouselItemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -174,32 +172,6 @@ export default function SalonPage() {
     return () => window.removeEventListener("keydown", handleKey);
   // eslint-disable-next-line react-hooks/exhaustive-deps -- closeLightbox/galleryItems are stable
   }, [lightboxIndex]);
-
-  // Stylist photo parallax on scroll
-  useEffect(() => {
-    const card1 = stylist1CardRef.current;
-    const card2 = stylist2CardRef.current;
-    if (!card1 && !card2) return;
-
-    const applyParallax = () => {
-      if (card1) {
-        const rect1 = card1.getBoundingClientRect();
-        const centerOffset1 = (rect1.top + rect1.height / 2) - window.innerHeight / 2;
-        const parallax1 = centerOffset1 * 0.06;
-        card1.style.transform = `translateY(${parallax1}px)`;
-      }
-      if (card2) {
-        const rect2 = card2.getBoundingClientRect();
-        const centerOffset2 = (rect2.top + rect2.height / 2) - window.innerHeight / 2;
-        const parallax2 = centerOffset2 * 0.04;
-        card2.style.transform = `translateY(${parallax2}px)`;
-      }
-    };
-
-    window.addEventListener("scroll", applyParallax, { passive: true });
-    return () => window.removeEventListener("scroll", applyParallax);
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only: refs are stable
-  }, []);
 
   // Scroll-linked header opacity
   useEffect(() => {
@@ -382,7 +354,6 @@ export default function SalonPage() {
   const galleryItems = [
     { src: "/images/demo/salon/gallery-counseling.jpg", label: "カウンセリングスペース" },
     { src: "/images/demo/salon/gallery-cut-booth.jpg", label: "カットブース" },
-    { src: "/images/demo/salon/styling.jpg", label: "ヘアスタイリング" },
     { src: "/images/demo/salon/gallery-organic.jpg", label: "オーガニック商品" },
     { src: "/images/demo/salon/hero.jpg", label: "店内の雰囲気" },
     { src: "/images/demo/salon/gallery-relax.jpg", label: "リラックス空間" },
@@ -1291,42 +1262,26 @@ export default function SalonPage() {
           <h2 className="font-serif-jp text-2xl md:text-3xl tracking-wider mt-4">メニュー・料金</h2>
         </div>
 
-        {/* ---- Menu: elegant list + feature image ---- */}
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-
-            {/* Left: menu list */}
-            <div className="bg-[#F5F0E8]/60 border border-[#8B6914]/10 rounded-2xl p-8 md:p-10">
-              <div className="space-y-0">
-                {menuItems.map((item, i) => (
-                  <div key={i} className={`flex items-baseline gap-3 py-4 ${i < menuItems.length - 1 ? "border-b border-[#8B6914]/8" : ""}`}>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-2">
-                        <h3 className="font-serif-jp text-base md:text-lg tracking-wider text-[#3D2E0A]">{item.label}</h3>
-                        <div className="flex-1 border-b border-dotted border-[#8B6914]/20 translate-y-[-4px] mx-1" />
-                        <span className="font-serif-jp text-base md:text-lg text-[#8B6914] tabular-nums whitespace-nowrap">{item.price}</span>
-                      </div>
-                      <p className="text-xs text-[#3D2E0A]/40 mt-1 font-light">{item.desc}</p>
+        {/* ---- Menu: elegant list ---- */}
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="bg-[#F5F0E8]/60 border border-[#8B6914]/10 rounded-2xl p-8 md:p-10">
+            <div className="space-y-0">
+              {menuItems.map((item, i) => (
+                <div key={i} className={`flex items-baseline gap-3 py-4 ${i < menuItems.length - 1 ? "border-b border-[#8B6914]/8" : ""}`}>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-2">
+                      <h3 className="font-serif-jp text-base md:text-lg tracking-wider text-[#3D2E0A]">{item.label}</h3>
+                      <div className="flex-1 border-b border-dotted border-[#8B6914]/20 translate-y-[-4px] mx-1" />
+                      <span className="font-serif-jp text-base md:text-lg text-[#8B6914] tabular-nums whitespace-nowrap text-left min-w-[6.5rem] flex-shrink-0">{item.price}</span>
                     </div>
+                    <p className="text-xs text-[#3D2E0A]/40 mt-1 font-light">{item.desc}</p>
                   </div>
-                ))}
-              </div>
-              <p className="text-xs text-[#3D2E0A]/30 mt-6 text-right">
-                ※ 表示価格はすべて税込みです
-              </p>
+                </div>
+              ))}
             </div>
-
-            {/* Right: feature image */}
-            <div className="rounded-2xl overflow-hidden shadow-md">
-              <Image
-                src="/images/demo/salon/styling.jpg"
-                alt="ヘアスタイリングの様子"
-                className="w-full aspect-[3/4] object-cover"
-                width={800}
-                height={1000}
-              />
-            </div>
-
+            <p className="text-xs text-[#3D2E0A]/30 mt-6 text-right">
+              ※ 表示価格はすべて税込みです
+            </p>
           </div>
         </div>
       </section>
@@ -1392,19 +1347,18 @@ export default function SalonPage() {
             {/* Stylist 1 — slightly tilted, on top */}
             <div className="stylist-card-1 flex-1">
               <div className="bg-[#F5F0E8] border border-[#8B6914]/15 rounded-2xl p-8 shadow-md text-center">
-                <div className="stylist-photo-parallax" ref={stylist1CardRef}>
                 <div
                   ref={stylist1Ref}
-                  className="w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
+                  className="w-44 h-44 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
                 >
                   <Image
                     src="/images/demo/salon/stylist-misaki.jpg"
                     alt="スタイリスト 佐藤 美咲"
                     className="w-full h-full object-cover"
-                    width={400}
-                    height={400}
+                    width={600}
+                    height={600}
+                    quality={92}
                   />
-                </div>
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Owner Stylist</p>
                 <h3 className="font-serif-jp text-xl tracking-wider mb-1">佐藤 美咲</h3>
@@ -1424,19 +1378,18 @@ export default function SalonPage() {
             {/* Stylist 2 — slightly tilted opposite, behind */}
             <div className="stylist-card-2 flex-1">
               <div className="bg-white/80 border border-[#8B6914]/15 rounded-2xl p-8 shadow-md text-center">
-                <div className="stylist-photo-parallax" ref={stylist2CardRef}>
                 <div
                   ref={stylist2Ref}
-                  className="w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
+                  className="w-44 h-44 mx-auto mb-5 rounded-full overflow-hidden border-2 border-[#8B6914]/25 mask-reveal-circle shadow-sm"
                 >
                   <Image
                     src="/images/demo/salon/stylist-hina.jpg"
                     alt="スタイリスト 田中 陽菜"
                     className="w-full h-full object-cover"
-                    width={400}
-                    height={400}
+                    width={600}
+                    height={600}
+                    quality={92}
                   />
-                </div>
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Stylist</p>
                 <h3 className="font-serif-jp text-xl tracking-wider mb-1">田中 陽菜</h3>

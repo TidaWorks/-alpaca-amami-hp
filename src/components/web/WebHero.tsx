@@ -20,7 +20,7 @@ const demos = [
   { name: "Pâtisserie Soleil", category: "パティスリー", url: "/demo/patisserie", image: "/images/demo-screenshots/patisserie.png" },
   { name: "AMAMI FOREST CAMP", category: "キャンプ場", url: "/demo/camp", image: "/images/demo-screenshots/camp.png" },
   { name: "島つむぎ整骨院", category: "整骨院", url: "/demo/osteopathic", image: "/images/demo-screenshots/osteopathic.png" },
-  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png" },
+  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png?v=2" },
 ];
 
 const stats = [
@@ -319,7 +319,7 @@ export default function WebHero() {
 
           {/* ── 3Dカルーセル ── */}
           <div
-            className="relative h-[420px] md:h-[540px] -mx-6 md:mx-0 overflow-hidden"
+            className="relative h-[500px] md:h-[600px] -mx-6 md:mx-0 overflow-hidden"
             style={{ perspective: "1000px" }}
             ref={carouselRef}
             onTouchStart={handleTouchStart}
