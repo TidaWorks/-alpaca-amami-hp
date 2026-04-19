@@ -6,6 +6,7 @@ import {
   Caveat,
   M_PLUS_Rounded_1c,
 } from "next/font/google";
+import { DemoBanner } from "./components/DemoBanner";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function DemoLayout({
       className={`${notoSansJP.variable} ${notoSerifJP.variable} ${cormorantGaramond.variable} ${jost.variable} ${caveat.variable} ${mPlusRounded.variable}`}
     >
       {children}
+      <DemoBanner tone="brand" />
     </div>
   );
 }

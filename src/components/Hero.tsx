@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 const barData = [180,220,350,310,280,420,480,520,390,450,410,380];
 const barLabels = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
 
@@ -188,7 +190,21 @@ function CalendarScreen() {
   );
 }
 
+const SCREENS = [
+  { title: "業務ダッシュボード", component: <DashboardScreen /> },
+  { title: "予約管理カレンダー", component: <CalendarScreen /> },
+];
+
 export default function Hero() {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIdx((i) => (i + 1) % SCREENS.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative pt-28 pb-16 md:pt-44 md:pb-32 bg-[#FAFAFA] overflow-hidden">
       {/* 背景ロゴ — 見出しの真後ろに堂々と */}
@@ -200,8 +216,8 @@ export default function Hero() {
         {/* テキスト */}
         <div className="text-center mb-14 md:mb-16">
           <p className="text-xs font-semibold tracking-[0.12em] text-[#0D9488] mb-4">奄美大島の業務システム開発</p>
-          <h1 className="text-[1.85rem] sm:text-4xl md:text-[3.5rem] font-black leading-[1.15] text-gray-900 tracking-tight mb-5">
-            業務を、仕組みで変える。
+          <h1 className="text-[1.85rem] sm:text-4xl md:text-[3.5rem] font-black leading-[1.15] text-gray-900 tracking-tight mb-5 [word-break:keep-all] [line-break:strict] [overflow-wrap:break-word]">
+            業務を、<wbr />仕組みで変える。
           </h1>
           <p className="text-gray-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
             予約・顧客・売上管理をひとつに。あなたの業務に合わせた専用システムを構築します。
@@ -214,23 +230,36 @@ export default function Hero() {
               詳しく見る →
             </a>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {["予約管理", "顧客管理", "売上集計", "在庫管理", "スタッフ管理", "ホームページ制作"].map((tag) => (
-              <span key={tag} className="text-xs text-gray-500 border border-gray-200 rounded-full px-3 py-1">
+          <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+            {["予約管理", "顧客管理", "売上集計", "在庫管理", "スタッフ管理", "HP制作"].map((tag) => (
+              <span key={tag} className="text-xs text-gray-500 border border-gray-200 rounded-full px-3 py-1 text-center">
                 {tag}
               </span>
             ))}
           </div>
         </div>
 
-        {/* 2画面並び */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <BrowserFrame title="業務ダッシュボード">
-            <DashboardScreen />
-          </BrowserFrame>
-          <BrowserFrame title="予約管理カレンダー">
-            <CalendarScreen />
-          </BrowserFrame>
+        {/* 自動切替モック */}
+        <div className="relative max-w-2xl mx-auto">
+          {SCREENS.map((s, i) => (
+            <div
+              key={s.title}
+              className={`transition-opacity duration-700 ${i === activeIdx ? "opacity-100" : "opacity-0 absolute inset-0 pointer-events-none"}`}
+            >
+              <BrowserFrame title={s.title}>{s.component}</BrowserFrame>
+            </div>
+          ))}
+          {/* インジケーター */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            {SCREENS.map((s, i) => (
+              <button
+                key={s.title}
+                onClick={() => setActiveIdx(i)}
+                aria-label={`${s.title}を表示`}
+                className={`h-1.5 rounded-full transition-all ${i === activeIdx ? "w-6 bg-[#0D9488]" : "w-1.5 bg-gray-300"}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1778,7 +1778,7 @@ export default function PatisseriePage() {
             <div className="sol-patissier-text">
               <p className="sol-section-label" style={{ color: "#8B6F5E" }}>Patissier</p>
               <h2>Chef Patissier</h2>
-              <h3>鈴木 陽子 / Yoko Sakuta</h3>
+              <h3>鈴木 陽子 / Yoko Suzuki</h3>
               <p>
                 東京の製菓学校を卒業後、パリの名店「Pierre Herme」で3年間の修業。
                 帰国後は都内のパティスリーでシェフパティシエを務め、2023年に故郷・奄美大島で
@@ -1982,12 +1982,6 @@ export default function PatisseriePage() {
             Designed by <a href="/web#gallery">ALPACA</a>
           </p>
         </footer>
-
-        {/* ============ DEMO BANNER ============ */}
-        <div className="sol-demo-banner">
-          <p>これはALPACAが制作したデモサイトです</p>
-          <a href="/web#gallery">ギャラリーに戻る</a>
-        </div>
       </div>
 
       {/* ===== FIXED BOTTOM CTA BAR ===== */}

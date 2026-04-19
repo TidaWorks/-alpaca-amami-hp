@@ -142,18 +142,19 @@ export default function WebHero() {
     if (diff < -total / 2) diff += total;
     const abs = Math.abs(diff);
 
-    if (abs > 2 && dragOffset === 0) return { opacity: 0, visibility: "hidden", pointerEvents: "none" };
-    if (abs > 3) return { opacity: 0, visibility: "hidden", pointerEvents: "none" };
+    // アクティブ以外は完全非表示（左右見切れを排除、1枚集中表示）
+    if (abs > 0 && dragOffset === 0) {
+      return { opacity: 0, visibility: "hidden", pointerEvents: "none", transform: `translateX(${diff * 20}%) scale(0.9)` };
+    }
 
-    // ドラッグ中は指の動きに追従（px → %換算: phoneWidth≒200px, 88% offset ≒ 176px）
+    // ドラッグ中は指の動きに追従（次／前のカードがふわっと見える）
     const dragPercent = dragOffset / 2;
 
     return {
-      transform: `translateX(calc(${diff * 88}% + ${dragPercent}px)) scale(${1 - abs * 0.14}) rotateY(${-diff * 10}deg)`,
+      transform: `translateX(calc(${diff * 100}% + ${dragPercent}px)) scale(${1 - abs * 0.08})`,
       zIndex: 10 - abs,
-      opacity: Math.max(0, 1 - abs * 0.35),
+      opacity: abs === 0 ? 1 : Math.max(0, 0.5 - abs * 0.2),
       pointerEvents: abs === 0 && dragOffset === 0 ? "auto" : "none",
-      filter: abs > 0 ? `brightness(${0.8})` : undefined,
       transition: isDragging.current ? "none" : undefined,
     };
   };
@@ -286,16 +287,7 @@ export default function WebHero() {
           }}
         />
 
-        {/* ── ヘッダー（ロゴ）── */}
-        <div className="relative max-w-5xl mx-auto px-6 pt-6 pb-12 md:pt-8 md:pb-16">
-          <a href="/" className="inline-block">
-            <div className="relative w-28 h-12 md:w-32 md:h-14">
-              <Image src="/images/alpaca-logo.png" alt="ALPACA" fill className="object-contain object-left" />
-            </div>
-          </a>
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-6">
+        <div className="relative max-w-5xl mx-auto px-6 pt-24 md:pt-32">
           {/* ラベル */}
           <p className="hero-fade text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-5 font-display">
             WEB DESIGN

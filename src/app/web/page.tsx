@@ -1,3 +1,4 @@
+import WebHeader from "@/components/web/WebHeader";
 import WebHero from "@/components/web/WebHero";
 import WebFeatures from "@/components/web/WebFeatures";
 import WebPricing from "@/components/web/WebPricing";
@@ -13,6 +14,7 @@ export const metadata = {
 export default function WebPage() {
   return (
     <div className="overflow-x-hidden">
+      <WebHeader />
       <WebHero />
       <WebFeatures />
       <WebPricing />

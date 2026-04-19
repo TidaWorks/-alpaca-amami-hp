@@ -1362,7 +1362,7 @@ export default function SalonPage() {
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Owner Stylist</p>
                 <h3 className="font-serif-jp text-xl tracking-wider mb-1">佐藤 美咲</h3>
-                <p className="text-xs text-[#3D2E0A]/50 mb-4">Misaki Yuki</p>
+                <p className="text-xs text-[#3D2E0A]/50 mb-4">Misaki Sato</p>
                 <div className="w-8 h-px bg-[#8B6914]/20 mx-auto mb-4" />
                 <p className="text-sm leading-relaxed text-[#3D2E0A]/70 font-light">
                   東京の有名サロンで10年の経験を積み、
@@ -1393,7 +1393,7 @@ export default function SalonPage() {
                 </div>
                 <p className="text-xs tracking-[0.2em] text-[#8B6914] mb-2 uppercase">Stylist</p>
                 <h3 className="font-serif-jp text-xl tracking-wider mb-1">田中 陽菜</h3>
-                <p className="text-xs text-[#3D2E0A]/50 mb-4">Hina Shimabukuro</p>
+                <p className="text-xs text-[#3D2E0A]/50 mb-4">Hina Tanaka</p>
                 <div className="w-8 h-px bg-[#8B6914]/20 mx-auto mb-4" />
                 <p className="text-sm leading-relaxed text-[#3D2E0A]/70 font-light">
                   奄美大島出身。地元の風土を知り尽くした

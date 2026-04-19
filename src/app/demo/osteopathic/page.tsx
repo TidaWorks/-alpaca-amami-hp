@@ -1172,7 +1172,7 @@ export default function OsteopathicPage() {
               <div className="hidden md:block mb-1">
                 <p className="text-xs text-[#2E86AB] tracking-widest mb-1">DIRECTOR</p>
                 <h3 className="font-serif-jp text-2xl text-[#1A2B3C] mb-1">高橋 健一</h3>
-                <p className="text-xs text-[#1A2B3C]/50 mb-4">Kenichi Sakuta</p>
+                <p className="text-xs text-[#1A2B3C]/50 mb-4">Kenichi Takahashi</p>
               </div>
               <div className="flex flex-wrap gap-2 mb-5">
                 {["柔道整復師", "鍼灸師", "健康運動指導士"].map((tag) => (
