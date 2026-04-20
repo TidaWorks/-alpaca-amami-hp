@@ -63,29 +63,37 @@ export default function WebFlow() {
       <div className="max-w-4xl mx-auto">
         {/* 見出し */}
         <div
-          className="mb-12 md:mb-16 transition-all duration-700"
+          className="mb-12 md:mb-16 flex items-center gap-4 md:gap-8 transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <p className="text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-4 font-display">
-            FLOW
-          </p>
-          <h2 className="text-[#2D2418] text-2xl md:text-3xl font-bold">
-            ホームページができるまで
-          </h2>
+          <div className="flex-1 min-w-0">
+            <p className="text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-4 font-display">
+              FLOW
+            </p>
+            <h2 className="text-[#2D2418] text-2xl md:text-3xl font-bold">
+              ホームページができるまで
+            </h2>
+          </div>
+          <img
+            src="/images/alpaca/alpaca-check.png"
+            alt="チェックマークを書いているアルパカ"
+            aria-hidden="true"
+            className="w-36 md:w-52 h-auto flex-shrink-0 pointer-events-none select-none"
+          />
         </div>
 
         {/* 3ステップ */}
         <div className="space-y-5 md:space-y-0 md:grid md:grid-cols-3 md:gap-6 relative">
           {/* デスクトップ: ステップ間の矢印 */}
-          <div className="hidden md:block absolute top-[52px] left-[calc(33.333%-12px)] w-6 text-[#D4CEC5] z-10">
+          <div className="hidden md:block absolute top-[52px] left-[calc(33.333%-12px)] w-6 text-[#0D9488]/40 z-10">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
-          <div className="hidden md:block absolute top-[52px] left-[calc(66.666%-12px)] w-6 text-[#D4CEC5] z-10">
+          <div className="hidden md:block absolute top-[52px] left-[calc(66.666%-12px)] w-6 text-[#0D9488]/40 z-10">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -94,7 +102,7 @@ export default function WebFlow() {
           {steps.map((step, i) => (
             <div
               key={step.number}
-              className="bg-[#FFFBF5] border border-[#EDE8E0] rounded-2xl p-6 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(245,166,35,0.08)] hover:border-[#F5A623]/25"
+              className="bg-[#FFFBF5] border border-[#EDE8E0] rounded-2xl p-6 transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(13,148,136,0.08)] hover:border-[#0D9488]/25"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -103,16 +111,16 @@ export default function WebFlow() {
             >
               {/* 番号 + アイコン */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[#FFF3E0] flex items-center justify-center text-[#F5A623]">
+                <div className="w-11 h-11 rounded-xl bg-[#E6F5F3] flex items-center justify-center text-[#0D9488]">
                   {step.icon}
                 </div>
-                <span className="text-[#F5A623] text-2xl font-black font-display">{step.number}</span>
+                <span className="text-[#0D9488] text-2xl font-black font-display">{step.number}</span>
               </div>
 
               {/* タイトル + バッジ */}
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="text-[#2D2418] text-lg font-bold">{step.title}</h3>
-                <span className="text-[10px] text-[#F5A623] bg-[#FFF3E0] rounded-full px-2 py-0.5 font-semibold whitespace-nowrap">
+                <span className="text-[10px] text-[#0D9488] bg-[#E6F5F3] rounded-full px-2 py-0.5 font-semibold whitespace-nowrap">
                   {step.badge}
                 </span>
               </div>

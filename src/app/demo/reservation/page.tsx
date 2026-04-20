@@ -428,13 +428,6 @@ export default function ReservationDemo() {
         </div>
       </div>
 
-      {/* デモ注意書き */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-800/90 backdrop-blur-sm text-white text-[11px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 z-50">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        デモ画面です。データは保存されません。
-        <a href="/web#gallery" className="text-violet-300 hover:text-violet-200 ml-1">ALPACAに相談する →</a>
-      </div>
-
       {/* モーダル */}
       {showModal && (
         <NewReservationModal

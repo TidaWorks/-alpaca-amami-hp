@@ -1751,36 +1751,6 @@ export default function BistroAdanPage() {
           animation: bistro-cta-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
-      {scrollY > 500 && (
-        <div
-          className="bistro-cta-bar fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center justify-between gap-3"
-          style={{
-            backgroundColor: "rgba(26, 21, 16, 0.97)",
-            backdropFilter: "blur(12px)",
-            borderTop: "1px solid rgba(212, 163, 115, 0.18)",
-          }}
-          role="complementary"
-          aria-label="お問い合わせ・予約のショートカット"
-        >
-          <a
-            href="tel:0997-XX-XXXX"
-            className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-80"
-            style={{ backgroundColor: "#D4A373", color: "#1A1510" }}
-            aria-label="電話する: 0997-XX-XXXX"
-          >
-            <PhoneIcon className="w-4 h-4" />
-            電話する
-          </a>
-          <a
-            href="#access"
-            className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-80"
-            style={{ border: "1px solid rgba(212,163,115,0.5)", color: "#D4A373" }}
-            aria-label="アクセス・お問い合わせへスクロール"
-          >
-            Web予約/お問い合わせ
-          </a>
-        </div>
-      )}
     </div>
   );
 }

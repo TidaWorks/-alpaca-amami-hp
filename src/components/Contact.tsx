@@ -27,6 +27,12 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         {/* ── 上段：CTA ── */}
         <div ref={fade.ref} className={`text-center mb-14 md:mb-20 transition-all duration-700 ${fade.className}`}>
+          <img
+            src="/images/alpaca/alpaca-wink.png"
+            alt="ウインクしているアルパカ"
+            aria-hidden="true"
+            className="w-32 md:w-40 mx-auto mb-5 pointer-events-none select-none"
+          />
           <p className="text-xs font-semibold tracking-[0.25em] text-[#0D9488] mb-3">CONTACT</p>
           <h2 className="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">
             気軽に聞いてください。

@@ -212,6 +212,14 @@ export default function Hero() {
         <img src="/images/alpaca-logo.png" alt="" className="w-[280px] md:w-[380px] h-auto opacity-[0.07]" />
       </div>
 
+      {/* デコレーション: タブレットでダッシュボードを見せるアルパカ */}
+      <img
+        src="/images/alpaca/alpaca-dashboard.png"
+        alt="タブレットで業務ダッシュボードを見せるアルパカ"
+        aria-hidden="true"
+        className="hidden lg:block absolute bottom-16 left-[3%] xl:left-[6%] w-40 xl:w-52 h-auto -rotate-[8deg] pointer-events-none select-none z-10 drop-shadow-md"
+      />
+
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
         {/* テキスト */}
         <div className="text-center mb-14 md:mb-16">

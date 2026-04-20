@@ -25,6 +25,18 @@ export default function WebCTA() {
   return (
     <section ref={sectionRef} id="contact" className="bg-[#FFFBF5] py-20 md:py-28 px-6">
       <div className="max-w-3xl mx-auto text-center">
+        {/* マスコット */}
+        <img
+          src="/images/alpaca/alpaca-love.png"
+          alt="ハートに囲まれた嬉しそうなアルパカ"
+          aria-hidden="true"
+          className="w-32 md:w-40 mx-auto mb-5 pointer-events-none select-none transition-all duration-700"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(12px)",
+          }}
+        />
+
         {/* ラベル */}
         <p
           className="text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-5 font-display transition-all duration-700"
@@ -86,7 +98,7 @@ export default function WebCTA() {
             href="https://instagram.com/alpaca_amami"
             target="_blank"
             rel="noopener noreferrer"
-            className="group bg-white border border-[#EDE8E0] hover:border-[#F5A623]/50 rounded-2xl p-6 flex flex-col items-center gap-2 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(245,166,35,0.12)]"
+            className="group bg-white border border-[#EDE8E0] hover:border-[#0D9488]/50 rounded-2xl p-6 flex flex-col items-center gap-2 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(13,148,136,0.12)]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -94,7 +106,7 @@ export default function WebCTA() {
               transitionDelay: "370ms",
             }}
           >
-            <div className="w-10 h-10 rounded-xl bg-[#FFF3E0] flex items-center justify-center text-[#F5A623] mb-1">
+            <div className="w-10 h-10 rounded-xl bg-[#E6F5F3] flex items-center justify-center text-[#0D9488] mb-1">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                 <circle cx="12" cy="12" r="4" />

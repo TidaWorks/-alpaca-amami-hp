@@ -3410,36 +3410,6 @@ export default function GuesthousePage() {
           animation: guest-cta-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
-      {showCta && (
-        <div
-          className="guest-cta-bar fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center justify-between gap-3"
-          style={{
-            backgroundColor: "rgba(26, 35, 50, 0.97)",
-            backdropFilter: "blur(12px)",
-            borderTop: "1px solid rgba(232,168,124,0.2)",
-          }}
-          role="complementary"
-          aria-label="お問い合わせのショートカット"
-        >
-          <a
-            href="tel:0997-XX-XXXX"
-            className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-80"
-            style={{ backgroundColor: "#E8A87C", color: "#1A2332" }}
-            aria-label="電話する: 0997-XX-XXXX"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-            電話する
-          </a>
-          <a
-            href="#contact"
-            className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-80"
-            style={{ border: "1px solid rgba(232,168,124,0.5)", color: "#E8A87C" }}
-            aria-label="お問い合わせフォームへスクロール"
-          >
-            Web予約/お問い合わせ
-          </a>
-        </div>
-      )}
     </>
   );
 }

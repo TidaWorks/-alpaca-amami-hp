@@ -63,15 +63,15 @@ export default function Services() {
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <h4 className="text-sm font-bold text-gray-700 mb-2">Web制作</h4>
-              <p className="text-xs text-gray-500 leading-relaxed mb-2">LP ¥50,000〜 / HP ¥150,000〜</p>
+              <p className="text-xs text-gray-500 leading-relaxed mb-2">LP ¥70,000〜 / HP ¥150,000〜</p>
               <a href="/web" className="text-[#0D9488] text-xs font-medium hover:text-[#0F766E] transition-colors">
                 詳細・デモサイトを見る →
               </a>
             </div>
             <div className="md:w-1/2">
               <h4 className="text-sm font-bold text-gray-700 mb-2">保守サポート</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">LP ¥7,000/月 / HP ¥10,000/月 / システム ¥20,000/月</p>
-              <p className="text-xs text-gray-500 mt-1">サーバー管理・修正対応・基本当日対応</p>
+              <p className="text-xs text-gray-500 leading-relaxed">LP ¥5,000〜/月 / HP ¥10,000〜/月 / システム ¥20,000〜/月</p>
+              <p className="text-xs text-gray-500 mt-1">サーバー管理込み・当日対応。自主管理なら買い切りも可</p>
             </div>
           </div>
         </div>

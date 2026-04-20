@@ -7,6 +7,7 @@ import {
   M_PLUS_Rounded_1c,
 } from "next/font/google";
 import { DemoBanner } from "./components/DemoBanner";
+import { DemoStickyNotice } from "./components/DemoStickyNotice";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -59,9 +60,11 @@ export default function DemoLayout({
   return (
     <div
       className={`${notoSansJP.variable} ${notoSerifJP.variable} ${cormorantGaramond.variable} ${jost.variable} ${caveat.variable} ${mPlusRounded.variable}`}
+      style={{ paddingBottom: "64px" }}
     >
       {children}
       <DemoBanner tone="brand" />
+      <DemoStickyNotice />
     </div>
   );
 }

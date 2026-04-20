@@ -25,7 +25,7 @@ const demos = [
 
 const stats = [
   { value: "9", unit: "業種", label: "デモサイト公開中" },
-  { value: "¥50,000", unit: "〜", label: "LP制作プラン" },
+  { value: "¥70,000", unit: "〜", label: "LP制作プラン" },
   { value: "対面", unit: "OK", label: "島内打ち合わせ" },
 ];
 
@@ -288,6 +288,14 @@ export default function WebHero() {
         />
 
         <div className="relative max-w-5xl mx-auto px-6 pt-24 md:pt-32">
+          {/* デコレーション: ラップトップでホームページを見せるアルパカ */}
+          <img
+            src="/images/alpaca/alpaca-laptop-showcase.png"
+            alt="ラップトップでホームページを見せるアルパカ"
+            aria-hidden="true"
+            className="hidden lg:block absolute top-20 right-4 xl:right-12 w-40 xl:w-52 h-auto -rotate-[6deg] pointer-events-none select-none z-0"
+          />
+
           {/* ラベル */}
           <p className="hero-fade text-[#F5A623] text-[11px] font-semibold tracking-[0.3em] uppercase mb-5 font-display">
             WEB DESIGN
@@ -410,11 +418,21 @@ export default function WebHero() {
 
           {/* ② 数字バー */}
           <div className="hero-fade grid grid-cols-3 gap-4 mt-12 max-w-lg mx-auto" style={{ animationDelay: "0.4s" }}>
-            {stats.map((stat) => (
+            {stats.map((stat, i) => (
               <div key={stat.label} className="text-center">
                 <p className="text-[#2D2418]">
-                  <span className="text-2xl md:text-3xl font-black font-display">{stat.value}</span>
-                  <span className="text-sm font-semibold text-[#F5A623] ml-0.5">{stat.unit}</span>
+                  <span
+                    className="text-2xl md:text-3xl font-black font-display"
+                    style={{ color: i === 1 ? "#0D9488" : "#2D2418" }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span
+                    className="text-sm font-semibold ml-0.5"
+                    style={{ color: i === 1 ? "#0D9488" : "#F5A623" }}
+                  >
+                    {stat.unit}
+                  </span>
                 </p>
                 <p className="text-[11px] text-[#8A7D6B] mt-1">{stat.label}</p>
               </div>

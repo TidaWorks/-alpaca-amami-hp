@@ -1860,42 +1860,6 @@ export default function SalonPage() {
         </div>
       )}
 
-      {/* ===== Spacer for fixed bottom bar ===== */}
-      <div className="h-20 bg-[#3D2E0A]" />
-
-      {/* ===== Fixed Bottom CTA Bar ===== */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#3D2E0A]/95 backdrop-blur-sm border-t border-[#8B6914]/20">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-          {/* Phone */}
-          <a
-            href="tel:0997-XX-XXXX"
-            className="flex items-center gap-2 text-[#F5F0E8] hover:text-[#8B6914] transition-colors"
-            aria-label="電話する"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            <span className="text-sm tracking-wider hidden sm:inline">0997-XX-XXXX</span>
-          </a>
-
-          {/* Reservation button */}
-          <a
-            href="tel:0997-XX-XXXX"
-            className="flex-1 max-w-xs bg-[#8B6914] hover:bg-[#A07A1A] text-[#F5F0E8] text-center py-3 px-6 rounded-full text-sm tracking-widest transition-colors"
-          >
-            ご予約はこちら
-          </a>
-
-          {/* Hours */}
-          <div className="hidden sm:flex items-center gap-2 text-[#F5F0E8]/60">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            <span className="text-xs tracking-wider">10:00-19:00</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

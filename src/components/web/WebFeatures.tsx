@@ -82,7 +82,7 @@ export default function WebFeatures() {
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className="group bg-[#FFFBF5] border border-[#EDE8E0] rounded-2xl p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_32px_rgba(245,166,35,0.1),0_4px_12px_rgba(0,0,0,0.04)] hover:border-[#F5A623]/30"
+              className="group bg-[#FFFBF5] border border-[#EDE8E0] rounded-2xl p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_32px_rgba(13,148,136,0.1),0_4px_12px_rgba(0,0,0,0.04)] hover:border-[#0D9488]/30"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -90,7 +90,7 @@ export default function WebFeatures() {
               }}
             >
               {/* アイコン */}
-              <div className="w-12 h-12 rounded-xl bg-[#FFF3E0] flex items-center justify-center text-[#F5A623] mb-5 group-hover:bg-[#F5A623] group-hover:text-white transition-colors duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#E6F5F3] flex items-center justify-center text-[#0D9488] mb-5 group-hover:bg-[#0D9488] group-hover:text-white transition-colors duration-300">
                 {feature.icon}
               </div>
 
@@ -102,7 +102,7 @@ export default function WebFeatures() {
               </p>
 
               {/* ホバー時に現れるアクセントバー */}
-              <div className="h-[2px] w-0 group-hover:w-10 bg-[#F5A623] rounded-full mt-5 transition-all duration-500" />
+              <div className="h-[2px] w-0 group-hover:w-10 bg-[#0D9488] rounded-full mt-5 transition-all duration-500" />
             </div>
           ))}
         </div>

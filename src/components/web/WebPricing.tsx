@@ -65,10 +65,10 @@ export default function WebPricing() {
               <div className="mb-6">
                 <div className="flex items-baseline gap-0.5">
                   <span className="text-xs text-[#8A7D6B]">¥</span>
-                  <span className="text-4xl font-black text-[#2D2418] tabular-nums leading-none">50,000</span>
+                  <span className="text-4xl font-black text-[#2D2418] tabular-nums leading-none">70,000</span>
                   <span className="text-sm text-[#8A7D6B] ml-1">〜</span>
                 </div>
-                <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥80,000 / 納期 約2週間</p>
+                <p className="text-xs text-[#B0A898] mt-1.5">上限目安 ¥120,000 / 納期 約2週間</p>
               </div>
 
               <ul className="space-y-2.5 mb-7">
@@ -78,7 +78,6 @@ export default function WebPricing() {
                   "SEO初期設定を標準で含みます",
                   "お問い合わせフォーム付き",
                   "Googleマップ埋め込み対応",
-                  "公開後1回の修正に対応します",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
                     <span className="mt-[6px] flex-shrink-0 w-[5px] h-[5px] rounded-full bg-[#D4B896]" />
@@ -98,7 +97,7 @@ export default function WebPricing() {
 
           {/* スタンダードプラン */}
           <div
-            className="bg-white border-2 border-[#F5A623]/40 rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(245,166,35,0.1)]"
+            className="bg-white border-2 border-[#0D9488]/40 rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(13,148,136,0.1)]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -106,10 +105,10 @@ export default function WebPricing() {
             }}
           >
             {/* アクセントバー */}
-            <div className="h-[3px] bg-[#F5A623]" />
+            <div className="h-[3px] bg-[#0D9488]" />
 
             <div className="p-6 md:p-7">
-              <span className="inline-block text-[11px] text-[#F5A623] border border-[#F5A623]/40 bg-[#FFF9F0] rounded-full px-3 py-0.5 mb-4 tracking-wide">
+              <span className="inline-block text-[11px] text-[#0D9488] border border-[#0D9488]/40 bg-[#E6F5F3] rounded-full px-3 py-0.5 mb-4 tracking-wide">
                 本格的なホームページに
               </span>
               <h3 className="text-[#2D2418] text-xl font-bold mb-1">スタンダードプラン</h3>
@@ -134,10 +133,9 @@ export default function WebPricing() {
                   "お問い合わせフォーム付き",
                   "ブログ・お知らせ機能を実装",
                   "Google マップ・SNS 連携に対応",
-                  "公開後3回の修正に対応します",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
-                    <span className="mt-[6px] flex-shrink-0 w-[5px] h-[5px] rounded-full bg-[#F5A623]" />
+                    <span className="mt-[6px] flex-shrink-0 w-[5px] h-[5px] rounded-full bg-[#0D9488]" />
                     <span className="text-sm text-[#5A5248]">{item}</span>
                   </li>
                 ))}
@@ -145,7 +143,7 @@ export default function WebPricing() {
 
               <a
                 href="#contact"
-                className="block w-full text-center text-sm font-semibold text-white bg-[#F5A623] rounded-xl py-3 hover:bg-[#E09318] transition-colors duration-200"
+                className="block w-full text-center text-sm font-semibold text-white bg-[#0D9488] rounded-xl py-3 hover:bg-[#0F766E] transition-colors duration-200"
               >
                 このプランで相談する
               </a>
@@ -164,31 +162,40 @@ export default function WebPricing() {
         >
           <div className="bg-white border border-[#EDE8E0] rounded-2xl p-6 md:p-7">
             <div className="flex items-center gap-2.5 mb-5">
-              <svg className="flex-shrink-0 w-6 h-6 text-[#F5A623]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="flex-shrink-0 w-6 h-6 text-[#0D9488]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 6v6l4 2" />
               </svg>
               <h3 className="text-[#2D2418] text-lg font-bold">保守サポート</h3>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="space-y-2.5 mb-5">
               {[
-                { label: "LP", price: "¥7,000" },
-                { label: "HP", price: "¥10,000" },
-                { label: "システム", price: "¥20,000" },
+                { label: "LP", sub: "ランディングページ", price: "¥5,000〜" },
+                { label: "ホームページ", sub: "複数ページのHP", price: "¥10,000〜" },
+                { label: "システム", sub: "業務システム", price: "¥20,000〜" },
               ].map((plan) => (
-                <div key={plan.label} className="text-center bg-[#FFFBF5] border border-[#EDE8E0] rounded-xl py-3.5 px-2">
-                  <p className="text-[10px] text-[#8A7D6B] tracking-wider mb-1">{plan.label}</p>
-                  <p className="text-sm font-bold text-[#2D2418]">
+                <div
+                  key={plan.label}
+                  className="flex items-center justify-between bg-[#FFFBF5] border border-[#EDE8E0] rounded-xl px-5 py-4"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-[#2D2418]">{plan.label}</p>
+                    <p className="text-[11px] text-[#8A7D6B] mt-0.5">{plan.sub}</p>
+                  </div>
+                  <p className="text-lg font-bold text-[#2D2418] tabular-nums whitespace-nowrap">
                     {plan.price}
-                    <span className="text-xs font-normal text-[#8A7D6B]">/月</span>
+                    <span className="text-xs font-normal text-[#8A7D6B] ml-0.5">/月</span>
                   </p>
                 </div>
               ))}
             </div>
 
-            <p className="text-xs text-[#8A7D6B] leading-relaxed">
-              サーバー・ドメイン管理込み。テキスト・画像の変更は随時対応。基本当日対応。
+            <p className="text-xs text-[#8A7D6B] leading-relaxed mb-2">
+              サーバー・ドメイン管理込み。テキスト・画像の変更は随時対応、基本当日対応。システムの場合はデータベース・API管理なども含みます。
+            </p>
+            <p className="text-xs text-[#B0A898] leading-relaxed">
+              ※ サーバー・ドメイン（システムの場合はデータベース・APIも含む）をすべてご自身で管理される場合は、保守なしの買い切りでも対応可能です。
             </p>
           </div>
         </div>

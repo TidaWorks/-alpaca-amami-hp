@@ -48,13 +48,23 @@ export default function Benefits() {
         <div className="flex flex-col md:flex-row md:gap-20">
           {/* 左: 見出し */}
           <div ref={fade.ref} className={`md:w-2/5 mb-14 md:mb-0 md:sticky md:top-32 md:self-start transition-all duration-700 ${fade.className}`}>
-            <p className="text-xs font-semibold tracking-[0.25em] text-[#0D9488] mb-3">ADVANTAGE</p>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">
-              選ばれる
-              <br />
-              4つの理由
-            </h2>
-            <div className="w-12 h-[2px] bg-[#0D9488]/40" />
+            <div className="flex items-center gap-4 md:gap-6">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold tracking-[0.25em] text-[#0D9488] mb-3">ADVANTAGE</p>
+                <h2 className="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">
+                  選ばれる
+                  <br />
+                  4つの理由
+                </h2>
+                <div className="w-12 h-[2px] bg-[#0D9488]/40" />
+              </div>
+              <img
+                src="/images/alpaca/alpaca-confident.png"
+                alt="腕組みをする自信ありげなアルパカ"
+                aria-hidden="true"
+                className="w-40 md:w-52 h-auto flex-shrink-0 pointer-events-none select-none"
+              />
+            </div>
           </div>
 
           {/* 右: カード */}

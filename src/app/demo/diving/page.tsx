@@ -2136,34 +2136,6 @@ export default function BluAmamiDivingPage() {
           </div>
         </footer>
 
-        {/* ─── Fixed Bottom Reservation Bar ─── */}
-        <div className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ${scrollY > 500 ? "translate-y-0" : "translate-y-full"}`}>
-          <div className="bg-[#0C4A6E]/95 backdrop-blur-md border-t border-cyan-400/20 px-4 py-3">
-            <div className="max-w-5xl mx-auto flex items-center justify-between">
-              <div className="hidden sm:block">
-                <p className="text-sm font-bold">BLUE AMAMI</p>
-                <p className="text-xs text-white/50">体験ダイビング ¥12,000〜</p>
-              </div>
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <a
-                  href="tel:0997-XX-XXXX"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-white/20 hover:border-white/40 rounded-full text-sm font-bold transition-all"
-                  aria-label="電話する"
-                >
-                  <PhoneIcon className="w-4 h-4" />
-                  <span className="sm:hidden">電話</span>
-                  <span className="hidden sm:inline">電話予約</span>
-                </a>
-                <a
-                  href="#reserve"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 rounded-full text-sm font-bold transition-all shadow-lg shadow-cyan-500/20"
-                >
-                  今すぐ予約
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
