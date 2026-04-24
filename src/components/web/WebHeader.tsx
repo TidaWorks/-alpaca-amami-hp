@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 const NAV_LINKS = [
   { href: "#features", label: "特徴" },
   { href: "#pricing", label: "料金" },
   { href: "#flow", label: "流れ" },
-  { href: "#contact", label: "相談する" },
+  { href: "#contact", label: "相談" },
 ];
 
 export default function WebHeader() {
@@ -33,32 +32,45 @@ export default function WebHeader() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-[#FFFBF5]/90 backdrop-blur-md shadow-sm" : "bg-transparent"
+          scrolled ? "bg-black/85 backdrop-blur-md border-b border-white/10" : "bg-transparent"
         }`}
       >
         <div className="max-w-5xl mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
-          <a href="/" className="inline-block" aria-label="ALPACAトップへ">
-            <div className="relative w-24 h-10 md:w-28 md:h-12">
-              <Image src="/images/alpaca-logo.png" alt="ALPACA" fill className="object-contain object-left" />
+          <a href="/" className="inline-block group" aria-label="ALPACAトップへ">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-white font-black text-xl md:text-2xl tracking-tight">ALPACA</span>
+              <span
+                className="text-[#00FF85] text-[9px] font-bold tracking-[0.3em] group-hover:text-[#FF2E88] transition-colors"
+                style={{ textShadow: "0 0 8px rgba(0,255,133,0.5)" }}
+              >
+                WEB
+              </span>
             </div>
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-[#2D2418] hover:text-[#F5A623] transition-colors"
+                className="text-sm font-bold text-white/85 hover:text-[#FF2E88] transition-colors relative group"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#FF2E88] scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
               </a>
             ))}
             <a
-              href="/"
-              className="text-sm font-medium text-[#8A7D6B] hover:text-[#2D2418] transition-colors border-l border-[#D4CEC5] pl-6"
+              href="#contact"
+              className="text-xs font-black text-black bg-[#00FF85] rounded-full px-4 py-2 hover:bg-[#FF2E88] hover:text-white transition-colors shadow-[0_0_20px_rgba(0,255,133,0.4)]"
             >
-              システム開発
+              無料相談 →
+            </a>
+            <a
+              href="/"
+              className="text-[11px] font-semibold text-white/50 hover:text-white/90 transition-colors border-l border-white/15 pl-5"
+            >
+              SYSTEM
             </a>
           </nav>
 
@@ -68,22 +80,22 @@ export default function WebHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={open}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-[#FF2E88] transition"
           >
             <div className="relative w-5 h-4">
               <span
-                className={`absolute left-0 top-0 w-5 h-[2px] bg-[#2D2418] rounded-full transition-all duration-300 ${
-                  open ? "translate-y-[7px] rotate-45" : ""
+                className={`absolute left-0 top-0 w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${
+                  open ? "translate-y-[7px] rotate-45 bg-[#FF2E88]" : ""
                 }`}
               />
               <span
-                className={`absolute left-0 top-[7px] w-5 h-[2px] bg-[#2D2418] rounded-full transition-all duration-300 ${
+                className={`absolute left-0 top-[7px] w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${
                   open ? "opacity-0" : ""
                 }`}
               />
               <span
-                className={`absolute left-0 top-[14px] w-5 h-[2px] bg-[#2D2418] rounded-full transition-all duration-300 ${
-                  open ? "-translate-y-[7px] -rotate-45" : ""
+                className={`absolute left-0 top-[14px] w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${
+                  open ? "-translate-y-[7px] -rotate-45 bg-[#FF2E88]" : ""
                 }`}
               />
             </div>
@@ -97,9 +109,9 @@ export default function WebHeader() {
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} aria-hidden="true" />
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setOpen(false)} aria-hidden="true" />
         <div
-          className={`absolute right-0 top-0 h-full w-[78%] max-w-xs bg-[#FFFBF5] shadow-2xl transition-transform duration-300 ${
+          className={`absolute right-0 top-0 h-full w-[78%] max-w-xs bg-[#0A0A0A] border-l border-[#FF2E88]/30 shadow-[-8px_0_40px_rgba(255,46,136,0.15)] transition-transform duration-300 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -109,15 +121,22 @@ export default function WebHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-base font-medium text-[#2D2418] hover:text-[#F5A623] transition-colors py-2 border-b border-[#EFE8DE]"
+                className="text-base font-bold text-white hover:text-[#FF2E88] transition-colors py-2 border-b border-white/10"
               >
                 {link.label}
               </a>
             ))}
             <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="mt-4 inline-flex items-center justify-center text-sm font-black text-black bg-[#00FF85] rounded-full px-5 py-3 hover:bg-[#FF2E88] hover:text-white transition-colors"
+            >
+              無料相談 →
+            </a>
+            <a
               href="/"
               onClick={() => setOpen(false)}
-              className="text-sm font-medium text-[#8A7D6B] hover:text-[#2D2418] transition-colors py-2 mt-4"
+              className="text-xs font-semibold text-white/50 hover:text-white transition-colors py-2 mt-2"
             >
               → システム開発ページ
             </a>

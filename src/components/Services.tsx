@@ -63,7 +63,7 @@ export default function Services() {
           <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             <div className="md:w-1/2">
               <h4 className="text-sm font-bold text-gray-700 mb-2">Web制作</h4>
-              <p className="text-xs text-gray-500 leading-relaxed mb-2">LP ¥70,000〜 / HP ¥150,000〜</p>
+              <p className="text-xs text-gray-500 leading-relaxed mb-2">LP ¥70,000〜 / HP ¥250,000〜</p>
               <a href="/web" className="text-[#0D9488] text-xs font-medium hover:text-[#0F766E] transition-colors">
                 詳細・デモサイトを見る →
               </a>

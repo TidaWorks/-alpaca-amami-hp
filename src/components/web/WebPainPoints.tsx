@@ -8,8 +8,8 @@ const scenarios = [
     label: "検索しても出ない",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" />
-        <path d="M16.5 16.5L21 21" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="11" cy="11" r="7" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16.5 16.5L21 21" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "「お店の名前」でGoogle検索しても、何も出てこない。お客さんが来る前に、どこか別のお店に行ってしまう…",
@@ -22,9 +22,9 @@ const scenarios = [
     label: "スマホで崩れる",
     icon: (
       <svg width="18" height="20" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#F5A623" strokeWidth="2" />
-        <circle cx="9" cy="19" r="1.2" fill="#F5A623" />
-        <path d="M6 5h6" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" />
+        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#FF2E88" strokeWidth="2" />
+        <circle cx="9" cy="19" r="1.2" fill="#FF2E88" />
+        <path d="M6 5h6" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "今のサイト、スマホで見るとボタンが小さくて押せないし、写真がはみ出してしまう。お客さんに申し訳ない…",
@@ -37,8 +37,8 @@ const scenarios = [
     label: "更新に時間とお金",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke="#F5A623" strokeWidth="2" />
-        <path d="M12 7v5l3 3" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="9" stroke="#FF2E88" strokeWidth="2" />
+        <path d="M12 7v5l3 3" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     problem: "メニューの値段が変わったのに、業者に連絡→返信待ち→反映まで2週間…。その間もお客さんに古い情報を見せてしまう。",
@@ -136,7 +136,7 @@ export default function WebPainPoints() {
         {/* Section heading */}
         <div className="mb-16 flex items-center gap-4 md:gap-8">
           <div className="flex-1 min-w-0">
-            <p className="text-[#F5A623] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
+            <p className="text-[#FF2E88] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
               PROBLEMS
             </p>
             <h2 className="text-[#1A1A1A] text-3xl md:text-5xl font-bold leading-tight">
@@ -190,7 +190,7 @@ export default function WebPainPoints() {
                   />
                   <div className="relative flex items-center gap-2 mb-2">
                     {s.icon}
-                    <p className="text-xs font-semibold text-[#F5A623] tracking-wider">
+                    <p className="text-xs font-semibold text-[#FF2E88] tracking-wider">
                       {s.label}
                     </p>
                   </div>
@@ -202,7 +202,7 @@ export default function WebPainPoints() {
                 {/* Mobile downward arrow — visible only when tail is hidden */}
                 <div className="flex justify-center mt-4 md:hidden">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#FF2E88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function WebPainPoints() {
               {/* Arrow connector — desktop only */}
               <div className="hidden md:flex flex-col items-center shrink-0">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#FF2E88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
 
@@ -222,13 +222,13 @@ export default function WebPainPoints() {
                 <div
                   className="rounded-2xl bg-white px-6 py-5 shadow-sm"
                   style={{
-                    borderTop: "1px solid #F5D89A",
-                    borderRight: "1px solid #F5D89A",
-                    borderBottom: "1px solid #F5D89A",
-                    borderLeft: "3px solid #F5A623",
+                    borderTop: "1px solid #FCB3CF",
+                    borderRight: "1px solid #FCB3CF",
+                    borderBottom: "1px solid #FCB3CF",
+                    borderLeft: "3px solid #FF2E88",
                   }}
                 >
-                  <p className="text-[#F5A623] text-xs font-semibold uppercase tracking-widest mb-2">
+                  <p className="text-[#FF2E88] text-xs font-semibold uppercase tracking-widest mb-2">
                     {s.solutionLabel}
                   </p>
                   <p className="text-[#1A1A1A] text-lg font-bold mb-2">

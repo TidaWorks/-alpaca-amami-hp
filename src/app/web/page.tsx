@@ -3,6 +3,7 @@ import WebHero from "@/components/web/WebHero";
 import WebFeatures from "@/components/web/WebFeatures";
 import WebPricing from "@/components/web/WebPricing";
 import WebFlow from "@/components/web/WebFlow";
+import WebManifesto from "@/components/web/WebManifesto";
 import WebCTA from "@/components/web/WebCTA";
 
 export const metadata = {
@@ -19,6 +20,7 @@ export default function WebPage() {
       <WebFeatures />
       <WebPricing />
       <WebFlow />
+      <WebManifesto />
       <WebCTA />
     </div>
   );

@@ -12,18 +12,18 @@ interface DemoBannerProps {
 
 const palette: Record<Tone, { bg: string; text: string; subText: string; ctaBg: string; ctaText: string; border: string }> = {
   brand: {
-    bg: "linear-gradient(135deg, #0d7f6c 0%, #15a488 100%)",
+    bg: "linear-gradient(135deg, #0DA87E 0%, #12C998 100%)",
     text: "#FFFFFF",
     subText: "rgba(255,255,255,0.8)",
     ctaBg: "#FFFFFF",
-    ctaText: "#0d7f6c",
+    ctaText: "#0DA87E",
     border: "rgba(255,255,255,0.2)",
   },
   dark: {
     bg: "linear-gradient(135deg, #1A2332 0%, #2A3547 100%)",
     text: "#F5F0E8",
     subText: "rgba(245,240,232,0.65)",
-    ctaBg: "#15a488",
+    ctaBg: "#12C998",
     ctaText: "#FFFFFF",
     border: "rgba(255,255,255,0.08)",
   },
@@ -31,7 +31,7 @@ const palette: Record<Tone, { bg: string; text: string; subText: string; ctaBg: 
     bg: "#FAFAF5",
     text: "#1A2332",
     subText: "rgba(26,35,50,0.6)",
-    ctaBg: "#0d7f6c",
+    ctaBg: "#0DA87E",
     ctaText: "#FFFFFF",
     border: "rgba(26,35,50,0.08)",
   },
