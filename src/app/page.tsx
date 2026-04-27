@@ -1,29 +1,23 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import BusyPersonSection from "@/components/BusyPersonSection";
-import Benefits from "@/components/Benefits";
-import Services from "@/components/Services";
-import Flow from "@/components/Flow";
-import FAQ from "@/components/FAQ";
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import HomeHeader from "@/components/home/HomeHeader";
+import HomeHero from "@/components/home/HomeHero";
+import HomeServices from "@/components/home/HomeServices";
+import HomeWorks from "@/components/home/HomeWorks";
+import HomeAbout from "@/components/home/HomeAbout";
+import HomeFlow from "@/components/home/HomeFlow";
+import HomeFAQ from "@/components/home/HomeFAQ";
+import HomeContact from "@/components/home/HomeContact";
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <BusyPersonSection />
-        <Benefits />
-        <Services />
-        <Flow />
-        <FAQ />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <div className="overflow-x-hidden bg-white">
+      <HomeHeader />
+      <HomeHero />
+      <HomeServices />
+      <HomeWorks />
+      <HomeAbout />
+      <HomeFlow />
+      <HomeFAQ />
+      <HomeContact />
+    </div>
   );
 }

@@ -25,3 +25,6 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 生成画像（探索用、本番反映前のバリエは含めない）
+public/images/generated/
