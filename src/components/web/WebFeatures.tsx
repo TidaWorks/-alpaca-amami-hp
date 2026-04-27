@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle, MemphisWave } from "./MemphisDecorations";
 
 const features = [
   {
     tag: "MEETING",
-    color: "#FF2E88",
+    accent: "#FF2DA0",
+    bg: "memphis-card-pink",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -19,9 +21,10 @@ const features = [
   },
   {
     tag: "SUPPORT",
-    color: "#00FF85",
+    accent: "#00E0D1",
+    bg: "memphis-card-mint",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path d="M9 12l2 2 4-4" />
       </svg>
@@ -31,9 +34,10 @@ const features = [
   },
   {
     tag: "MOBILE",
-    color: "#FFE500",
+    accent: "#FFD600",
+    bg: "memphis-card-yellow",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
         <line x1="12" y1="18" x2="12.01" y2="18" />
       </svg>
@@ -62,102 +66,96 @@ export default function WebFeatures() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="features" className="relative bg-[#0A0A0A] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden">
-      {/* 背景ドット */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.05]"
-        aria-hidden="true"
-        style={{ backgroundImage: "radial-gradient(circle, #FFFFFF 1px, transparent 1px)", backgroundSize: "32px 32px" }}
-      />
-      {/* ネオングロー */}
-      <div
-        className="absolute -top-20 right-1/4 w-[400px] h-[400px] rounded-full blur-[140px] pointer-events-none"
-        aria-hidden="true"
-        style={{ background: "rgba(0,255,133,0.15)" }}
-      />
+    <section
+      ref={sectionRef}
+      id="features"
+      className="relative bg-[#F7F7F7] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t-2 border-[#111111]"
+    >
+      {/* Memphis装飾 */}
+      <MemphisDots color="#111111" className="absolute top-12 right-12 w-24 md:w-32 opacity-50 pointer-events-none" />
+      <MemphisRing color="#FF2DA0" className="absolute bottom-20 left-8 w-20 md:w-28 pointer-events-none hidden md:block" />
+      <MemphisSquiggle color="#00E0D1" className="absolute top-24 left-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
+      <MemphisTriangle color="#FFD600" className="absolute bottom-16 right-1/4 w-12 md:w-14 -rotate-12 pointer-events-none" />
+      <MemphisWave color="#FF2DA0" className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 md:w-56 opacity-70 pointer-events-none" />
 
-      <div className="relative max-w-4xl mx-auto">
+      <div className="relative max-w-5xl mx-auto">
         {/* 見出し */}
         <div
-          className="mb-12 md:mb-16 transition-all duration-700"
+          className="mb-14 md:mb-16 transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-5 bg-[#00FF85] text-black text-[10px] font-black tracking-[0.25em] px-3 py-1.5 rounded-sm rotate-[-2deg] shadow-[0_0_24px_rgba(0,255,133,0.4)]">
-            <span>◆</span>
-            <span>FEATURES / WHY ALPACA</span>
+          <div className="inline-flex items-center gap-2 mb-6">
+            <span className="bg-[#00E0D1] text-[#111111] font-black text-[11px] tracking-widest px-2.5 py-1 border-2 border-[#111111]">
+              02
+            </span>
+            <span className="text-[11px] font-bold tracking-[0.3em] text-[#111111]">FEATURES</span>
           </div>
-          <h2 className="text-white text-3xl md:text-5xl font-black mb-4 leading-tight tracking-tight">
+          <h2 className="font-memphis-mincho text-[#111111] text-3xl md:text-5xl font-extrabold mb-5 leading-[1.3] tracking-tight">
             ALPACAの
             <br className="md:hidden" />
             <span className="relative inline-block">
-              <span className="relative z-10 text-black">3つの強み</span>
-              <span className="absolute inset-x-0 bottom-1 h-full bg-[#FF2E88] -z-0 rotate-[-1deg]" style={{ boxShadow: "0 0 32px rgba(255,46,136,0.6)" }} />
+              <span className="relative z-10">3つの強み</span>
+              <span
+                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FF2DA0] -z-0"
+                aria-hidden="true"
+              />
             </span>
+            。
           </h2>
-          <p className="text-white/70 text-sm md:text-base">
-            島内に拠点を持つからこそ実現できる、<span className="text-[#00FF85] font-bold">顔の見えるWeb制作</span>。
+          <p className="font-memphis-mincho text-[#111111]/75 text-sm md:text-base">
+            島内に拠点を持つからこそ実現できる、顔の見えるWeb制作。
           </p>
         </div>
 
         {/* 3カード */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-8">
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className="group relative bg-[#141414] border border-white/10 rounded-2xl p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+              className={`group relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-500 ${feature.bg}`}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
                 transitionDelay: `${150 + i * 100}ms`,
-                boxShadow: `0 0 0 rgba(0,0,0,0)`,
               }}
             >
-              {/* ホバー時のネオン枠 */}
-              <div
-                className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  boxShadow: `inset 0 0 0 2px ${feature.color}, 0 0 32px ${feature.color}55`,
-                }}
-              />
               {/* タグ */}
               <span
-                className="absolute top-4 right-4 text-[9px] font-black tracking-[0.2em] px-2 py-0.5 rounded-sm rotate-[3deg]"
-                style={{ background: feature.color, color: "#0A0A0A" }}
+                className="absolute -top-3 -right-2 text-[10px] font-black tracking-[0.2em] px-2.5 py-1 border-2 border-[#111111] rotate-[3deg] text-[#111111]"
+                style={{ background: feature.accent }}
               >
                 {feature.tag}
               </span>
 
               {/* 番号 */}
-              <div className="text-[48px] font-black leading-none mb-2 font-display" style={{ color: feature.color, textShadow: `0 0 18px ${feature.color}55` }}>
+              <div
+                className="font-memphis-mincho text-[64px] font-extrabold leading-none mb-3 text-[#111111]"
+              >
                 0{i + 1}
               </div>
 
               {/* アイコン */}
               <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
-                style={{
-                  background: `${feature.color}22`,
-                  color: feature.color,
-                  boxShadow: `inset 0 0 0 1px ${feature.color}55`,
-                }}
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-5 border-2 border-[#111111] text-[#111111]"
+                style={{ background: feature.accent }}
               >
                 {feature.icon}
               </div>
 
-              <h3 className="text-white text-lg md:text-xl font-black mb-2">
+              <h3 className="font-memphis-mincho text-[#111111] text-xl md:text-[1.4rem] font-extrabold mb-3">
                 {feature.title}
               </h3>
-              <p className="text-white/65 text-sm leading-relaxed">
+              <p className="text-[#111111]/75 text-sm leading-relaxed">
                 {feature.description}
               </p>
 
-              {/* ホバー時のアクセントバー */}
+              {/* アクセントバー */}
               <div
-                className="h-[3px] w-0 group-hover:w-12 rounded-full mt-5 transition-all duration-500"
-                style={{ background: feature.color, boxShadow: `0 0 12px ${feature.color}` }}
+                className="h-[4px] w-12 rounded-full mt-6"
+                style={{ background: feature.accent }}
               />
             </div>
           ))}

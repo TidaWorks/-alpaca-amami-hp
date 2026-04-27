@@ -5,13 +5,59 @@
 @theme {
   --color-orange-accent: #F5A623;
   --color-orange-hover: #E09510;
+
+  /* Memphis × Tropical Fusion パレット (Web LP用) */
+  --color-memphis-pink: #FF2DA0;
+  --color-memphis-mint: #00E0D1;
+  --color-memphis-yellow: #FFD600;
+  --color-memphis-ink: #111111;
+  --color-memphis-cream: #F7F7F7;
+
   --font-sans: var(--font-noto), sans-serif;
   --font-display: var(--font-outfit), sans-serif;
+  --font-memphis-gothic: var(--font-shippori-gothic), "Shippori Antique B1", sans-serif;
+  --font-memphis-mincho: var(--font-shippori-mincho), "Shippori Mincho", serif;
 }
 
 /* 英字見出し用フォント */
 .font-display {
   font-family: var(--font-display);
+}
+
+/* Memphisフォントユーティリティ */
+.font-memphis-gothic {
+  font-family: var(--font-memphis-gothic);
+}
+.font-memphis-mincho {
+  font-family: var(--font-memphis-mincho);
+}
+
+/* Memphis 斑点ドットパターン背景 */
+.bg-memphis-speckle {
+  background-image:
+    radial-gradient(#111111 1.2px, transparent 1.6px),
+    radial-gradient(#111111 0.8px, transparent 1.2px);
+  background-size: 22px 22px, 14px 14px;
+  background-position: 0 0, 9px 11px;
+}
+
+/* Memphis 太枠＋影 */
+.memphis-card {
+  border: 2px solid #111111;
+  box-shadow: 6px 6px 0 0 #111111;
+  background: #ffffff;
+}
+.memphis-card-pink {
+  border: 2px solid #111111;
+  box-shadow: 6px 6px 0 0 #FF2DA0;
+}
+.memphis-card-mint {
+  border: 2px solid #111111;
+  box-shadow: 6px 6px 0 0 #00E0D1;
+}
+.memphis-card-yellow {
+  border: 2px solid #111111;
+  box-shadow: 6px 6px 0 0 #FFD600;
 }
 
 /* ─── UIコンポーネント（shimmer-button, border-beam等） ─── */

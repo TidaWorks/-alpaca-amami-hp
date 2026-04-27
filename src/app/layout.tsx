@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Outfit } from "next/font/google";
+import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -14,6 +14,20 @@ const outfit = Outfit({
   weight: ["400", "600", "700", "800", "900"],
   display: "swap",
   variable: "--font-outfit",
+});
+
+const shipporiGothic = Shippori_Antique_B1({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-shippori-gothic",
+});
+
+const shipporiMincho = Shippori_Mincho({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-shippori-mincho",
 });
 
 const siteName = "ALPACA";
@@ -188,7 +202,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansJP.variable} ${outfit.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
+        className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
         {children}
       </body>

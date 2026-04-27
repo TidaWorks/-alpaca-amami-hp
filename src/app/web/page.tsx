@@ -1,9 +1,11 @@
 import WebHeader from "@/components/web/WebHeader";
 import WebHero from "@/components/web/WebHero";
+import WebPainPoints from "@/components/web/WebPainPoints";
 import WebFeatures from "@/components/web/WebFeatures";
 import WebPricing from "@/components/web/WebPricing";
 import WebFlow from "@/components/web/WebFlow";
 import WebManifesto from "@/components/web/WebManifesto";
+import WebFAQ from "@/components/web/WebFAQ";
 import WebCTA from "@/components/web/WebCTA";
 
 export const metadata = {
@@ -17,10 +19,12 @@ export default function WebPage() {
     <div className="overflow-x-hidden">
       <WebHeader />
       <WebHero />
+      <WebPainPoints />
       <WebFeatures />
       <WebPricing />
       <WebFlow />
       <WebManifesto />
+      <WebFAQ />
       <WebCTA />
     </div>
   );
