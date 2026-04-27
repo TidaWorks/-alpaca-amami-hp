@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import {
   MemphisBlob,
   MemphisSquiggle,
-  MemphisPalm,
 } from "./MemphisDecorations";
 
 const demos = [
@@ -59,11 +58,10 @@ export default function WebHero() {
       {/* 斑点ドットパターン背景 */}
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
-      {/* Memphis装飾（4要素に絞り、主役のコピー＋Phoneを立てる） */}
+      {/* Memphis装飾（3要素：Blob×2 + Squiggle、主役のコピー＋Phoneを立てる） */}
       <MemphisBlob color="#FF2DA0" className="absolute -top-10 -left-12 w-44 md:w-56 -rotate-12 pointer-events-none" />
       <MemphisBlob color="#FFD600" className="absolute top-32 right-[-3rem] w-32 md:w-40 rotate-[18deg] pointer-events-none" />
       <MemphisSquiggle color="#FF2DA0" className="absolute top-24 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisPalm color="#111111" className="absolute bottom-0 right-0 w-40 md:w-56 -rotate-12 pointer-events-none opacity-90" />
 
       <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
         {/* ── 左カラム ── */}
