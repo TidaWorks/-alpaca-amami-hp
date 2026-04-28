@@ -43,13 +43,25 @@ export default function SystemManifesto() {
       <div
         aria-hidden="true"
         className="absolute -top-40 -right-40 w-[420px] h-[420px] rounded-full pointer-events-none blur-3xl opacity-30"
-        style={{ background: "radial-gradient(circle, #635BFF 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, #635BFF 0%, transparent 70%)",
+          animation: "sysManifestoDrift 18s ease-in-out infinite",
+        }}
       />
       <div
         aria-hidden="true"
         className="absolute -bottom-40 -left-40 w-[360px] h-[360px] rounded-full pointer-events-none blur-3xl opacity-25"
-        style={{ background: "radial-gradient(circle, #FFC400 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, #FFC400 0%, transparent 70%)",
+          animation: "sysManifestoDrift 22s ease-in-out infinite reverse",
+        }}
       />
+      <style>{`
+        @keyframes sysManifestoDrift {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(20px, -15px) scale(1.05); }
+        }
+      `}</style>
 
       <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
         <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14 items-center">
@@ -75,7 +87,7 @@ export default function SystemManifesto() {
                 transitionDelay: "80ms",
               }}
             >
-              島の小さなお店に、
+              島の事業に、
               <br />
               <span className="text-[#FFC400]">大きな変化</span>
               を。
@@ -88,9 +100,8 @@ export default function SystemManifesto() {
                 transitionDelay: "200ms",
               }}
             >
-              ALPACAは、奄美大島を拠点にする小さな開発スタジオ。
+              ALPACAは、奄美大島を拠点にする開発スタジオです。
               <br />
-              「都会の効率を、島のスピードで届ける」をモットーに、
               島の事業者さまの業務を、デザインとデータで整えます。
               <br />
               対面で話せる距離だからこそ、現場に合わせたシステムが作れます。
@@ -110,13 +121,19 @@ export default function SystemManifesto() {
               { num: "2", unit: "週間〜", label: "プロトタイプ最短納期", color: "#635BFF" },
               { num: "24", unit: "h", label: "問い合わせ初回返信", color: "#FFC400" },
               { num: "対面", unit: "OK", label: "奄美島内で打合せ可", color: "#0EA5E9" },
-            ].map((item) => (
+            ].map((item, i) => (
               <div
                 key={item.label}
-                className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 border border-white/20 shadow-lg"
+                className="group bg-white/95 backdrop-blur-sm rounded-2xl p-5 border border-white/20 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:bg-white transition-all duration-300 cursor-default"
+                style={{
+                  animation: `sysManifestoCardFloat ${4 + i * 0.5}s ease-in-out ${i * 0.3}s infinite`,
+                }}
               >
                 <p className="flex items-baseline gap-1.5">
-                  <span className="text-4xl md:text-5xl font-extrabold tabular-nums" style={{ color: item.color }}>
+                  <span
+                    className="text-4xl md:text-5xl font-extrabold tabular-nums group-hover:scale-110 transition-transform duration-300 origin-left inline-block"
+                    style={{ color: item.color }}
+                  >
                     {item.num}
                   </span>
                   <span className="text-base md:text-lg font-black text-[#1A202C]">
@@ -126,6 +143,12 @@ export default function SystemManifesto() {
                 <p className="text-[#1A202C]/70 text-xs md:text-sm mt-1.5">{item.label}</p>
               </div>
             ))}
+            <style>{`
+              @keyframes sysManifestoCardFloat {
+                0%, 100% { translate: 0 0; }
+                50% { translate: 0 -3px; }
+              }
+            `}</style>
           </div>
         </div>
       </div>

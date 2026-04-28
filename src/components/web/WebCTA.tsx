@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MemphisBlob, MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle, MemphisWave } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
 export default function WebCTA() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [sectionRef, visible] = useReveal<HTMLElement>({ threshold: 0.15 });
   const [form, setForm] = useState({ name: "", email: "", message: "", agree: false });
   const [submit, setSubmit] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -45,22 +45,6 @@ export default function WebCTA() {
       setSubmit("error");
     }
   };
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
 
   const contacts = [
     {
@@ -122,13 +106,13 @@ export default function WebCTA() {
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Memphis装飾 */}
-      <MemphisBlob color="#FF2DA0" className="absolute top-12 -right-12 w-44 md:w-56 rotate-12 pointer-events-none" />
-      <MemphisBlob color="#00E0D1" className="absolute bottom-32 -left-12 w-40 md:w-52 -rotate-12 pointer-events-none" />
-      <MemphisRing color="#FFD600" className="absolute top-1/3 right-1/4 w-20 md:w-28 pointer-events-none hidden md:block" />
-      <MemphisSquiggle color="#FF2DA0" className="absolute top-32 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisDots color="#111111" className="absolute bottom-44 right-12 w-20 md:w-28 opacity-50 pointer-events-none" />
-      <MemphisTriangle color="#00E0D1" className="absolute top-24 right-1/3 w-12 md:w-14 -rotate-12 pointer-events-none" />
-      <MemphisWave color="#FFD600" className="absolute bottom-32 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
+      <MemphisBlob color="#FF2DA0" className="absolute top-12 -right-12 w-44 md:w-56 rotate-12 pointer-events-none animate-float-slow" />
+      <MemphisBlob color="#00E0D1" className="absolute bottom-32 -left-12 w-40 md:w-52 -rotate-12 pointer-events-none animate-float" />
+      <MemphisRing color="#FFD600" className="absolute top-1/3 right-1/4 w-20 md:w-28 pointer-events-none hidden md:block animate-wiggle" />
+      <MemphisSquiggle color="#FF2DA0" className="absolute top-32 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisDots color="#111111" className="absolute bottom-44 right-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
+      <MemphisTriangle color="#00E0D1" className="absolute top-24 right-1/3 w-12 md:w-14 -rotate-12 pointer-events-none animate-wiggle" />
+      <MemphisWave color="#FFD600" className="absolute bottom-32 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
 
       <div className="relative max-w-4xl mx-auto">
         {/* 見出し */}
@@ -171,7 +155,7 @@ export default function WebCTA() {
               href={c.href}
               target={c.type === "dm" ? "_blank" : undefined}
               rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-              className="relative bg-white border-2 border-[#111111] p-6 flex flex-col items-start gap-2 shadow-[5px_5px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_#111111] transition-all"
+              className="relative bg-white border-2 border-[#111111] p-6 flex flex-col items-start gap-2 shadow-[5px_5px_0_0_#111111] hover:-translate-y-[3px] hover:shadow-[7px_8px_0_0_#111111] active:scale-[0.98] active:translate-y-0 active:shadow-[3px_3px_0_0_#111111] transition-all cursor-pointer"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -300,7 +284,7 @@ export default function WebCTA() {
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="inline-flex items-center justify-center bg-[#FFD600] text-[#111111] font-black text-sm tracking-widest px-8 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center bg-[#FFD600] text-[#111111] font-black text-sm tracking-widest px-8 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 {submit === "submitting" ? "送信中..." : "送信する →"}
               </button>
@@ -311,11 +295,7 @@ export default function WebCTA() {
         {/* フッター */}
         <div className="border-t-2 border-dashed border-[#111111]/50 pt-8 text-center">
           <p className="font-memphis-gothic text-2xl font-black tracking-widest mb-2">
-            <span className="text-[#FF2DA0]">A</span>
-            <span className="text-[#111111]">L</span>
-            <span className="text-[#00E0D1]">P</span>
-            <span className="text-[#FFD600]">A</span>
-            <span className="text-[#111111]">CA</span>
+            <span className="text-[#111111]">ALPACA</span>
             <span className="text-[#111111] text-[10px] tracking-[0.3em] ml-2 align-middle">
               WEB DESIGN STUDIO
             </span>

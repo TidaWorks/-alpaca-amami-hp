@@ -78,21 +78,28 @@ export default function HomeFlow() {
           {steps.map((step, i) => (
             <div
               key={step.number}
-              className="relative bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-700"
+              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-transparent overflow-hidden"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
-                transitionDelay: `${150 + i * 100}ms`,
+                transition: `opacity 0.7s ease ${150 + i * 100}ms, transform 0.5s ease ${150 + i * 100}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
               }}
             >
+              {/* 背景の薄いカラーブロブ */}
               <span
-                className="text-5xl md:text-6xl font-extrabold tabular-nums leading-none block mb-3"
+                aria-hidden="true"
+                className="absolute -top-10 -right-10 w-28 h-28 rounded-full opacity-0 group-hover:opacity-25 blur-2xl transition-opacity duration-500"
+                style={{ background: step.color }}
+              />
+
+              <span
+                className="relative text-5xl md:text-6xl font-extrabold tabular-nums leading-none block mb-3 group-hover:scale-110 transition-transform duration-300 origin-left"
                 style={{ color: step.color }}
               >
                 {step.number}
               </span>
 
-              <div className="flex items-center gap-2 mb-3 flex-wrap">
+              <div className="relative flex items-center gap-2 mb-3 flex-wrap">
                 <h3 className="text-[#1A202C] text-base font-extrabold">{step.title}</h3>
                 <span
                   className="text-[10px] font-black tracking-widest rounded-full px-2 py-0.5 whitespace-nowrap"
@@ -102,11 +109,14 @@ export default function HomeFlow() {
                 </span>
               </div>
 
-              <p className="text-[#1A202C]/70 text-sm leading-relaxed">
+              <p className="relative text-[#1A202C]/70 text-sm leading-relaxed">
                 {step.description}
               </p>
 
-              <div className="h-[3px] w-10 rounded-full mt-5" style={{ background: step.color }} />
+              <div
+                className="h-[3px] w-10 rounded-full mt-5 group-hover:w-16 transition-all duration-500"
+                style={{ background: step.color }}
+              />
             </div>
           ))}
         </div>

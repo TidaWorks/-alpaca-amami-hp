@@ -1,9 +1,27 @@
 import type { Metadata } from "next";
 
+const title = "南風建設 | 奄美大島の建設・リフォーム（ALPACAデモサイト）";
+const description =
+  "奄美大島の建設会社「南風建設」のデモサイト。新築住宅・リフォーム・店舗内装・公共工事まで、地域密着の施工イメージを想定したALPACA制作サンプルです。";
+const url = "https://alpaca-amami.com/demo/construction";
+
 export const metadata: Metadata = {
-  title: "南風建設 | 奄美大島の建設・リフォーム",
-  description:
-    "奄美大島で創業20年。新築住宅、リフォーム、店舗内装、公共工事まで、地域に根ざした確かな施工で島の暮らしと未来をつくります。",
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    url,
+    siteName: "ALPACA",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function ConstructionLayout({

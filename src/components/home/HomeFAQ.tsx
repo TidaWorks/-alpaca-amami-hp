@@ -76,32 +76,34 @@ export default function HomeFAQ() {
             return (
               <div
                 key={faq.q}
-                className="bg-white border border-[#E5E7EB] rounded-2xl shadow-sm transition-all duration-700"
+                className={`group bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 ${
+                  open ? "border-[#635BFF]/40 shadow-md" : "border-[#E5E7EB]"
+                }`}
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(16px)",
-                  transitionDelay: `${100 + i * 70}ms`,
+                  transition: `opacity 0.7s ease ${100 + i * 70}ms, transform 0.7s ease ${100 + i * 70}ms, box-shadow 0.3s, border-color 0.3s`,
                 }}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIdx(open ? null : i)}
-                  className="w-full flex items-start gap-4 text-left px-5 md:px-6 py-4 md:py-5"
+                  className="w-full flex items-start gap-4 text-left px-5 md:px-6 py-4 md:py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-2xl"
                   aria-expanded={open}
                 >
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#635BFF] flex items-center justify-center font-extrabold text-sm text-white">
+                  <span className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#635BFF] flex items-center justify-center font-extrabold text-sm text-white transition-transform duration-300 ${open ? "scale-110" : "group-hover:scale-105"}`}>
                     Q
                   </span>
-                  <span className="flex-1 text-[#1A202C] text-base md:text-lg font-bold leading-relaxed pt-1">
+                  <span className={`flex-1 text-base md:text-lg font-bold leading-relaxed pt-1 transition-colors duration-200 ${open ? "text-[#635BFF]" : "text-[#1A202C]"}`}>
                     {faq.q}
                   </span>
                   <span
-                    className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#F8FAFC] border border-[#E5E7EB] flex items-center justify-center transition-transform ${
-                      open ? "rotate-45" : ""
+                    className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                      open ? "bg-[#635BFF] border-[#635BFF] rotate-45" : "bg-[#F8FAFC] border-[#E5E7EB]"
                     }`}
                     aria-hidden="true"
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="3" strokeLinecap="round">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={open ? "#FFFFFF" : "#635BFF"} strokeWidth="3" strokeLinecap="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>

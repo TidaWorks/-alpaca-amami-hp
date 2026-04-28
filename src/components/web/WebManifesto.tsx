@@ -1,27 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { MemphisBlob, MemphisDots, MemphisRing, MemphisSquiggle, MemphisWave } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function WebManifesto() {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const [ref, visible] = useReveal<HTMLElement>({ threshold: 0.2 });
 
   return (
     <section
@@ -42,12 +25,12 @@ export default function WebManifesto() {
       />
 
       {/* Memphis装飾（ダーク背景にカラフル） */}
-      <MemphisBlob color="#FF2DA0" className="absolute -top-12 -left-12 w-40 md:w-56 rotate-12 pointer-events-none" />
-      <MemphisBlob color="#FFD600" className="absolute -bottom-12 -right-12 w-44 md:w-60 -rotate-12 pointer-events-none" />
-      <MemphisRing color="#00E0D1" className="absolute top-20 right-20 w-20 md:w-28 pointer-events-none hidden md:block" />
-      <MemphisSquiggle color="#FFD600" className="absolute bottom-24 left-12 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisWave color="#FF2DA0" className="absolute top-32 left-1/2 -translate-x-1/2 w-40 md:w-56 pointer-events-none" />
-      <MemphisDots color="#FFFFFF" className="absolute top-24 left-1/4 w-20 md:w-28 opacity-50 pointer-events-none" />
+      <MemphisBlob color="#FF2DA0" className="absolute -top-12 -left-12 w-40 md:w-56 rotate-12 pointer-events-none animate-float-slow" />
+      <MemphisBlob color="#FFD600" className="absolute -bottom-12 -right-12 w-44 md:w-60 -rotate-12 pointer-events-none animate-float" />
+      <MemphisRing color="#00E0D1" className="absolute top-20 right-20 w-20 md:w-28 pointer-events-none hidden md:block animate-wiggle" />
+      <MemphisSquiggle color="#FFD600" className="absolute bottom-24 left-12 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisWave color="#FF2DA0" className="absolute top-32 left-1/2 -translate-x-1/2 w-40 md:w-56 pointer-events-none animate-pulse-soft" />
+      <MemphisDots color="#FFFFFF" className="absolute top-24 left-1/4 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
 
       {/* カラーストライプ帯 */}
       <div
@@ -133,7 +116,7 @@ export default function WebManifesto() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="bg-white border-2 border-[#111111] p-5 shadow-[5px_5px_0_0_rgba(255,255,255,0.5)]"
+                className="bg-white border-2 border-[#111111] p-5 shadow-[5px_5px_0_0_rgba(255,255,255,0.5)] transition-all duration-300 hover:-translate-y-[3px] hover:shadow-[7px_8px_0_0_rgba(255,255,255,0.7)]"
                 style={{ borderColor: item.color }}
               >
                 <p className="flex items-baseline gap-1.5">

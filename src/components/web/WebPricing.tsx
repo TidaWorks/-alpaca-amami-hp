@@ -1,25 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { MemphisBlob, MemphisDots, MemphisRing, MemphisWave } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function WebPricing() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.12 });
 
   return (
     <section
@@ -31,10 +16,10 @@ export default function WebPricing() {
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.18] pointer-events-none" aria-hidden="true" />
 
       {/* Memphis装飾 */}
-      <MemphisBlob color="#FF2DA0" className="absolute -top-10 right-[-3rem] w-44 md:w-56 rotate-12 pointer-events-none" />
-      <MemphisRing color="#00E0D1" className="absolute bottom-12 left-8 w-20 md:w-28 pointer-events-none" />
-      <MemphisWave color="#111111" className="absolute top-24 right-1/4 w-32 md:w-44 pointer-events-none hidden md:block" />
-      <MemphisDots color="#111111" className="absolute bottom-20 right-12 w-20 md:w-28 opacity-50 pointer-events-none" />
+      <MemphisBlob color="#FF2DA0" className="absolute -top-10 right-[-3rem] w-44 md:w-56 rotate-12 pointer-events-none animate-float-slow" />
+      <MemphisRing color="#00E0D1" className="absolute bottom-12 left-8 w-20 md:w-28 pointer-events-none animate-wiggle" />
+      <MemphisWave color="#111111" className="absolute top-24 right-1/4 w-32 md:w-44 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisDots color="#111111" className="absolute bottom-20 right-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
 
       <div className="relative max-w-5xl mx-auto">
         {/* 見出し */}
@@ -72,7 +57,7 @@ export default function WebPricing() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
           {/* ライトプラン */}
           <div
-            className="relative bg-white border-2 border-[#111111] shadow-[6px_6px_0_0_#111111] transition-all duration-700"
+            className="relative bg-white border-2 border-[#111111] shadow-[6px_6px_0_0_#111111] transition-all duration-700 hover:-translate-y-[3px] hover:shadow-[8px_9px_0_0_#111111]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -120,7 +105,7 @@ export default function WebPricing() {
 
               <a
                 href="#contact"
-                className="block w-full text-center text-sm font-black text-[#111111] bg-[#FFD600] border-2 border-[#111111] rounded-full py-3.5 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] transition-all"
+                className="block w-full text-center text-sm font-black text-[#111111] bg-[#FFD600] border-2 border-[#111111] rounded-full py-3.5 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all"
               >
                 このプランで相談する →
               </a>
@@ -129,7 +114,7 @@ export default function WebPricing() {
 
           {/* スタンダードプラン */}
           <div
-            className="relative bg-white border-2 border-[#111111] shadow-[6px_6px_0_0_#FF2DA0] transition-all duration-700"
+            className="relative bg-white border-2 border-[#111111] shadow-[6px_6px_0_0_#FF2DA0] transition-all duration-700 hover:-translate-y-[3px] hover:shadow-[8px_9px_0_0_#FF2DA0]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -137,7 +122,7 @@ export default function WebPricing() {
             }}
           >
             {/* おすすめバッジ */}
-            <div className="absolute -top-4 -right-3 z-10">
+            <div className="absolute -top-4 -right-3 z-10 animate-wiggle">
               <div className="relative bg-[#FF2DA0] text-white text-[10px] font-black tracking-widest px-3 py-1.5 border-2 border-[#111111] rotate-[6deg] shadow-[3px_3px_0_0_#111111]">
                 ★ OSUSUME
               </div>
@@ -195,7 +180,7 @@ export default function WebPricing() {
 
               <a
                 href="#contact"
-                className="block w-full text-center text-sm font-black text-white bg-[#FF2DA0] border-2 border-[#111111] rounded-full py-3.5 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] transition-all"
+                className="block w-full text-center text-sm font-black text-white bg-[#FF2DA0] border-2 border-[#111111] rounded-full py-3.5 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all"
               >
                 このプランで相談する →
               </a>

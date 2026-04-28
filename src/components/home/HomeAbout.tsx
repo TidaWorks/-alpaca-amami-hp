@@ -40,13 +40,25 @@ export default function HomeAbout() {
       <div
         aria-hidden="true"
         className="absolute -top-40 -right-40 w-[420px] h-[420px] rounded-full pointer-events-none blur-3xl opacity-25"
-        style={{ background: "radial-gradient(circle, #635BFF 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, #635BFF 0%, transparent 70%)",
+          animation: "alpacaAboutDrift 20s ease-in-out infinite",
+        }}
       />
       <div
         aria-hidden="true"
         className="absolute -bottom-32 -left-32 w-[360px] h-[360px] rounded-full pointer-events-none blur-3xl opacity-20"
-        style={{ background: "radial-gradient(circle, #12C998 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, #12C998 0%, transparent 70%)",
+          animation: "alpacaAboutDrift 24s ease-in-out infinite reverse",
+        }}
       />
+      <style>{`
+        @keyframes alpacaAboutDrift {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(20px, -15px) scale(1.07); }
+        }
+      `}</style>
 
       <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
         <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14 items-center">
@@ -85,28 +97,28 @@ export default function HomeAbout() {
               }}
             >
               <p>
-                ALPACAは、奄美大島・名瀬を拠点にする小さなWeb&システムスタジオ。
+                ALPACAは、奄美大島・名瀬を拠点にするWeb&システムスタジオです。
               </p>
               <p>
-                「都会で当たり前のスピードと品質を、島のお店にも届けたい」
+                ホームページ・LP・業務改善システムまで、まとめてご相談いただけます。
                 <br />
-                その思いから、業務改善システム・ホームページ・LP制作までワンストップでお手伝いしています。
+                現場を見せていただいてから、必要なものだけを設計するスタイルです。
               </p>
               <p>
-                島内なら直接お伺いし、現場を見せていただいてから設計します。
+                島内なら直接お伺いします。
                 <br />
-                AIや最新ツールも、表に出さずあくまで道具として活用。納品後もずっと一緒に育てる関係を大切にしています。
+                納品後もずっと一緒に育てる関係を大切にしています。
               </p>
             </div>
           </div>
 
           {/* 代表/拠点情報 */}
           <div
-            className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-7 border border-white/20 shadow-lg transition-all duration-700"
+            className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-7 border border-white/20 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:bg-white"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
-              transitionDelay: "350ms",
+              transition: "opacity 0.7s ease 350ms, transform 0.5s ease, box-shadow 0.4s ease, background 0.3s ease, translate 0.3s ease",
             }}
           >
             <p className="text-[10px] font-black tracking-[0.3em] text-[#635BFF] mb-4">PROFILE</p>
@@ -132,9 +144,9 @@ export default function HomeAbout() {
               href="https://instagram.com/alpaca_amami"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-xs font-black text-[#635BFF] hover:text-[#5249E0] transition-colors"
+              className="group mt-5 inline-flex items-center gap-2 text-xs font-black text-[#635BFF] hover:text-[#5249E0] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-[-8deg] transition-transform duration-300">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                 <circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />

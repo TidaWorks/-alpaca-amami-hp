@@ -15,9 +15,10 @@ const services = [
     main: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <ellipse cx="12" cy="5" rx="9" ry="3" />
-        <path d="M3 5v14a9 3 0 0 0 18 0V5" />
-        <path d="M3 12a9 3 0 0 0 18 0" />
+        <rect x="3" y="3" width="7" height="9" rx="1" />
+        <rect x="14" y="3" width="7" height="5" rx="1" />
+        <rect x="14" y="12" width="7" height="9" rx="1" />
+        <rect x="3" y="16" width="7" height="5" rx="1" />
       </svg>
     ),
   },
@@ -32,9 +33,11 @@ const services = [
     points: ["複数ページ構成（5ページ目安）", "ブログ・お知らせ機能", "Google マップ・SNS 連携"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="2" y1="12" x2="22" y2="12" />
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <line x1="2" y1="9" x2="22" y2="9" />
+        <circle cx="5" cy="6.5" r="0.6" fill="currentColor" />
+        <circle cx="7.5" cy="6.5" r="0.6" fill="currentColor" />
+        <circle cx="10" cy="6.5" r="0.6" fill="currentColor" />
       </svg>
     ),
   },
@@ -104,25 +107,46 @@ export default function HomeServices() {
 
         {/* メインサービス（業務システム）— 大カード */}
         <div
-          className="relative bg-gradient-to-br from-[#635BFF]/8 via-white to-[#12C998]/5 border-2 border-[#635BFF]/20 rounded-3xl p-8 md:p-12 mb-6 shadow-md hover:shadow-lg transition-all duration-700 overflow-hidden"
+          className="group relative bg-gradient-to-br from-[#635BFF]/8 via-white to-[#12C998]/5 border-2 border-[#635BFF]/20 rounded-3xl p-8 md:p-12 mb-6 shadow-md hover:shadow-2xl hover:border-[#635BFF]/40 transition-all duration-500 overflow-hidden"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(24px)",
-            transitionDelay: "150ms",
+            transition: "opacity 0.7s ease 150ms, transform 0.7s ease 150ms, box-shadow 0.4s ease, border-color 0.4s ease",
           }}
         >
+          {/* ホバー時に走る光 */}
+          <span
+            aria-hidden="true"
+            className="absolute -inset-x-12 -top-1/2 h-[200%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: "linear-gradient(110deg, transparent 35%, rgba(99,91,255,0.08) 50%, transparent 65%)",
+            }}
+          />
           <div className="absolute top-6 right-6 hidden md:block">
-            <span className="bg-[#635BFF] text-white text-[10px] font-black tracking-widest rounded-full px-3 py-1.5 shadow">
+            <span
+              className="inline-block bg-[#635BFF] text-white text-[10px] font-black tracking-widest rounded-full px-3 py-1.5 shadow"
+              style={{ animation: "alpacaFloat 4s ease-in-out infinite" }}
+            >
               ★ MAIN
             </span>
           </div>
+          <style>{`
+            @keyframes alpacaFloat {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-3px); }
+            }
+            @keyframes alpacaServicesShine {
+              0% { transform: translateX(-120%) skewX(-12deg); }
+              60%, 100% { transform: translateX(220%) skewX(-12deg); }
+            }
+          `}</style>
 
           <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
             <div className="md:w-[42%]">
               <span className="inline-block text-[10px] font-black text-white bg-[#635BFF] rounded-full px-3 py-1 mb-4 tracking-[0.2em]">
                 {services[0].badge}
               </span>
-              <div className="w-14 h-14 rounded-2xl bg-[#635BFF] text-white flex items-center justify-center mb-4 shadow-md">
+              <div className="w-14 h-14 rounded-2xl bg-[#635BFF] text-white flex items-center justify-center mb-4 shadow-md group-hover:rotate-[-6deg] group-hover:scale-110 transition-transform duration-300">
                 {services[0].icon}
               </div>
               <h3 className="text-[#1A202C] text-2xl md:text-3xl font-extrabold mb-3">
@@ -135,10 +159,18 @@ export default function HomeServices() {
 
               <a
                 href={services[0].href}
-                className="inline-flex items-center gap-2 bg-[#635BFF] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-[#5249E0] transition-all"
+                className="group/btn relative inline-flex items-center gap-2 bg-[#635BFF] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2"
               >
-                詳細を見る
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover/btn:opacity-100"
+                  style={{
+                    background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
+                    animation: "alpacaServicesShine 1.4s ease-out",
+                  }}
+                />
+                <span className="relative z-10">詳細を見る</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 group-hover/btn:translate-x-1 transition-transform duration-200">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </a>
@@ -168,15 +200,23 @@ export default function HomeServices() {
             <a
               key={service.title}
               href={service.href}
-              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-700 block"
+              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-transparent block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
-                transitionDelay: `${280 + i * 100}ms`,
+                transition: `opacity 0.7s ease ${280 + i * 100}ms, transform 0.5s ease ${280 + i * 100}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
+                ...(({ "--tw-ring-color": service.color } as React.CSSProperties)),
               }}
             >
+              {/* ホバー時の上端アクセントライン */}
               <span
-                className="inline-block text-[10px] font-black tracking-[0.2em] rounded-full px-3 py-1 mb-4"
+                aria-hidden="true"
+                className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                style={{ background: service.color }}
+              />
+
+              <span
+                className="inline-block text-[10px] font-black tracking-[0.2em] rounded-full px-3 py-1 mb-4 transition-all duration-300 group-hover:tracking-[0.25em]"
                 style={{
                   background: `${service.color}1A`,
                   color: service.color,
@@ -186,7 +226,7 @@ export default function HomeServices() {
               </span>
 
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-[-4deg] transition-transform duration-300"
                 style={{ background: service.color, color: service.color === "#FFC400" ? "#1A202C" : "#FFFFFF" }}
               >
                 {service.icon}
@@ -216,27 +256,49 @@ export default function HomeServices() {
 
         {/* 保守の補足 */}
         <div
-          className="mt-8 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl p-6 md:p-7 transition-all duration-700"
+          className="group mt-8 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl p-6 md:p-8 hover:shadow-md hover:bg-white transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transitionDelay: "500ms",
           }}
         >
-          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <span className="w-10 h-10 rounded-xl bg-[#0EA5E9]/15 text-[#0EA5E9] flex items-center justify-center">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </span>
-              <h4 className="font-extrabold text-[#1A202C] text-base md:text-lg">納品後の保守サポート</h4>
-            </div>
-            <p className="text-sm text-[#1A202C]/70 leading-relaxed flex-1">
-              LP <span className="font-bold">¥5,000〜/月</span> / HP <span className="font-bold">¥10,000〜/月</span> / システム <span className="font-bold">¥20,000〜/月</span>
-              　— サーバー管理・修正・運用までずっと伴走します。自主管理の場合は買い切りも可。
-            </p>
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-10 h-10 rounded-xl bg-[#0EA5E9]/15 text-[#0EA5E9] flex items-center justify-center group-hover:bg-[#0EA5E9]/25 group-hover:scale-105 transition-all duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </span>
+            <h4 className="font-extrabold text-[#1A202C] text-base md:text-lg">納品後の保守サポート</h4>
           </div>
+
+          <div className="grid grid-cols-3 gap-2.5 md:gap-4 mb-4">
+            {[
+              { service: "LP", price: "¥5,000", color: "#FFC400" },
+              { service: "HP", price: "¥10,000", color: "#12C998" },
+              { service: "システム", price: "¥20,000", color: "#635BFF" },
+            ].map((p) => (
+              <div
+                key={p.service}
+                className="bg-white border border-[#E5E7EB] rounded-xl p-3 md:p-4 text-center hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300"
+                style={{ borderTopWidth: "3px", borderTopColor: p.color }}
+              >
+                <p className="text-[11px] md:text-xs font-black tracking-wider text-[#1A202C]/70 mb-1">
+                  {p.service}
+                </p>
+                <p className="flex items-baseline justify-center gap-0.5">
+                  <span className="text-base md:text-xl font-extrabold text-[#1A202C] tabular-nums leading-none">
+                    {p.price}
+                  </span>
+                  <span className="text-[10px] md:text-xs font-bold text-[#1A202C]/55">〜/月</span>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs md:text-sm text-[#1A202C]/65 leading-relaxed text-center">
+            サーバー管理・修正・運用までずっと伴走します。自主管理の場合は買い切りも可。
+          </p>
         </div>
       </div>
     </section>

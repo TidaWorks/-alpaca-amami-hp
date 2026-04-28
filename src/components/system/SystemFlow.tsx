@@ -69,6 +69,12 @@ export default function SystemFlow() {
       id="flow"
       className="relative bg-[#F8FAFC] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
     >
+      <style>{`
+        @keyframes sysFlowConnectorPulse {
+          0%, 100% { transform: translateY(-50%) translateX(0); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+          50% { transform: translateY(-50%) translateX(3px); box-shadow: 0 4px 12px rgba(99,91,255,0.18); }
+        }
+      `}</style>
       <div className="relative max-w-5xl mx-auto">
         <div
           className="mb-14 md:mb-16 transition-all duration-700"
@@ -95,7 +101,10 @@ export default function SystemFlow() {
           {steps.map((step, i) => (
             <div key={step.number} className="relative">
               {i < steps.length - 1 && (
-                <div className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-white border border-[#E5E7EB] rounded-full shadow-sm">
+                <div
+                  className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-white border border-[#E5E7EB] rounded-full shadow-sm"
+                  style={{ animation: `sysFlowConnectorPulse 2.4s ease-in-out ${i * 0.4}s infinite` }}
+                >
                   <svg viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -103,21 +112,31 @@ export default function SystemFlow() {
               )}
 
               <div
-                className="relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-md transition-all duration-700"
+                className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-transparent overflow-hidden"
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(24px)",
-                  transitionDelay: `${150 + i * 120}ms`,
+                  transition: `opacity 0.7s ease ${150 + i * 120}ms, transform 0.5s ease ${150 + i * 120}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
                 }}
               >
-                <div className="flex items-center gap-4 mb-4">
+                {/* ホバー時の薄いグロウ */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-25 blur-3xl transition-opacity duration-500"
+                  style={{ background: step.color }}
+                />
+
+                <div className="relative flex items-center gap-4 mb-4">
                   <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white"
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300"
                     style={{ background: step.color }}
                   >
                     {step.icon}
                   </div>
-                  <span className="text-5xl md:text-6xl font-extrabold leading-none tabular-nums" style={{ color: step.color }}>
+                  <span
+                    className="text-5xl md:text-6xl font-extrabold leading-none tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left"
+                    style={{ color: step.color }}
+                  >
                     {step.number}
                   </span>
                 </div>

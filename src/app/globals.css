@@ -103,3 +103,122 @@
     transform: translateY(calc(-100% - var(--gap)));
     }
   }}
+
+/* ─── Memphis Motion (2026-04-28) ─────────────────────── */
+/* /web (Memphis LP) のマイクロインタラクション用                */
+/* transform / opacity のみ操作してパフォーマンスを保つ           */
+
+@keyframes memphis-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes memphis-float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%      { transform: translateY(-14px) translateX(4px); }
+}
+
+@keyframes memphis-wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+
+@keyframes memphis-pulse-soft {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.03); }
+}
+
+@keyframes memphis-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes memphis-reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ───────── ユーティリティ ───────── */
+
+.animate-float {
+  animation: memphis-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-float-slow {
+  animation: memphis-float-slow 12s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-wiggle {
+  animation: memphis-wiggle 4s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+.animate-pulse-soft {
+  animation: memphis-pulse-soft 3s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 80%
+  );
+  transform: translateX(-100%);
+  animation: memphis-shimmer 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.animate-reveal-up {
+  animation: memphis-reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ホバーリフト（カード等） */
+.memphis-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.memphis-lift:hover {
+  transform: translateY(-4px);
+}
+.memphis-card-pink.memphis-lift:hover  { box-shadow: 9px 9px 0 0 #FF2DA0; }
+.memphis-card-mint.memphis-lift:hover  { box-shadow: 9px 9px 0 0 #00E0D1; }
+.memphis-card-yellow.memphis-lift:hover { box-shadow: 9px 9px 0 0 #FFD600; }
+.memphis-card.memphis-lift:hover { box-shadow: 9px 9px 0 0 #111111; }
+
+/* プレス（クリック時の沈み込み） */
+.memphis-press {
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+}
+.memphis-press:active {
+  transform: translate(3px, 3px) scale(0.97);
+}
+
+/* prefers-reduced-motion: ぜんぶ止める */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-wiggle,
+  .animate-pulse-soft,
+  .animate-shimmer,
+  .animate-reveal-up {
+    animation: none !important;
+  }
+  .animate-shimmer::after {
+    animation: none !important;
+    display: none !important;
+  }
+  .memphis-lift,
+  .memphis-press {
+    transition: none !important;
+  }
+  .memphis-lift:hover {
+    transform: none !important;
+  }
+}

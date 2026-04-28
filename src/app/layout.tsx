@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
+import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -32,13 +33,15 @@ const shipporiMincho = Shippori_Mincho({
 
 const siteName = "ALPACA";
 const siteUrl = "https://alpaca-amami.com";
+const siteTitle = "ALPACA | 奄美大島のWeb・システム制作スタジオ";
 const siteDescription =
-  "奄美大島を拠点に業務システム開発・Web制作・保守運用を提供するALPACA。予約管理・顧客管理・売上集計など、島のビジネスの「困った」を仕組みで解決します。";
+  "奄美大島の事業者向けWeb・システム制作スタジオALPACA。ホームページ制作、業務システム開発、LINE連携、保守運用まで、島のビジネスの「困った」を仕組みで解決します。";
+const ogImage = `${siteUrl}/opengraph-image`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ALPACA | 奄美大島の業務システム開発・Web制作",
+    default: siteTitle,
     template: "%s | ALPACA",
   },
   description: siteDescription,
@@ -68,13 +71,22 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: siteUrl,
     siteName,
-    title: "ALPACA | 奄美大島の業務システム開発・Web制作",
+    title: siteTitle,
     description: siteDescription,
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: "ALPACA - 奄美大島のWeb・システム制作スタジオ",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ALPACA | 奄美大島の業務システム開発・Web制作",
+    title: siteTitle,
     description: siteDescription,
+    images: [ogImage],
   },
   alternates: {
     canonical: siteUrl,
@@ -204,6 +216,7 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
+        <ScrollResetOnReload />
         {children}
       </body>
     </html>

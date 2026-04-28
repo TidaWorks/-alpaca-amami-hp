@@ -106,6 +106,10 @@ export default function SystemPainPoints() {
           transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
                       transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        @keyframes syspp-arrow-pulse {
+          0%, 100% { transform: translateX(0); opacity: 0.7; }
+          50% { transform: translateX(4px); opacity: 1; }
+        }
       `}</style>
 
       <div className="relative max-w-5xl mx-auto px-6">
@@ -164,7 +168,14 @@ export default function SystemPainPoints() {
 
               {/* Arrow */}
               <div className="hidden md:flex flex-col items-center shrink-0">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  aria-hidden="true"
+                  style={{ animation: `syspp-arrow-pulse 2.4s ease-in-out ${i * 0.4}s infinite` }}
+                >
                   <path d="M4 14h20M16 7l8 7-8 7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
@@ -172,10 +183,10 @@ export default function SystemPainPoints() {
               {/* Solution */}
               <div
                 ref={(el) => { solutionRefs.current[i] = el; }}
-                className="w-full md:w-1/2 syspp-hidden-right syspp-transition"
+                className="w-full md:w-1/2 syspp-hidden-right syspp-transition group/sol"
               >
-                <div className="rounded-2xl bg-white px-6 py-5 shadow-sm border-l-4 border-[#635BFF] border-y border-r border-[#DBEAFE]">
-                  <p className="text-[#635BFF] text-xs font-semibold uppercase tracking-widest mb-2">
+                <div className="rounded-2xl bg-white px-6 py-5 shadow-sm border-l-4 border-[#635BFF] border-y border-r border-[#DBEAFE] hover:shadow-lg hover:-translate-y-1 hover:border-l-[6px] transition-all duration-300">
+                  <p className="text-[#635BFF] text-xs font-semibold uppercase tracking-widest mb-2 group-hover/sol:tracking-[0.18em] transition-all duration-300">
                     {s.solutionLabel}
                   </p>
                   <p className="text-[#1A202C] text-lg font-bold mb-2">{s.accent}</p>

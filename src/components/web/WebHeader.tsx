@@ -42,12 +42,8 @@ export default function WebHeader() {
         <div className="max-w-6xl mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
           <a href="/" className="inline-block group" aria-label="ALPACAトップへ">
             <div className="flex items-baseline gap-2">
-              <span className="font-memphis-gothic text-[#111111] font-black text-2xl md:text-3xl tracking-tight">
-                <span className="text-[#FF2DA0]">A</span>
-                <span className="text-[#111111]">L</span>
-                <span className="text-[#00E0D1]">P</span>
-                <span className="text-[#FFD600]">A</span>
-                <span className="text-[#111111]">CA</span>
+              <span className="font-memphis-gothic text-[#111111] font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300 group-hover:text-[#FF2DA0]">
+                ALPACA
               </span>
               <span className="hidden sm:inline text-[10px] font-bold tracking-[0.3em] text-[#111111] border-l-2 border-[#111111] pl-2">
                 WEB DESIGN
@@ -69,7 +65,7 @@ export default function WebHeader() {
             ))}
             <a
               href="#contact"
-              className="text-xs font-black text-white bg-[#FF2DA0] border-2 border-[#111111] rounded-full px-4 py-2 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] transition-all"
+              className="text-xs font-black text-white bg-[#FF2DA0] border-2 border-[#111111] rounded-full px-4 py-2 shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all"
             >
               無料相談 →
             </a>
@@ -81,7 +77,7 @@ export default function WebHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={open}
-            className="md:hidden w-11 h-11 flex items-center justify-center rounded-full border-2 border-[#111111] bg-[#FFD600] hover:bg-[#FF2DA0] transition shadow-[3px_3px_0_0_#111111]"
+            className="md:hidden w-11 h-11 flex items-center justify-center rounded-full border-2 border-[#111111] bg-[#FFD600] hover:bg-[#FF2DA0] active:scale-[0.92] transition shadow-[3px_3px_0_0_#111111] cursor-pointer"
           >
             <div className="relative w-5 h-4">
               <span

@@ -7,6 +7,7 @@ import {
   MemphisBlob,
   MemphisSquiggle,
 } from "./MemphisDecorations";
+import { useParallax } from "@/hooks/useParallax";
 
 const demos = [
   { name: "Hair Salon kukuru", category: "美容室", url: "/demo/salon", image: "/images/demo-screenshots/salon.png" },
@@ -17,7 +18,7 @@ const demos = [
   { name: "Pâtisserie Soleil", category: "パティスリー", url: "/demo/patisserie", image: "/images/demo-screenshots/patisserie.png" },
   { name: "AMAMI FOREST CAMP", category: "キャンプ場", url: "/demo/camp", image: "/images/demo-screenshots/camp.png" },
   { name: "島つむぎ整骨院", category: "整骨院", url: "/demo/osteopathic", image: "/images/demo-screenshots/osteopathic.png" },
-  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png?v=2" },
+  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png" },
 ];
 
 export default function WebHero() {
@@ -26,6 +27,10 @@ export default function WebHero() {
   const [isAuto, setIsAuto] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
   const total = demos.length;
+
+  // スクロールパララックス（モバイル/reduced-motionは内部で無効化）
+  const parallaxPink = useParallax(-0.18);
+  const parallaxYellow = useParallax(0.22);
 
   useEffect(() => {
     if (!isAuto) return;
@@ -59,9 +64,22 @@ export default function WebHero() {
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Memphis装飾（3要素：Blob×2 + Squiggle、主役のコピー＋Phoneを立てる） */}
-      <MemphisBlob color="#FF2DA0" className="absolute -top-10 -left-12 w-44 md:w-56 -rotate-12 pointer-events-none" />
-      <MemphisBlob color="#FFD600" className="absolute top-32 right-[-3rem] w-32 md:w-40 rotate-[18deg] pointer-events-none" />
-      <MemphisSquiggle color="#FF2DA0" className="absolute top-24 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
+      {/* パララックスは外側wrapper、CSSアニメは内側svgで二重レイヤ */}
+      <div
+        className="absolute -top-10 -left-12 w-44 md:w-56 pointer-events-none will-change-transform"
+        style={{ transform: `translateY(${parallaxPink}px)` }}
+        aria-hidden="true"
+      >
+        <MemphisBlob color="#FF2DA0" className="w-full -rotate-12 animate-float-slow" />
+      </div>
+      <div
+        className="absolute top-32 right-[-3rem] w-32 md:w-40 pointer-events-none will-change-transform"
+        style={{ transform: `translateY(${parallaxYellow}px)` }}
+        aria-hidden="true"
+      >
+        <MemphisBlob color="#FFD600" className="w-full rotate-[18deg] animate-float" />
+      </div>
+      <MemphisSquiggle color="#FF2DA0" className="absolute top-24 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
 
       <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
         {/* ── 左カラム ── */}
@@ -75,7 +93,10 @@ export default function WebHero() {
           </div>
 
           {/* メインヘッドライン（明朝） */}
-          <h1 className="font-memphis-mincho text-[#111111] text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.25] font-extrabold mb-7 tracking-tight">
+          <h1
+            className="font-memphis-mincho text-[#111111] text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.25] font-extrabold mb-7 tracking-tight animate-reveal-up"
+            style={{ animationDelay: "60ms" }}
+          >
             伝わるデザインで
             <br />
             <span className="relative inline-block">
@@ -91,7 +112,10 @@ export default function WebHero() {
           </h1>
 
           {/* サブコピー */}
-          <p className="font-memphis-mincho text-[#111111]/80 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md">
+          <p
+            className="font-memphis-mincho text-[#111111]/80 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md animate-reveal-up"
+            style={{ animationDelay: "260ms" }}
+          >
             ALPACAは、鹿児島県・奄美大島を拠点にする
             <br className="hidden md:block" />
             Webデザインスタジオです。
@@ -102,10 +126,13 @@ export default function WebHero() {
           </p>
 
           {/* CTAボタン群（主1+副1に絞り、主役を立てる） */}
-          <div className="flex flex-wrap items-center gap-3 mb-10">
+          <div
+            className="flex flex-wrap items-center gap-3 mb-10 animate-reveal-up"
+            style={{ animationDelay: "440ms" }}
+          >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF2DA0] text-white font-black text-sm px-6 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#111111] active:shadow-[0_0_0_0_#111111] active:translate-x-[4px] active:translate-y-[4px] transition-all"
+              className="inline-flex items-center gap-2 bg-[#FF2DA0] text-white font-black text-sm px-6 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all"
             >
               無料で相談する
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -125,7 +152,7 @@ export default function WebHero() {
         {/* ── 右カラム: モックアップカルーセル ── */}
         <div className="relative flex flex-col items-center">
           {/* 装飾バッジ */}
-          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-[#FFD600] text-[#111111] font-black text-[11px] tracking-widest px-3 py-1.5 border-2 border-[#111111] rotate-[-6deg] shadow-[3px_3px_0_0_#111111]">
+          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-[#FFD600] text-[#111111] font-black text-[11px] tracking-widest px-3 py-1.5 border-2 border-[#111111] rotate-[-6deg] shadow-[3px_3px_0_0_#111111] animate-wiggle">
             DEMO ×9業種
           </span>
 
@@ -186,7 +213,7 @@ export default function WebHero() {
             {/* 矢印（スマホ・PC両対応） */}
             <button
               onClick={() => goTo(current - 1)}
-              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] transition-all"
+              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.92] transition-all cursor-pointer"
               aria-label="前のデモ"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -195,7 +222,7 @@ export default function WebHero() {
             </button>
             <button
               onClick={() => goTo(current + 1)}
-              className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] transition-all"
+              className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.92] transition-all cursor-pointer"
               aria-label="次のデモ"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -210,7 +237,7 @@ export default function WebHero() {
               <button
                 key={i}
                 onClick={() => goTo(i)}
-                className={`h-2.5 rounded-full transition-all duration-300 border border-[#111111] ${
+                className={`h-2.5 rounded-full transition-all duration-300 border border-[#111111] cursor-pointer active:scale-[0.85] ${
                   i === current ? "bg-[#FF2DA0] w-7" : "bg-[#F7F7F7] w-2.5 hover:bg-[#FFD600]"
                 }`}
                 aria-label={`${demos[i].category}のデモに移動`}

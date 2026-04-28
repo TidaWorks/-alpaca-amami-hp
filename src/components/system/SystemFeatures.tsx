@@ -99,43 +99,50 @@ export default function SystemFeatures() {
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className={`group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-md transition-all duration-500 bg-gradient-to-br ${feature.bg}`}
+              className={`group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-transparent overflow-hidden bg-gradient-to-br ${feature.bg}`}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
-                transitionDelay: `${150 + i * 100}ms`,
+                transition: `opacity 0.7s ease ${150 + i * 100}ms, transform 0.5s ease ${150 + i * 100}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
               }}
             >
+              {/* ホバー時に滲むblob */}
               <span
-                className="inline-block text-[10px] font-black tracking-[0.2em] px-2 py-1 rounded mb-4"
+                aria-hidden="true"
+                className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-30 blur-3xl transition-opacity duration-500"
+                style={{ background: feature.accent }}
+              />
+
+              <span
+                className="relative inline-block text-[10px] font-black tracking-[0.2em] px-2 py-1 rounded mb-4 group-hover:tracking-[0.25em] transition-all duration-300"
                 style={{ background: feature.accent, color: feature.accent === "#FFC400" ? "#1A202C" : "#FFFFFF" }}
               >
                 {feature.tag}
               </span>
 
               <div
-                className="text-[64px] font-extrabold leading-none mb-3 tabular-nums"
+                className="relative text-[64px] font-extrabold leading-none mb-3 tabular-nums group-hover:scale-105 transition-transform duration-500 origin-left"
                 style={{ color: feature.accent }}
               >
                 0{i + 1}
               </div>
 
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
+                className="relative w-14 h-14 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300"
                 style={{ background: `${feature.accent}1A`, color: feature.accent }}
               >
                 {feature.icon}
               </div>
 
-              <h3 className="text-[#1A202C] text-xl md:text-[1.4rem] font-extrabold mb-3">
+              <h3 className="relative text-[#1A202C] text-xl md:text-[1.4rem] font-extrabold mb-3">
                 {feature.title}
               </h3>
-              <p className="text-[#1A202C]/70 text-sm leading-relaxed">
+              <p className="relative text-[#1A202C]/70 text-sm leading-relaxed">
                 {feature.description}
               </p>
 
               <div
-                className="h-[3px] w-12 rounded-full mt-6"
+                className="relative h-[3px] w-12 rounded-full mt-6 group-hover:w-20 transition-all duration-500"
                 style={{ background: feature.accent }}
               />
             </div>

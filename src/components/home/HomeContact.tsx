@@ -145,22 +145,22 @@ export default function HomeContact() {
               href={c.href}
               target={c.type === "dm" ? "_blank" : undefined}
               rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-              className="relative bg-white border border-[#E5E7EB] rounded-2xl p-6 flex flex-col items-start gap-2 shadow-sm hover:shadow-md transition-all"
+              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 flex flex-col items-start gap-2 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-transparent overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 0.7s, transform 0.5s, box-shadow 0.15s",
-                transitionDelay: `${250 + i * 120}ms`,
+                transition: `opacity 0.7s ease ${250 + i * 120}ms, transform 0.5s ease ${250 + i * 120}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
+                ...(({ "--tw-ring-color": c.bg } as React.CSSProperties)),
               }}
             >
+              {/* 上端アクセントライン */}
               <span
-                className="absolute -top-3 -right-2 text-[10px] font-black tracking-widest rounded px-2 py-0.5"
-                style={{ background: c.bg, color: c.textColor }}
-              >
-                {c.label}
-              </span>
+                aria-hidden="true"
+                className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                style={{ background: c.bg }}
+              />
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-1"
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-1 group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300"
                 style={{ background: c.bg, color: c.textColor }}
               >
                 {c.icon}
@@ -263,10 +263,36 @@ export default function HomeContact() {
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="inline-flex items-center justify-center bg-[#635BFF] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-lg hover:bg-[#5249E0] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                className="group/sub relative inline-flex items-center justify-center bg-[#635BFF] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                {submit === "submitting" ? "送信中..." : "送信する →"}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover/sub:opacity-100"
+                  style={{
+                    background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
+                    animation: submit === "submitting" ? undefined : "alpacaContactShine 1.4s ease-out",
+                  }}
+                />
+                <span className="relative z-10 inline-flex items-center gap-1">
+                  {submit === "submitting" ? (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-1"
+                      />
+                      送信中...
+                    </>
+                  ) : (
+                    "送信する →"
+                  )}
+                </span>
               </button>
+              <style>{`
+                @keyframes alpacaContactShine {
+                  0% { transform: translateX(-120%) skewX(-12deg); }
+                  60%, 100% { transform: translateX(220%) skewX(-12deg); }
+                }
+              `}</style>
             </form>
           )}
         </div>
@@ -283,11 +309,11 @@ export default function HomeContact() {
             奄美大島を拠点に、Web制作・システム開発・保守運用を承ります。
           </p>
           <p className="text-[#1A202C]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
-            <a href="/web" className="hover:text-[#635BFF] transition-colors">Web制作</a>
+            <a href="/web" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">Web制作</a>
             <span>/</span>
-            <a href="/system" className="hover:text-[#635BFF] transition-colors">システム開発</a>
+            <a href="/system" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">システム開発</a>
             <span>/</span>
-            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors">
+            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">
               Instagram
             </a>
           </p>

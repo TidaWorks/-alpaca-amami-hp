@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle, MemphisWave } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 const features = [
   {
@@ -48,22 +48,7 @@ const features = [
 ];
 
 export default function WebFeatures() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <section
@@ -72,11 +57,11 @@ export default function WebFeatures() {
       className="relative bg-[#F7F7F7] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t-2 border-[#111111]"
     >
       {/* Memphis装飾 */}
-      <MemphisDots color="#111111" className="absolute top-12 right-12 w-24 md:w-32 opacity-50 pointer-events-none" />
-      <MemphisRing color="#FF2DA0" className="absolute bottom-20 left-8 w-20 md:w-28 pointer-events-none hidden md:block" />
-      <MemphisSquiggle color="#00E0D1" className="absolute top-24 left-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisTriangle color="#FFD600" className="absolute bottom-16 right-1/4 w-12 md:w-14 -rotate-12 pointer-events-none" />
-      <MemphisWave color="#FF2DA0" className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 md:w-56 opacity-70 pointer-events-none" />
+      <MemphisDots color="#111111" className="absolute top-12 right-12 w-24 md:w-32 opacity-50 pointer-events-none animate-wiggle" />
+      <MemphisRing color="#FF2DA0" className="absolute bottom-20 left-8 w-20 md:w-28 pointer-events-none hidden md:block animate-wiggle" />
+      <MemphisSquiggle color="#00E0D1" className="absolute top-24 left-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisTriangle color="#FFD600" className="absolute bottom-16 right-1/4 w-12 md:w-14 -rotate-12 pointer-events-none animate-wiggle" />
+      <MemphisWave color="#FF2DA0" className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 md:w-56 opacity-70 pointer-events-none animate-pulse-soft" />
 
       <div className="relative max-w-5xl mx-auto">
         {/* 見出し */}
@@ -115,7 +100,7 @@ export default function WebFeatures() {
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className={`group relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-500 ${feature.bg}`}
+              className={`group relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-500 memphis-lift ${feature.bg}`}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -139,7 +124,7 @@ export default function WebFeatures() {
 
               {/* アイコン */}
               <div
-                className="w-14 h-14 rounded-full flex items-center justify-center mb-5 border-2 border-[#111111] text-[#111111]"
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-5 border-2 border-[#111111] text-[#111111] transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110"
                 style={{ background: feature.accent }}
               >
                 {feature.icon}

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 const faqs = [
   {
@@ -31,23 +32,8 @@ const faqs = [
 ];
 
 export default function WebFAQ() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.15 });
   const [openIdx, setOpenIdx] = useState<number | null>(0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
@@ -58,10 +44,10 @@ export default function WebFAQ() {
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Memphis装飾 */}
-      <MemphisDots color="#111111" className="absolute top-12 right-12 w-20 md:w-28 opacity-50 pointer-events-none" />
-      <MemphisRing color="#00E0D1" className="absolute bottom-16 left-8 w-20 md:w-28 pointer-events-none hidden md:block" />
-      <MemphisSquiggle color="#FF2DA0" className="absolute top-24 left-1/3 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisTriangle color="#FFD600" className="absolute bottom-20 right-1/4 w-12 md:w-14 -rotate-12 pointer-events-none" />
+      <MemphisDots color="#111111" className="absolute top-12 right-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
+      <MemphisRing color="#00E0D1" className="absolute bottom-16 left-8 w-20 md:w-28 pointer-events-none hidden md:block animate-wiggle" />
+      <MemphisSquiggle color="#FF2DA0" className="absolute top-24 left-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisTriangle color="#FFD600" className="absolute bottom-20 right-1/4 w-12 md:w-14 -rotate-12 pointer-events-none animate-wiggle" />
 
       <div className="relative max-w-3xl mx-auto">
         {/* 見出し */}
@@ -108,7 +94,7 @@ export default function WebFAQ() {
                 <button
                   type="button"
                   onClick={() => setOpenIdx(open ? null : i)}
-                  className="w-full flex items-start gap-4 text-left px-5 md:px-6 py-4 md:py-5 group"
+                  className="w-full flex items-start gap-4 text-left px-5 md:px-6 py-4 md:py-5 group cursor-pointer hover:bg-[#FFFDF2] active:bg-[#FFF7CC] transition-colors"
                   aria-expanded={open}
                 >
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#FFD600] border-2 border-[#111111] flex items-center justify-center font-memphis-mincho font-extrabold text-sm text-[#111111]">

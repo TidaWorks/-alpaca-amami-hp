@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle } from "./MemphisDecorations";
+import { useReveal } from "@/hooks/useReveal";
 
 const steps = [
   {
@@ -48,22 +48,7 @@ const steps = [
 ];
 
 export default function WebFlow() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <section
@@ -74,10 +59,10 @@ export default function WebFlow() {
       <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Memphis装飾 */}
-      <MemphisRing color="#FF2DA0" className="absolute top-16 right-12 w-24 md:w-32 pointer-events-none" />
-      <MemphisDots color="#111111" className="absolute bottom-16 left-12 w-20 md:w-28 opacity-50 pointer-events-none" />
-      <MemphisSquiggle color="#FFD600" className="absolute top-40 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block" />
-      <MemphisTriangle color="#00E0D1" className="absolute bottom-20 right-1/4 w-12 md:w-14 rotate-12 pointer-events-none" />
+      <MemphisRing color="#FF2DA0" className="absolute top-16 right-12 w-24 md:w-32 pointer-events-none animate-wiggle" />
+      <MemphisDots color="#111111" className="absolute bottom-16 left-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
+      <MemphisSquiggle color="#FFD600" className="absolute top-40 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
+      <MemphisTriangle color="#00E0D1" className="absolute bottom-20 right-1/4 w-12 md:w-14 rotate-12 pointer-events-none animate-wiggle" />
 
       <div className="relative max-w-5xl mx-auto">
         {/* 見出し */}
@@ -122,7 +107,7 @@ export default function WebFlow() {
               )}
 
               <div
-                className={`relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-700 ${step.bg}`}
+                className={`group relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-700 memphis-lift ${step.bg}`}
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -132,7 +117,7 @@ export default function WebFlow() {
                 {/* 番号 + アイコン */}
                 <div className="flex items-center gap-4 mb-4">
                   <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#111111] text-[#111111]"
+                    className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#111111] text-[#111111] transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110"
                     style={{ background: step.color }}
                   >
                     {step.icon}
