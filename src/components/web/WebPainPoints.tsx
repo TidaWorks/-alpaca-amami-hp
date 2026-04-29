@@ -134,21 +134,13 @@ export default function WebPainPoints() {
 
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Section heading */}
-        <div className="mb-16 flex items-center gap-4 md:gap-8">
-          <div className="flex-1 min-w-0">
-            <p className="text-[#FF2E88] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-              PROBLEMS
-            </p>
-            <h2 className="text-[#1A1A1A] text-3xl md:text-5xl font-bold leading-tight">
-              こんな状態、<br className="md:hidden" />放置していませんか？
-            </h2>
-          </div>
-          <img
-            src="/images/alpaca/alpaca-sad.png"
-            alt="うなだれて悩んでいるアルパカ"
-            aria-hidden="true"
-            className="w-36 md:w-52 h-auto flex-shrink-0 pointer-events-none select-none"
-          />
+        <div className="mb-16">
+          <p className="text-[#FF2E88] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
+            PROBLEMS
+          </p>
+          <h2 className="text-[#1A1A1A] text-3xl md:text-5xl font-bold leading-tight">
+            こんな状態、<br className="md:hidden" />放置していませんか？
+          </h2>
         </div>
 
         {/* Conversation rows */}

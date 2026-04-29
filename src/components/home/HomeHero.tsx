@@ -3,40 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-const heroSlides = [
-  {
-    src: "/images/home-hero-services.png",
-    label: "ホームページ制作",
-    sub: "店舗・コーポレートサイト",
-    color: "#12C998",
-  },
-  {
-    src: "/images/home-hero-system.png",
-    label: "業務改善システム",
-    sub: "予約・顧客・売上の一元管理",
-    color: "#635BFF",
-  },
-  {
-    src: "/images/home-hero-lp.png",
-    label: "LP制作",
-    sub: "イベント・キャンペーンを最速3日で",
-    color: "#FFC400",
-  },
-];
-
 export default function HomeHero() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [slide, setSlide] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => {
-      setSlide((s) => (s + 1) % heroSlides.length);
-    }, 4500);
-    return () => clearInterval(t);
-  }, [paused]);
 
   useEffect(() => {
     const el = ref.current;
@@ -57,12 +26,51 @@ export default function HomeHero() {
   return (
     <section
       ref={ref}
-      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#ECFDF5] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28"
+      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#ECFDF5] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28 min-h-[640px] md:min-h-[680px]"
     >
-      {/* 装飾 */}
+      {/* フルブリード背景画像（PC=ワイド / モバイル=縦） */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* PC: ワイド版、左→右に溶ける */}
+        <div
+          className="hidden md:block absolute inset-0"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
+          }}
+        >
+          <Image
+            src="/images/home-hero.jpg"
+            alt="奄美の事業者がスマホで業務を確認する様子"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-right"
+          />
+        </div>
+        {/* モバイル: 縦版、上→下に画像、テキストエリア上にフェード */}
+        <div className="md:hidden absolute inset-0">
+          <Image
+            src="/images/home-hero-mobile.png"
+            alt="奄美の事業者がスマホで業務を確認する様子"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: "center 90%" }}
+          />
+          {/* 上半分を白くフェード（テキスト可読性UP：60%まで強くキープ） */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F3FF] via-[#F5F3FF]/85 via-55% to-transparent" />
+        </div>
+        {/* 下端を背景に溶かすフェード */}
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-[#ECFDF5]" />
+      </div>
+
+      {/* 装飾ブロブ */}
       <div
         aria-hidden="true"
-        className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full pointer-events-none blur-3xl opacity-30"
+        className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full pointer-events-none blur-3xl opacity-25 z-[1]"
         style={{
           background: "radial-gradient(circle, #635BFF 0%, transparent 70%)",
           animation: "alpacaBlobDrift 18s ease-in-out infinite",
@@ -70,12 +78,13 @@ export default function HomeHero() {
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-32 -left-32 w-[360px] h-[360px] rounded-full pointer-events-none blur-3xl opacity-25"
+        className="absolute -bottom-32 -left-32 w-[360px] h-[360px] rounded-full pointer-events-none blur-3xl opacity-20 z-[1]"
         style={{
           background: "radial-gradient(circle, #12C998 0%, transparent 70%)",
           animation: "alpacaBlobDrift 22s ease-in-out infinite reverse",
         }}
       />
+
       <style>{`
         @keyframes alpacaBlobDrift {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -86,20 +95,11 @@ export default function HomeHero() {
           0% { transform: translateX(-120%) skewX(-12deg); }
           60%, 100% { transform: translateX(220%) skewX(-12deg); }
         }
-        @keyframes alpacaFloat {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes alpacaTickerPulse {
-          0%, 100% { opacity: 0.55; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.18); }
-        }
       `}</style>
 
-      <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-center">
-        {/* 左カラム */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div
-          className="relative z-10 transition-all duration-700"
+          className="relative max-w-xl transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -160,89 +160,6 @@ export default function HomeHero() {
             >
               無料で相談する <span className="ml-1 group-hover:translate-x-1 transition-transform duration-200 inline-block">→</span>
             </a>
-          </div>
-
-        </div>
-
-        {/* 右カラム: 3サービス分岐プレビュー */}
-        <div
-          className="relative transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transitionDelay: "200ms",
-          }}
-        >
-          <div
-            className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-xl ring-1 ring-[#1A202C]/5 hover:shadow-2xl transition-shadow duration-500 group"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onTouchStart={() => setPaused(true)}
-            onTouchEnd={() => setPaused(false)}
-          >
-            {heroSlides.map((s, i) => (
-              <Image
-                key={s.src}
-                src={s.src}
-                alt={s.label}
-                fill
-                priority={i === 0}
-                sizes="(max-width: 768px) 100vw, 480px"
-                className={`object-cover transition-opacity duration-1000 ease-out ${
-                  i === slide ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            ))}
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-[#1A202C]/55 via-[#1A202C]/0 to-transparent pointer-events-none"
-              aria-hidden="true"
-            />
-
-            {/* キャプション */}
-            <div className="absolute left-5 right-5 bottom-5 flex items-end justify-between gap-3 pointer-events-none">
-              <div className="flex flex-col gap-1">
-                {heroSlides.map((s, i) => (
-                  <div
-                    key={s.src}
-                    className={`transition-all duration-700 ${
-                      i === slide
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-2 absolute"
-                    }`}
-                    aria-hidden={i !== slide}
-                  >
-                    <p
-                      className="text-base md:text-lg font-extrabold drop-shadow-md"
-                      style={{ color: s.color }}
-                    >
-                      {s.label}
-                    </p>
-                    <p className="text-[11px] md:text-xs font-bold text-white/90 drop-shadow">
-                      {s.sub}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* ドットインジケーター */}
-              <div className="flex gap-1.5 pointer-events-auto">
-                {heroSlides.map((s, i) => (
-                  <button
-                    key={s.src}
-                    type="button"
-                    onClick={() => {
-                      setSlide(i);
-                      setPaused(true);
-                      setTimeout(() => setPaused(false), 8000);
-                    }}
-                    aria-label={`${s.label} を表示`}
-                    className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
-                      i === slide ? "w-7 bg-white" : "w-1.5 bg-white/55 hover:bg-white/80"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>

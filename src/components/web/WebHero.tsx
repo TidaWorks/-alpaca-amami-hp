@@ -151,9 +151,9 @@ export default function WebHero() {
 
         {/* ── 右カラム: モックアップカルーセル ── */}
         <div className="relative flex flex-col items-center">
-          {/* 装飾バッジ */}
-          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-[#FFD600] text-[#111111] font-black text-[11px] tracking-widest px-3 py-1.5 border-2 border-[#111111] rotate-[-6deg] shadow-[3px_3px_0_0_#111111] animate-wiggle">
-            DEMO ×9業種
+          {/* 装飾バッジ（控えめにリファイン） */}
+          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-white/90 backdrop-blur-sm text-[#111111] font-bold text-[10px] tracking-[0.18em] px-3 py-1.5 rounded-full ring-1 ring-[#111111]/15 shadow-sm">
+            DEMO × 9 業種
           </span>
 
           {/* Phoneカルーセル */}
@@ -184,8 +184,8 @@ export default function WebHero() {
                     onClick={() => goToDemo(demo.url)}
                     className="block group cursor-pointer text-left"
                   >
-                    {/* Phone frame Memphis */}
-                    <div className="relative w-[200px] h-[400px] md:w-[230px] md:h-[460px] bg-[#111111] rounded-[36px] md:rounded-[44px] p-[6px] border-2 border-[#111111] shadow-[6px_6px_0_0_#FF2DA0] group-hover:shadow-[8px_8px_0_0_#00E0D1] transition-all">
+                    {/* Phone frame（柔らかドロップシャドウに変更） */}
+                    <div className="relative w-[200px] h-[400px] md:w-[230px] md:h-[460px] bg-[#111111] rounded-[36px] md:rounded-[44px] p-[6px] ring-1 ring-[#111111]/15 shadow-[0_18px_40px_-12px_rgba(17,17,17,0.35)] group-hover:shadow-[0_24px_50px_-12px_rgba(17,17,17,0.45)] group-hover:-translate-y-1 transition-all duration-500">
                       {/* notch */}
                       <div className="absolute top-[12px] md:top-[14px] left-1/2 -translate-x-1/2 w-[60px] md:w-[72px] h-[18px] md:h-[22px] bg-black rounded-full z-20" />
                       {/* screen */}
@@ -213,7 +213,7 @@ export default function WebHero() {
             {/* 矢印（スマホ・PC両対応） */}
             <button
               onClick={() => goTo(current - 1)}
-              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.92] transition-all cursor-pointer"
+              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm ring-1 ring-[#111111]/15 shadow-md hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
               aria-label="前のデモ"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -237,8 +237,8 @@ export default function WebHero() {
               <button
                 key={i}
                 onClick={() => goTo(i)}
-                className={`h-2.5 rounded-full transition-all duration-300 border border-[#111111] cursor-pointer active:scale-[0.85] ${
-                  i === current ? "bg-[#FF2DA0] w-7" : "bg-[#F7F7F7] w-2.5 hover:bg-[#FFD600]"
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer active:scale-[0.85] ${
+                  i === current ? "bg-[#FF2DA0] w-7" : "bg-[#111111]/15 w-1.5 hover:bg-[#111111]/35"
                 }`}
                 aria-label={`${demos[i].category}のデモに移動`}
               />
