@@ -200,12 +200,12 @@ export default function HomeServices() {
             <a
               key={service.title}
               href={service.href}
-              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-transparent block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-[0_0_0_2px_var(--card-glow),0_28px_56px_-18px_var(--card-glow)] hover:-translate-y-1.5 hover:border-transparent block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
                 transition: `opacity 0.7s ease ${280 + i * 100}ms, transform 0.5s ease ${280 + i * 100}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
-                ...(({ "--tw-ring-color": service.color } as React.CSSProperties)),
+                ...(({ "--tw-ring-color": service.color, "--card-glow": `${service.color}66` } as React.CSSProperties)),
               }}
             >
               {/* ホバー時の上端アクセントライン */}

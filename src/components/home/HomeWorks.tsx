@@ -112,6 +112,35 @@ export default function HomeWorks() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500"
                   style={{ background: work.color }}
                 />
+                {/* ホバー時の暗グラデーション（VIEW DEMOテキスト視認性） */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
+                {/* VIEW DEMO バッジ */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                >
+                  <span
+                    className="inline-flex items-center gap-2 bg-white text-[#1A202C] font-black text-[11px] tracking-widest px-4 py-2.5 rounded-full shadow-2xl scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-400 ease-out"
+                    style={{ borderTop: `3px solid ${work.color}` }}
+                  >
+                    VIEW DEMO
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </span>
               </div>
               <div className="p-4 md:p-5">
                 <p className="text-[10px] font-bold tracking-widest text-[#1A202C]/55 mb-1">

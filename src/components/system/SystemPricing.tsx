@@ -106,7 +106,7 @@ export default function SystemPricing() {
                   "業務分析・ヒアリングは無料",
                   "予約管理 / 顧客台帳 / 売上集計の標準実装",
                   "スマホ・PC両対応のダッシュボード",
-                  "Supabase + Vercel構成で安全・高速",
+                  "マネージドクラウド構成で安全・高速",
                   "LINE連携（Botや自動応答）はオプション対応",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -150,9 +150,9 @@ export default function SystemPricing() {
               className="absolute -top-20 -right-20 w-48 h-48 rounded-full opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500"
               style={{ background: "radial-gradient(circle, rgba(255,196,0,0.25) 0%, transparent 70%)" }}
             />
-            <div className="absolute -top-4 -right-3 z-10">
+            <div className="absolute top-3 right-3 z-10">
               <div
-                className="bg-[#FFC400] text-[#1A202C] text-[10px] font-black tracking-widest px-3 py-1.5 rounded shadow-md rotate-[3deg]"
+                className="bg-[#FFC400] text-[#1A202C] text-[10px] font-black tracking-widest px-3 py-1.5 rounded shadow-md"
                 style={{ animation: "sysHeroFloat 3.6s ease-in-out infinite" }}
               >
                 ★ 推奨

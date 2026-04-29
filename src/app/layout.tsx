@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -216,6 +217,7 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
+        <ScrollProgress />
         <ScrollResetOnReload />
         {children}
       </body>

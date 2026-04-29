@@ -165,7 +165,7 @@ export default function SystemCTA() {
                 style={{ background: c.bg }}
               />
               <span
-                className="absolute -top-3 -right-2 text-[10px] font-black tracking-widest rounded px-2 py-0.5 group-hover:rotate-[-4deg] transition-transform duration-300"
+                className="absolute top-3 right-3 text-[10px] font-black tracking-widest rounded px-2 py-0.5 group-hover:scale-105 transition-transform duration-300"
                 style={{ background: c.bg, color: c.textColor }}
               >
                 {c.label}
