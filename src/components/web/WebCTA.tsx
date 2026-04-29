@@ -8,7 +8,7 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 
 export default function WebCTA() {
   const [sectionRef, visible] = useReveal<HTMLElement>({ threshold: 0.15 });
-  const [form, setForm] = useState({ name: "", email: "", message: "", agree: false });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submit, setSubmit] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -39,7 +39,7 @@ export default function WebCTA() {
         return;
       }
       setSubmit("success");
-      setForm({ name: "", email: "", message: "", agree: false });
+      setForm({ name: "", email: "", message: "" });
     } catch {
       setErrorMsg("通信エラーが発生しました。少し時間をおいて再度お試しください。");
       setSubmit("error");
@@ -266,16 +266,6 @@ export default function WebCTA() {
                   className="w-full bg-[#F7F7F7] border-2 border-[#111111] px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/40 focus:outline-none focus:bg-white resize-none"
                 />
               </div>
-              <label className="flex items-center gap-2 text-xs text-[#111111]/80">
-                <input
-                  type="checkbox"
-                  required
-                  checked={form.agree}
-                  onChange={(e) => setForm((p) => ({ ...p, agree: e.target.checked }))}
-                  className="w-4 h-4 border-2 border-[#111111] accent-[#FF2DA0]"
-                />
-                プライバシーポリシーに同意する
-              </label>
               {submit === "error" && errorMsg && (
                 <p role="alert" className="text-sm font-bold text-[#C0392B] bg-white border-2 border-[#C0392B] px-4 py-3">
                   {errorMsg}

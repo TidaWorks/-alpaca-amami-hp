@@ -7,7 +7,7 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 export default function SystemCTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "", agree: false });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submit, setSubmit] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -54,7 +54,7 @@ export default function SystemCTA() {
         return;
       }
       setSubmit("success");
-      setForm({ name: "", email: "", message: "", agree: false });
+      setForm({ name: "", email: "", message: "" });
     } catch {
       setErrorMsg("通信エラーが発生しました。少し時間をおいて再度お試しください。");
       setSubmit("error");
@@ -257,16 +257,6 @@ export default function SystemCTA() {
                   className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#635BFF] focus:ring-2 focus:ring-[#635BFF]/20 resize-none transition-colors"
                 />
               </div>
-              <label className="flex items-center gap-2 text-xs text-[#1A202C]/80">
-                <input
-                  type="checkbox"
-                  required
-                  checked={form.agree}
-                  onChange={(e) => setForm((p) => ({ ...p, agree: e.target.checked }))}
-                  className="w-4 h-4 accent-[#635BFF]"
-                />
-                プライバシーポリシーに同意する
-              </label>
               {submit === "error" && errorMsg && (
                 <p role="alert" className="text-sm font-bold text-[#C0392B] bg-[#FEE2E2] border border-[#FECACA] rounded-lg px-4 py-3">
                   {errorMsg}
