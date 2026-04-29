@@ -27,12 +27,50 @@ export default function SystemHero() {
     <section
       id="concept"
       ref={ref}
-      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28"
+      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28 min-h-[640px] md:min-h-[680px]"
     >
+      {/* フルブリード背景画像（PC=ワイド / モバイル=縦） */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* PC: ワイド版、左→右に溶ける */}
+        <div
+          className="hidden md:block absolute inset-0"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
+          }}
+        >
+          <Image
+            src="/images/system-hero.png"
+            alt="奄美の事業者がノートPCで業務システムを操作する様子"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-right"
+          />
+        </div>
+        {/* モバイル: 縦版、上→下に画像、テキストエリア上にフェード */}
+        <div className="md:hidden absolute inset-0">
+          <Image
+            src="/images/system-hero-mobile.png"
+            alt="奄美の事業者がノートPCで業務システムを操作する様子"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* 上半分を白くフェード（テキスト可読性） */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F3FF]/95 via-[#F5F3FF]/60 to-transparent" />
+        </div>
+        {/* 下端を背景に溶かすフェード */}
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-[#EFF6FF]" />
+      </div>
+
       {/* 装飾：波 */}
       <svg
         aria-hidden="true"
-        className="absolute -top-12 right-0 w-[420px] md:w-[640px] opacity-40 pointer-events-none"
+        className="absolute -top-12 right-0 w-[420px] md:w-[640px] opacity-40 pointer-events-none z-[1]"
         viewBox="0 0 600 200"
         fill="none"
         style={{ animation: "sysHeroWaveDrift 8s ease-in-out infinite" }}
@@ -49,27 +87,6 @@ export default function SystemHero() {
           strokeWidth="2"
           strokeLinecap="round"
         />
-      </svg>
-
-      {/* 装飾：太陽 */}
-      <svg
-        aria-hidden="true"
-        className="absolute top-32 right-12 md:right-20 w-16 h-16 text-[#FFC400] opacity-80 pointer-events-none hidden md:block"
-        viewBox="0 0 60 60"
-        fill="none"
-        style={{ animation: "sysHeroSpin 22s linear infinite", transformOrigin: "center" }}
-      >
-        <circle cx="30" cy="30" r="10" fill="currentColor" />
-        {Array.from({ length: 8 }).map((_, i) => {
-          const angle = (i * Math.PI) / 4;
-          const x1 = 30 + Math.cos(angle) * 16;
-          const y1 = 30 + Math.sin(angle) * 16;
-          const x2 = 30 + Math.cos(angle) * 24;
-          const y2 = 30 + Math.sin(angle) * 24;
-          return (
-            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          );
-        })}
       </svg>
 
       <style>{`
@@ -95,10 +112,10 @@ export default function SystemHero() {
         }
       `}</style>
 
-      <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
-        {/* ── 左カラム ── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
+        {/* ── テキストブロック ── */}
         <div
-          className="relative z-10 transition-all duration-700"
+          className="relative max-w-xl transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -113,14 +130,14 @@ export default function SystemHero() {
           </div>
 
           {/* メインヘッドライン */}
-          <h1 className="text-[#1A202C] text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.2] font-extrabold mb-6 tracking-tight">
+          <h1 className="text-[#1A202C] text-[2rem] md:text-[2.6rem] lg:text-[3.2rem] leading-[1.2] font-extrabold mb-6 tracking-tight">
             業務を
-            <span className="text-[#635BFF]">データ</span>
+            <span className="text-[#635BFF]">システム</span>
             で、
             <br />
             もっと
             <span className="relative inline-block">
-              <span className="relative z-10">なめらかに</span>
+              <span className="relative z-10">シンプルに</span>
               <span
                 className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FFC400]/60 -z-0"
                 aria-hidden="true"
@@ -131,9 +148,9 @@ export default function SystemHero() {
 
           {/* サブコピー */}
           <p className="text-[#1A202C]/75 text-[0.95rem] md:text-base leading-[2] mb-8 max-w-md">
-            奄美の事業者の毎日を、クラウドでスマートに。
+            多機能じゃなく、必要なものだけ。
             <br />
-            ALPACAが、あなたのビジネスを支えます。
+            奄美の事業者にちょうどいい仕組みを、ALPACAがつくります。
           </p>
 
           {/* CTAボタン群 */}
@@ -181,66 +198,6 @@ export default function SystemHero() {
           </div>
         </div>
 
-        {/* ── 右カラム: ダッシュボードモック（プレースホルダ） ── */}
-        <div
-          className="relative flex flex-col items-center transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transitionDelay: "200ms",
-          }}
-        >
-          {/* 装飾バッジ */}
-          <span
-            className="absolute -top-2 right-4 z-30 bg-[#FFC400] text-[#1A202C] font-black text-[11px] tracking-widest px-3 py-1.5 rounded shadow-md rotate-[-3deg]"
-            style={{ animation: "sysHeroFloat 3.2s ease-in-out infinite" }}
-          >
-            DEMO
-          </span>
-
-          {/* ダッシュボードビジュアル */}
-          <div className="w-full max-w-md">
-            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-xl ring-1 ring-[#1A202C]/5 hover:shadow-2xl transition-shadow duration-500">
-              <Image
-                src="/images/system-hero-dashboard.png"
-                alt="ALPACAが手がける業務システム開発のビジュアル（蝶ネクタイのアルパカと業務ダッシュボード）"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 480px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#1A202C]/10 via-transparent to-[#FFC400]/10 pointer-events-none" aria-hidden="true" />
-            </div>
-
-            {/* 数値カード3つ */}
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              {[
-                { num: "¥1,280K", label: "今月の売上", color: "#635BFF" },
-                { num: "320", label: "予約件数", color: "#FFC400" },
-                { num: "48", label: "新規顧客", color: "#0EA5E9" },
-              ].map((item, i) => (
-                <div
-                  key={item.label}
-                  className="group bg-white border border-[#E5E7EB] rounded-xl p-3 shadow-sm hover:-translate-y-0.5 hover:shadow-md cursor-default"
-                  style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "translateY(0)" : "translateY(10px)",
-                    transition: `opacity 0.5s ease ${500 + i * 110}ms, transform 0.5s ease ${500 + i * 110}ms, box-shadow 0.3s, translate 0.3s`,
-                    borderTop: `3px solid ${item.color}`,
-                  }}
-                >
-                  <p
-                    className="text-base md:text-lg font-extrabold tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left"
-                    style={{ color: item.color }}
-                  >
-                    {item.num}
-                  </p>
-                  <p className="text-[10px] text-[#1A202C]/60 mt-0.5">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

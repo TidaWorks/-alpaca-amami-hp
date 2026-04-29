@@ -70,6 +70,22 @@ export default function SystemFeatures() {
       id="features"
       className="relative bg-[#F8FAFC] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
     >
+      {/* PainPoints → Features を繋ぐ大矢印 */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 -top-7 md:-top-9 -translate-x-1/2 z-10 transition-all duration-700"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: `translateX(-50%) translateY(${visible ? 0 : -8}px)`,
+        }}
+      >
+        <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border border-[#E5E7EB] shadow-md flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 4v16M5 14l7 7 7-7" />
+          </svg>
+        </div>
+      </div>
+
       <div className="relative max-w-5xl mx-auto">
         <div
           className="mb-14 md:mb-16 transition-all duration-700"

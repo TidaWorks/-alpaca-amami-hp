@@ -303,6 +303,15 @@ export default function WebCTA() {
           <p className="text-[#111111]/65 text-sm mb-3">
             奄美大島を拠点に、島の事業者さまのWeb制作を承ります。
           </p>
+          <p className="text-[#111111]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
+            <a href="/" className="hover:text-[#FF2DA0] transition-colors rounded-sm">トップ</a>
+            <span>/</span>
+            <a href="/system" className="hover:text-[#FF2DA0] transition-colors rounded-sm">システム開発</a>
+            <span>/</span>
+            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF2DA0] transition-colors rounded-sm">
+              Instagram
+            </a>
+          </p>
           <p className="text-[#111111]/40 text-xs">
             &copy; 2026 ALPACA. All rights reserved.
           </p>

@@ -83,9 +83,11 @@ export default function WebPricing() {
                   </span>
                   <span className="text-base text-[#111111]/70 ml-1 font-bold">〜</span>
                 </div>
-                <p className="text-xs text-[#111111]/60 mt-3">
-                  上限目安 ¥120,000 / 納期 3日〜1週間
-                </p>
+                <div className="text-xs text-[#111111]/60 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span>上限目安 ¥120,000</span>
+                  <span className="text-[#111111]/30">|</span>
+                  <span>納期 3日〜1週間</span>
+                </div>
               </div>
 
               <ul className="space-y-3 mb-8">
@@ -147,9 +149,11 @@ export default function WebPricing() {
                   </span>
                   <span className="text-base text-[#111111]/70 ml-1 font-bold">〜</span>
                 </div>
-                <p className="text-xs text-[#111111]/60 mt-3">
-                  上限目安 ¥400,000 / 納期 2週間〜4週間
-                </p>
+                <div className="text-xs text-[#111111]/60 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span>上限目安 ¥400,000</span>
+                  <span className="text-[#111111]/30">|</span>
+                  <span>納期 2週間〜4週間</span>
+                </div>
               </div>
 
               <p className="text-[11px] font-black tracking-widest text-[#111111]/55 mb-3">

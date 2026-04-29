@@ -66,7 +66,7 @@ export default function WebHero() {
       {/* Memphis装飾（3要素：Blob×2 + Squiggle、主役のコピー＋Phoneを立てる） */}
       {/* パララックスは外側wrapper、CSSアニメは内側svgで二重レイヤ */}
       <div
-        className="absolute -top-10 -left-12 w-44 md:w-56 pointer-events-none will-change-transform"
+        className="absolute top-24 -left-24 w-28 md:-top-10 md:-left-12 md:w-56 pointer-events-none will-change-transform"
         style={{ transform: `translateY(${parallaxPink}px)` }}
         aria-hidden="true"
       >

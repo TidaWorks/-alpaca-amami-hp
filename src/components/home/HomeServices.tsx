@@ -107,7 +107,7 @@ export default function HomeServices() {
 
         {/* メインサービス（業務システム）— 大カード */}
         <div
-          className="group relative bg-gradient-to-br from-[#635BFF]/8 via-white to-[#12C998]/5 border-2 border-[#635BFF]/20 rounded-3xl p-8 md:p-12 mb-6 shadow-md hover:shadow-2xl hover:border-[#635BFF]/40 transition-all duration-500 overflow-hidden"
+          className="group relative bg-gradient-to-br from-[#635BFF]/8 via-white to-[#12C998]/5 border-2 border-[#635BFF]/20 rounded-3xl p-6 md:p-12 mb-6 shadow-md hover:shadow-2xl hover:border-[#635BFF]/40 transition-all duration-500 overflow-hidden"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -141,18 +141,18 @@ export default function HomeServices() {
             }
           `}</style>
 
-          <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
+          <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-12">
             <div className="md:w-[42%]">
               <span className="inline-block text-[10px] font-black text-white bg-[#635BFF] rounded-full px-3 py-1 mb-4 tracking-[0.2em]">
                 {services[0].badge}
               </span>
-              <div className="w-14 h-14 rounded-2xl bg-[#635BFF] text-white flex items-center justify-center mb-4 shadow-md group-hover:rotate-[-6deg] group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#635BFF] text-white flex items-center justify-center mb-4 shadow-md group-hover:rotate-[-6deg] group-hover:scale-110 transition-transform duration-300">
                 {services[0].icon}
               </div>
-              <h3 className="text-[#1A202C] text-2xl md:text-3xl font-extrabold mb-3">
+              <h3 className="text-[#1A202C] text-xl md:text-3xl font-extrabold mb-2 md:mb-3">
                 {services[0].title}
               </h3>
-              <p className="text-3xl font-extrabold text-[#635BFF] tabular-nums mb-1">
+              <p className="text-2xl md:text-3xl font-extrabold text-[#635BFF] tabular-nums mb-1">
                 {services[0].price}
               </p>
               <p className="text-xs text-[#1A202C]/55 mb-5">{services[0].note}</p>
@@ -272,7 +272,7 @@ export default function HomeServices() {
             <h4 className="font-extrabold text-[#1A202C] text-base md:text-lg">納品後の保守サポート</h4>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5 md:gap-4 mb-4">
+          <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4">
             {[
               { service: "LP", price: "¥5,000", color: "#FFC400" },
               { service: "HP", price: "¥10,000", color: "#12C998" },

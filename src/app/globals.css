@@ -200,6 +200,21 @@
   transform: translate(3px, 3px) scale(0.97);
 }
 
+/* ───────── アクセシビリティ ───────── */
+
+/* グローバル focus-visible: マウスでは出ず、キーボード操作時のみリング表示 */
+:where(a, button, [role="button"], input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #635BFF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* /web (Memphis LP) では Memphisピンクのフォーカス枠 */
+:where(.font-memphis-mincho, .font-memphis-gothic, [class*="memphis-"]):focus-visible,
+[data-page="memphis"] :focus-visible {
+  outline-color: #FF2DA0;
+}
+
 /* prefers-reduced-motion: ぜんぶ止める */
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
