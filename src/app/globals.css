@@ -113,7 +113,7 @@
   }}
 
 /* ─── Memphis Motion (2026-04-28) ─────────────────────── */
-/* /web (Memphis LP) のマイクロインタラクション用                */
+/* /web (Memphis ランディングページ) のマイクロインタラクション用                */
 /* transform / opacity のみ操作してパフォーマンスを保つ           */
 
 @keyframes memphis-float {
@@ -217,7 +217,7 @@
   border-radius: 4px;
 }
 
-/* /web (Memphis LP) では Memphisピンクのフォーカス枠 */
+/* /web (Memphis ランディングページ) では Memphisピンクのフォーカス枠 */
 :where(.font-memphis-mincho, .font-memphis-gothic, [class*="memphis-"]):focus-visible,
 [data-page="memphis"] :focus-visible {
   outline-color: #FF2DA0;

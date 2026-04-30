@@ -133,7 +133,7 @@ export default function HomeHero() {
           <p className="text-[#1A202C]/75 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md">
             奄美大島を拠点にする、Web制作とシステム開発のスタジオ。
             <br />
-            ホームページ・LP・業務改善システムを、一つの窓口でご相談いただけます。
+            ホームページ・ランディングページ・業務改善システムを、一つの窓口でご相談いただけます。
           </p>
 
           <div className="flex flex-wrap items-center gap-3 mb-10">

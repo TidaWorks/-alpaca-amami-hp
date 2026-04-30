@@ -157,7 +157,7 @@ const jsonLd = {
           "@type": "Service",
           name: "ホームページ制作",
           description:
-            "店舗サイト・コーポレートサイト・LP制作。スマホ対応、お問い合わせフォーム付き。",
+            "店舗サイト・コーポレートサイト・ランディングページ制作。スマホ対応、お問い合わせフォーム付き。",
         },
         priceSpecification: {
           "@type": "PriceSpecification",

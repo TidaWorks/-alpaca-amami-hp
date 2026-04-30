@@ -43,13 +43,13 @@ const services = [
   },
   {
     badge: "LANDING PAGE",
-    title: "LP制作",
+    title: "ランディングページ制作",
     href: "/web#pricing",
     price: "¥70,000〜",
     note: "納期3日〜1週間",
     color: "#FFC400",
-    desc: "イベント・キャンペーン・新サービス告知用の1ページ完結LP。最速3日で公開も可能。広告と組み合わせて即効果。",
-    points: ["LP 1ページを丁寧に制作", "スマホ完全対応", "お問い合わせフォーム標準装備"],
+    desc: "イベント・キャンペーン・新サービス告知用の1ページ完結のランディングページ。最速3日で公開も可能。広告と組み合わせて即効果。",
+    points: ["ランディングページ 1ページを丁寧に制作", "スマホ完全対応", "お問い合わせフォーム標準装備"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
         <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
@@ -101,7 +101,7 @@ export default function HomeServices() {
             。
           </h2>
           <p className="text-[#1A202C]/70 text-sm md:text-base">
-            業務改善システムを軸に、ホームページ・LP制作・保守までワンストップ。
+            業務改善システムを軸に、ホームページ・ランディングページ制作・保守までワンストップ。
           </p>
         </div>
 
@@ -194,7 +194,7 @@ export default function HomeServices() {
           </div>
         </div>
 
-        {/* サブサービス2つ：Web制作 / LP制作 */}
+        {/* サブサービス2つ：Web制作 / ランディングページ制作 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.slice(1).map((service, i) => (
             <a
@@ -254,52 +254,6 @@ export default function HomeServices() {
           ))}
         </div>
 
-        {/* 保守の補足 */}
-        <div
-          className="group mt-8 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl p-6 md:p-8 hover:shadow-md hover:bg-white transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-            transitionDelay: "500ms",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-5">
-            <span className="w-10 h-10 rounded-xl bg-[#0EA5E9]/15 text-[#0EA5E9] flex items-center justify-center group-hover:bg-[#0EA5E9]/25 group-hover:scale-105 transition-all duration-300">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </span>
-            <h4 className="font-extrabold text-[#1A202C] text-base md:text-lg">納品後の保守サポート</h4>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4">
-            {[
-              { service: "LP", price: "¥5,000", color: "#FFC400" },
-              { service: "HP", price: "¥10,000", color: "#12C998" },
-              { service: "システム", price: "¥20,000", color: "#635BFF" },
-            ].map((p) => (
-              <div
-                key={p.service}
-                className="bg-white border border-[#E5E7EB] rounded-xl p-3 md:p-4 text-center hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300"
-                style={{ borderTopWidth: "3px", borderTopColor: p.color }}
-              >
-                <p className="text-[11px] md:text-xs font-black tracking-wider text-[#1A202C]/70 mb-1">
-                  {p.service}
-                </p>
-                <p className="flex items-baseline justify-center gap-0.5">
-                  <span className="text-base md:text-xl font-extrabold text-[#1A202C] tabular-nums leading-none">
-                    {p.price}
-                  </span>
-                  <span className="text-[10px] md:text-xs font-bold text-[#1A202C]/55">〜/月</span>
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-xs md:text-sm text-[#1A202C]/65 leading-relaxed text-center">
-            サーバー管理・修正・運用までずっと伴走します。自主管理の場合は買い切りも可。
-          </p>
-        </div>
       </div>
     </section>
   );

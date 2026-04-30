@@ -15,7 +15,7 @@ const steps = [
     title: "ご提案・お見積り",
     badge: "無料",
     color: "#12C998",
-    description: "Web制作 or システム開発 or LP制作 のどれが最適か、機能を絞ってご提案します。",
+    description: "Web制作 or システム開発 or ランディングページ制作 のどれが最適か、機能を絞ってご提案します。",
   },
   {
     number: "03",

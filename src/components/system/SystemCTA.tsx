@@ -39,7 +39,7 @@ export default function SystemCTA() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          message: `[SYSTEM LP からのお問い合わせ]\n\n${form.message}`,
+          message: `[SYSTEM ランディングページ からのお問い合わせ]\n\n${form.message}`,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -313,7 +313,7 @@ export default function SystemCTA() {
           <p className="text-[#1A202C]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
             <a href="/" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">トップ</a>
             <span>/</span>
-            <a href="/web" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">ホームページ・LP制作</a>
+            <a href="/web" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">ホームページ・ランディングページ制作</a>
             <span>/</span>
             <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">
               Instagram
