@@ -6,7 +6,15 @@
   --color-orange-accent: #F5A623;
   --color-orange-hover: #E09510;
 
-  /* Memphis × Tropical Fusion パレット (Web LP用) */
+  /* ALPACA Brand パレット（マジックアワー統一・2026-04-30〜） */
+  --color-alpaca-purple: #635BFF;
+  --color-alpaca-purple-soft: #8B86FF;
+  --color-alpaca-mint: #12C998;
+  --color-alpaca-pink: #FF3D7F;
+  --color-alpaca-ink: #1A202C;
+  --color-alpaca-cream: #F5F3FF;
+
+  /* レガシー（他ページが参照しているため残置）*/
   --color-memphis-pink: #FF2DA0;
   --color-memphis-mint: #00E0D1;
   --color-memphis-yellow: #FFD600;

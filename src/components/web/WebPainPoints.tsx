@@ -8,8 +8,8 @@ const scenarios = [
     label: "検索しても出ない",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
-        <path d="M16.5 16.5L21 21" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="11" cy="11" r="7" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16.5 16.5L21 21" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "「お店の名前」でGoogle検索しても、何も出てこない。お客さんが来る前に、どこか別のお店に行ってしまう…",
@@ -22,9 +22,9 @@ const scenarios = [
     label: "スマホで崩れる",
     icon: (
       <svg width="18" height="20" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#FF2E88" strokeWidth="2" />
-        <circle cx="9" cy="19" r="1.2" fill="#FF2E88" />
-        <path d="M6 5h6" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" />
+        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#635BFF" strokeWidth="2" />
+        <circle cx="9" cy="19" r="1.2" fill="#635BFF" />
+        <path d="M6 5h6" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "今のサイト、スマホで見るとボタンが小さくて押せないし、写真がはみ出してしまう。お客さんに申し訳ない…",
@@ -37,8 +37,8 @@ const scenarios = [
     label: "更新に時間とお金",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke="#FF2E88" strokeWidth="2" />
-        <path d="M12 7v5l3 3" stroke="#FF2E88" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="9" stroke="#635BFF" strokeWidth="2" />
+        <path d="M12 7v5l3 3" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     problem: "メニューの値段が変わったのに、業者に連絡→返信待ち→反映まで2週間…。その間もお客さんに古い情報を見せてしまう。",
@@ -93,7 +93,7 @@ export default function WebPainPoints() {
   }, []);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden" style={{ backgroundColor: "#FAFAF8" }}>
+    <section className="relative py-24 md:py-32 overflow-hidden bg-[#F5F3FF]/30">
       <style>{`
         .pp-hidden {
           opacity: 0;
@@ -115,7 +115,7 @@ export default function WebPainPoints() {
 
       {/* Wave texture background */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.035]"
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice"
       >
@@ -124,7 +124,7 @@ export default function WebPainPoints() {
             <path
               d="M0 20 C20 5, 40 5, 60 20 S100 35, 120 20"
               fill="none"
-              stroke="#B45309"
+              stroke="#635BFF"
               strokeWidth="1.5"
             />
           </pattern>
@@ -135,10 +135,10 @@ export default function WebPainPoints() {
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Section heading */}
         <div className="mb-16">
-          <p className="text-[#FF2E88] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
+          <p className="text-[#635BFF] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
             PROBLEMS
           </p>
-          <h2 className="text-[#1A1A1A] text-3xl md:text-5xl font-bold leading-tight">
+          <h2 className="text-[#1A202C] text-3xl md:text-5xl font-bold leading-tight">
             こんな状態、<br className="md:hidden" />放置していませんか？
           </h2>
         </div>
@@ -157,14 +157,14 @@ export default function WebPainPoints() {
                 className="bubble-problem w-full md:w-1/2 pp-hidden pp-transition"
               >
                 <div
-                  className="relative rounded-2xl px-6 py-5 shadow-sm"
-                  style={{ backgroundColor: "#EDEDED" }}
+                  className="relative rounded-2xl px-6 py-5 border border-[#1A202C]/10 shadow-sm"
+                  style={{ backgroundColor: "#F5F3FF" }}
                 >
                   {/* Subtle dot pattern on problem side */}
                   <div
                     className="absolute inset-0 rounded-2xl pointer-events-none"
                     style={{
-                      backgroundImage: "radial-gradient(circle, #C0C0C0 1px, transparent 1px)",
+                      backgroundImage: "radial-gradient(circle, #C4B8FF 1px, transparent 1px)",
                       backgroundSize: "18px 18px",
                       opacity: 0.18,
                     }}
@@ -177,16 +177,16 @@ export default function WebPainPoints() {
                       height: 0,
                       borderTop: "10px solid transparent",
                       borderBottom: "10px solid transparent",
-                      borderLeft: "12px solid #EDEDED",
+                      borderLeft: "12px solid #F5F3FF",
                     }}
                   />
                   <div className="relative flex items-center gap-2 mb-2">
                     {s.icon}
-                    <p className="text-xs font-semibold text-[#FF2E88] tracking-wider">
+                    <p className="text-xs font-semibold text-[#635BFF] tracking-wider">
                       {s.label}
                     </p>
                   </div>
-                  <p className="relative text-[#1A1A1A] text-base leading-relaxed">
+                  <p className="relative text-[#1A202C] text-base leading-relaxed">
                     {s.problem}
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function WebPainPoints() {
                 {/* Mobile downward arrow — visible only when tail is hidden */}
                 <div className="flex justify-center mt-4 md:hidden">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#FF2E88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export default function WebPainPoints() {
               {/* Arrow connector — desktop only */}
               <div className="hidden md:flex flex-col items-center shrink-0">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#FF2E88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
 
@@ -212,18 +212,18 @@ export default function WebPainPoints() {
                 className="bubble-solution w-full md:w-1/2 pp-hidden-right pp-transition"
               >
                 <div
-                  className="rounded-2xl bg-white px-6 py-5 shadow-sm"
+                  className="rounded-2xl bg-white px-6 py-5 shadow-[0_8px_24px_rgba(99,91,255,0.10)]"
                   style={{
-                    borderTop: "1px solid #FCB3CF",
-                    borderRight: "1px solid #FCB3CF",
-                    borderBottom: "1px solid #FCB3CF",
-                    borderLeft: "3px solid #FF2E88",
+                    borderTop: "1px solid #E5E0FF",
+                    borderRight: "1px solid #E5E0FF",
+                    borderBottom: "1px solid #E5E0FF",
+                    borderLeft: "3px solid #635BFF",
                   }}
                 >
-                  <p className="text-[#FF2E88] text-xs font-semibold uppercase tracking-widest mb-2">
+                  <p className="text-[#635BFF] text-xs font-semibold uppercase tracking-widest mb-2">
                     {s.solutionLabel}
                   </p>
-                  <p className="text-[#1A1A1A] text-lg font-bold mb-2">
+                  <p className="text-[#1A202C] text-lg font-bold mb-2">
                     {s.accent}
                   </p>
                   <p className="text-gray-500 text-sm leading-relaxed">

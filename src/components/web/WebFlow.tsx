@@ -1,6 +1,5 @@
 "use client";
 
-import { MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle } from "./MemphisDecorations";
 import { useReveal } from "@/hooks/useReveal";
 
 const steps = [
@@ -8,8 +7,7 @@ const steps = [
     number: "01",
     title: "相談・ヒアリング",
     badge: "無料",
-    color: "#FF2DA0",
-    bg: "memphis-card-pink",
+    color: "#635BFF",
     description: "お店のこだわりや想いを聞かせてください。島内なら直接お伺いします。",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
@@ -21,8 +19,7 @@ const steps = [
     number: "02",
     title: "制作・確認",
     badge: "約2〜4週間",
-    color: "#FFD600",
-    bg: "memphis-card-yellow",
+    color: "#8B86FF",
     description: "デザイン提案→制作→実機確認。気になる点はすべて修正します。",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
@@ -35,8 +32,7 @@ const steps = [
     number: "03",
     title: "公開・サポート",
     badge: "ずっと安心",
-    color: "#00E0D1",
-    bg: "memphis-card-mint",
+    color: "#12C998",
     description: "いよいよ公開。使い方もしっかりお教えします。保守サポートもスタート。",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
@@ -54,16 +50,8 @@ export default function WebFlow() {
     <section
       ref={sectionRef}
       id="flow"
-      className="relative bg-[#F7F7F7] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t-2 border-[#111111]"
+      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
-
-      {/* Memphis装飾 */}
-      <MemphisRing color="#FF2DA0" className="absolute top-16 right-12 w-24 md:w-32 pointer-events-none animate-wiggle" />
-      <MemphisDots color="#111111" className="absolute bottom-16 left-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
-      <MemphisSquiggle color="#FFD600" className="absolute top-40 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
-      <MemphisTriangle color="#00E0D1" className="absolute bottom-20 right-1/4 w-12 md:w-14 rotate-12 pointer-events-none animate-wiggle" />
-
       <div className="relative max-w-5xl mx-auto">
         {/* 見出し */}
         <div
@@ -74,18 +62,18 @@ export default function WebFlow() {
           }}
         >
           <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-[#FFD600] text-[#111111] font-black text-[11px] tracking-widest px-2.5 py-1 border-2 border-[#111111]">
+            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-md">
               04
             </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#111111]">FLOW / 3 STEPS</span>
+            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">FLOW / 3 STEPS</span>
           </div>
-          <h2 className="font-memphis-mincho text-[#111111] text-3xl md:text-5xl font-extrabold leading-[1.3] tracking-tight">
+          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-[1.3] tracking-tight">
             ホームページが
             <br className="md:hidden" />
             <span className="relative inline-block">
               <span className="relative z-10">できるまで</span>
               <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#00E0D1] -z-0"
+                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#12C998]/45 -z-0"
                 aria-hidden="true"
               />
             </span>
@@ -99,15 +87,15 @@ export default function WebFlow() {
             <div key={step.number} className="relative">
               {/* デスクトップ: 矢印（次への線） */}
               {i < steps.length - 1 && (
-                <div className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-white border-2 border-[#111111] rounded-full">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <div className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-white shadow-md rounded-full">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </div>
               )}
 
               <div
-                className={`group relative bg-white border-2 border-[#111111] p-6 md:p-7 transition-all duration-700 memphis-lift ${step.bg}`}
+                className="group relative bg-white border border-[#1A202C]/10 rounded-2xl p-6 md:p-7 transition-all duration-700 shadow-lg hover:-translate-y-1 hover:shadow-xl"
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -117,30 +105,33 @@ export default function WebFlow() {
                 {/* 番号 + アイコン */}
                 <div className="flex items-center gap-4 mb-4">
                   <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#111111] text-[#111111] transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110"
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110"
                     style={{ background: step.color }}
                   >
                     {step.icon}
                   </div>
-                  <span className="font-memphis-mincho text-5xl md:text-6xl font-extrabold leading-none text-[#111111]">
+                  <span className="font-memphis-mincho text-5xl md:text-6xl font-extrabold leading-none text-[#1A202C]">
                     {step.number}
                   </span>
                 </div>
 
                 {/* タイトル + バッジ */}
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  <h3 className="font-memphis-mincho text-[#111111] text-xl font-extrabold">
+                  <h3 className="font-memphis-mincho text-[#1A202C] text-xl font-extrabold">
                     {step.title}
                   </h3>
                   <span
-                    className="text-[10px] font-black tracking-widest border-2 border-[#111111] px-2 py-0.5 whitespace-nowrap rotate-[-2deg] text-[#111111]"
-                    style={{ background: step.color }}
+                    className="text-[10px] font-black tracking-widest rounded-full px-2.5 py-0.5 whitespace-nowrap"
+                    style={{
+                      background: `${step.color}1F`,
+                      color: step.color,
+                    }}
                   >
                     {step.badge}
                   </span>
                 </div>
 
-                <p className="text-[#111111]/75 text-sm leading-relaxed">
+                <p className="text-[#1A202C]/75 text-sm leading-relaxed">
                   {step.description}
                 </p>
               </div>

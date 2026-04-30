@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { MemphisBlob, MemphisDots, MemphisRing, MemphisSquiggle, MemphisTriangle, MemphisWave } from "./MemphisDecorations";
 import { useReveal } from "@/hooks/useReveal";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -50,7 +49,7 @@ export default function WebCTA() {
     {
       type: "tel",
       href: "tel:08027906757",
-      bg: "#FF2DA0",
+      bg: "#635BFF",
       textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -65,8 +64,8 @@ export default function WebCTA() {
     {
       type: "dm",
       href: "https://instagram.com/alpaca_amami",
-      bg: "#FFD600",
-      textColor: "#111111",
+      bg: "#12C998",
+      textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -82,8 +81,8 @@ export default function WebCTA() {
     {
       type: "mail",
       href: "mailto:alpaca.amami@gmail.com",
-      bg: "#00E0D1",
-      textColor: "#111111",
+      bg: "#8B86FF",
+      textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -101,19 +100,8 @@ export default function WebCTA() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative bg-[#F7F7F7] pt-20 md:pt-28 pb-12 px-6 scroll-mt-20 overflow-hidden border-t-2 border-[#111111]"
+      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] pt-20 md:pt-28 pb-12 px-6 scroll-mt-20 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
-
-      {/* Memphis装飾 */}
-      <MemphisBlob color="#FF2DA0" className="absolute top-12 -right-12 w-44 md:w-56 rotate-12 pointer-events-none animate-float-slow" />
-      <MemphisBlob color="#00E0D1" className="absolute bottom-32 -left-12 w-40 md:w-52 -rotate-12 pointer-events-none animate-float" />
-      <MemphisRing color="#FFD600" className="absolute top-1/3 right-1/4 w-20 md:w-28 pointer-events-none hidden md:block animate-wiggle" />
-      <MemphisSquiggle color="#FF2DA0" className="absolute top-32 left-1/4 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
-      <MemphisDots color="#111111" className="absolute bottom-44 right-12 w-20 md:w-28 opacity-50 pointer-events-none animate-wiggle" />
-      <MemphisTriangle color="#00E0D1" className="absolute top-24 right-1/3 w-12 md:w-14 -rotate-12 pointer-events-none animate-wiggle" />
-      <MemphisWave color="#FFD600" className="absolute bottom-32 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
-
       <div className="relative max-w-4xl mx-auto">
         {/* 見出し */}
         <div
@@ -124,25 +112,25 @@ export default function WebCTA() {
           }}
         >
           <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-[#FF2DA0] text-white font-black text-[11px] tracking-widest px-2.5 py-1 border-2 border-[#111111]">
+            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
               07
             </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#111111]">CONTACT / FREE</span>
+            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">CONTACT / FREE</span>
           </div>
 
-          <h2 className="font-memphis-mincho text-[#111111] text-3xl md:text-5xl font-extrabold mb-4 leading-[1.3] tracking-tight">
+          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold mb-4 leading-[1.3] tracking-tight">
             まずは
             <span className="relative inline-block mx-1">
               <span className="relative z-10">気軽に</span>
               <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FFD600] -z-0"
+                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#12C998]/45 -z-0 rounded-sm"
                 aria-hidden="true"
               />
             </span>
             <br className="md:hidden" />
             ご相談ください。
           </h2>
-          <p className="font-memphis-mincho text-[#111111]/75 text-sm md:text-base">
+          <p className="font-memphis-mincho text-[#1A202C]/75 text-sm md:text-base">
             奄美島内なら直接お伺いします。オンラインも対応可能です。
           </p>
         </div>
@@ -155,58 +143,58 @@ export default function WebCTA() {
               href={c.href}
               target={c.type === "dm" ? "_blank" : undefined}
               rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-              className="relative bg-white border-2 border-[#111111] p-6 flex flex-col items-start gap-2 shadow-[5px_5px_0_0_#111111] hover:-translate-y-[3px] hover:shadow-[7px_8px_0_0_#111111] active:scale-[0.98] active:translate-y-0 active:shadow-[3px_3px_0_0_#111111] transition-all cursor-pointer"
+              className="relative bg-white border border-[#1A202C]/10 rounded-2xl p-6 flex flex-col items-start gap-2 shadow-md hover:shadow-xl hover:-translate-y-1 active:scale-[0.98] transition-all cursor-pointer"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 0.7s, transform 0.5s, box-shadow 0.15s",
+                transition: "opacity 0.7s, transform 0.5s, box-shadow 0.3s",
                 transitionDelay: `${250 + i * 120}ms`,
               }}
             >
               <span
-                className="absolute -top-3 -right-2 text-[10px] font-black tracking-widest border-2 border-[#111111] px-2 py-0.5 rotate-[3deg]"
+                className="absolute -top-2 -right-2 text-[10px] font-black tracking-widest px-2.5 py-1 rounded-full"
                 style={{ background: c.bg, color: c.textColor }}
               >
                 {c.label}
               </span>
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#111111] mb-1"
+                className="w-12 h-12 rounded-full flex items-center justify-center mb-1"
                 style={{ background: c.bg, color: c.textColor }}
               >
                 {c.icon}
               </div>
-              <span className="font-memphis-mincho text-[#111111] font-bold text-base">
+              <span className="font-memphis-mincho text-[#1A202C] font-bold text-base">
                 {c.title}
               </span>
-              <span className="font-memphis-gothic text-[#111111] font-bold text-sm break-all">
+              <span className="font-memphis-gothic text-[#1A202C] font-bold text-sm break-all">
                 {c.body}
               </span>
-              <span className="text-[#111111]/60 text-xs">{c.hint}</span>
+              <span className="text-[#1A202C]/60 text-xs">{c.hint}</span>
             </a>
           ))}
         </div>
 
         {/* お問い合わせフォーム */}
         <div
-          className="bg-white border-2 border-[#111111] shadow-[6px_6px_0_0_#FF2DA0] p-7 md:p-10 mb-12 transition-all duration-700"
+          className="bg-white border border-[#1A202C]/10 rounded-2xl shadow-xl p-7 md:p-10 mb-12 transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
             transitionDelay: "650ms",
           }}
         >
-          <h3 className="font-memphis-mincho text-[#111111] text-xl md:text-2xl font-extrabold mb-6">
+          <h3 className="font-memphis-mincho text-[#1A202C] text-xl md:text-2xl font-extrabold mb-6">
             フォームから送る
           </h3>
           {submit === "success" ? (
             <div
               role="status"
-              className="bg-[#F7F7F7] border-2 border-[#111111] p-6 text-center"
+              className="bg-[#F5F3FF]/60 border border-[#12C998]/30 rounded-xl p-6 text-center"
             >
-              <p className="font-memphis-mincho text-[#111111] text-lg font-extrabold mb-2">
+              <p className="font-memphis-mincho text-[#1A202C] text-lg font-extrabold mb-2">
                 送信ありがとうございました！
               </p>
-              <p className="text-sm text-[#111111]/75 leading-relaxed">
+              <p className="text-sm text-[#1A202C]/75 leading-relaxed">
                 内容を確認の上、2営業日以内にご返信いたします。
                 <br />
                 急ぎの場合は上記の電話・DMもご利用ください。
@@ -214,7 +202,7 @@ export default function WebCTA() {
               <button
                 type="button"
                 onClick={() => setSubmit("idle")}
-                className="mt-5 inline-flex items-center text-sm font-black text-[#111111] underline decoration-[#FF2DA0] decoration-[3px] underline-offset-[6px] hover:decoration-[#FFD600] transition-colors"
+                className="mt-5 inline-flex items-center text-sm font-black text-[#1A202C] underline decoration-[#635BFF] decoration-[3px] underline-offset-[6px] hover:decoration-[#12C998] transition-colors"
               >
                 もう一度送る
               </button>
@@ -222,7 +210,7 @@ export default function WebCTA() {
           ) : (
             <form onSubmit={onSubmit} className="space-y-5" noValidate>
               <div>
-                <label htmlFor="name" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#111111] mb-2">
+                <label htmlFor="name" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
                   お名前
                 </label>
                 <input
@@ -233,11 +221,11 @@ export default function WebCTA() {
                   placeholder="お名前"
                   value={form.name}
                   onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  className="w-full bg-[#F7F7F7] border-2 border-[#111111] px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/40 focus:outline-none focus:bg-white"
+                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#111111] mb-2">
+                <label htmlFor="email" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
                   メールアドレス
                 </label>
                 <input
@@ -248,11 +236,11 @@ export default function WebCTA() {
                   placeholder="example@email.com"
                   value={form.email}
                   onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                  className="w-full bg-[#F7F7F7] border-2 border-[#111111] px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/40 focus:outline-none focus:bg-white"
+                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#111111] mb-2">
+                <label htmlFor="message" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
                   メッセージを入力
                 </label>
                 <textarea
@@ -263,18 +251,18 @@ export default function WebCTA() {
                   placeholder="ご相談内容をお書きください"
                   value={form.message}
                   onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
-                  className="w-full bg-[#F7F7F7] border-2 border-[#111111] px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/40 focus:outline-none focus:bg-white resize-none"
+                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition resize-none"
                 />
               </div>
               {submit === "error" && errorMsg && (
-                <p role="alert" className="text-sm font-bold text-[#C0392B] bg-white border-2 border-[#C0392B] px-4 py-3">
+                <p role="alert" className="text-sm font-bold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
                   {errorMsg}
                 </p>
               )}
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="inline-flex items-center justify-center bg-[#FFD600] text-[#111111] font-black text-sm tracking-widest px-8 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="inline-flex items-center justify-center bg-[#FF3D7F] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 {submit === "submitting" ? "送信中..." : "送信する →"}
               </button>
@@ -283,26 +271,26 @@ export default function WebCTA() {
         </div>
 
         {/* フッター */}
-        <div className="border-t-2 border-dashed border-[#111111]/50 pt-8 text-center">
+        <div className="border-t border-dashed border-[#1A202C]/15 pt-8 text-center">
           <p className="font-memphis-gothic text-2xl font-black tracking-widest mb-2">
-            <span className="text-[#111111]">ALPACA</span>
-            <span className="text-[#111111] text-[10px] tracking-[0.3em] ml-2 align-middle">
+            <span className="text-[#1A202C]">ALPACA</span>
+            <span className="text-[#1A202C] text-[10px] tracking-[0.3em] ml-2 align-middle">
               WEB DESIGN STUDIO
             </span>
           </p>
-          <p className="text-[#111111]/65 text-sm mb-3">
+          <p className="text-[#1A202C]/65 text-sm mb-3">
             奄美大島を拠点に、島の事業者さまのWeb制作を承ります。
           </p>
-          <p className="text-[#111111]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
-            <a href="/" className="hover:text-[#FF2DA0] transition-colors rounded-sm">トップ</a>
+          <p className="text-[#1A202C]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
+            <a href="/" className="hover:text-[#635BFF] transition-colors rounded-sm">トップ</a>
             <span>/</span>
-            <a href="/system" className="hover:text-[#FF2DA0] transition-colors rounded-sm">システム開発</a>
+            <a href="/system" className="hover:text-[#635BFF] transition-colors rounded-sm">システム開発</a>
             <span>/</span>
-            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF2DA0] transition-colors rounded-sm">
+            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors rounded-sm">
               Instagram
             </a>
           </p>
-          <p className="text-[#111111]/40 text-xs">
+          <p className="text-[#1A202C]/40 text-xs">
             &copy; 2026 ALPACA. All rights reserved.
           </p>
         </div>

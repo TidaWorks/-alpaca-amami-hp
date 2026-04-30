@@ -146,8 +146,8 @@ function GalleryCard({
 function PulsingBadge({ count }: { count: number }) {
   return (
     <span className="relative inline-flex items-center justify-center">
-      <span className="absolute inline-flex h-full w-full rounded-full bg-[#F5A623] opacity-40 animate-ping" />
-      <span className="relative inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#F5A623] text-black text-xs font-bold">
+      <span className="absolute inline-flex h-full w-full rounded-full bg-[#12C998] opacity-40 animate-ping" />
+      <span className="relative inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#12C998] text-white text-xs font-bold">
         {count}
       </span>
     </span>
@@ -193,22 +193,22 @@ function GalleryCTA() {
       </p>
       <a
         href="#contact"
-        className="inline-block px-10 py-4 rounded-full text-black font-bold text-base md:text-lg tracking-wide"
+        className="inline-block px-10 py-4 rounded-full text-white font-bold text-base md:text-lg tracking-wide"
         style={{
-          backgroundColor: "#F5A623",
+          backgroundColor: "#FF3D7F",
           boxShadow: visible
-            ? "0 0 0 0 rgba(245,166,35,0)"
+            ? "0 0 0 0 rgba(255,61,127,0)"
             : undefined,
           transition: "box-shadow 0.3s ease, transform 0.2s ease",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-            "0 0 24px 6px rgba(245,166,35,0.55), 0 0 60px 16px rgba(245,166,35,0.2)";
+            "0 0 24px 6px rgba(255,61,127,0.55), 0 0 60px 16px rgba(255,61,127,0.2)";
           (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1.04)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-            "0 0 0 0 rgba(245,166,35,0)";
+            "0 0 0 0 rgba(255,61,127,0)";
           (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)";
         }}
       >
@@ -272,7 +272,7 @@ export default function GalleryMarquee() {
     if (transition) return;
     const work = works.find((w) => w.slug === slug);
     const destination = work?.demoUrl || work?.url || `/works/${slug}`;
-    const accent = work?.thumbnail.accent || "#F5A623";
+    const accent = work?.thumbnail.accent || "#635BFF";
     const title = work?.title || "";
 
     const rect = e.currentTarget.getBoundingClientRect();
@@ -301,8 +301,8 @@ export default function GalleryMarquee() {
             to   { width: 200vmax; height: 200vmax; opacity: 1; }
           }
           @keyframes tidaOverlayIn {
-            from { backdrop-filter: blur(0px); background: rgba(10,10,10,0); }
-            to   { backdrop-filter: blur(20px); background: rgba(10,10,10,1); }
+            from { backdrop-filter: blur(0px); background: rgba(26,27,63,0); }
+            to   { backdrop-filter: blur(20px); background: rgba(26,27,63,1); }
           }
           @keyframes tidaTitleIn {
             from { opacity: 0; transform: translate(-50%,-50%) scale(0.9); }
@@ -356,7 +356,7 @@ export default function GalleryMarquee() {
 
     <section
       id="gallery"
-      className="relative bg-[#0A0A0A] overflow-hidden"
+      className="relative bg-gradient-to-br from-[#1A1B3F] via-[#2B2854] to-[#1F1638] overflow-hidden"
     >
       {/* Wave divider — transitions from previous light section into this dark section */}
       <div className="relative w-full overflow-hidden leading-none -mt-1">
@@ -369,7 +369,7 @@ export default function GalleryMarquee() {
         >
           <path
             d="M0,0 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z"
-            fill="#FAFAF8"
+            fill="#F5F3FF"
           />
         </svg>
       </div>
@@ -377,7 +377,7 @@ export default function GalleryMarquee() {
       <div className="pt-12 pb-16 md:pt-16 md:pb-20">
         {/* Section heading */}
         <div className="max-w-7xl mx-auto px-6 mb-14 md:mb-20">
-          <p className="text-[#F5A623] text-sm font-semibold uppercase tracking-[0.2em] font-display mb-5">
+          <p className="text-[#FF3D7F] text-sm font-semibold uppercase tracking-[0.2em] font-display mb-5">
             WORKS
           </p>
           <h2 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4">
@@ -435,8 +435,8 @@ export default function GalleryMarquee() {
       </div>
 
       {/* Fade edges */}
-      <div className="absolute inset-y-0 left-0 w-32 md:w-48 bg-gradient-to-r from-[#0A0A0A] to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-y-0 right-0 w-32 md:w-48 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 left-0 w-32 md:w-48 bg-gradient-to-r from-[#1A1B3F] to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 right-0 w-32 md:w-48 bg-gradient-to-l from-[#1A1B3F] to-transparent pointer-events-none z-10" />
     </section>
     </>
   );

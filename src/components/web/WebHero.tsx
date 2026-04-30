@@ -3,11 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  MemphisBlob,
-  MemphisSquiggle,
-} from "./MemphisDecorations";
-import { useParallax } from "@/hooks/useParallax";
 
 const demos = [
   { name: "Hair Salon kukuru", category: "美容室", url: "/demo/salon", image: "/images/demo-screenshots/salon.png" },
@@ -27,10 +22,6 @@ export default function WebHero() {
   const [isAuto, setIsAuto] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
   const total = demos.length;
-
-  // スクロールパララックス（モバイル/reduced-motionは内部で無効化）
-  const parallaxPink = useParallax(-0.18);
-  const parallaxYellow = useParallax(0.22);
 
   useEffect(() => {
     if (!isAuto) return;
@@ -58,43 +49,52 @@ export default function WebHero() {
   return (
     <section
       id="concept"
-      className="relative bg-[#F7F7F7] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28"
+      className="relative overflow-hidden pt-28 md:pt-36 pb-24 md:pb-32"
     >
-      {/* 斑点ドットパターン背景 */}
-      <div className="absolute inset-0 bg-memphis-speckle opacity-[0.06] pointer-events-none" aria-hidden="true" />
-
-      {/* Memphis装飾（3要素：Blob×2 + Squiggle、主役のコピー＋Phoneを立てる） */}
-      {/* パララックスは外側wrapper、CSSアニメは内側svgで二重レイヤ */}
-      <div
-        className="absolute top-24 -left-24 w-28 md:-top-10 md:-left-12 md:w-56 pointer-events-none will-change-transform"
-        style={{ transform: `translateY(${parallaxPink}px)` }}
-        aria-hidden="true"
-      >
-        <MemphisBlob color="#FF2DA0" className="w-full -rotate-12 animate-float-slow" />
+      {/* Magic Hour 背景写真（PC/モバイル切替） */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {/* PC版 */}
+        <div className="hidden md:block absolute inset-0">
+          <Image
+            src="/images/web-magic-hour.png"
+            alt=""
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+        {/* モバイル版 */}
+        <div className="md:hidden absolute inset-0">
+          <Image
+            src="/images/web-magic-hour-mobile.png"
+            alt=""
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+        {/* 紫グラデーションオーバーレイ（可読性確保） */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A1B3F]/70 via-[#2B2854]/55 to-[#635BFF]/55" />
+        {/* 下端フェード（次セクションへの繋ぎ） */}
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#F5F3FF] to-transparent" />
       </div>
-      <div
-        className="absolute top-32 right-[-3rem] w-32 md:w-40 pointer-events-none will-change-transform"
-        style={{ transform: `translateY(${parallaxYellow}px)` }}
-        aria-hidden="true"
-      >
-        <MemphisBlob color="#FFD600" className="w-full rotate-[18deg] animate-float" />
-      </div>
-      <MemphisSquiggle color="#FF2DA0" className="absolute top-24 right-1/3 w-32 md:w-40 pointer-events-none hidden md:block animate-pulse-soft" />
 
-      <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
         {/* ── 左カラム ── */}
-        <div className="relative z-10">
+        <div className="relative">
           {/* セクション番号タグ */}
           <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-[#FF2DA0] text-white font-black text-[11px] tracking-widest px-2.5 py-1 border-2 border-[#111111]">
+            <span className="bg-white/15 backdrop-blur-sm text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
               01
             </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#111111]">BRAND CONCEPT</span>
+            <span className="text-[11px] font-bold tracking-[0.3em] text-white/80">BRAND CONCEPT</span>
           </div>
 
           {/* メインヘッドライン（明朝） */}
           <h1
-            className="font-memphis-mincho text-[#111111] text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.25] font-extrabold mb-7 tracking-tight animate-reveal-up"
+            className="font-memphis-mincho text-white text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.25] font-extrabold mb-7 tracking-tight animate-reveal-up drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]"
             style={{ animationDelay: "60ms" }}
           >
             伝わるデザインで
@@ -102,7 +102,7 @@ export default function WebHero() {
             <span className="relative inline-block">
               <span className="relative z-10">島の魅力</span>
               <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FFD600] -z-0"
+                className="absolute inset-x-0 bottom-1 h-[35%] bg-[#12C998]/60 -z-0"
                 aria-hidden="true"
               />
             </span>
@@ -113,7 +113,7 @@ export default function WebHero() {
 
           {/* サブコピー */}
           <p
-            className="font-memphis-mincho text-[#111111]/80 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md animate-reveal-up"
+            className="font-memphis-mincho text-white/85 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md animate-reveal-up"
             style={{ animationDelay: "260ms" }}
           >
             ALPACAは、鹿児島県・奄美大島を拠点にする
@@ -125,14 +125,14 @@ export default function WebHero() {
             その魅力をデザインで表現し、伝えていきます。
           </p>
 
-          {/* CTAボタン群（主1+副1に絞り、主役を立てる） */}
+          {/* CTAボタン群 */}
           <div
-            className="flex flex-wrap items-center gap-3 mb-10 animate-reveal-up"
+            className="flex flex-wrap items-center gap-4 mb-10 animate-reveal-up"
             style={{ animationDelay: "440ms" }}
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF2DA0] text-white font-black text-sm px-6 py-3.5 border-2 border-[#111111] rounded-full shadow-[4px_4px_0_0_#111111] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.97] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[0_0_0_0_#111111] transition-all"
+              className="inline-flex items-center gap-2 bg-[#FF3D7F] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97] transition-all"
             >
               無料で相談する
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -141,7 +141,7 @@ export default function WebHero() {
             </a>
             <a
               href="#works"
-              className="inline-flex items-center text-sm font-black text-[#111111] underline decoration-[#00E0D1] decoration-[3px] underline-offset-[6px] hover:decoration-[#FFD600] transition-colors"
+              className="inline-flex items-center text-sm font-black text-white underline decoration-[#12C998] decoration-[3px] underline-offset-[6px] hover:decoration-white transition-colors"
             >
               プロジェクトを見る →
             </a>
@@ -151,8 +151,8 @@ export default function WebHero() {
 
         {/* ── 右カラム: モックアップカルーセル ── */}
         <div className="relative flex flex-col items-center">
-          {/* 装飾バッジ（控えめにリファイン） */}
-          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-white/90 backdrop-blur-sm text-[#111111] font-bold text-[10px] tracking-[0.18em] px-3 py-1.5 rounded-full ring-1 ring-[#111111]/15 shadow-sm">
+          {/* 装飾バッジ */}
+          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-white/85 backdrop-blur text-[#1A202C] font-bold text-[10px] tracking-[0.18em] px-3 py-1.5 rounded-full ring-1 ring-white/40 shadow-sm">
             DEMO × 9 業種
           </span>
 
@@ -184,8 +184,8 @@ export default function WebHero() {
                     onClick={() => goToDemo(demo.url)}
                     className="block group cursor-pointer text-left"
                   >
-                    {/* Phone frame（柔らかドロップシャドウに変更） */}
-                    <div className="relative w-[200px] h-[400px] md:w-[230px] md:h-[460px] bg-[#111111] rounded-[36px] md:rounded-[44px] p-[6px] ring-1 ring-[#111111]/15 shadow-[0_18px_40px_-12px_rgba(17,17,17,0.35)] group-hover:shadow-[0_24px_50px_-12px_rgba(17,17,17,0.45)] group-hover:-translate-y-1 transition-all duration-500">
+                    {/* Phone frame（柔らかドロップシャドウ） */}
+                    <div className="relative w-[200px] h-[400px] md:w-[230px] md:h-[460px] bg-[#1A202C] rounded-[36px] md:rounded-[44px] p-[6px] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] group-hover:shadow-[0_28px_70px_-12px_rgba(0,0,0,0.55)] group-hover:-translate-y-1 transition-all duration-500">
                       {/* notch */}
                       <div className="absolute top-[12px] md:top-[14px] left-1/2 -translate-x-1/2 w-[60px] md:w-[72px] h-[18px] md:h-[22px] bg-black rounded-full z-20" />
                       {/* screen */}
@@ -202,8 +202,8 @@ export default function WebHero() {
                     </div>
                     {/* labels */}
                     <div className="text-center mt-4">
-                      <p className="font-memphis-mincho text-base font-bold text-[#111111]">{demo.name}</p>
-                      <p className="text-[11px] mt-1 font-bold tracking-widest text-[#FF2DA0]">{demo.category}</p>
+                      <p className="font-memphis-mincho text-base font-bold text-white">{demo.name}</p>
+                      <p className="text-[11px] mt-1 font-bold tracking-widest text-[#12C998]">{demo.category}</p>
                     </div>
                   </button>
                 </div>
@@ -213,19 +213,19 @@ export default function WebHero() {
             {/* 矢印（スマホ・PC両対応） */}
             <button
               onClick={() => goTo(current - 1)}
-              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm ring-1 ring-[#111111]/15 shadow-md hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
+              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white/80 backdrop-blur ring-1 ring-white/30 shadow-md hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
               aria-label="前のデモ"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A202C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
             <button
               onClick={() => goTo(current + 1)}
-              className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-[#FFD600] border-2 border-[#111111] shadow-[3px_3px_0_0_#111111] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#111111] active:scale-[0.92] transition-all cursor-pointer"
+              className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white/80 backdrop-blur ring-1 ring-white/30 shadow-md hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
               aria-label="次のデモ"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A202C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
@@ -238,7 +238,7 @@ export default function WebHero() {
                 key={i}
                 onClick={() => goTo(i)}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer active:scale-[0.85] ${
-                  i === current ? "bg-[#FF2DA0] w-7" : "bg-[#111111]/15 w-1.5 hover:bg-[#111111]/35"
+                  i === current ? "bg-[#FF3D7F] w-7" : "bg-white/30 w-1.5 hover:bg-white/50"
                 }`}
                 aria-label={`${demos[i].category}のデモに移動`}
               />
