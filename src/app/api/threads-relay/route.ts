@@ -83,11 +83,74 @@ export async function POST(req: Request) {
   }
 }
 
-// 簡易疎通確認（GETは認証なし、トークン情報は出さない）
-export async function GET() {
-  const ready =
-    Boolean(process.env.THREADS_RELAY_TOKEN) &&
-    Boolean(process.env.TELEGRAM_BOT_TOKEN) &&
-    Boolean(process.env.TELEGRAM_CHAT_ID);
-  return NextResponse.json({ ok: true, ready });
+// GETは2モードある：
+//   1. パラメータなし → 疎通確認（トークン認証なし、設定状態だけ返す）
+//   2. ?token=...&text=... 付き → 認証＋送信（Routinesサンドボックスからの WebFetch 用）
+//
+// ※ Routinesサンドボックスは Bash curl の外向き通信が制限されていて POSTできないが、
+//   WebFetch ツールは広いドメインに GET アクセスできる。GET経由送信のためのフォールバック。
+//   GETでは text の URL長制限（〜8KB）に注意。
+export async function GET(req: Request) {
+  const expectedToken = process.env.THREADS_RELAY_TOKEN;
+  if (!expectedToken) {
+    return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
+  }
+
+  const url = new URL(req.url);
+  const providedToken = url.searchParams.get("token");
+  const text = url.searchParams.get("text");
+  const chatIdOverride = url.searchParams.get("chat_id");
+
+  // 認証パラメータ無し＝疎通確認モード
+  if (!providedToken && !text) {
+    const ready =
+      Boolean(process.env.THREADS_RELAY_TOKEN) &&
+      Boolean(process.env.TELEGRAM_BOT_TOKEN) &&
+      Boolean(process.env.TELEGRAM_CHAT_ID);
+    return NextResponse.json({ ok: true, ready });
+  }
+
+  // 認証
+  if (providedToken !== expectedToken) {
+    return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+  }
+  if (!text || !text.trim()) {
+    return NextResponse.json({ ok: false, error: "missing_text" }, { status: 400 });
+  }
+
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const defaultChatId = process.env.TELEGRAM_CHAT_ID;
+  if (!botToken || !defaultChatId) {
+    return NextResponse.json({ ok: false, error: "telegram_not_configured" }, { status: 503 });
+  }
+
+  const chatId = chatIdOverride && chatIdOverride.trim() ? chatIdOverride : defaultChatId;
+
+  const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      disable_web_page_preview: true,
+    }),
+  });
+
+  const tgJson = (await tgRes.json().catch(() => ({}))) as {
+    ok?: boolean;
+    description?: string;
+    result?: { message_id?: number };
+  };
+
+  if (!tgRes.ok || !tgJson.ok) {
+    return NextResponse.json(
+      { ok: false, error: "telegram_failed", detail: tgJson },
+      { status: 502 },
+    );
+  }
+
+  return NextResponse.json({
+    ok: true,
+    message_id: tgJson.result?.message_id,
+  });
 }
