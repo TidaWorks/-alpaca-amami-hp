@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho } from "next/font/google";
+import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho, Klee_One, Zen_Kurenaido } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import ScrollProgress from "@/components/ScrollProgress";
+import { SITE } from "@/lib/site";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -13,9 +14,10 @@ const notoSansJP = Noto_Sans_JP({
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
+  weight: ["400", "600", "700"],
   display: "swap",
   variable: "--font-outfit",
+  preload: false,
 });
 
 const shipporiGothic = Shippori_Antique_B1({
@@ -23,13 +25,30 @@ const shipporiGothic = Shippori_Antique_B1({
   weight: ["400"],
   display: "swap",
   variable: "--font-shippori-gothic",
+  preload: false,
 });
 
 const shipporiMincho = Shippori_Mincho({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "700", "800"],
   display: "swap",
   variable: "--font-shippori-mincho",
+});
+
+const kleeOne = Klee_One({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+  variable: "--font-klee",
+  preload: false,
+});
+
+const zenKurenaido = Zen_Kurenaido({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-zen-kurenaido",
+  preload: false,
 });
 
 const siteName = "ALPACA";
@@ -115,8 +134,8 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/opengraph-image`,
   image: `${siteUrl}/opengraph-image`,
-  telephone: "080-2790-6757",
-  email: "alpaca.amami@gmail.com",
+  telephone: SITE.contact.tel,
+  email: SITE.contact.email,
   address: {
     "@type": "PostalAddress",
     addressRegion: "鹿児島県",
@@ -215,11 +234,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
+        className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} ${kleeOne.variable} ${zenKurenaido.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
         <ScrollProgress />
         <ScrollResetOnReload />
-        {children}
+        <main id="main">{children}</main>
       </body>
     </html>
   );

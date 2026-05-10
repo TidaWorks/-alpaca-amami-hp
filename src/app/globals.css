@@ -3,9 +3,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-orange-accent: #F5A623;
-  --color-orange-hover: #E09510;
-
   /* ALPACA Brand パレット（マジックアワー統一・2026-04-30〜） */
   --color-alpaca-purple: #635BFF;
   --color-alpaca-purple-soft: #8B86FF;
@@ -14,17 +11,30 @@
   --color-alpaca-ink: #1A202C;
   --color-alpaca-cream: #F5F3FF;
 
-  /* レガシー（他ページが参照しているため残置）*/
-  --color-memphis-pink: #FF2DA0;
-  --color-memphis-mint: #00E0D1;
-  --color-memphis-yellow: #FFD600;
-  --color-memphis-ink: #111111;
-  --color-memphis-cream: #F7F7F7;
+  /* KAIROS / mento トーン（/web 全体＋他ページCTA、2026-05-10〜） */
+  --color-kairos-ink: #0A1228;
+  --color-kairos-paper: #FAFAF7;
+  --color-kairos-blue: #1D3A8A;
+  --color-kairos-blue-deep: #15296B;
+  --color-kairos-orange: #FF6B35;
+  --color-kairos-orange-soft: #F89A6E;
 
   --font-sans: var(--font-noto), sans-serif;
   --font-display: var(--font-outfit), sans-serif;
+  /* Shippori 系の Tailwind utility 名は font-memphis-* のまま（既存コンポ多数で使用中） */
   --font-memphis-gothic: var(--font-shippori-gothic), "Shippori Antique B1", sans-serif;
   --font-memphis-mincho: var(--font-shippori-mincho), "Shippori Mincho", serif;
+  --font-hand: var(--font-klee), "Klee One", "Yu Mincho", serif;
+  --font-brush: var(--font-zen-kurenaido), "Zen Kurenaido", "Yu Mincho", serif;
+}
+
+/* KAIROS ハンド書きフォント */
+.font-hand {
+  font-family: var(--font-hand);
+  font-weight: 600;
+}
+.font-brush {
+  font-family: var(--font-brush);
 }
 
 /* 英字見出し用フォント */
@@ -32,40 +42,12 @@
   font-family: var(--font-display);
 }
 
-/* Memphisフォントユーティリティ */
+/* Shippori フォントユーティリティ（font-memphis-* 名は歴史的経緯で維持） */
 .font-memphis-gothic {
   font-family: var(--font-memphis-gothic);
 }
 .font-memphis-mincho {
   font-family: var(--font-memphis-mincho);
-}
-
-/* Memphis 斑点ドットパターン背景 */
-.bg-memphis-speckle {
-  background-image:
-    radial-gradient(#111111 1.2px, transparent 1.6px),
-    radial-gradient(#111111 0.8px, transparent 1.2px);
-  background-size: 22px 22px, 14px 14px;
-  background-position: 0 0, 9px 11px;
-}
-
-/* Memphis 太枠＋影 */
-.memphis-card {
-  border: 2px solid #111111;
-  box-shadow: 6px 6px 0 0 #111111;
-  background: #ffffff;
-}
-.memphis-card-pink {
-  border: 2px solid #111111;
-  box-shadow: 6px 6px 0 0 #FF2DA0;
-}
-.memphis-card-mint {
-  border: 2px solid #111111;
-  box-shadow: 6px 6px 0 0 #00E0D1;
-}
-.memphis-card-yellow {
-  border: 2px solid #111111;
-  box-shadow: 6px 6px 0 0 #FFD600;
 }
 
 /* ─── UIコンポーネント（shimmer-button, border-beam等） ─── */
@@ -112,100 +94,15 @@
     }
   }}
 
-/* ─── Memphis Motion (2026-04-28) ─────────────────────── */
-/* /web (Memphis ランディングページ) のマイクロインタラクション用                */
-/* transform / opacity のみ操作してパフォーマンスを保つ           */
-
-@keyframes memphis-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
-}
-
-@keyframes memphis-float-slow {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  50%      { transform: translateY(-14px) translateX(4px); }
-}
-
-@keyframes memphis-wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50%      { transform: rotate(3deg); }
-}
-
-@keyframes memphis-pulse-soft {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.03); }
-}
-
-@keyframes memphis-shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(120%); }
-}
+/* ─── Reveal Up モーション（/web ヒーロー等で使用） ─────── */
 
 @keyframes memphis-reveal-up {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ───────── ユーティリティ ───────── */
-
-.animate-float {
-  animation: memphis-float 6s ease-in-out infinite;
-  will-change: transform;
-}
-.animate-float-slow {
-  animation: memphis-float-slow 12s ease-in-out infinite;
-  will-change: transform;
-}
-.animate-wiggle {
-  animation: memphis-wiggle 4s ease-in-out infinite;
-  transform-origin: center;
-  will-change: transform;
-}
-.animate-pulse-soft {
-  animation: memphis-pulse-soft 3s ease-in-out infinite;
-  will-change: opacity, transform;
-}
-.animate-shimmer {
-  position: relative;
-  overflow: hidden;
-}
-.animate-shimmer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.45) 50%,
-    transparent 80%
-  );
-  transform: translateX(-100%);
-  animation: memphis-shimmer 2.6s ease-in-out infinite;
-  pointer-events: none;
-}
 .animate-reveal-up {
   animation: memphis-reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* ホバーリフト（カード等） */
-.memphis-lift {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.memphis-lift:hover {
-  transform: translateY(-4px);
-}
-.memphis-card-pink.memphis-lift:hover  { box-shadow: 9px 9px 0 0 #FF2DA0; }
-.memphis-card-mint.memphis-lift:hover  { box-shadow: 9px 9px 0 0 #00E0D1; }
-.memphis-card-yellow.memphis-lift:hover { box-shadow: 9px 9px 0 0 #FFD600; }
-.memphis-card.memphis-lift:hover { box-shadow: 9px 9px 0 0 #111111; }
-
-/* プレス（クリック時の沈み込み） */
-.memphis-press {
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
-}
-.memphis-press:active {
-  transform: translate(3px, 3px) scale(0.97);
 }
 
 /* ───────── アクセシビリティ ───────── */
@@ -217,31 +114,9 @@
   border-radius: 4px;
 }
 
-/* /web (Memphis ランディングページ) では Memphisピンクのフォーカス枠 */
-:where(.font-memphis-mincho, .font-memphis-gothic, [class*="memphis-"]):focus-visible,
-[data-page="memphis"] :focus-visible {
-  outline-color: #FF2DA0;
-}
-
-/* prefers-reduced-motion: ぜんぶ止める */
+/* prefers-reduced-motion: アニメ全停止 */
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-float-slow,
-  .animate-wiggle,
-  .animate-pulse-soft,
-  .animate-shimmer,
   .animate-reveal-up {
     animation: none !important;
-  }
-  .animate-shimmer::after {
-    animation: none !important;
-    display: none !important;
-  }
-  .memphis-lift,
-  .memphis-press {
-    transition: none !important;
-  }
-  .memphis-lift:hover {
-    transform: none !important;
   }
 }
