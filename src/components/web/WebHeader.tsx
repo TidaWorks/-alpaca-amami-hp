@@ -35,7 +35,7 @@ export default function WebHeader() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-[#1A202C]/10"
+            ? "bg-[#FAFAF7]/95 backdrop-blur-md border-b border-[#0A1228]/8"
             : "bg-transparent"
         }`}
       >
@@ -43,16 +43,16 @@ export default function WebHeader() {
           <a href="/" className="inline-block group" aria-label="ALPACAトップへ">
             <div className="flex items-baseline gap-2">
               <span
-                className={`font-memphis-gothic font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300 group-hover:text-[#635BFF] ${
-                  scrolled ? "text-[#1A202C]" : "text-white"
+                className={`font-memphis-gothic font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300 group-hover:text-[#1D3A8A] ${
+                  scrolled ? "text-[#0A1228]" : "text-white"
                 }`}
               >
                 ALPACA
               </span>
               <span
-                className={`hidden sm:inline text-[10px] font-bold tracking-[0.3em] pl-2 border-l transition-colors duration-300 ${
+                className={`hidden sm:inline font-hand text-[13px] md:text-sm tracking-[0.12em] pl-2 border-l transition-colors duration-300 ${
                   scrolled
-                    ? "text-[#1A202C] border-[#1A202C]/30"
+                    ? "text-[#1D3A8A] border-[#0A1228]/30"
                     : "text-white/90 border-white/40"
                 }`}
               >
@@ -69,17 +69,17 @@ export default function WebHeader() {
                 href={link.href}
                 className={`text-sm font-bold transition-colors relative group ${
                   scrolled
-                    ? "text-[#1A202C] hover:text-[#635BFF]"
+                    ? "text-[#0A1228] hover:text-[#1D3A8A]"
                     : "text-white/90 hover:text-white"
                 }`}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#635BFF] scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
+                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#1D3A8A] scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
               </a>
             ))}
             <a
               href="#contact"
-              className="text-xs font-black text-white bg-[#FF3D7F] rounded-full px-5 py-2.5 shadow-md hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] transition-all"
+              className="text-xs font-black text-white bg-[#FF6B35] hover:bg-[#15296B] rounded-full px-5 py-2.5 shadow-md hover:shadow-lg active:scale-[0.97] transition-all"
             >
               無料相談 →
             </a>
@@ -91,23 +91,27 @@ export default function WebHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={open}
-            className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/70 backdrop-blur-sm ring-1 ring-[#1A202C]/10 shadow-sm hover:bg-white active:scale-[0.92] transition cursor-pointer"
+            className={`md:hidden w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-sm ring-1 shadow-sm active:scale-[0.92] transition cursor-pointer ${
+              scrolled
+                ? "bg-white/80 ring-[#0A1228]/10 hover:bg-white"
+                : "bg-white/15 ring-white/30 hover:bg-white/25"
+            }`}
           >
             <div className="relative w-5 h-4">
               <span
-                className={`absolute left-0 top-0 w-5 h-[2.5px] bg-[#1A202C] rounded-full transition-all duration-300 ${
-                  open ? "translate-y-[7px] rotate-45" : ""
-                }`}
+                className={`absolute left-0 top-0 w-5 h-[2.5px] rounded-full transition-all duration-300 ${
+                  scrolled ? "bg-[#0A1228]" : "bg-white"
+                } ${open ? "translate-y-[7px] rotate-45" : ""}`}
               />
               <span
-                className={`absolute left-0 top-[7px] w-5 h-[2.5px] bg-[#1A202C] rounded-full transition-all duration-300 ${
-                  open ? "opacity-0" : ""
-                }`}
+                className={`absolute left-0 top-[7px] w-5 h-[2.5px] rounded-full transition-all duration-300 ${
+                  scrolled ? "bg-[#0A1228]" : "bg-white"
+                } ${open ? "opacity-0" : ""}`}
               />
               <span
-                className={`absolute left-0 top-[14px] w-5 h-[2.5px] bg-[#1A202C] rounded-full transition-all duration-300 ${
-                  open ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
+                className={`absolute left-0 top-[14px] w-5 h-[2.5px] rounded-full transition-all duration-300 ${
+                  scrolled ? "bg-[#0A1228]" : "bg-white"
+                } ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
               />
             </div>
           </button>
@@ -121,12 +125,12 @@ export default function WebHeader() {
         }`}
       >
         <div
-          className="absolute inset-0 bg-[#1A202C]/40 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#0A1228]/40 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[82%] max-w-xs bg-[#F5F3FF] border-l border-[#1A202C]/10 shadow-2xl transition-transform duration-300 ${
+          className={`absolute right-0 top-0 h-full w-[82%] max-w-xs bg-[#FAFAF7] border-l border-[#0A1228]/10 shadow-2xl transition-transform duration-300 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -136,7 +140,7 @@ export default function WebHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-base font-bold text-[#1A202C] hover:text-[#635BFF] transition-colors py-3 border-b border-[#1A202C]/10"
+                className="text-base font-bold text-[#0A1228] hover:text-[#1D3A8A] transition-colors py-3 border-b border-[#0A1228]/10"
               >
                 {link.label}
               </a>
@@ -144,7 +148,7 @@ export default function WebHeader() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF3D7F] rounded-full px-5 py-3 shadow-md hover:shadow-lg transition-all"
+              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF6B35] hover:bg-[#15296B] rounded-full px-5 py-3 shadow-md hover:shadow-lg transition-all"
             >
               無料相談 →
             </a>

@@ -8,8 +8,8 @@ const scenarios = [
     label: "検索しても出ない",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
-        <path d="M16.5 16.5L21 21" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="11" cy="11" r="7" stroke="#1D3A8A" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16.5 16.5L21 21" stroke="#1D3A8A" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "「お店の名前」でGoogle検索しても、何も出てこない。お客さんが来る前に、どこか別のお店に行ってしまう…",
@@ -22,9 +22,9 @@ const scenarios = [
     label: "スマホで崩れる",
     icon: (
       <svg width="18" height="20" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#635BFF" strokeWidth="2" />
-        <circle cx="9" cy="19" r="1.2" fill="#635BFF" />
-        <path d="M6 5h6" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" />
+        <rect x="1" y="1" width="16" height="22" rx="3" stroke="#1D3A8A" strokeWidth="2" />
+        <circle cx="9" cy="19" r="1.2" fill="#1D3A8A" />
+        <path d="M6 5h6" stroke="#1D3A8A" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     problem: "今のサイト、スマホで見るとボタンが小さくて押せないし、写真がはみ出してしまう。お客さんに申し訳ない…",
@@ -37,8 +37,8 @@ const scenarios = [
     label: "更新に時間とお金",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke="#635BFF" strokeWidth="2" />
-        <path d="M12 7v5l3 3" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="9" stroke="#1D3A8A" strokeWidth="2" />
+        <path d="M12 7v5l3 3" stroke="#1D3A8A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     problem: "メニューの値段が変わったのに、業者に連絡→返信待ち→反映まで2週間…。その間もお客さんに古い情報を見せてしまう。",
@@ -93,7 +93,7 @@ export default function WebPainPoints() {
   }, []);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-[#F5F3FF]/30">
+    <section className="relative py-24 md:py-32 overflow-hidden bg-[#FAFAF7]">
       <style>{`
         .pp-hidden {
           opacity: 0;
@@ -113,37 +113,21 @@ export default function WebPainPoints() {
         }
       `}</style>
 
-      {/* Wave texture background */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <pattern id="wave-bg" x="0" y="0" width="120" height="40" patternUnits="userSpaceOnUse">
-            <path
-              d="M0 20 C20 5, 40 5, 60 20 S100 35, 120 20"
-              fill="none"
-              stroke="#635BFF"
-              strokeWidth="1.5"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#wave-bg)" />
-      </svg>
-
       <div className="relative max-w-5xl mx-auto px-6">
-        {/* Section heading */}
-        <div className="mb-16">
-          <p className="text-[#635BFF] text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-            PROBLEMS
+        {/* 章扉 */}
+        <div className="mb-14 md:mb-16">
+          <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A] mb-3">
+            CHAPTER 01 / WHY NOW
           </p>
-          <h2 className="text-[#1A202C] text-3xl md:text-5xl font-bold leading-tight">
+          <h2 className="font-memphis-mincho text-[#0A1228] text-3xl md:text-5xl font-extrabold leading-[1.2] tracking-tight">
             こんな状態、<br className="md:hidden" />放置していませんか？
           </h2>
+          <p className="font-hand text-[#0A1228]/70 text-base md:text-lg mt-5 max-w-xl leading-relaxed">
+            こんな状態、放置していませんか？
+          </p>
         </div>
 
-        {/* Conversation rows */}
+        {/* シナリオ会話 */}
         <div className="space-y-16 md:space-y-20">
           {scenarios.map((s, i) => (
             <div
@@ -151,25 +135,15 @@ export default function WebPainPoints() {
               ref={(el) => { rowRefs.current[i] = el; }}
               className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10"
             >
-              {/* Problem bubble — slides in from left */}
+              {/* 問題ふきだし — 左から */}
               <div
                 ref={(el) => { problemRefs.current[i] = el; }}
                 className="bubble-problem w-full md:w-1/2 pp-hidden pp-transition"
               >
                 <div
-                  className="relative rounded-2xl px-6 py-5 border border-[#1A202C]/10 shadow-sm"
-                  style={{ backgroundColor: "#F5F3FF" }}
+                  className="relative rounded-xl px-6 py-5 bg-[#FAFAF7] border border-[#0A1228]/10 shadow-[0_8px_30px_-10px_rgba(10,18,40,0.15)]"
                 >
-                  {/* Subtle dot pattern on problem side */}
-                  <div
-                    className="absolute inset-0 rounded-2xl pointer-events-none"
-                    style={{
-                      backgroundImage: "radial-gradient(circle, #C4B8FF 1px, transparent 1px)",
-                      backgroundSize: "18px 18px",
-                      opacity: 0.18,
-                    }}
-                  />
-                  {/* Tail pointing right — desktop only */}
+                  {/* テール — デスクトップのみ */}
                   <span
                     className="absolute top-1/2 -right-3 -translate-y-1/2 hidden md:block"
                     style={{
@@ -177,56 +151,48 @@ export default function WebPainPoints() {
                       height: 0,
                       borderTop: "10px solid transparent",
                       borderBottom: "10px solid transparent",
-                      borderLeft: "12px solid #F5F3FF",
+                      borderLeft: "12px solid #FAFAF7",
                     }}
                   />
                   <div className="relative flex items-center gap-2 mb-2">
                     {s.icon}
-                    <p className="text-xs font-semibold text-[#635BFF] tracking-wider">
+                    <p className="text-xs font-semibold text-[#1D3A8A] tracking-wider">
                       {s.label}
                     </p>
                   </div>
-                  <p className="relative text-[#1A202C] text-base leading-relaxed">
+                  <p className="relative text-[#0A1228] text-base leading-relaxed">
                     {s.problem}
                   </p>
                 </div>
 
-                {/* Mobile downward arrow — visible only when tail is hidden */}
+                {/* モバイル下向き矢印 */}
                 <div className="flex justify-center mt-4 md:hidden">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#FF6B35" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </div>
 
-              {/* Arrow connector — desktop only */}
+              {/* 矢印 — デスクトップのみ */}
               <div className="hidden md:flex flex-col items-center shrink-0">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#FF6B35" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
 
-              {/* Solution card — slides in from right */}
+              {/* 解決カード — 右から */}
               <div
                 ref={(el) => { solutionRefs.current[i] = el; }}
                 className="bubble-solution w-full md:w-1/2 pp-hidden-right pp-transition"
               >
-                <div
-                  className="rounded-2xl bg-white px-6 py-5 shadow-[0_8px_24px_rgba(99,91,255,0.10)]"
-                  style={{
-                    borderTop: "1px solid #E5E0FF",
-                    borderRight: "1px solid #E5E0FF",
-                    borderBottom: "1px solid #E5E0FF",
-                    borderLeft: "3px solid #635BFF",
-                  }}
-                >
-                  <p className="text-[#635BFF] text-xs font-semibold uppercase tracking-widest mb-2">
+                <div className="rounded-xl bg-white px-6 py-5 border border-[#0A1228]/8 border-l-4 border-l-[#FF6B35] shadow-[0_8px_30px_-10px_rgba(10,18,40,0.15)]">
+                  <p className="text-[#1D3A8A] text-xs font-semibold uppercase tracking-widest mb-2">
                     {s.solutionLabel}
                   </p>
-                  <p className="text-[#1A202C] text-lg font-bold mb-2">
+                  <p className="font-memphis-mincho text-[#0A1228] text-lg font-extrabold mb-2">
                     {s.accent}
                   </p>
-                  <p className="text-gray-500 text-sm leading-relaxed">
+                  <p className="text-[#0A1228]/70 text-sm leading-relaxed">
                     {s.solutionText}
                   </p>
                 </div>

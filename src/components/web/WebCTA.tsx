@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
+import { SITE } from "@/lib/site";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -48,8 +49,8 @@ export default function WebCTA() {
   const contacts = [
     {
       type: "tel",
-      href: "tel:08027906757",
-      bg: "#635BFF",
+      href: SITE.contact.telHref,
+      bg: "#1D3A8A",
       textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -58,13 +59,13 @@ export default function WebCTA() {
       ),
       label: "TEL",
       title: "電話で相談",
-      body: "080-2790-6757",
+      body: SITE.contact.tel,
       hint: "平日 9:00 - 18:00",
     },
     {
       type: "dm",
-      href: "https://instagram.com/alpaca_amami",
-      bg: "#12C998",
+      href: SITE.contact.instagramUrl,
+      bg: "#FF6B35",
       textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -75,13 +76,13 @@ export default function WebCTA() {
       ),
       label: "DM",
       title: "Instagram DM",
-      body: "@alpaca_amami",
+      body: SITE.contact.instagramHandle,
       hint: "DMでお気軽に",
     },
     {
       type: "mail",
-      href: "mailto:alpaca.amami@gmail.com",
-      bg: "#8B86FF",
+      href: SITE.contact.emailHref,
+      bg: "#15296B",
       textColor: "#FFFFFF",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -91,7 +92,7 @@ export default function WebCTA() {
       ),
       label: "MAIL",
       title: "メールで相談",
-      body: "alpaca.amami@gmail.com",
+      body: SITE.contact.email,
       hint: "24時間受付",
     },
   ];
@@ -100,10 +101,27 @@ export default function WebCTA() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] pt-20 md:pt-28 pb-12 px-6 scroll-mt-20 overflow-hidden"
+      className="relative bg-[#FAFAF7] pt-24 md:pt-32 pb-12 px-6 scroll-mt-20 overflow-hidden"
     >
+      {/* 背景の控えめなペイントアクセント */}
+      <svg
+        className="absolute -top-16 -left-24 w-[480px] h-[480px] pointer-events-none opacity-[0.05]"
+        viewBox="0 0 600 600"
+        aria-hidden="true"
+      >
+        <path
+          d="M 80 240 Q 280 120 460 280 T 560 460"
+          stroke="#1D3A8A"
+          strokeWidth="80"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <circle cx="140" cy="460" r="14" fill="#FF6B35" />
+        <circle cx="180" cy="490" r="6" fill="#FF6B35" />
+      </svg>
+
       <div className="relative max-w-4xl mx-auto">
-        {/* 見出し */}
+        {/* 章扉 */}
         <div
           className="mb-12 transition-all duration-700"
           style={{
@@ -111,26 +129,26 @@ export default function WebCTA() {
             transform: visible ? "translateY(0)" : "translateY(12px)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
-              07
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">CONTACT / FREE</span>
-          </div>
+          <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A] mb-3">
+            CHAPTER 07
+          </p>
+          <p className="text-[11px] font-bold tracking-[0.4em] text-[#0A1228]/70 mb-5">
+            CONTACT / FREE
+          </p>
 
-          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold mb-4 leading-[1.3] tracking-tight">
+          <h2 className="font-memphis-mincho text-[#0A1228] text-3xl md:text-5xl font-extrabold mb-4 leading-[1.3] tracking-tight">
             まずは
             <span className="relative inline-block mx-1">
               <span className="relative z-10">気軽に</span>
               <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#12C998]/45 -z-0 rounded-sm"
+                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FF6B35]/30 -z-0 rounded-sm"
                 aria-hidden="true"
               />
             </span>
             <br className="md:hidden" />
             ご相談ください。
           </h2>
-          <p className="font-memphis-mincho text-[#1A202C]/75 text-sm md:text-base">
+          <p className="font-sans text-[#0A1228]/75 text-sm md:text-base">
             奄美島内なら直接お伺いします。オンラインも対応可能です。
           </p>
         </div>
@@ -143,7 +161,7 @@ export default function WebCTA() {
               href={c.href}
               target={c.type === "dm" ? "_blank" : undefined}
               rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-              className="relative bg-white border border-[#1A202C]/10 rounded-2xl p-6 flex flex-col items-start gap-2 shadow-md hover:shadow-xl hover:-translate-y-1 active:scale-[0.98] transition-all cursor-pointer"
+              className="relative bg-white border border-[#0A1228]/8 rounded-xl p-6 flex flex-col items-start gap-2 shadow-md hover:shadow-xl hover:-translate-y-1 active:scale-[0.98] transition-all cursor-pointer"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -163,38 +181,38 @@ export default function WebCTA() {
               >
                 {c.icon}
               </div>
-              <span className="font-memphis-mincho text-[#1A202C] font-bold text-base">
+              <span className="font-memphis-mincho text-[#0A1228] font-bold text-base">
                 {c.title}
               </span>
-              <span className="font-memphis-gothic text-[#1A202C] font-bold text-sm break-all">
+              <span className="font-memphis-gothic text-[#0A1228] font-bold text-sm break-all">
                 {c.body}
               </span>
-              <span className="text-[#1A202C]/60 text-xs">{c.hint}</span>
+              <span className="text-[#0A1228]/60 text-xs">{c.hint}</span>
             </a>
           ))}
         </div>
 
         {/* お問い合わせフォーム */}
         <div
-          className="bg-white border border-[#1A202C]/10 rounded-2xl shadow-xl p-7 md:p-10 mb-12 transition-all duration-700"
+          className="bg-white border border-[#0A1228]/8 rounded-xl shadow-xl p-7 md:p-10 mb-12 transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
             transitionDelay: "650ms",
           }}
         >
-          <h3 className="font-memphis-mincho text-[#1A202C] text-xl md:text-2xl font-extrabold mb-6">
+          <h3 className="font-memphis-mincho text-[#0A1228] text-xl md:text-2xl font-extrabold mb-6">
             フォームから送る
           </h3>
           {submit === "success" ? (
             <div
               role="status"
-              className="bg-[#F5F3FF]/60 border border-[#12C998]/30 rounded-xl p-6 text-center"
+              className="bg-[#FAFAF7] border border-[#FF6B35]/30 rounded-xl p-6 text-center"
             >
-              <p className="font-memphis-mincho text-[#1A202C] text-lg font-extrabold mb-2">
+              <p className="font-memphis-mincho text-[#0A1228] text-lg font-extrabold mb-2">
                 送信ありがとうございました！
               </p>
-              <p className="text-sm text-[#1A202C]/75 leading-relaxed">
+              <p className="text-sm text-[#0A1228]/75 leading-relaxed">
                 内容を確認の上、2営業日以内にご返信いたします。
                 <br />
                 急ぎの場合は上記の電話・DMもご利用ください。
@@ -202,7 +220,7 @@ export default function WebCTA() {
               <button
                 type="button"
                 onClick={() => setSubmit("idle")}
-                className="mt-5 inline-flex items-center text-sm font-black text-[#1A202C] underline decoration-[#635BFF] decoration-[3px] underline-offset-[6px] hover:decoration-[#12C998] transition-colors"
+                className="mt-5 inline-flex items-center text-sm font-black text-[#0A1228] underline decoration-[#FF6B35] decoration-[3px] underline-offset-[6px] hover:decoration-[#1D3A8A] transition-colors"
               >
                 もう一度送る
               </button>
@@ -210,7 +228,7 @@ export default function WebCTA() {
           ) : (
             <form onSubmit={onSubmit} className="space-y-5" noValidate>
               <div>
-                <label htmlFor="name" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
+                <label htmlFor="name" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#0A1228] mb-2">
                   お名前
                 </label>
                 <input
@@ -221,11 +239,11 @@ export default function WebCTA() {
                   placeholder="お名前"
                   value={form.name}
                   onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition"
+                  className="w-full bg-[#FAFAF7] border border-[#0A1228]/15 rounded-lg px-4 py-3 text-sm text-[#0A1228] placeholder:text-[#0A1228]/40 focus:outline-none focus:border-[#1D3A8A] focus:bg-white focus:ring-2 focus:ring-[#1D3A8A]/20 transition"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
+                <label htmlFor="email" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#0A1228] mb-2">
                   メールアドレス
                 </label>
                 <input
@@ -236,11 +254,11 @@ export default function WebCTA() {
                   placeholder="example@email.com"
                   value={form.email}
                   onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition"
+                  className="w-full bg-[#FAFAF7] border border-[#0A1228]/15 rounded-lg px-4 py-3 text-sm text-[#0A1228] placeholder:text-[#0A1228]/40 focus:outline-none focus:border-[#1D3A8A] focus:bg-white focus:ring-2 focus:ring-[#1D3A8A]/20 transition"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#1A202C] mb-2">
+                <label htmlFor="message" className="block font-memphis-gothic text-[11px] font-bold tracking-[0.2em] text-[#0A1228] mb-2">
                   メッセージを入力
                 </label>
                 <textarea
@@ -251,7 +269,7 @@ export default function WebCTA() {
                   placeholder="ご相談内容をお書きください"
                   value={form.message}
                   onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
-                  className="w-full bg-[#F5F3FF]/40 border border-[#1A202C]/10 rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:border-[#635BFF] focus:bg-white focus:ring-2 focus:ring-[#635BFF]/20 transition resize-none"
+                  className="w-full bg-[#FAFAF7] border border-[#0A1228]/15 rounded-lg px-4 py-3 text-sm text-[#0A1228] placeholder:text-[#0A1228]/40 focus:outline-none focus:border-[#1D3A8A] focus:bg-white focus:ring-2 focus:ring-[#1D3A8A]/20 transition resize-none"
                 />
               </div>
               {submit === "error" && errorMsg && (
@@ -262,7 +280,7 @@ export default function WebCTA() {
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="inline-flex items-center justify-center bg-[#FF3D7F] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#15296B] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 {submit === "submitting" ? "送信中..." : "送信する →"}
               </button>
@@ -271,29 +289,29 @@ export default function WebCTA() {
         </div>
 
         {/* フッター */}
-        <div className="border-t border-dashed border-[#1A202C]/15 pt-8 text-center">
+        <footer className="border-t border-dashed border-[#0A1228]/15 pt-8 text-center">
           <p className="font-memphis-gothic text-2xl font-black tracking-widest mb-2">
-            <span className="text-[#1A202C]">ALPACA</span>
-            <span className="text-[#1A202C] text-[10px] tracking-[0.3em] ml-2 align-middle">
+            <span className="text-[#0A1228]">ALPACA</span>
+            <span className="text-[#0A1228] text-[10px] tracking-[0.3em] ml-2 align-middle">
               WEB DESIGN STUDIO
             </span>
           </p>
-          <p className="text-[#1A202C]/65 text-sm mb-3">
+          <p className="text-[#0A1228]/65 text-sm mb-3">
             奄美大島を拠点に、島の事業者さまのWeb制作を承ります。
           </p>
-          <p className="text-[#1A202C]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
-            <a href="/" className="hover:text-[#635BFF] transition-colors rounded-sm">トップ</a>
+          <p className="text-[#0A1228]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
+            <a href="/" className="hover:text-[#1D3A8A] transition-colors rounded-sm">トップ</a>
             <span>/</span>
-            <a href="/system" className="hover:text-[#635BFF] transition-colors rounded-sm">システム開発</a>
+            <a href="/system" className="hover:text-[#1D3A8A] transition-colors rounded-sm">システム開発</a>
             <span>/</span>
-            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors rounded-sm">
+            <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#1D3A8A] transition-colors rounded-sm">
               Instagram
             </a>
           </p>
-          <p className="text-[#1A202C]/40 text-xs">
+          <p className="text-[#0A1228]/40 text-xs">
             &copy; 2026 ALPACA. All rights reserved.
           </p>
-        </div>
+        </footer>
       </div>
     </section>
   );
