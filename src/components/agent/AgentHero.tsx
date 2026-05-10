@@ -19,14 +19,15 @@ export default function AgentHero() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-14 items-center">
         {/* ── 左カラム ── */}
         <div className="relative">
-          {/* セクション番号タグ */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-white/15 backdrop-blur-sm text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
-              01
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-white/80">
+          {/* セクション番号タグ（暗背景用にガラス調パネルで視認性UP） */}
+          <div className="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full pl-3 pr-4 py-1.5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35]">
+              CHAPTER 00
+            </p>
+            <span className="w-6 h-[1px] bg-white/40" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-white">
               AI AGENT FOR LINE
-            </span>
+            </p>
           </div>
 
           {/* メインヘッドライン */}
@@ -59,7 +60,7 @@ export default function AgentHero() {
           <div className="flex flex-wrap items-center gap-4 mb-10">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF3D7F] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97] transition-all"
+              className="inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97] transition-all hover:bg-[#15296B]"
             >
               無料で相談する
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

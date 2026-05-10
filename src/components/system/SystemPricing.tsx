@@ -44,11 +44,14 @@ export default function SystemPricing() {
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              04
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">PRICING</span>
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 03
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              PRICING
+            </p>
           </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-3">
             業務にあわせた、
@@ -120,7 +123,7 @@ export default function SystemPricing() {
 
               <a
                 href="#contact"
-                className="group/btn relative block w-full text-center text-sm font-black text-white bg-[#635BFF] rounded-full py-3.5 shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.02] active:scale-[0.98] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 transition-all duration-200"
+                className="group/btn relative block w-full text-center text-sm font-black text-white bg-[#FF6B35] rounded-full py-3.5 shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.02] active:scale-[0.98] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2 transition-all duration-200"
               >
                 <span
                   aria-hidden="true"

@@ -33,13 +33,14 @@ export default function AgentFlow() {
       <div className="max-w-6xl mx-auto px-6">
         {/* セクション見出し */}
         <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#1A202C] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
-              06
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]/60">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 05
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
               FLOW
-            </span>
+            </p>
           </div>
           <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
             ご相談から

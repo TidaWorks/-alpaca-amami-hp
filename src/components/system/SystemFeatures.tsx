@@ -78,11 +78,14 @@ export default function SystemFeatures() {
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              03
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">FEATURES</span>
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 02
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              FEATURES
+            </p>
           </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-4">
             ALPACAシステムの

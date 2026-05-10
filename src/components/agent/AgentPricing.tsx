@@ -62,13 +62,14 @@ export default function AgentPricing() {
       <div className="max-w-6xl mx-auto px-6">
         {/* セクション見出し */}
         <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#1A202C] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
-              05
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]/60">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 04
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
               PRICING
-            </span>
+            </p>
           </div>
           <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
             シンプルな
@@ -189,8 +190,8 @@ export default function AgentPricing() {
                 href="#contact"
                 className={`block text-center font-black text-sm rounded-full px-5 py-3 transition-all hover:scale-[1.03] active:scale-[0.97] ${
                   p.featured
-                    ? "bg-[#FF3D7F] text-white shadow-md hover:shadow-lg"
-                    : "bg-[#1A202C] text-white hover:bg-[#635BFF]"
+                    ? "bg-[#FF6B35] text-white shadow-md hover:shadow-lg hover:bg-[#15296B]"
+                    : "bg-[#1A202C] text-white hover:bg-[#FF6B35]"
                 }`}
               >
                 {p.cta} →

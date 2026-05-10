@@ -66,7 +66,7 @@ export default function HomeHeader() {
             ))}
             <a
               href="#contact"
-              className="text-xs font-black text-white bg-[#635BFF] rounded-full px-4 py-2 hover:bg-[#5249E0] hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2"
+              className="text-xs font-black text-white bg-[#FF6B35] rounded-full px-4 py-2 hover:bg-[#15296B] hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
             >
               無料相談 →
             </a>
@@ -118,7 +118,7 @@ export default function HomeHeader() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#635BFF] rounded-full px-5 py-3 hover:bg-[#5249E0] active:scale-95 transition-all duration-200 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2"
+              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF6B35] rounded-full px-5 py-3 hover:bg-[#15296B] active:scale-95 transition-all duration-200 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
             >
               無料相談 →
             </a>

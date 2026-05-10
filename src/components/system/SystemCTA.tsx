@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SITE } from "@/lib/site";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -64,12 +65,12 @@ export default function SystemCTA() {
   const contacts = [
     {
       type: "tel",
-      href: "tel:08027906757",
+      href: SITE.contact.telHref,
       bg: "#635BFF",
       textColor: "#FFFFFF",
       label: "TEL",
       title: "電話で相談",
-      body: "080-2790-6757",
+      body: SITE.contact.tel,
       hint: "平日 9:00 - 18:00",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -79,12 +80,12 @@ export default function SystemCTA() {
     },
     {
       type: "dm",
-      href: "https://instagram.com/alpaca_amami",
+      href: SITE.contact.instagramUrl,
       bg: "#FFC400",
       textColor: "#1A202C",
       label: "DM",
       title: "Instagram DM",
-      body: "@alpaca_amami",
+      body: SITE.contact.instagramHandle,
       hint: "DMでお気軽に",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -96,12 +97,12 @@ export default function SystemCTA() {
     },
     {
       type: "mail",
-      href: "mailto:alpaca.amami@gmail.com",
+      href: SITE.contact.emailHref,
       bg: "#0EA5E9",
       textColor: "#FFFFFF",
       label: "MAIL",
       title: "メールで相談",
-      body: "alpaca.amami@gmail.com",
+      body: SITE.contact.email,
       hint: "24時間受付",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -126,11 +127,14 @@ export default function SystemCTA() {
             transform: visible ? "translateY(0)" : "translateY(12px)",
           }}
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              08
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">CONTACT / FREE</span>
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 07
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              CONTACT
+            </p>
           </div>
 
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
@@ -265,7 +269,7 @@ export default function SystemCTA() {
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="group/sub relative inline-flex items-center justify-center bg-[#635BFF] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group/sub relative inline-flex items-center justify-center bg-[#FF6B35] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 <span
                   aria-hidden="true"
@@ -300,7 +304,7 @@ export default function SystemCTA() {
         </div>
 
         {/* フッター */}
-        <div className="border-t border-[#E5E7EB] pt-8 text-center">
+        <footer className="border-t border-[#E5E7EB] pt-8 text-center">
           <p className="text-2xl font-black tracking-widest mb-2 text-[#1A202C]">
             ALPACA
             <span className="text-[#635BFF] text-[10px] tracking-[0.3em] ml-2 align-middle">
@@ -315,14 +319,14 @@ export default function SystemCTA() {
             <span>/</span>
             <a href="/web" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">ホームページ・ランディングページ制作</a>
             <span>/</span>
-            <a href="https://instagram.com/alpaca_amami" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">
+            <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">
               Instagram
             </a>
           </p>
           <p className="text-[#1A202C]/40 text-xs">
             &copy; 2026 ALPACA. All rights reserved.
           </p>
-        </div>
+        </footer>
       </div>
     </section>
   );

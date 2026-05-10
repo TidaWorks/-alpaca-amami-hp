@@ -114,11 +114,14 @@ export default function SystemPainPoints() {
 
       <div className="relative max-w-5xl mx-auto px-6">
         <div className="mb-14 md:mb-16">
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              02
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">PROBLEMS</span>
+          <div className="inline-flex items-center gap-3 mb-5">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 01
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              WHY NOW
+            </p>
           </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight">
             こんな業務、

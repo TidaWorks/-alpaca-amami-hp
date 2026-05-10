@@ -78,7 +78,7 @@ export default function AgentHeader() {
             ))}
             <a
               href="#contact"
-              className="text-xs font-black text-white bg-[#FF3D7F] rounded-full px-5 py-2.5 shadow-md hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] transition-all"
+              className="text-xs font-black text-white bg-[#FF6B35] rounded-full px-5 py-2.5 shadow-md hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] transition-all hover:bg-[#15296B]"
             >
               無料相談 →
             </a>
@@ -141,7 +141,7 @@ export default function AgentHeader() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF3D7F] rounded-full px-5 py-3 shadow-md hover:shadow-lg transition-all"
+              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF6B35] rounded-full px-5 py-3 shadow-md hover:shadow-lg transition-all hover:bg-[#15296B]"
             >
               無料相談 →
             </a>

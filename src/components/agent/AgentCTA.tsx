@@ -1,5 +1,7 @@
 "use client";
 
+import { SITE } from "@/lib/site";
+
 export default function AgentCTA() {
   return (
     <section
@@ -11,13 +13,14 @@ export default function AgentCTA() {
       <div className="absolute -bottom-40 -left-32 w-[520px] h-[520px] rounded-full bg-[#FF3D7F]/25 blur-[140px]" aria-hidden="true" />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-        <div className="inline-flex items-center gap-2 mb-6">
-          <span className="bg-white/15 backdrop-blur-sm text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded-full">
-            08
-          </span>
-          <span className="text-[11px] font-bold tracking-[0.3em] text-white/80">
+        <div className="inline-flex items-center justify-center gap-3 mb-6">
+          <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35]">
+            CHAPTER 07
+          </p>
+          <span className="w-8 h-[1px] bg-white/30" />
+          <p className="text-[11px] font-bold tracking-[0.3em] text-white/70">
             CONTACT
-          </span>
+          </p>
         </div>
 
         <h2 className="font-memphis-mincho text-white text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.3] mb-7 drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">
@@ -39,8 +42,8 @@ export default function AgentCTA() {
         {/* CTAボタン */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
           <a
-            href="mailto:alpaca.amami@gmail.com?subject=AIエージェント（LINE自動応答）の相談"
-            className="inline-flex items-center gap-2 bg-[#FF3D7F] text-white font-black text-sm md:text-base px-7 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97] transition-all"
+            href={`${SITE.contact.emailHref}?subject=AIエージェント（LINE自動応答）の相談`}
+            className="inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm md:text-base px-7 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97] transition-all hover:bg-[#15296B]"
           >
             メールで相談する
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -59,7 +62,7 @@ export default function AgentCTA() {
         <div className="inline-flex flex-col sm:flex-row gap-3 sm:gap-6 text-white/80 text-xs md:text-sm font-bold">
           <span className="inline-flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#12C998]" />
-            alpaca.amami@gmail.com
+            {SITE.contact.email}
           </span>
           <span className="hidden sm:inline text-white/30">|</span>
           <span className="inline-flex items-center gap-2">
@@ -69,9 +72,9 @@ export default function AgentCTA() {
         </div>
 
         {/* フッター */}
-        <div className="mt-20 pt-8 border-t border-white/15 text-white/50 text-[11px] font-bold tracking-wider">
+        <footer className="mt-20 pt-8 border-t border-white/15 text-white/50 text-[11px] font-bold tracking-wider">
           © 2026 ALPACA · 鹿児島県奄美大島 · alpaca-amami.com
-        </div>
+        </footer>
       </div>
     </section>
   );

@@ -93,7 +93,15 @@ export default function HomeServices() {
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <p className="text-xs font-bold tracking-[0.3em] text-[#635BFF] mb-3">SERVICES</p>
+          <div className="inline-flex items-center gap-3 mb-3">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 01
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              SERVICES
+            </p>
+          </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-3">
             事業をまるごと支える、
             <br className="md:hidden" />
@@ -159,7 +167,7 @@ export default function HomeServices() {
 
               <a
                 href={services[0].href}
-                className="group/btn relative inline-flex items-center gap-2 bg-[#635BFF] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2"
+                className="group/btn relative inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
               >
                 <span
                   aria-hidden="true"

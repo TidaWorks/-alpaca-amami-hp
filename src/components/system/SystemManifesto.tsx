@@ -66,16 +66,19 @@ export default function SystemManifesto() {
       <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
         <div>
           <div
-            className="inline-flex items-center gap-2 mb-5 transition-all duration-700"
+            className="inline-flex items-center gap-3 mb-5 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full pl-3 pr-4 py-1.5 transition-all duration-700"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(12px)",
             }}
           >
-            <span className="bg-[#FFC400] text-[#1A202C] font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              06
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-white">ABOUT / ALPACA</span>
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35]">
+              CHAPTER 05
+            </p>
+            <span className="w-6 h-[1px] bg-white/40" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-white">
+              ABOUT
+            </p>
           </div>
           <h2
             className="text-white text-[2rem] md:text-[2.8rem] lg:text-[3.2rem] leading-tight font-extrabold mb-7 tracking-tight transition-all duration-700"

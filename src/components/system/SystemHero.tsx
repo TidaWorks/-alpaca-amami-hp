@@ -122,11 +122,14 @@ export default function SystemHero() {
           }}
         >
           {/* セクション番号タグ */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="bg-[#635BFF] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
-              01
-            </span>
-            <span className="text-[11px] font-bold tracking-[0.3em] text-[#1A202C]">SYSTEM DEVELOPMENT</span>
+          <div className="inline-flex items-center gap-3 mb-6">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 00
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              SYSTEM DEVELOPMENT
+            </p>
           </div>
 
           {/* メインヘッドライン */}
@@ -157,7 +160,7 @@ export default function SystemHero() {
           <div className="flex flex-wrap items-center gap-3 mb-10">
             <a
               href="#contact"
-              className="group relative inline-flex items-center gap-2 bg-[#635BFF] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#5249E0] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2"
+              className="group relative inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
             >
               <span
                 aria-hidden="true"

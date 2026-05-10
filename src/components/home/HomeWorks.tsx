@@ -69,7 +69,15 @@ export default function HomeWorks() {
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <p className="text-xs font-bold tracking-[0.3em] text-[#635BFF] mb-3">DEMO</p>
+          <div className="inline-flex items-center gap-3 mb-3">
+            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
+              CHAPTER 02
+            </p>
+            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
+            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
+              WORKS / DEMO
+            </p>
+          </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-3">
             公開中の
             <br className="md:hidden" />

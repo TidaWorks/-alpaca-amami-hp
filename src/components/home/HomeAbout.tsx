@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SITE } from "@/lib/site";
 
 export default function HomeAbout() {
   const ref = useRef<HTMLElement>(null);
@@ -64,16 +65,19 @@ export default function HomeAbout() {
         <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14 items-center">
           <div>
             <div
-              className="inline-flex items-center gap-2 mb-5 transition-all duration-700"
+              className="inline-flex items-center gap-3 mb-5 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full pl-3 pr-4 py-1.5 transition-all duration-700"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(12px)",
               }}
             >
-              <span className="bg-[#12C998] text-white font-black text-[11px] tracking-widest px-2.5 py-1 rounded">
+              <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35]">
+                CHAPTER 03
+              </p>
+              <span className="w-6 h-[1px] bg-white/40" />
+              <p className="text-[11px] font-bold tracking-[0.3em] text-white">
                 ABOUT
-              </span>
-              <span className="text-[11px] font-bold tracking-[0.3em] text-white/80">ALPACA STUDIO</span>
+              </p>
             </div>
             <h2
               className="text-white text-[2rem] md:text-[2.8rem] lg:text-[3.2rem] leading-tight font-extrabold mb-7 tracking-tight transition-all duration-700"
@@ -141,7 +145,7 @@ export default function HomeAbout() {
               ))}
             </dl>
             <a
-              href="https://instagram.com/alpaca_amami"
+              href={SITE.contact.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group mt-5 inline-flex items-center gap-2 text-xs font-black text-[#635BFF] hover:text-[#5249E0] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
@@ -151,7 +155,7 @@ export default function HomeAbout() {
                 <circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
               </svg>
-              @alpaca_amami → Instagramもチェック
+              {SITE.contact.instagramHandle} → Instagramもチェック
             </a>
           </div>
         </div>
