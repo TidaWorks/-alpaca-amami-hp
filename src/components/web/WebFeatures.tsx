@@ -4,10 +4,10 @@ import { useReveal } from "@/hooks/useReveal";
 
 const features = [
   {
-    tag: "MEETING",
-    accent: "#1D3A8A",
+    accent: "#FFE900",
+    textColor: "#000000",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -18,10 +18,10 @@ const features = [
     description: "奄美に住んでいるから、直接会って話せます。ニュアンスもその場で共有。",
   },
   {
-    tag: "SUPPORT",
-    accent: "#FF6B35",
+    accent: "#EC6C00",
+    textColor: "#FFFFFF",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path d="M9 12l2 2 4-4" />
       </svg>
@@ -30,10 +30,10 @@ const features = [
     description: "公開してからが本番。テキスト・画像の修正、サーバー管理まで月額で対応。",
   },
   {
-    tag: "MOBILE",
-    accent: "#15296B",
+    accent: "#004097",
+    textColor: "#FFFFFF",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-9 h-9">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
         <line x1="12" y1="18" x2="12.01" y2="18" />
       </svg>
@@ -44,98 +44,136 @@ const features = [
 ];
 
 export default function WebFeatures() {
-  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.2 });
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.15 });
 
   return (
     <section
       ref={sectionRef}
       id="features"
-      className="relative bg-[#FAFAF7] py-24 md:py-32 px-6 scroll-mt-20 overflow-hidden"
+      className="relative bg-[#F8F8F8] py-32 md:py-40 px-6 md:px-10 scroll-mt-20 overflow-hidden"
     >
-      <div className="relative max-w-5xl mx-auto">
-        {/* 章扉 */}
+      {/* 背景ゴースト英字 */}
+      <p
+        className="absolute top-20 right-6 md:right-16 text-black/[0.04] text-[6rem] md:text-[14rem] leading-none pointer-events-none select-none"
+        style={{ fontWeight: 400 }}
+        aria-hidden="true"
+      >
+        Services
+      </p>
+
+      <div className="relative max-w-[1400px] mx-auto">
+        {/* 章扉：givee Services 構造 */}
         <div
-          className="mb-14 md:mb-16 transition-all duration-700"
+          className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-16 mb-20 md:mb-28 items-end transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A] mb-3">
-            CHAPTER 02 / SOLUTION
-          </p>
-          <h2 className="font-memphis-mincho text-[#0A1228] text-3xl md:text-5xl font-extrabold mb-5 leading-[1.2] tracking-tight">
-            ALPACAの
-            <br className="md:hidden" />
-            <span className="relative inline-block">
-              <span className="relative z-10">3つの強み</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FF6B35]/25 -z-0"
-                aria-hidden="true"
-              />
-            </span>
-            。
-          </h2>
-          <p className="font-hand text-[#0A1228]/70 text-base md:text-lg mt-5 max-w-xl leading-relaxed">
-            ALPACAの3つの強み
-          </p>
-          <p className="text-[#0A1228]/75 text-sm md:text-base mt-3">
-            島内に拠点を持つからこそ実現できる、顔の見えるWeb制作。
-          </p>
+          <div>
+            <h2
+              className="text-black text-[4rem] md:text-[8rem] lg:text-[10rem] leading-[0.95] tracking-[-0.02em]"
+              style={{ fontWeight: 400 }}
+            >
+              Service
+            </h2>
+            <p className="text-sm tracking-[0.3em] text-black/70 mt-4">
+              サービス
+            </p>
+          </div>
+          <div>
+            <h3 className="text-black text-2xl md:text-4xl leading-[1.3] tracking-[-0.01em]" style={{ fontWeight: 500 }}>
+              ALPACAの3つの強み。
+            </h3>
+            <p className="text-black/75 text-sm md:text-base leading-loose mt-6 max-w-md">
+              島内に拠点を持つからこそ実現できる、顔の見えるWeb制作。
+            </p>
+          </div>
         </div>
 
-        {/* 3カード */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-8">
+        {/* 3つの円形サービスカード */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className="group relative overflow-hidden bg-white border border-[#0A1228]/8 rounded-xl p-6 md:p-7 transition-all duration-500 shadow-[0_8px_30px_-10px_rgba(10,18,40,0.15)] hover:-translate-y-1 hover:shadow-[0_12px_40px_-10px_rgba(10,18,40,0.22)]"
+              className="group relative flex flex-col items-center text-center transition-all duration-700"
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(24px)",
-                transitionDelay: `${150 + i * 100}ms`,
+                transform: visible ? "translateY(0)" : "translateY(28px)",
+                transitionDelay: `${200 + i * 150}ms`,
               }}
             >
-              {/* タグ */}
-              <span
-                className="absolute -top-3 right-4 text-[10px] font-black tracking-[0.2em] px-2.5 py-1 rounded-full text-white z-10"
-                style={{ background: feature.accent }}
-              >
-                {feature.tag}
-              </span>
+              {/* 円形ビジュアル：SVG strokeで円を描いてから中央にアイコン */}
+              <div className="relative w-[260px] h-[260px] md:w-[300px] md:h-[300px] mb-8">
+                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 200 200">
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="92"
+                    stroke="#000000"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    style={{
+                      strokeDasharray: 580,
+                      strokeDashoffset: visible ? 0 : 580,
+                      transition: `stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1) ${400 + i * 200}ms`,
+                    }}
+                  />
+                </svg>
 
-              {/* 番号 — mento風 巨大背景的 */}
-              <div
-                className="font-memphis-mincho text-[64px] md:text-[80px] font-extrabold leading-none absolute top-4 left-5 text-[#0A1228]/[0.08] pointer-events-none select-none"
-                aria-hidden="true"
-              >
-                0{i + 1}
+                {/* 内側の色付き円 */}
+                <div
+                  className="absolute inset-6 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
+                  style={{
+                    background: feature.accent,
+                    color: feature.textColor,
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "scale(1)" : "scale(0.5)",
+                    transition: `opacity 0.6s ease ${800 + i * 200}ms, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${800 + i * 200}ms`,
+                  }}
+                >
+                  <div className="animate-bounce-in" style={{ animationDelay: `${900 + i * 200}ms` }}>
+                    {feature.icon}
+                  </div>
+                </div>
+
+                {/* 番号 — 円の右上 */}
+                <span
+                  className="absolute top-2 right-2 text-xs tracking-[0.3em] text-black/60"
+                  style={{ fontWeight: 500 }}
+                >
+                  0{i + 1}
+                </span>
               </div>
 
-              {/* アイコン円 */}
-              <div
-                className="relative w-14 h-14 rounded-full flex items-center justify-center mb-5 mt-10 text-white transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-110"
-                style={{ background: feature.accent }}
-              >
-                {feature.icon}
-              </div>
-
-              <h3 className="relative font-memphis-mincho text-[#0A1228] text-xl md:text-[1.4rem] font-extrabold mb-3">
+              <h4 className="text-black text-xl md:text-2xl mb-4" style={{ fontWeight: 500 }}>
                 {feature.title}
-              </h3>
-              <p className="relative text-[#0A1228]/75 text-sm leading-relaxed">
+              </h4>
+              <p className="text-black/75 text-sm md:text-base leading-loose tracking-wide max-w-xs">
                 {feature.description}
               </p>
 
-              {/* アクセントバー */}
-              <div
-                className="relative h-[3px] w-12 mt-6"
-                style={{ background: feature.accent }}
-              />
+              {/* アクセント線 */}
+              <div className="mt-6 h-[2px] w-12" style={{ background: feature.accent }} />
             </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes bounce-in {
+          0% { transform: scale(0) rotate(-20deg); }
+          60% { transform: scale(1.15) rotate(5deg); }
+          100% { transform: scale(1) rotate(0deg); }
+        }
+        .animate-bounce-in {
+          animation: bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-bounce-in { animation: none !important; }
+        }
+      `}</style>
     </section>
   );
 }

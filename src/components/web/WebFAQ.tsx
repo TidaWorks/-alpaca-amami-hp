@@ -31,105 +31,100 @@ const faqs = [
 ];
 
 export default function WebFAQ() {
-  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.15 });
+  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.1 });
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
     <section
       ref={sectionRef}
       id="faq"
-      className="relative bg-[#FAFAF7] py-24 md:py-32 px-6 scroll-mt-20 overflow-hidden"
+      className="relative bg-[#F8F8F8] py-32 md:py-40 px-6 md:px-10 scroll-mt-20 overflow-hidden"
     >
-      {/* 背景の控えめなペイントアクセント */}
-      <svg
-        className="absolute -bottom-20 -left-24 w-[460px] h-[460px] pointer-events-none opacity-[0.05]"
-        viewBox="0 0 600 600"
-        aria-hidden="true"
-      >
-        <path
-          d="M 60 320 Q 220 180 400 280 T 560 200"
-          stroke="#1D3A8A"
-          strokeWidth="70"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <circle cx="480" cy="380" r="12" fill="#FF6B35" />
-      </svg>
+      {/* 装飾シェイプ */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg
+          className="absolute -bottom-10 -left-10 w-[320px] h-[320px] hidden md:block"
+          viewBox="0 0 300 300"
+        >
+          <path
+            d="M60,140 C40,60 180,30 240,80 C300,130 280,240 220,260 C160,280 60,260 60,140 Z"
+            fill="#FFE900"
+            opacity="0.55"
+          />
+        </svg>
+      </div>
 
-      <div className="relative max-w-3xl mx-auto">
+      <div className="relative max-w-[1400px] mx-auto">
         {/* 章扉 */}
         <div
-          className="mb-12 md:mb-14 transition-all duration-700"
+          className="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-16 mb-16 md:mb-20 items-end transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(16px)",
           }}
         >
-          <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A] mb-3">
-            CHAPTER 06
-          </p>
-          <p className="text-[11px] font-bold tracking-[0.4em] text-[#0A1228]/70 mb-5">
-            FAQ
-          </p>
-          <h2 className="font-memphis-mincho text-[#0A1228] text-3xl md:text-5xl font-extrabold leading-[1.3] tracking-tight">
-            よく
-            <span className="relative inline-block">
-              <span className="relative z-10">いただく質問</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-[40%] bg-[#FF6B35]/30 -z-0 rounded-sm"
-                aria-hidden="true"
-              />
-            </span>
-            。
-          </h2>
+          <div>
+            <h2
+              className="text-black text-[4rem] md:text-[8rem] lg:text-[10rem] leading-[0.95] tracking-[-0.02em]"
+              style={{ fontWeight: 400 }}
+            >
+              FAQ
+            </h2>
+            <p className="text-sm tracking-[0.3em] text-black/70 mt-4">よくある質問</p>
+          </div>
+          <div>
+            <h3 className="text-black text-2xl md:text-4xl leading-[1.3] tracking-[-0.01em]" style={{ fontWeight: 500 }}>
+              よくいただく質問。
+            </h3>
+          </div>
         </div>
 
-        {/* FAQ */}
-        <div className="space-y-4">
+        {/* FAQ アコーディオン */}
+        <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, i) => {
             const open = openIdx === i;
             return (
               <div
                 key={faq.q}
-                className="bg-white border border-[#0A1228]/8 rounded-xl shadow-md hover:shadow-lg transition-all duration-700"
+                className="bg-white rounded-2xl transition-all duration-700 border border-black/5"
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "translateY(0)" : "translateY(16px)",
-                  transitionDelay: `${100 + i * 80}ms`,
+                  transitionDelay: `${120 + i * 80}ms`,
                 }}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIdx(open ? null : i)}
-                  className="w-full flex items-start gap-4 text-left px-5 md:px-6 py-4 md:py-5 group cursor-pointer hover:bg-[#FAFAF7] active:bg-[#FAFAF7] transition-colors rounded-xl"
+                  className="w-full flex items-start gap-5 text-left px-6 md:px-8 py-5 md:py-6 group cursor-pointer hover:bg-[#FFE900]/20 transition-colors rounded-2xl"
                   aria-expanded={open}
                 >
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1D3A8A] flex items-center justify-center font-memphis-mincho font-extrabold text-sm text-white">
+                  <span className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FFE900] flex items-center justify-center text-black text-sm" style={{ fontWeight: 500 }}>
                     Q
                   </span>
-                  <span className="flex-1 font-memphis-mincho text-[#0A1228] text-base md:text-lg font-bold leading-relaxed pt-1">
+                  <span className="flex-1 text-black text-base md:text-lg leading-relaxed pt-1.5" style={{ fontWeight: 500 }}>
                     {faq.q}
                   </span>
                   <span
-                    className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#FAFAF7] border border-[#0A1228]/10 flex items-center justify-center transition-transform ${
-                      open ? "rotate-45" : ""
+                    className={`flex-shrink-0 w-9 h-9 rounded-full border border-black flex items-center justify-center transition-transform ${
+                      open ? "rotate-45 bg-black text-white" : "text-black"
                     }`}
                     aria-hidden="true"
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D3A8A" strokeWidth="3" strokeLinecap="round">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>
                 </button>
                 <div
                   className="overflow-hidden transition-all duration-300"
-                  style={{ maxHeight: open ? 280 : 0 }}
+                  style={{ maxHeight: open ? 320 : 0 }}
                 >
-                  <div className="px-5 md:px-6 pb-5 md:pb-6 flex items-start gap-4 border-t border-dashed border-[#0A1228]/15 pt-4">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center font-memphis-mincho font-extrabold text-sm text-white">
+                  <div className="px-6 md:px-8 pb-6 md:pb-7 flex items-start gap-5 border-t border-black/10 pt-5">
+                    <span className="flex-shrink-0 w-9 h-9 rounded-full bg-[#EC6C00] flex items-center justify-center text-white text-sm" style={{ fontWeight: 500 }}>
                       A
                     </span>
-                    <p className="flex-1 text-sm md:text-base text-[#0A1228]/80 leading-relaxed pt-1">
+                    <p className="flex-1 text-sm md:text-base text-black/80 leading-loose pt-1.5 tracking-wide">
                       {faq.a}
                     </p>
                   </div>

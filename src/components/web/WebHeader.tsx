@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -35,53 +36,53 @@ export default function WebHeader() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#FAFAF7]/95 backdrop-blur-md border-b border-[#0A1228]/8"
+            ? "bg-[#F8F8F8]/95 backdrop-blur-md border-b border-black/10"
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
-          <a href="/" className="inline-block group" aria-label="ALPACAトップへ">
-            <div className="flex items-baseline gap-2">
-              <span
-                className={`font-memphis-gothic font-black text-2xl md:text-3xl tracking-tight transition-colors duration-300 group-hover:text-[#1D3A8A] ${
-                  scrolled ? "text-[#0A1228]" : "text-white"
-                }`}
-              >
-                ALPACA
-              </span>
-              <span
-                className={`hidden sm:inline font-hand text-[13px] md:text-sm tracking-[0.12em] pl-2 border-l transition-colors duration-300 ${
-                  scrolled
-                    ? "text-[#1D3A8A] border-[#0A1228]/30"
-                    : "text-white/90 border-white/40"
-                }`}
-              >
-                WEB DESIGN
-              </span>
-            </div>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-4 md:py-5 flex items-center justify-between">
+          <a href="/" className="inline-flex items-center gap-3 group" aria-label="ALPACAトップへ">
+            <Image
+              src="/images/logo/alpaca-mark.png"
+              alt="ALPACAロゴ"
+              width={40}
+              height={40}
+              priority
+              className="h-9 md:h-10 w-auto"
+            />
+            <span className="text-black text-2xl md:text-3xl tracking-[0.05em] font-medium transition-colors duration-300 group-hover:text-[#EC6C00]">
+              ALPACA
+            </span>
+            <span className="hidden sm:inline text-[11px] md:text-xs tracking-[0.2em] pl-3 ml-1 border-l border-black/20 text-black/70">
+              ホームページ・LP制作
+            </span>
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          {/* Desktop nav — givee風 右寄せ細字 */}
+          <nav className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-bold transition-colors relative group ${
-                  scrolled
-                    ? "text-[#0A1228] hover:text-[#1D3A8A]"
-                    : "text-white/90 hover:text-white"
-                }`}
+                className="relative text-sm text-black hover:text-[#EC6C00] transition-colors group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#1D3A8A] scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
+                <span className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-[#FFE900] scale-x-0 group-hover:scale-x-100 origin-left transition-transform" />
               </a>
             ))}
+            {/* 黒丸pill CTA + アロー丸 */}
             <a
               href="#contact"
-              className="text-xs font-black text-white bg-[#FF6B35] hover:bg-[#15296B] rounded-full px-5 py-2.5 shadow-md hover:shadow-lg active:scale-[0.97] transition-all"
+              className="group inline-flex items-center gap-2"
             >
-              無料相談 →
+              <span className="inline-block bg-black text-white text-xs font-medium rounded-full px-5 py-2.5 group-hover:bg-[#EC6C00] transition-colors">
+                無料相談
+              </span>
+              <span className="w-9 h-9 border border-black rounded-full flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
             </a>
           </nav>
 
@@ -91,27 +92,27 @@ export default function WebHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={open}
-            className={`md:hidden w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-sm ring-1 shadow-sm active:scale-[0.92] transition cursor-pointer ${
+            className={`md:hidden w-11 h-11 flex items-center justify-center rounded-full ring-1 active:scale-[0.92] transition cursor-pointer ${
               scrolled
-                ? "bg-white/80 ring-[#0A1228]/10 hover:bg-white"
-                : "bg-white/15 ring-white/30 hover:bg-white/25"
+                ? "bg-white ring-black/15"
+                : "bg-white/80 ring-black/10"
             }`}
           >
             <div className="relative w-5 h-4">
               <span
-                className={`absolute left-0 top-0 w-5 h-[2.5px] rounded-full transition-all duration-300 ${
-                  scrolled ? "bg-[#0A1228]" : "bg-white"
-                } ${open ? "translate-y-[7px] rotate-45" : ""}`}
+                className={`absolute left-0 top-0 w-5 h-[2.5px] rounded-full bg-black transition-all duration-300 ${
+                  open ? "translate-y-[7px] rotate-45" : ""
+                }`}
               />
               <span
-                className={`absolute left-0 top-[7px] w-5 h-[2.5px] rounded-full transition-all duration-300 ${
-                  scrolled ? "bg-[#0A1228]" : "bg-white"
-                } ${open ? "opacity-0" : ""}`}
+                className={`absolute left-0 top-[7px] w-5 h-[2.5px] rounded-full bg-black transition-all duration-300 ${
+                  open ? "opacity-0" : ""
+                }`}
               />
               <span
-                className={`absolute left-0 top-[14px] w-5 h-[2.5px] rounded-full transition-all duration-300 ${
-                  scrolled ? "bg-[#0A1228]" : "bg-white"
-                } ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
+                className={`absolute left-0 top-[14px] w-5 h-[2.5px] rounded-full bg-black transition-all duration-300 ${
+                  open ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
               />
             </div>
           </button>
@@ -125,22 +126,24 @@ export default function WebHeader() {
         }`}
       >
         <div
-          className="absolute inset-0 bg-[#0A1228]/40 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[82%] max-w-xs bg-[#FAFAF7] border-l border-[#0A1228]/10 shadow-2xl transition-transform duration-300 ${
+          className={`absolute right-0 top-0 h-full w-[82%] max-w-xs bg-[#F8F8F8] border-l border-black/10 shadow-2xl transition-transform duration-300 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="pt-20 px-8 flex flex-col gap-4">
+          {/* 黄色装飾シェイプ */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FFE900] rounded-full pointer-events-none" />
+          <div className="relative pt-20 px-8 flex flex-col gap-4">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-base font-bold text-[#0A1228] hover:text-[#1D3A8A] transition-colors py-3 border-b border-[#0A1228]/10"
+                className="text-base text-black hover:text-[#EC6C00] transition-colors py-3 border-b border-black/10"
               >
                 {link.label}
               </a>
@@ -148,7 +151,7 @@ export default function WebHeader() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF6B35] hover:bg-[#15296B] rounded-full px-5 py-3 shadow-md hover:shadow-lg transition-all"
+              className="mt-4 inline-flex items-center justify-center text-sm font-medium text-white bg-black hover:bg-[#EC6C00] rounded-full px-5 py-3.5 transition-all"
             >
               無料相談 →
             </a>

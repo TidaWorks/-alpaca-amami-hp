@@ -1,282 +1,223 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-const demos = [
-  { name: "Hair Salon kukuru", category: "美容室", url: "/demo/salon", image: "/images/demo-screenshots/salon.png" },
-  { name: "Bistro ADAN", category: "ビストロ", url: "/demo/restaurant", image: "/images/demo-screenshots/restaurant.png" },
-  { name: "珊瑚の宿 いそかぜ", category: "民泊", url: "/demo/guesthouse", image: "/images/demo-screenshots/guesthouse.png" },
-  { name: "南風建設", category: "建設業", url: "/demo/construction", image: "/images/demo-screenshots/construction.png" },
-  { name: "BLUE AMAMI", category: "ダイビング", url: "/demo/diving", image: "/images/demo-screenshots/diving.png" },
-  { name: "Pâtisserie Soleil", category: "パティスリー", url: "/demo/patisserie", image: "/images/demo-screenshots/patisserie.png" },
-  { name: "AMAMI FOREST CAMP", category: "キャンプ場", url: "/demo/camp", image: "/images/demo-screenshots/camp.png" },
-  { name: "島つむぎ整骨院", category: "整骨院", url: "/demo/osteopathic", image: "/images/demo-screenshots/osteopathic.png" },
-  { name: "あまみ果樹園 太陽のしずく", category: "農園・直売", url: "/demo/farm", image: "/images/demo-screenshots/farm.png" },
-];
+import { useEffect, useRef } from "react";
 
 export default function WebHero() {
-  const router = useRouter();
-  const [current, setCurrent] = useState(0);
-  const [isAuto, setIsAuto] = useState(true);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const total = demos.length;
+  const blobRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!isAuto) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % total);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [isAuto, total]);
-
-  const goTo = useCallback(
-    (index: number) => {
-      setCurrent(((index % total) + total) % total);
-      setIsAuto(false);
-      const t = setTimeout(() => setIsAuto(true), 12000);
-      return () => clearTimeout(t);
-    },
-    [total]
-  );
-
-  const goToDemo = (url: string) => {
-    setIsAuto(false);
-    router.push(url);
-  };
+    const onScroll = () => {
+      if (!blobRef.current) return;
+      const y = window.scrollY;
+      blobRef.current.style.transform = `translate(${y * 0.06}px, ${y * 0.12}px) rotate(${y * 0.05}deg)`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section
       id="concept"
-      className="relative overflow-hidden pt-28 md:pt-36 pb-24 md:pb-32 bg-[#FAFAF7]"
+      className="relative overflow-hidden min-h-[100svh] bg-[#F8F8F8] flex items-center"
     >
-      {/* KAIROS風 ペイント背景（PC/モバイル切替） */}
+      {/* ── 背景：givee風オーガニックシェイプ ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* PC版 */}
-        <div className="hidden md:block absolute inset-0">
-          <Image
-            src="/images/web-kairos/hero.webp"
-            alt=""
-            fill
-            priority
-            className="object-cover opacity-90"
-            sizes="100vw"
-          />
-        </div>
-        {/* モバイル版 */}
-        <div className="md:hidden absolute inset-0">
-          <Image
-            src="/images/web-kairos/hero-mobile.webp"
-            alt=""
-            fill
-            priority
-            className="object-cover opacity-90"
-            sizes="100vw"
-          />
-        </div>
-        {/* 画像欠損時のフォールバック用 SVG暫定ペイントブロブ */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-40"
-          viewBox="0 0 1600 900"
-          preserveAspectRatio="xMidYMid slice"
+        {/* 左下：黄色の有機曲線（スクロール連動回転） */}
+        <div
+          ref={blobRef}
+          className="absolute -left-32 -bottom-40 w-[640px] h-[640px] md:w-[820px] md:h-[820px] will-change-transform"
+          style={{ transition: "transform 0.12s linear" }}
         >
-          <path
-            d="M 100 200 Q 400 100 700 300 T 1300 250"
-            stroke="#1D3A8A"
-            strokeWidth="120"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.55"
-          />
-          <path
-            d="M 800 600 Q 1000 500 1200 700"
-            stroke="#FF6B35"
-            strokeWidth="60"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.6"
-          />
-          <circle cx="200" cy="700" r="20" fill="#FF6B35" opacity="0.5" />
-          <circle cx="180" cy="730" r="8" fill="#FF6B35" opacity="0.35" />
-          <circle cx="240" cy="680" r="12" fill="#1D3A8A" opacity="0.45" />
+          <svg viewBox="0 0 600 600" className="w-full h-full">
+            <path
+              d="M120,320 C90,180 240,80 380,120 C520,160 580,300 540,420 C500,540 320,580 200,520 C100,470 150,440 120,320 Z"
+              fill="#FFE900"
+              className="animate-blob-rotate"
+            />
+          </svg>
+        </div>
+
+        {/* 右上：ディープブルー三角 */}
+        <svg
+          className="absolute top-[10%] right-[6%] w-[120px] md:w-[180px] h-auto animate-tri-float"
+          viewBox="0 0 200 200"
+        >
+          <polygon points="100,20 180,180 20,180" fill="#004097" />
         </svg>
-        {/* 下端フェード（次セクションへの繋ぎ） */}
-        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#FAFAF7] to-transparent" />
+
+        {/* 右下：オレンジ半円 */}
+        <svg
+          className="absolute -right-12 top-[55%] w-[160px] md:w-[240px] h-auto animate-half-rotate"
+          viewBox="0 0 200 200"
+        >
+          <path d="M100,0 A100,100 0 0,1 100,200 Z" fill="#EC6C00" />
+        </svg>
+
+        {/* 右の縦ピンクなしの代わりに黄色細帯 */}
+        <div className="absolute top-0 right-[2%] w-[3px] h-[60%] bg-black/10 hidden md:block" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-14 items-center">
-        {/* ── 左カラム ── */}
-        <div className="relative">
-          {/* 章扉番号 */}
-          <div className="mb-6">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 00 / BRAND CONCEPT
-            </p>
-          </div>
+      {/* ── 本体 ── */}
+      <div className="relative z-10 max-w-[1400px] w-full mx-auto px-6 md:px-10 py-32 md:py-40">
+        {/* 小英文ラベル */}
+        <p
+          className="text-sm tracking-[0.3em] text-black/70 mb-6 animate-reveal-up"
+          style={{ animationDelay: "120ms" }}
+        >
+          ALPACA — Web Studio in Amami
+        </p>
 
-          {/* 書道風サイン（小さいアクセント） */}
-          <p
-            className="font-brush text-3xl md:text-4xl text-[#1D3A8A] mb-3 animate-reveal-up"
-            style={{ animationDelay: "30ms" }}
-          >
-            島の魅力を、世界へ。
-          </p>
-
-          {/* メインヘッドライン（明朝） */}
-          <h1
-            className="font-memphis-mincho text-[#0A1228] text-[2.6rem] md:text-[3.6rem] lg:text-[4.2rem] leading-[1.25] font-extrabold mb-7 tracking-tight animate-reveal-up"
-            style={{ animationDelay: "60ms" }}
-          >
-            伝わるデザインで
-            <br />
+        {/* 巨大JPヘッドライン */}
+        <h1
+          className="text-black text-[3.2rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] leading-[1.05] tracking-[-0.02em] mb-12 animate-reveal-up"
+          style={{ fontWeight: 500, animationDelay: "200ms" }}
+        >
+          <span className="block">伝わる</span>
+          <span className="block">デザインで</span>
+          <span className="block relative">
             <span className="relative inline-block">
-              <span className="relative z-10">島の魅力</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FF6B35]/30 -z-0"
+              島の魅力
+              <svg
+                className="absolute -bottom-2 left-0 w-full h-4 md:h-6"
+                viewBox="0 0 400 30"
+                preserveAspectRatio="none"
                 aria-hidden="true"
-              />
+              >
+                <path
+                  d="M5,18 Q100,4 200,16 T395,12"
+                  stroke="#FFE900"
+                  strokeWidth="14"
+                  fill="none"
+                  strokeLinecap="round"
+                  className="animate-underline-draw"
+                  style={{ strokeDasharray: 500, strokeDashoffset: 500 }}
+                />
+              </svg>
             </span>
             を、
-            <br />
-            世界へ。
-          </h1>
+          </span>
+          <span className="block">全国へ。</span>
+        </h1>
 
-          {/* サブコピー（手書き風） */}
-          <p
-            className="font-hand text-[#0A1228]/75 text-base md:text-lg leading-[2] mb-9 max-w-md animate-reveal-up"
-            style={{ animationDelay: "260ms" }}
-          >
-            ALPACAは、鹿児島県・奄美大島を拠点にする
-            <br className="hidden md:block" />
-            Webデザインスタジオです。
-            <br />
-            美しい自然、独自の文化、ゆったりとした島時間。
-            <br className="hidden md:block" />
-            その魅力をデザインで表現し、伝えていきます。
-          </p>
+        {/* リード本文 */}
+        <p
+          className="text-black/80 text-base md:text-lg leading-loose tracking-wide mb-12 max-w-2xl animate-reveal-up"
+          style={{ animationDelay: "380ms" }}
+        >
+          鹿児島県・奄美大島を拠点にする
+          ホームページ・LP制作スタジオです。
+          島内なら直接お伺いし、公開後の更新も
+          全部お任せいただけます。
+        </p>
 
-          {/* CTAボタン群 */}
-          <div
-            className="flex flex-wrap items-center gap-5 mb-10 animate-reveal-up"
-            style={{ animationDelay: "440ms" }}
-          >
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF6B35] hover:bg-[#15296B] text-white font-black text-sm px-7 py-3.5 rounded-full shadow-lg hover:shadow-xl active:scale-[0.97] transition-all"
-            >
+        {/* CTA群：黒丸pill + アロー丸 */}
+        <div
+          className="flex flex-wrap items-center gap-6 animate-reveal-up"
+          style={{ animationDelay: "560ms" }}
+        >
+          <a href="#contact" className="group inline-flex items-center gap-3">
+            <span className="inline-block bg-black text-white text-base font-medium rounded-full px-8 py-4 group-hover:bg-[#EC6C00] transition-colors">
               無料で相談する
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            </span>
+            <span className="w-12 h-12 border border-black rounded-full flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all group-hover:-translate-y-0.5 animate-arrow-ping">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
-            <a
-              href="#works"
-              className="inline-flex items-center text-sm font-black text-[#0A1228] underline decoration-[#FF6B35] decoration-[3px] underline-offset-[6px] hover:decoration-[#1D3A8A] transition-colors"
-            >
-              プロジェクトを見る →
-            </a>
-          </div>
-
-        </div>
-
-        {/* ── 右カラム: モックアップカルーセル ── */}
-        <div className="relative flex flex-col items-center">
-          {/* 装飾バッジ */}
-          <span className="absolute -top-2 right-0 md:right-4 z-30 bg-[#0A1228] text-white font-bold text-[10px] tracking-[0.18em] px-3 py-1.5 rounded-full shadow-sm">
-            DEMO × 9 業種
-          </span>
-
-          {/* Phoneカルーセル */}
-          <div
-            className="relative w-full h-[440px] md:h-[480px] flex items-center justify-center"
-            ref={carouselRef}
+            </span>
+          </a>
+          <a
+            href="#works"
+            className="group inline-flex items-baseline gap-2 text-sm text-black"
           >
-            {demos.map((demo, i) => {
-              let diff = i - current;
-              if (diff > total / 2) diff -= total;
-              if (diff < -total / 2) diff += total;
-              const abs = Math.abs(diff);
-              const isActive = abs === 0;
-
-              return (
-                <div
-                  key={demo.url}
-                  className="absolute transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  style={{
-                    transform: `translateX(${diff * 95}%) scale(${isActive ? 1 : 0.85})`,
-                    opacity: abs <= 1 ? (isActive ? 1 : 0.3) : 0,
-                    zIndex: isActive ? 10 : 5 - abs,
-                    pointerEvents: isActive ? "auto" : "none",
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => goToDemo(demo.url)}
-                    className="block group cursor-pointer text-left"
-                  >
-                    {/* Phone frame（柔らかドロップシャドウ） */}
-                    <div className="relative w-[200px] h-[400px] md:w-[230px] md:h-[460px] bg-[#0A1228] rounded-[36px] md:rounded-[44px] p-[6px] shadow-[0_24px_60px_-12px_rgba(10,18,40,0.35)] group-hover:shadow-[0_28px_70px_-12px_rgba(10,18,40,0.45)] group-hover:-translate-y-1 transition-all duration-500">
-                      {/* notch */}
-                      <div className="absolute top-[12px] md:top-[14px] left-1/2 -translate-x-1/2 w-[60px] md:w-[72px] h-[18px] md:h-[22px] bg-black rounded-full z-20" />
-                      {/* screen */}
-                      <div className="relative w-full h-full rounded-[31px] md:rounded-[37px] overflow-hidden bg-white">
-                        <Image
-                          src={demo.image}
-                          alt={demo.name}
-                          fill
-                          className="object-cover object-top"
-                          sizes="(max-width: 768px) 200px, 230px"
-                          priority={isActive}
-                        />
-                      </div>
-                    </div>
-                    {/* labels */}
-                    <div className="text-center mt-4">
-                      <p className="font-memphis-mincho text-base font-bold text-[#0A1228]">{demo.name}</p>
-                      <p className="font-hand text-[12px] mt-1 tracking-widest text-[#1D3A8A]">{demo.category}</p>
-                    </div>
-                  </button>
-                </div>
-              );
-            })}
-
-            {/* 矢印（スマホ・PC両対応） */}
-            <button
-              onClick={() => goTo(current - 1)}
-              className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-[#0A1228]/10 hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
-              aria-label="前のデモ"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A1228" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button
-              onClick={() => goTo(current + 1)}
-              className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-[#0A1228]/10 hover:bg-white hover:shadow-lg active:scale-[0.92] transition-all cursor-pointer"
-              aria-label="次のデモ"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A1228" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
-
-          {/* ドットナビ */}
-          <div className="flex justify-center gap-1.5 mt-6">
-            {demos.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer active:scale-[0.85] ${
-                  i === current ? "bg-[#FF6B35] w-7" : "bg-[#0A1228]/15 w-1.5 hover:bg-[#0A1228]/30"
-                }`}
-                aria-label={`${demos[i].category}のデモに移動`}
-              />
-            ))}
-          </div>
+            <span className="relative">
+              制作実績を見る
+              <span className="absolute left-0 -bottom-[3px] w-full h-[1.5px] bg-black scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
       </div>
+
+      {/* 右下：Scroll ヒント（givee準拠） */}
+      <div className="absolute bottom-8 right-8 md:right-12 z-20 hidden md:flex flex-col items-center gap-3">
+        <span className="text-[11px] tracking-[0.4em] text-black/70 [writing-mode:vertical-rl]">
+          SCROLL
+        </span>
+        <span className="w-px h-12 bg-black/30 animate-scroll-line" />
+      </div>
+
+      {/* keyframes */}
+      <style>{`
+        @keyframes reveal-up {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal-up {
+          opacity: 0;
+          animation: reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes blob-rotate {
+          0%, 100% { transform: rotate(0deg) scale(1); }
+          50% { transform: rotate(8deg) scale(1.03); }
+        }
+        .animate-blob-rotate {
+          transform-origin: center;
+          animation: blob-rotate 14s ease-in-out infinite;
+        }
+        @keyframes tri-float {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-14px) rotate(8deg); }
+        }
+        .animate-tri-float {
+          animation: tri-float 8s ease-in-out infinite;
+        }
+        @keyframes half-rotate {
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(-12deg); }
+        }
+        .animate-half-rotate {
+          transform-origin: center;
+          animation: half-rotate 10s ease-in-out infinite;
+        }
+        @keyframes underline-draw {
+          to { stroke-dashoffset: 0; }
+        }
+        .animate-underline-draw {
+          animation: underline-draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.9s forwards;
+        }
+        @keyframes arrow-ping {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0.15); }
+          50% { box-shadow: 0 0 0 6px rgba(0,0,0,0); }
+        }
+        .animate-arrow-ping {
+          animation: arrow-ping 2.2s ease-in-out infinite;
+        }
+        @keyframes scroll-line {
+          0% { transform: scaleY(0); transform-origin: top; }
+          50% { transform: scaleY(1); transform-origin: top; }
+          51% { transform-origin: bottom; }
+          100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+        .animate-scroll-line {
+          animation: scroll-line 2.4s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-reveal-up,
+          .animate-blob-rotate,
+          .animate-tri-float,
+          .animate-half-rotate,
+          .animate-underline-draw,
+          .animate-arrow-ping,
+          .animate-scroll-line {
+            animation: none !important;
+            opacity: 1 !important;
+            stroke-dashoffset: 0 !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

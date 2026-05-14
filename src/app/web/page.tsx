@@ -1,10 +1,11 @@
 import WebHeader from "@/components/web/WebHeader";
+import WebLogoIntro from "@/components/web/WebLogoIntro";
 import WebHero from "@/components/web/WebHero";
+import WebManifesto from "@/components/web/WebManifesto";
 import WebPainPoints from "@/components/web/WebPainPoints";
 import WebFeatures from "@/components/web/WebFeatures";
 import WebPricing from "@/components/web/WebPricing";
 import WebFlow from "@/components/web/WebFlow";
-import WebManifesto from "@/components/web/WebManifesto";
 import WebFAQ from "@/components/web/WebFAQ";
 import WebCTA from "@/components/web/WebCTA";
 
@@ -16,14 +17,15 @@ export const metadata = {
 
 export default function WebPage() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden bg-[#F8F8F8]">
+      <WebLogoIntro />
       <WebHeader />
       <WebHero />
+      <WebManifesto />
       <WebPainPoints />
       <WebFeatures />
       <WebPricing />
       <WebFlow />
-      <WebManifesto />
       <WebFAQ />
       <WebCTA />
     </div>

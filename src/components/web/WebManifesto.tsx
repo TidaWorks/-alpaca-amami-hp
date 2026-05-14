@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useReveal } from "@/hooks/useReveal";
 
 export default function WebManifesto() {
   const [ref, visible] = useReveal<HTMLElement>({ threshold: 0.2 });
 
   const items = [
-    { num: "9", unit: "業種", label: "デモサイトを公開中" },
-    { num: "2", unit: "週間〜", label: "最短ランディングページ納品" },
+    { num: "3", unit: "日〜", label: "最短ランディングページ納品" },
     { num: "対面", unit: "OK", label: "奄美島内で打合せ可能" },
   ];
 
@@ -16,147 +14,166 @@ export default function WebManifesto() {
     <section
       id="works"
       ref={ref}
-      className="relative overflow-hidden bg-[#0A1228]"
+      className="relative overflow-hidden bg-[#F8F8F8] py-32 md:py-40 px-6"
     >
-      {/* 背景画像（あれば） */}
-      <div className="absolute inset-0 pointer-events-none">
-        <Image
-          src="/images/web-kairos/manifesto.webp"
-          alt=""
-          fill
-          priority={false}
-          sizes="100vw"
-          className="object-cover opacity-50"
-          aria-hidden="true"
-        />
+      {/* 装飾シェイプ */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg
+          className="absolute -top-20 -left-10 w-[420px] h-[420px] hidden md:block"
+          viewBox="0 0 400 400"
+        >
+          <path
+            d="M80,180 C50,80 200,40 280,80 C360,120 370,260 320,320 C270,380 120,360 80,260 Z"
+            fill="#FFE900"
+            opacity="0.55"
+          />
+        </svg>
+        <svg
+          className="absolute bottom-10 right-0 w-[180px] h-[180px] hidden md:block"
+          viewBox="0 0 200 200"
+        >
+          <circle cx="100" cy="100" r="80" fill="#004097" opacity="0.08" />
+        </svg>
       </div>
 
-      {/* SVGフォールバックペイント（画像未配置時の保険） */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-60 mix-blend-screen"
-        viewBox="0 0 1600 900"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <path
-          d="M 100 200 Q 400 100 700 300 T 1300 250"
-          stroke="#1D3A8A"
-          strokeWidth="160"
-          fill="none"
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-        <path
-          d="M 200 700 Q 500 580 900 720 T 1500 680"
-          stroke="#15296B"
-          strokeWidth="120"
-          fill="none"
-          strokeLinecap="round"
-          opacity="0.55"
-        />
-        <path
-          d="M 800 600 Q 1000 480 1280 700"
-          stroke="#FF6B35"
-          strokeWidth="70"
-          fill="none"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-        <circle cx="220" cy="780" r="22" fill="#FF6B35" opacity="0.75" />
-        <circle cx="180" cy="820" r="9" fill="#FF6B35" opacity="0.55" />
-        <circle cx="280" cy="760" r="13" fill="#1D3A8A" opacity="0.6" />
-        <circle cx="1380" cy="180" r="18" fill="#FF6B35" opacity="0.65" />
-      </svg>
-
-      {/* 暗オーバーレイ */}
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-[#0A1228]/85 via-[#0A1228]/75 to-[#0A1228]/90 pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
-        <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14 items-center">
-          {/* 左: メッセージ */}
-          <div>
-            <div
-              className="mb-8 transition-all duration-700"
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(12px)",
-              }}
+      <div className="relative max-w-[1400px] mx-auto">
+        <div className="grid lg:grid-cols-[1.1fr_1.4fr] gap-16 lg:gap-24 items-start">
+          {/* 左：巨大英文タイトル＋黄色楕円ストロークアニメ */}
+          <div className="relative">
+            {/* 手描き風黄色楕円 */}
+            <svg
+              className="absolute -top-6 -left-4 w-[360px] md:w-[480px] h-auto pointer-events-none"
+              viewBox="0 0 500 200"
+              aria-hidden="true"
             >
-              <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35] mb-3">
-                CHAPTER 05
+              <path
+                d="M250,30 C420,30 470,90 470,110 C470,160 360,180 240,180 C120,180 30,150 30,110 C30,70 80,30 250,30 Z"
+                stroke="#FFE900"
+                strokeWidth="20"
+                fill="none"
+                strokeLinecap="round"
+                className="manifesto-oval"
+                style={{
+                  strokeDasharray: 1400,
+                  strokeDashoffset: visible ? 0 : 1400,
+                  transition: "stroke-dashoffset 2s cubic-bezier(0.65, 0, 0.35, 1) 0.3s",
+                }}
+              />
+            </svg>
+
+            <div className="relative pt-4">
+              <p
+                className="text-sm tracking-[0.3em] text-black/70 mb-6 transition-all duration-700"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "translateY(0)" : "translateY(16px)",
+                }}
+              >
+                Our state ment
               </p>
-              <p className="text-[11px] font-bold tracking-[0.4em] text-white/70">
-                ABOUT / ALPACA
+              <h2
+                className="text-black text-[3.5rem] md:text-[6rem] lg:text-[7rem] leading-[0.95] tracking-[-0.02em] transition-all duration-700"
+                style={{
+                  fontWeight: 400,
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: "200ms",
+                }}
+              >
+                <span className="block">Our</span>
+                <span className="block">state</span>
+                <span className="block">ment</span>
+              </h2>
+              <p
+                className="text-sm tracking-[0.2em] text-black/70 mt-6 transition-all duration-700"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "translateY(0)" : "translateY(16px)",
+                  transitionDelay: "400ms",
+                }}
+              >
+                私たちについて
               </p>
             </div>
+          </div>
 
-            <h2
-              className="font-memphis-mincho text-white text-[2.2rem] md:text-[3rem] lg:text-[3.4rem] leading-[1.3] font-extrabold mb-8 tracking-tight transition-all duration-700"
+          {/* 右：見出し＋本文＋実績数字 */}
+          <div className="space-y-12">
+            <h3
+              className="text-black text-[2.2rem] md:text-[3.2rem] leading-[1.3] tracking-[-0.01em] transition-all duration-700"
               style={{
+                fontWeight: 500,
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(16px)",
-                transitionDelay: "80ms",
+                transitionDelay: "300ms",
               }}
             >
               奄美大島を拠点に、
               <br />
-              <span className="relative inline-block">
-                <span className="relative z-10 text-white">ホームページ</span>
-                <span
-                  className="absolute inset-x-0 bottom-1 h-[80%] bg-[#FF6B35]/60 -z-0 rounded-sm"
-                  aria-hidden="true"
-                />
-              </span>
+              ホームページ
               <br />
               を作っています。
-            </h2>
+            </h3>
 
             <p
-              className="font-sans text-white/85 text-base leading-[2] max-w-xl transition-all duration-700"
+              className="text-black/80 text-base md:text-lg leading-loose tracking-wide max-w-xl transition-all duration-700"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(16px)",
-                transitionDelay: "200ms",
+                transitionDelay: "500ms",
               }}
             >
-              業種やお店の規模に合わせて、
-              <span className="text-[#FF6B35] font-bold">必要な機能だけ</span>
-              を揃えたサイトを作ります。
-              <br />
+              業種やお店の規模に合わせて、必要な機能だけを揃えたサイトを作ります。
               島内なら直接伺えるので、イメージを詰めるところから一緒に動けます。
             </p>
-          </div>
 
-          {/* 右: 実績数字（グラスカード） */}
-          <div
-            className="grid grid-cols-2 md:grid-cols-1 gap-5 transition-all duration-700"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(16px)",
-              transitionDelay: "350ms",
-            }}
-          >
-            {items.map((item) => (
-              <div
-                key={item.label}
-                className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-[3px] hover:bg-white/15 hover:border-white/30"
-              >
-                <p className="flex items-baseline gap-1.5">
-                  <span className="font-memphis-mincho text-5xl md:text-6xl font-extrabold text-white tabular-nums leading-none">
-                    {item.num}
-                  </span>
-                  <span className="font-hand text-lg text-[#FF6B35] ml-1">
-                    {item.unit}
-                  </span>
-                </p>
-                <p className="text-white/70 text-xs md:text-sm mt-2">
-                  {item.label}
-                </p>
-              </div>
-            ))}
+            {/* 数字カード */}
+            <div
+              className="grid grid-cols-2 gap-6 max-w-xl transition-all duration-700"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateY(0)" : "translateY(16px)",
+                transitionDelay: "700ms",
+              }}
+            >
+              {items.map((item, i) => (
+                <div
+                  key={item.label}
+                  className="border-t border-black pt-5"
+                  style={{ transitionDelay: `${800 + i * 120}ms` }}
+                >
+                  <p className="flex items-baseline gap-2">
+                    <span className="text-black text-5xl md:text-6xl tabular-nums leading-none" style={{ fontWeight: 500 }}>
+                      {item.num}
+                    </span>
+                    <span className="text-[#EC6C00] text-lg">{item.unit}</span>
+                  </p>
+                  <p className="text-black/70 text-xs md:text-sm mt-3 tracking-wide">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* 黒丸pill button */}
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 transition-all duration-700"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateY(0)" : "translateY(16px)",
+                transitionDelay: "900ms",
+              }}
+            >
+              <span className="inline-block bg-black text-white text-sm font-medium rounded-full px-7 py-3.5 group-hover:bg-[#EC6C00] transition-colors">
+                ALPACAに相談する
+              </span>
+              <span className="w-11 h-11 border border-black rounded-full flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
           </div>
         </div>
       </div>
