@@ -1,6 +1,6 @@
 "use client";
 
-import { useReveal } from "@/hooks/useReveal";
+import { useEffect, useRef, useState } from "react";
 
 const features = [
   {
@@ -44,7 +44,34 @@ const features = [
 ];
 
 export default function WebFeatures() {
-  const [sectionRef, visible] = useReveal<HTMLDivElement>({ threshold: 0.15 });
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const circlesRef = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = circlesRef.current;
+    if (!node) return;
+
+    if (typeof window !== "undefined" && window.matchMedia) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) {
+        setVisible(true);
+        return;
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -92,7 +119,7 @@ export default function WebFeatures() {
         </div>
 
         {/* 3つの円形サービスカード */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        <div ref={circlesRef} className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           {features.map((feature, i) => (
             <div
               key={feature.title}
@@ -103,37 +130,39 @@ export default function WebFeatures() {
                 transitionDelay: `${200 + i * 150}ms`,
               }}
             >
-              {/* 円形ビジュアル：SVG strokeで円を描いてから中央にアイコン */}
+              {/* 円形ビジュアル：中心から膨らんで出現 */}
               <div className="relative w-[260px] h-[260px] md:w-[300px] md:h-[300px] mb-8">
-                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 200 200">
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="92"
-                    stroke="#000000"
-                    strokeWidth="1.5"
-                    fill="none"
-                    strokeLinecap="round"
-                    style={{
-                      strokeDasharray: 580,
-                      strokeDashoffset: visible ? 0 : 580,
-                      transition: `stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1) ${400 + i * 200}ms`,
-                    }}
-                  />
-                </svg>
+                {/* 外側の黒い細い枠：中心から拡大 */}
+                <div
+                  className="absolute inset-0 rounded-full border-[1.5px] border-black"
+                  style={{
+                    transformOrigin: "center",
+                    transform: visible ? "scale(1)" : "scale(0)",
+                    opacity: visible ? 1 : 0,
+                    transition: `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${300 + i * 180}ms, opacity 0.4s ease ${300 + i * 180}ms`,
+                  }}
+                />
 
-                {/* 内側の色付き円 */}
+                {/* 内側の色付き円：少し遅れて中心から膨らむ */}
                 <div
                   className="absolute inset-6 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
                   style={{
                     background: feature.accent,
                     color: feature.textColor,
+                    transformOrigin: "center",
+                    transform: visible ? "scale(1)" : "scale(0)",
                     opacity: visible ? 1 : 0,
-                    transform: visible ? "scale(1)" : "scale(0.5)",
-                    transition: `opacity 0.6s ease ${800 + i * 200}ms, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${800 + i * 200}ms`,
+                    transition: `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${500 + i * 180}ms, opacity 0.4s ease ${500 + i * 180}ms`,
                   }}
                 >
-                  <div className="animate-bounce-in" style={{ animationDelay: `${900 + i * 200}ms` }}>
+                  <div
+                    style={{
+                      transformOrigin: "center",
+                      transform: visible ? "scale(1)" : "scale(0)",
+                      opacity: visible ? 1 : 0,
+                      transition: `transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${750 + i * 180}ms, opacity 0.3s ease ${750 + i * 180}ms`,
+                    }}
+                  >
                     {feature.icon}
                   </div>
                 </div>
@@ -162,16 +191,8 @@ export default function WebFeatures() {
       </div>
 
       <style>{`
-        @keyframes bounce-in {
-          0% { transform: scale(0) rotate(-20deg); }
-          60% { transform: scale(1.15) rotate(5deg); }
-          100% { transform: scale(1) rotate(0deg); }
-        }
-        .animate-bounce-in {
-          animation: bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
         @media (prefers-reduced-motion: reduce) {
-          .animate-bounce-in { animation: none !important; }
+          [style*="transform"] { transition: none !important; }
         }
       `}</style>
     </section>

@@ -1,9 +1,36 @@
 "use client";
 
-import { useReveal } from "@/hooks/useReveal";
+import { useEffect, useRef, useState } from "react";
 
 export default function WebManifesto() {
-  const [ref, visible] = useReveal<HTMLElement>({ threshold: 0.2 });
+  const ref = useRef<HTMLElement | null>(null);
+  const ovalAnchorRef = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ovalAnchorRef.current;
+    if (!node) return;
+
+    if (typeof window !== "undefined" && window.matchMedia) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) {
+        setVisible(true);
+        return;
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const items = [
     { num: "3", unit: "日〜", label: "最短ランディングページ納品" },
@@ -39,24 +66,35 @@ export default function WebManifesto() {
       <div className="relative max-w-[1400px] mx-auto">
         <div className="grid lg:grid-cols-[1.1fr_1.4fr] gap-16 lg:gap-24 items-start">
           {/* 左：巨大英文タイトル＋黄色楕円ストロークアニメ */}
-          <div className="relative">
-            {/* 手描き風黄色楕円 */}
+          <div ref={ovalAnchorRef} className="relative">
+            {/* 手描き風黄色楕円（筆触感あり） */}
             <svg
-              className="absolute -top-6 -left-4 w-[360px] md:w-[480px] h-auto pointer-events-none"
+              className="absolute -top-6 -left-4 w-[360px] md:w-[480px] h-auto pointer-events-none overflow-visible"
               viewBox="0 0 500 200"
               aria-hidden="true"
             >
+              {/* 筆触テクスチャ用フィルタ */}
+              <defs>
+                <filter id="brush-rough" x="-10%" y="-10%" width="120%" height="120%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.018 0.025" numOctaves="2" seed="3" />
+                  <feDisplacementMap in="SourceGraphic" scale="3" />
+                </filter>
+              </defs>
+
+              {/* 手書きストロークパス（始点と終点が微妙にズレる） */}
               <path
-                d="M250,30 C420,30 470,90 470,110 C470,160 360,180 240,180 C120,180 30,150 30,110 C30,70 80,30 250,30 Z"
+                d="M 80,38 C 145,18 285,18 365,38 C 445,58 480,95 470,125 C 460,160 355,182 240,180 C 130,178 38,160 28,118 C 24,82 55,52 90,42"
                 stroke="#FFE900"
-                strokeWidth="20"
+                strokeWidth="22"
                 fill="none"
                 strokeLinecap="round"
-                className="manifesto-oval"
+                strokeLinejoin="round"
+                filter="url(#brush-rough)"
                 style={{
-                  strokeDasharray: 1400,
-                  strokeDashoffset: visible ? 0 : 1400,
-                  transition: "stroke-dashoffset 2s cubic-bezier(0.65, 0, 0.35, 1) 0.3s",
+                  strokeDasharray: 1200,
+                  strokeDashoffset: visible ? 0 : 1200,
+                  transition: "stroke-dashoffset 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0.2s",
+                  animation: visible ? "brush-pressure 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0.2s both" : "none",
                 }}
               />
             </svg>
@@ -177,6 +215,20 @@ export default function WebManifesto() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes brush-pressure {
+          0%   { stroke-width: 6;  opacity: 0.6; }
+          15%  { stroke-width: 18; opacity: 0.95; }
+          40%  { stroke-width: 26; opacity: 1; }
+          60%  { stroke-width: 22; opacity: 1; }
+          85%  { stroke-width: 28; opacity: 1; }
+          100% { stroke-width: 18; opacity: 0.92; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="brush-pressure"] { animation: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
