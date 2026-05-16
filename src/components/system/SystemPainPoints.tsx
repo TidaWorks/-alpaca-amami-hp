@@ -1,205 +1,137 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const scenarios = [
+const PAINS = [
   {
-    id: "01",
-    label: "予約バラバラ問題",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-      </svg>
-    ),
-    problem: "予約は電話・LINE・店頭でバラバラ。ノートに書いたメモを見落として、ダブルブッキングが起きてしまう…",
-    solutionLabel: "システムを入れると",
-    solutionText: "全ての予約を1画面で管理。スタッフ全員がリアルタイムで状況を共有でき、空き状況も自動更新されます。",
-    accent: "予約を一元管理",
+    img: "09-pain-paper",
+    title: "紙とExcelで限界",
+    body: "予約・売上・シフトを紙とExcelに分散して記録。月末の集計に毎月丸1日かかる…。",
+    follow: "1つのデータベースに統合、月末集計が自動で完成します。",
   },
   {
-    id: "02",
-    label: "売上が見えない問題",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-      </svg>
-    ),
-    problem: "毎月の売上集計、レジから手書きの帳簿に転記して計算するのに丸1日…。気づけば月末も終わってる。",
-    solutionLabel: "ダッシュボードで",
-    solutionText: "売上・客単価・人気メニューが瞬時にグラフ化。経営判断のスピードが変わります。",
-    accent: "経営をリアルタイム可視化",
+    img: "10-pain-software",
+    title: "市販ソフトが業務に合わない",
+    body: "高い月額を払って導入したのに機能が多すぎて使いこなせない。結局Excelに戻ってお金だけ払い続けている…。",
+    follow: "現場の業務に必要な機能だけを設計。迷子になる画面はゼロです。",
   },
   {
-    id: "03",
-    label: "顧客情報共有問題",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    problem: "常連さんの好みやアレルギーをスタッフ間で共有できず、新人が来るたびにベテランが指導…。属人化が止まらない。",
-    solutionLabel: "顧客台帳をデジタル化",
-    solutionText: "来店履歴・好み・連絡先・対応メモが1画面に。誰が対応してもベテラン級のおもてなしが可能に。",
-    accent: "顧客対応を標準化",
+    img: "11-pain-blind",
+    title: "数字が見えない、経営判断が遅い",
+    body: "今月いくら儲かったか即答できない。集計に時間がかかるから経営判断がいつも後手に回る…。",
+    follow: "売上・客単価・在庫を瞬時にグラフ化。スマホ1画面で経営状態が見えます。",
+  },
+  {
+    img: "12-pain-double",
+    title: "POSと帳簿、二重入力で疲弊",
+    body: "レジに打ち込んだ売上を、また会計ソフトに転記。同じ情報を2回・3回入力するのが日課になっている…。",
+    follow: "1度の入力で関連データに自動反映、二重入力ゼロの仕組みに。",
+  },
+  {
+    img: "13-pain-handover",
+    title: "業務が属人化、新人に引き継げない",
+    body: "ベテラン社員の頭の中にしかない手順、辞めたらどう運用すればいいかわからない…。",
+    follow: "業務フローを仕組みに落とし込み、誰でも同じ品質でこなせる状態に。",
   },
 ];
 
 export default function SystemPainPoints() {
-  const rowRefs = useRef<(HTMLDivElement | null)[]>(Array(scenarios.length).fill(null));
-  const problemRefs = useRef<(HTMLDivElement | null)[]>(Array(scenarios.length).fill(null));
-  const solutionRefs = useRef<(HTMLDivElement | null)[]>(Array(scenarios.length).fill(null));
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    rowRefs.current.forEach((row, i) => {
-      if (!row) return;
-
-      const problem = problemRefs.current[i];
-      const solution = solutionRefs.current[i];
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (problem) {
-                setTimeout(() => {
-                  problem.classList.remove("syspp-hidden");
-                  problem.classList.add("syspp-visible");
-                }, i * 250);
-              }
-              if (solution) {
-                setTimeout(() => {
-                  solution.classList.remove("syspp-hidden-right");
-                  solution.classList.add("syspp-visible");
-                }, i * 250 + 200);
-              }
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
-
-      observer.observe(row);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((obs) => obs.disconnect());
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      setRevealed(true);
+      io.disconnect();
+    }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafeId);
+    };
   }, []);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-white border-t border-[#E5E7EB]">
-      <style>{`
-        .syspp-hidden { opacity: 0; transform: translateX(-32px); }
-        .syspp-hidden-right { opacity: 0; transform: translateX(32px); }
-        .syspp-visible { opacity: 1; transform: translateX(0); }
-        .syspp-transition {
-          transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes syspp-arrow-pulse {
-          0%, 100% { transform: translateX(0); opacity: 0.7; }
-          50% { transform: translateX(4px); opacity: 1; }
-        }
-      `}</style>
+    <section id="pain" ref={sectionRef} className="relative overflow-hidden bg-[#EEF1FF] py-24 md:py-32">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute top-[8%] right-[5%] w-[240px] h-auto opacity-40" viewBox="0 0 400 200" fill="none">
+          <ellipse cx="120" cy="120" rx="80" ry="50" fill="#DCE5FF" />
+          <ellipse cx="200" cy="100" rx="100" ry="60" fill="#DCE5FF" />
+          <ellipse cx="290" cy="130" rx="70" ry="45" fill="#DCE5FF" />
+        </svg>
+      </div>
 
-      <div className="relative max-w-5xl mx-auto px-6">
-        <div className="mb-14 md:mb-16">
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 01
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
+          <div>
+            <p className={`inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.05s" }}>
+              PAIN POINTS — 業務にある詰まり
             </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              WHY NOW
-            </p>
+            <h2 className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.15s" }}>
+              こんな業務、
+              <br />
+              <span className="text-[#2860E1]">続けて</span>
+              <br />
+              いませんか？
+            </h2>
           </div>
-          <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight">
-            こんな業務、
-            <br className="md:hidden" />
-            <span className="text-[#635BFF]">放置していませんか？</span>
-          </h2>
+          <p className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.3s" }}>
+            奄美の事業者さんからよく聞く、業務まわりの「詰まり」をまとめました。
+          </p>
         </div>
 
-        <div className="space-y-12 md:space-y-16">
-          {scenarios.map((s, i) => (
-            <div
-              key={s.id}
-              ref={(el) => { rowRefs.current[i] = el; }}
-              className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10"
-            >
-              {/* Problem bubble */}
-              <div
-                ref={(el) => { problemRefs.current[i] = el; }}
-                className="w-full md:w-1/2 syspp-hidden syspp-transition"
-              >
-                <div className="relative rounded-2xl px-6 py-5 bg-[#F8FAFC] border border-[#E5E7EB] shadow-sm">
-                  <span
-                    className="absolute top-1/2 -right-3 -translate-y-1/2 hidden md:block"
-                    style={{
-                      width: 0,
-                      height: 0,
-                      borderTop: "10px solid transparent",
-                      borderBottom: "10px solid transparent",
-                      borderLeft: "12px solid #F8FAFC",
-                    }}
-                  />
-                  <div className="flex items-center gap-2 mb-2">
-                    {s.icon}
-                    <p className="text-xs font-semibold text-[#635BFF] tracking-wider">
-                      {s.label}
-                    </p>
-                  </div>
-                  <p className="text-[#1A202C] text-base leading-relaxed">{s.problem}</p>
-                </div>
-
-                <div className="flex justify-center mt-4 md:hidden">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 4v16M5 14l7 7 7-7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {PAINS.map(({ img, title, body, follow }, i) => (
+            <div key={title} className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#2860E1]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
+              <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
+                <img src={`/images/system-v3/${img}.png`} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
               </div>
-
-              {/* Arrow */}
-              <div className="hidden md:flex flex-col items-center shrink-0">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  aria-hidden="true"
-                  style={{ animation: `syspp-arrow-pulse 2.4s ease-in-out ${i * 0.4}s infinite` }}
-                >
-                  <path d="M4 14h20M16 7l8 7-8 7" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              {/* Solution */}
-              <div
-                ref={(el) => { solutionRefs.current[i] = el; }}
-                className="w-full md:w-1/2 syspp-hidden-right syspp-transition group/sol"
-              >
-                <div className="rounded-2xl bg-white px-6 py-5 shadow-sm border-l-4 border-[#635BFF] border-y border-r border-[#DBEAFE] hover:shadow-lg hover:-translate-y-1 hover:border-l-[6px] transition-all duration-300">
-                  <p className="text-[#635BFF] text-xs font-semibold uppercase tracking-widest mb-2 group-hover/sol:tracking-[0.18em] transition-all duration-300">
-                    {s.solutionLabel}
-                  </p>
-                  <p className="text-[#1A202C] text-lg font-bold mb-2">{s.accent}</p>
-                  <p className="text-[#1A202C]/65 text-sm leading-relaxed">{s.solutionText}</p>
+              <div className="p-7 md:p-8 flex flex-col">
+                <h3 className="font-bold text-[#1D2A6E] text-base md:text-lg mb-4 leading-snug">{title}</h3>
+                <p className="text-[#5A6280] text-sm leading-loose mb-5 flex-1">{body}</p>
+                <div className="mt-auto pt-4 border-t border-[#E5E9F5]">
+                  <p className="text-[#2860E1] text-[13px] font-bold leading-relaxed">→ {follow}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className="text-center mt-20 md:mt-24">
+          <p className={`text-[#1D2A6E] text-2xl md:text-4xl font-bold leading-relaxed ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.8s" }}>
+            業務の詰まりは、
+            <span className="text-[#2860E1]">仕組み</span>
+            で
+            <br className="md:hidden" />
+            ほどけます。
+          </p>
+        </div>
       </div>
+
+      <style>{`
+        .pre { opacity: 0; transform: translateY(28px); }
+        @keyframes show-up { 0% { opacity: 0; transform: translateY(28px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: show-up 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        .pre-x { opacity: 0; transform: translate(0, 24px); }
+        @keyframes show-x { 0% { opacity: 0; transform: translate(0, 24px); } 100% { opacity: 1; transform: translate(0, 0); } }
+        .fade-in-x { animation: show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        @media (prefers-reduced-motion: reduce) { .fade-in, .fade-in-x { animation: none !important; } .pre, .pre-x { opacity: 1; transform: none; } }
+      `}</style>
     </section>
   );
 }

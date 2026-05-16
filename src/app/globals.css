@@ -19,13 +19,20 @@
   --color-kairos-orange: #FF6B35;
   --color-kairos-orange-soft: #F89A6E;
 
-  --font-sans: var(--font-noto), sans-serif;
+  /* Givee.co.jp 同等のシステムフォントスタック（ヒラギノ角ゴ優先） */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --font-display: var(--font-outfit), sans-serif;
   /* Shippori 系の Tailwind utility 名は font-memphis-* のまま（既存コンポ多数で使用中） */
   --font-memphis-gothic: var(--font-shippori-gothic), "Shippori Antique B1", sans-serif;
   --font-memphis-mincho: var(--font-shippori-mincho), "Shippori Mincho", serif;
   --font-hand: var(--font-klee), "Klee One", "Yu Mincho", serif;
   --font-brush: var(--font-zen-kurenaido), "Zen Kurenaido", "Yu Mincho", serif;
+}
+
+/* 本文デフォルトを Medium (500) に。Givee 同等の太さ。
+   Tailwind の font-bold / font-semibold / font-light 等は通常通り上書きされる。 */
+body {
+  font-weight: 500;
 }
 
 /* KAIROS ハンド書きフォント */

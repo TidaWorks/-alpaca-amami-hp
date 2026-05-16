@@ -1,5 +1,6 @@
 import AgentHeader from "@/components/agent/AgentHeader";
 import AgentHero from "@/components/agent/AgentHero";
+import AgentAbout from "@/components/agent/AgentAbout";
 import AgentPainPoints from "@/components/agent/AgentPainPoints";
 import AgentFeatures from "@/components/agent/AgentFeatures";
 import AgentUseCases from "@/components/agent/AgentUseCases";
@@ -9,9 +10,9 @@ import AgentFAQ from "@/components/agent/AgentFAQ";
 import AgentCTA from "@/components/agent/AgentCTA";
 
 export const metadata = {
-  title: "LINE自動応答ボット | ALPACA - 奄美のお店の中の人（AI版）",
+  title: "アルパカAI顧問 | ALPACA - 奄美のあなたの会社にAI担当者を月¥50,000で",
   description:
-    "営業時間外も24時間お客様に返事するLINEボットを構築。奄美の飲食店・宿・サロン・観光業向け。月¥8,000〜、構築費¥50,000〜の小さくはじめるAIエージェント。",
+    "奄美大島の事業者向けAI顧問サービス。LINE公式アカウントでの相談無制限、月5時間以内の実装込み、月¥50,000の継続サブスクリプション。AIの導入と運用をまるごとサポート。",
 };
 
 export default function AgentPage() {
@@ -19,6 +20,7 @@ export default function AgentPage() {
     <div className="overflow-x-hidden">
       <AgentHeader />
       <AgentHero />
+      <AgentAbout />
       <AgentPainPoints />
       <AgentFeatures />
       <AgentUseCases />

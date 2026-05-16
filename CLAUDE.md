@@ -28,38 +28,44 @@
   ```
 - 同時に `alpaca/` 配下で他プロジェクトが3001等を使う場合は `next dev --port 3002` 等で逃がす
 
-## ページ構成（3ページ体制：2026-04-27〜）
-玄関ページ（トップ）から、サービス別LP 2本に分岐する構成。
+## ページ構成（4ページ体制：2026-05-10〜）
+玄関ページ（トップ）から、サービス別LP 3本に分岐する構成。
 
 | パス | 役割 | 主要セクション |
 |------|------|----------------|
 | `/` | 玄関ページ。ALPACAブランド全体像 | HomeHeader / HomeHero / HomeServices / HomeWorks / HomeAbout / HomeFlow / HomeFAQ / HomeContact |
-| `/web` | Web制作（HP / LP）専用LP（Memphisデザイン） | WebHeader / WebHero / WebPainPoints / WebFeatures / WebPricing / WebFlow / WebManifesto / WebFAQ / WebCTA |
+| `/web` | ホームページ・LP制作専用LP | WebHeader / WebHero / WebPainPoints / WebFeatures / WebPricing / WebFlow / WebManifesto / WebFAQ / WebCTA |
 | `/system` | 業務システム開発専用LP | SystemHeader / SystemHero / SystemPainPoints / SystemFeatures / SystemPricing / SystemFlow / SystemManifesto / SystemFAQ / SystemCTA |
+| `/agent` | LINE自動化ボット 構築専用LP | AgentHeader / AgentHero / AgentPainPoints / AgentFeatures / AgentPricing / AgentFlow / AgentManifesto / AgentFAQ / AgentCTA |
 
 - `src/app/page.tsx` → トップ
-- `src/app/web/page.tsx` → /web（feat/web-lp-memphis で本番化済）
+- `src/app/web/page.tsx` → /web
 - `src/app/system/page.tsx` → /system
+- `src/app/agent/page.tsx` → /agent
 - `src/app/api/contact/route.ts` → Resend経由のメール送信API
-- `src/components/{home,web,system}/` → 各ページ専用コンポーネント
+- `src/components/{home,web,system,agent}/` → 各ページ専用コンポーネント
 - `src/components/ui/` → 共通UIプリミティブ
 
 旧構成のフラットコンポーネント群（`Header.tsx` / `Hero.tsx` / `BusyPersonSection.tsx` / `Benefits.tsx` / `Services.tsx` / `Flow.tsx` / `FAQ.tsx` / `About.tsx` / `Contact.tsx` / `Footer.tsx`）は2026-04-27 にすべて削除済み。
 旧仕様の Hero 3業種スマホモック切替・KeywordMarquee・Strengths・Services背景パララックスも全廃。
 
-## サービスと料金体系（2026-04-24 更新）
-3本柱で運用。**コピーでは「Web」のような抽象語を使わず、必ず「ホームページ」「LP」「システム」と具体名で書く**。
+## サービスと料金体系（2026-05-10 更新）
+4本柱で運用。**コピーでは「Web」のような抽象語を使わず、必ず「ホームページ」「LP」「システム」「LINEボット」と具体名で書く**。
 
 | サービス | 料金 | 納期 | 保守 |
 |----------|------|------|------|
 | LP制作（1ページ） | ¥70,000〜120,000 | 3日〜1週間 | ¥5,000〜/月 |
 | ホームページ制作（複数ページ） | ¥250,000〜400,000 | 2週間〜4週間 | ¥10,000〜/月 |
 | 業務システム開発（予約・顧客・売上集計など） | ¥300,000〜（要見積） | 要相談 | ¥20,000〜/月 |
+| LINE自動化ボット 構築（FAQ自動応答・予約受付・AI会話） | ¥80,000〜（要見積） | 最短3日〜2週間 | ¥8,000〜/月（API実費別途） |
 
 - サーバー・ドメインを自主管理する場合は保守なし買い切りも可
 - SEOは初期設定のみ（継続SEO対策は範囲外）
 - 写真・ロゴ等の素材はクライアント支給
-- LINE連携はオプション
+- LINE自動化ボットは月¥1,500〜¥7,500目安のAPI実費（Claude API + LINE Messaging API）がクライアント負担で別途発生
+- LINE自動化ボットは最低契約期間なし、月単位で解約可能（解約時は構築FAQデータをお渡し）
+- LINE自動化ボットでは ID/パスワードは預からない（OAuth経由のみ）
+- LINE連携単体オプションはホームページ・システム側でも対応可
 
 ## 営業ルール
 - **レンタカー業界への営業はNG**（本業TukTuk社員のため利益相反）

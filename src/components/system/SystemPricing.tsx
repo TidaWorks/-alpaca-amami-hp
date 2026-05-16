@@ -1,221 +1,181 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
 
 export default function SystemPricing() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect();
+          io.disconnect();
         }
       },
       { threshold: 0.12 }
     );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
+
+  const buildItems = [
+    "業務分析・ヒアリングは無料",
+    "予約・顧客・売上の標準実装",
+    "スマホ・PC両対応のダッシュボード",
+    "マネージドクラウド構成で安全・高速",
+    "LINE自動化ボットはオプション対応",
+  ];
+
+  const maintenanceItems = [
+    "サーバー・データベース・APIの管理を代行",
+    "機能追加・改善要望への都度対応（基本当日）",
+    "障害発生時の即時切り分けと復旧",
+    "月次レポートで改善ポイントを提案",
+    "現場の声を聞いて継続アップデート",
+  ];
 
   return (
     <section
-      ref={sectionRef}
+      ref={ref}
       id="pricing"
-      className="relative bg-white py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
+      className="relative bg-white py-28 md:py-36 px-6 md:px-10 overflow-hidden"
     >
-      <style>{`
-        @keyframes sysPricingShine {
-          0% { transform: translateX(-120%) skewX(-12deg); }
-          60%, 100% { transform: translateX(220%) skewX(-12deg); }
-        }
-        @keyframes sysHeroFloat {
-          0%, 100% { transform: translateY(0) rotate(3deg); }
-          50% { transform: translateY(-3px) rotate(3deg); }
-        }
-      `}</style>
-      <div className="relative max-w-5xl mx-auto">
-        <div
-          className="mb-12 md:mb-14 transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 03
-            </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              PRICING
-            </p>
-          </div>
-          <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-3">
-            業務にあわせた、
+      {/* 雲SVG装飾 */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute -top-10 -right-20 w-[420px] h-auto opacity-30" viewBox="0 0 400 200" fill="none">
+          <ellipse cx="120" cy="120" rx="80" ry="50" fill="#DCE5FF" />
+          <ellipse cx="200" cy="100" rx="100" ry="60" fill="#DCE5FF" />
+          <ellipse cx="290" cy="130" rx="70" ry="45" fill="#DCE5FF" />
+        </svg>
+      </div>
+
+      <div className="relative max-w-[1200px] mx-auto">
+        {/* 章扉 */}
+        <div className="text-center mb-16 md:mb-20" style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 0.7s, transform 0.7s",
+        }}>
+          <p className="inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-5 px-3 py-1 rounded-full bg-[#2860E1]/10">
+            料金 — オーダーメイドの見積
+          </p>
+          <h2 className="text-[#1D2A6E] text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.3] tracking-tight mb-6">
+            要件に合わせた、
             <br className="md:hidden" />
-            <span className="text-[#635BFF]">オーダーメイド</span>
-            の見積もり。
+            <span className="text-[#2860E1]">オーダーメイド</span>。
           </h2>
-          <p className="text-[#1A202C]/70 text-sm">
-            ヒアリング後、必要な機能だけで構成したお見積りをお渡しします。
+          <p className="text-[#2A2E45] text-base md:text-lg leading-loose max-w-2xl mx-auto">
+            ヒアリングのあと、必要な機能だけで構成した正式お見積りをお渡しします。
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
-          {/* 構築費用 */}
+        {/* プラン2枚 */}
+        <div className="grid md:grid-cols-2 gap-6 md:gap-7">
+          {/* 構築 */}
           <div
-            className="group relative bg-white border border-[#E5E7EB] rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-[#635BFF]/40 overflow-hidden"
+            className="relative bg-white rounded-3xl border border-[#E5E9F5] shadow-[0_4px_20px_rgba(40,96,225,0.06)] hover:shadow-[0_12px_36px_rgba(40,96,225,0.14)] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(24px)",
-              transition: "opacity 0.7s ease 100ms, transform 0.5s ease 100ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease",
+              transform: visible ? "translateY(0)" : "translateY(28px)",
+              transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s, box-shadow 0.3s, translate 0.3s",
             }}
           >
-            {/* ホバー時のサブ光彩 */}
-            <span
-              aria-hidden="true"
-              className="absolute -top-20 -right-20 w-48 h-48 rounded-full opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500"
-              style={{ background: "radial-gradient(circle, rgba(99,91,255,0.18) 0%, transparent 70%)" }}
-            />
-            <div className="p-7 md:p-8">
-              <span className="inline-block text-[10px] font-black text-white bg-[#635BFF] rounded-full px-3 py-1 mb-5 tracking-[0.2em]">
-                INITIAL
+            <div className="p-8 md:p-10">
+              <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-[#2860E1] mb-5 px-3 py-1 rounded-full bg-[#F4F6FF]">
+                業務システムを、ゼロから
               </span>
-              <h3 className="text-[#1A202C] text-2xl md:text-3xl font-extrabold mb-2">
+              <h3 className="text-[#1D2A6E] text-2xl md:text-3xl font-bold mb-3">
                 業務システム構築
               </h3>
-              <p className="text-[#1A202C]/65 text-sm mb-6">
-                予約・顧客・売上の一元管理を、最短2週間で。
+              <p className="text-[#2A2E45] text-sm leading-loose mb-8">
+                ヒアリング・設計・開発・納品までを一気通貫で。最短2週間からスタート可能です。
               </p>
 
-              <div className="mb-7 pb-6 border-b border-dashed border-[#E5E7EB]">
+              <div className="mb-8 pb-6 border-b border-[#E5E9F5]">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-base text-[#1A202C]/60 font-bold">¥</span>
-                  <span className="text-5xl md:text-6xl font-extrabold text-[#1A202C] tabular-nums leading-none">
+                  <span className="text-sm text-[#5A6280] font-bold">¥</span>
+                  <span className="text-[#1D2A6E] text-5xl md:text-6xl font-bold tabular-nums leading-none">
                     300,000
                   </span>
-                  <span className="text-base text-[#1A202C]/60 ml-1 font-bold">〜</span>
+                  <span className="text-sm text-[#5A6280] font-bold ml-1">〜</span>
                 </div>
-                <p className="text-xs text-[#1A202C]/55 mt-3">
-                  要件によりお見積り / 納期 2週間〜（規模次第）
-                </p>
+                <p className="text-xs text-[#5A6280] mt-4 tracking-wide font-bold">納期 2週間〜（規模次第）</p>
               </div>
 
-              <ul className="space-y-3 mb-8">
-                {[
-                  "業務分析・ヒアリングは無料",
-                  "予約管理 / 顧客台帳 / 売上集計の標準実装",
-                  "スマホ・PC両対応のダッシュボード",
-                  "マネージドクラウド構成で安全・高速",
-                  "LINE連携（Botや自動応答）はオプション対応",
-                ].map((item) => (
+              <ul className="space-y-3 mb-10">
+                {buildItems.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <svg className="mt-[3px] flex-shrink-0 w-4 h-4 text-[#635BFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span className="text-sm text-[#1A202C] leading-relaxed">{item}</span>
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-[#2860E1]/10 text-[#2860E1] flex items-center justify-center">
+                      <Check className="w-3 h-3" strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    <span className="text-sm text-[#2A2E45] leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>
 
               <a
                 href="#contact"
-                className="group/btn relative block w-full text-center text-sm font-black text-white bg-[#FF6B35] rounded-full py-3.5 shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.02] active:scale-[0.98] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2 transition-all duration-200"
+                className="group inline-flex items-center gap-2 bg-[#2860E1] text-white font-bold text-sm rounded-full px-6 py-3 hover:bg-[#1D4FCE] transition-all duration-300 shadow-[0_4px_12px_rgba(40,96,225,0.25)] hover:shadow-[0_6px_18px_rgba(40,96,225,0.35)]"
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover/btn:opacity-100"
-                  style={{
-                    background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
-                    animation: "sysPricingShine 1.4s ease-out",
-                  }}
-                />
-                <span className="relative z-10">このプランで相談する →</span>
+                このプランで相談する
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} aria-hidden="true" />
               </a>
             </div>
           </div>
 
           {/* 保守 */}
           <div
-            className="group relative bg-gradient-to-br from-[#635BFF]/5 to-[#FFC400]/5 border border-[#E5E7EB] rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-[#FFC400]/40 overflow-hidden"
+            className="relative bg-gradient-to-br from-[#F4F6FF] to-[#EEF1FF] rounded-3xl border border-[#2860E1]/15 shadow-[0_8px_28px_rgba(40,96,225,0.12)] hover:shadow-[0_16px_44px_rgba(40,96,225,0.2)] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(24px)",
-              transition: "opacity 0.7s ease 220ms, transform 0.5s ease 220ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease",
+              transform: visible ? "translateY(0)" : "translateY(28px)",
+              transition: "opacity 0.8s ease 0.42s, transform 0.8s ease 0.42s, box-shadow 0.3s, translate 0.3s",
             }}
           >
-            {/* ホバー時のサブ光彩 */}
-            <span
-              aria-hidden="true"
-              className="absolute -top-20 -right-20 w-48 h-48 rounded-full opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500"
-              style={{ background: "radial-gradient(circle, rgba(255,196,0,0.25) 0%, transparent 70%)" }}
-            />
-            <div className="absolute top-3 right-3 z-10">
-              <div
-                className="bg-[#FFC400] text-[#1A202C] text-[10px] font-black tracking-widest px-3 py-1.5 rounded shadow-md"
-                style={{ animation: "sysHeroFloat 3.6s ease-in-out infinite" }}
-              >
-                ★ 推奨
-              </div>
-            </div>
-
-            <div className="p-7 md:p-8">
-              <span className="inline-block text-[10px] font-black text-[#1A202C] bg-[#FFC400] rounded-full px-3 py-1 mb-5 tracking-[0.2em]">
-                SUPPORT
+            <div className="p-8 md:p-10">
+              <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-white mb-5 px-3 py-1 rounded-full bg-[#2860E1]">
+                納品後も、ずっと並走
               </span>
-              <h3 className="text-[#1A202C] text-2xl md:text-3xl font-extrabold mb-2">
+              <h3 className="text-[#1D2A6E] text-2xl md:text-3xl font-bold mb-3">
                 保守・運用サポート
               </h3>
-              <p className="text-[#1A202C]/65 text-sm mb-6">
-                システムは作って終わりじゃない。育て続ける伴走型サポート。
+              <p className="text-[#2A2E45] text-sm leading-loose mb-8">
+                システムは作って終わりじゃない、現場の声を聞きながら毎月育てる伴走型。
               </p>
 
-              <div className="mb-7 pb-6 border-b border-dashed border-[#E5E7EB]">
+              <div className="mb-8 pb-6 border-b border-[#2860E1]/15">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-base text-[#1A202C]/60 font-bold">¥</span>
-                  <span className="text-5xl md:text-6xl font-extrabold text-[#1A202C] tabular-nums leading-none">
+                  <span className="text-sm text-[#5A6280] font-bold">¥</span>
+                  <span className="text-[#1D2A6E] text-5xl md:text-6xl font-bold tabular-nums leading-none">
                     20,000
                   </span>
-                  <span className="text-base text-[#1A202C]/60 ml-1 font-bold">〜 / 月</span>
+                  <span className="text-sm text-[#5A6280] font-bold ml-1">〜 / 月</span>
                 </div>
-                <p className="text-xs text-[#1A202C]/55 mt-3">
-                  運用規模で調整 / 自主管理なら買い切り対応も可
-                </p>
+                <p className="text-xs text-[#5A6280] mt-4 tracking-wide font-bold">運用規模で調整可能</p>
               </div>
 
-              <ul className="space-y-3 mb-8">
-                {[
-                  "サーバー・データベース・APIの管理を全て代行",
-                  "機能追加・改善要望への都度対応（基本当日）",
-                  "障害発生時の即時切り分けと復旧対応",
-                  "月次レポートで改善ポイントをご提案",
-                  "現場の声に合わせて、システムを継続アップデート",
-                ].map((item) => (
+              <ul className="space-y-3 mb-10">
+                {maintenanceItems.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <svg className="mt-[3px] flex-shrink-0 w-4 h-4 text-[#FFC400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span className="text-sm text-[#1A202C] leading-relaxed">{item}</span>
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-[#2860E1] text-white flex items-center justify-center">
+                      <Check className="w-3 h-3" strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    <span className="text-sm text-[#2A2E45] leading-relaxed flex-1">{item}</span>
                   </li>
                 ))}
               </ul>
 
               <a
                 href="#contact"
-                className="group/btn relative block w-full text-center text-sm font-black text-[#1A202C] bg-[#FFC400] rounded-full py-3.5 shadow-md hover:shadow-xl hover:brightness-95 hover:scale-[1.02] active:scale-[0.98] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC400] focus-visible:ring-offset-2 transition-all duration-200"
+                className="group inline-flex items-center gap-2 bg-[#1D2A6E] text-white font-bold text-sm rounded-full px-6 py-3 hover:bg-[#2860E1] transition-all duration-300 shadow-[0_4px_12px_rgba(29,42,110,0.3)] hover:shadow-[0_6px_18px_rgba(40,96,225,0.4)]"
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover/btn:opacity-100"
-                  style={{
-                    background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.5) 50%, transparent 65%)",
-                    animation: "sysPricingShine 1.4s ease-out",
-                  }}
-                />
-                <span className="relative z-10">保守について相談する →</span>
+                このプランで相談する
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -223,14 +183,10 @@ export default function SystemPricing() {
 
         {/* 注釈 */}
         <p
-          className="text-xs text-[#1A202C]/55 leading-relaxed mt-8 max-w-3xl transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transitionDelay: "350ms",
-          }}
+          className="text-xs md:text-sm text-[#5A6280] leading-loose mt-12 max-w-3xl mx-auto text-center"
+          style={{ opacity: visible ? 1 : 0, transition: "opacity 0.7s ease 0.7s" }}
         >
-          ※ 規模・機能要件により金額は変動します。LINE Bot構築（¥80,000〜）、外部API連携（¥50,000〜/件）など個別オプションも対応可能。
-          詳細はヒアリング後の正式お見積りでご確認いただけます（相談は無料）。
+          ※ 規模・機能要件により金額は変動します。LINE自動化ボット構築（¥80,000〜）、外部API連携（¥50,000〜/件）など個別オプションも対応可能。詳細はヒアリング後の正式お見積りでご確認いただけます（相談は無料）。
         </p>
       </div>
     </section>

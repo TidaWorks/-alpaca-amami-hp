@@ -28,3 +28,15 @@ next-env.d.ts
 
 # 生成画像（探索用、本番反映前のバリエは含めない）
 public/images/generated/
+
+# 実験ルート（本番未採用、ローカル参考用に残置）
+src/app/agent-codex/
+src/app/agent-light/
+src/app/agent-pro/
+src/components/agent-light/
+src/components/agent-pro/
+src/components/agent/AgentHeroCodex.tsx
+public/images/agent-codex/
+public/images/agent-light/
+public/images/agent-pro/
+public/images/agent-pro-v2/

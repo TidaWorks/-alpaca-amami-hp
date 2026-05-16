@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Outfit, Shippori_Antique_B1, Shippori_Mincho, Klee_One, Zen_Kurenaido } from "next/font/google";
+import { Outfit, Shippori_Antique_B1, Shippori_Mincho, Klee_One, Zen_Kurenaido } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import ScrollProgress from "@/components/ScrollProgress";
 import { SITE } from "@/lib/site";
-
-const notoSansJP = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  display: "swap",
-  variable: "--font-noto",
-});
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -234,7 +227,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansJP.variable} ${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} ${kleeOne.variable} ${zenKurenaido.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
+        className={`${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} ${kleeOne.variable} ${zenKurenaido.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
         <ScrollProgress />
         <ScrollResetOnReload />

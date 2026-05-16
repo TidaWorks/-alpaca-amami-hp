@@ -2,168 +2,83 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const steps = [
-  {
-    number: "01",
-    title: "業務分析・要件定義",
-    badge: "無料",
-    color: "#635BFF",
-    description: "現場で何にどれだけ時間がかかっているか、丁寧にヒアリング。島内なら直接お伺いします。",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-    ),
-  },
-  {
-    number: "02",
-    title: "プロトタイプ制作",
-    badge: "約2〜4週間",
-    color: "#FFC400",
-    description: "本格実装の前に、画面イメージで動きを確認。ズレがあればこの段階で修正できます。",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    number: "03",
-    title: "本番実装＆運用開始",
-    badge: "ずっと伴走",
-    color: "#0EA5E9",
-    description: "実際のデータで運用スタート。使いながら気付いた改善要望にも、保守でずっと対応します。",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <polyline points="22 4 12 14.01 9 11.01" />
-      </svg>
-    ),
-  },
+const STEPS = [
+  { no: "01", title: "ヒアリング（無料）", body: "現場業務・既存ツール・担当者の動きを直接お聞きし、必要な機能を切り分けます。", duration: "無料" },
+  { no: "02", title: "設計・お見積もり", body: "業務フロー図・画面イメージ・データベース設計をご提示。範囲と費用を合意します。", duration: "1〜2週間" },
+  { no: "03", title: "構築（実装）", body: "Next.js + Supabase ベースで安全に構築。途中段階で動くものを見てもらいながら進めます。", duration: "1〜3ヶ月" },
+  { no: "04", title: "納品・操作レクチャー", body: "本番環境へリリース、現場スタッフ向けの操作レクチャー実施。マニュアル動画も用意。", duration: "1日〜" },
+  { no: "05", title: "保守・改善", body: "月額保守でサーバー管理・障害対応・機能追加要望に都度対応。継続アップデート可。", duration: "運用中" },
 ];
 
 export default function SystemFlow() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { setRevealed(true); io.disconnect(); } }); },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
     );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) { setRevealed(true); io.disconnect(); }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => { io.disconnect(); window.clearTimeout(failsafeId); };
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="flow"
-      className="relative bg-[#F8FAFC] py-20 md:py-28 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
-    >
-      <style>{`
-        @keyframes sysFlowConnectorPulse {
-          0%, 100% { transform: translateY(-50%) translateX(0); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-          50% { transform: translateY(-50%) translateX(3px); box-shadow: 0 4px 12px rgba(99,91,255,0.18); }
-        }
-      `}</style>
-      <div className="relative max-w-5xl mx-auto">
-        <div
-          className="mb-14 md:mb-16 transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-          }}
-        >
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 04
+    <section ref={sectionRef} className="relative overflow-hidden bg-[#FAFAFA] py-24 md:py-32">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-16">
+          <div>
+            <p className={`inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.05s" }}>
+              FLOW — ヒアリングから保守まで
             </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              FLOW
-            </p>
+            <h2 className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.15s" }}>
+              業務システム構築の
+              <br />
+              <span className="text-[#2860E1]">5ステップ</span>
+            </h2>
           </div>
-          <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight">
-            導入の
-            <br className="md:hidden" />
-            <span className="text-[#635BFF]">流れ</span>
-            。
-          </h2>
+          <p className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.3s" }}>
+            ヒアリングは無料、納品後の保守まで一気通貫。<span className="text-[#1D2A6E] font-bold">最短2ヶ月</span>で本番運用までいけます。
+          </p>
         </div>
 
-        <div className="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-8 relative">
-          {steps.map((step, i) => (
-            <div key={step.number} className="relative">
-              {i < steps.length - 1 && (
-                <div
-                  className="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-white border border-[#E5E7EB] rounded-full shadow-sm"
-                  style={{ animation: `sysFlowConnectorPulse 2.4s ease-in-out ${i * 0.4}s infinite` }}
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#635BFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </div>
-              )}
+        <div className={`mb-12 md:mb-16 bg-white border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.3s" }}>
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/system-v3/08-flow-sp.png" />
+            <img src="/images/system-v3/04-flow-pc.png" alt="ヒアリングから保守までの5ステップ" className="w-full h-auto" width={1920} height={1080} />
+          </picture>
+        </div>
 
-              <div
-                className="group relative bg-white border border-[#E5E7EB] rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-transparent overflow-hidden"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(24px)",
-                  transition: `opacity 0.7s ease ${150 + i * 120}ms, transform 0.5s ease ${150 + i * 120}ms, box-shadow 0.4s ease, border-color 0.3s ease, translate 0.3s ease`,
-                }}
-              >
-                {/* ホバー時の薄いグロウ */}
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-25 blur-3xl transition-opacity duration-500"
-                  style={{ background: step.color }}
-                />
-
-                <div className="relative flex items-center gap-4 mb-4">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300"
-                    style={{ background: step.color }}
-                  >
-                    {step.icon}
-                  </div>
-                  <span
-                    className="text-5xl md:text-6xl font-extrabold leading-none tabular-nums group-hover:scale-105 transition-transform duration-300 origin-left"
-                    style={{ color: step.color }}
-                  >
-                    {step.number}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  <h3 className="text-[#1A202C] text-xl font-extrabold">
-                    {step.title}
-                  </h3>
-                  <span
-                    className="text-[10px] font-black tracking-widest rounded-full px-2 py-0.5 whitespace-nowrap"
-                    style={{ background: `${step.color}1A`, color: step.color }}
-                  >
-                    {step.badge}
-                  </span>
-                </div>
-
-                <p className="text-[#1A202C]/70 text-sm leading-relaxed">
-                  {step.description}
-                </p>
+        <div className="relative max-w-4xl mx-auto bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden">
+          {STEPS.map((step, i) => (
+            <div key={step.no} className={`group relative grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-start py-8 md:py-10 px-6 md:px-10 border-b border-[#E5E9F5] last:border-0 hover:bg-[#FAFAFA] transition-colors duration-200 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.5 + i * 0.08}s` }}>
+              <span className="relative font-bold text-[#1D2A6E] text-4xl md:text-5xl tracking-tight leading-none tabular-nums z-10 inline-flex items-center justify-center w-14 h-14 rounded-full bg-white ring-2 ring-[#2860E1]/40">
+                <span className="text-[#2860E1] text-base">{step.no}</span>
+              </span>
+              <div>
+                <h3 className="font-bold text-[#1D2A6E] text-xl md:text-2xl mb-3 leading-snug">{step.title}</h3>
+                <p className="text-[#5A6280] text-sm md:text-[15px] leading-loose">{step.body}</p>
               </div>
+              <span className="self-start md:self-center inline-flex items-center text-xs font-bold tracking-widest text-[#2860E1] bg-[#EEF1FF] ring-1 ring-[#2860E1]/30 px-4 py-2 rounded-full whitespace-nowrap">{step.duration}</span>
             </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .pre { opacity: 0; transform: translateY(28px); }
+        @keyframes show-up { 0% { opacity: 0; transform: translateY(28px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: show-up 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        .pre-x { opacity: 0; transform: translate(0, 24px); }
+        @keyframes show-x { 0% { opacity: 0; transform: translate(0, 24px); } 100% { opacity: 1; transform: translate(0, 0); } }
+        .fade-in-x { animation: show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        @media (prefers-reduced-motion: reduce) { .fade-in, .fade-in-x { animation: none !important; } .pre, .pre-x { opacity: 1; transform: none; } }
+      `}</style>
     </section>
   );
 }

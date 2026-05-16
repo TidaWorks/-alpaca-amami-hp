@@ -1,98 +1,136 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FAQS = [
   {
-    q: "AIの返答内容は信頼できますか？間違ったらどうなりますか？",
-    a: "AIには「お店の情報以外は答えない」「不確かなことは人間に確認するよう案内する」という指示を入れています。重要な質問・複雑な相談はAIが判断して、オーナーさんのスマホに即通知が飛ぶ仕組みです。AIに任せきりにはしません。",
+    q: "どこから相談すればいいですか？",
+    a: "契約後にご案内するLINE公式アカウントに、業務の悩みでもツール選びでも、なんでも気軽にお送りください。営業日24時間以内に返信します。",
   },
   {
-    q: "うちのお店のID・パスワードを預けるのは不安です",
-    a: "ご安心ください。ID/パスワードはお預かりしません。LINE公式アカウントの公式機能（Messaging API）を使ってOAuth認証で連携します。お店の管理画面はオーナーさんが完全に持ったままです。",
+    q: "月5時間以内の軽実装って、どれくらいの作業が含まれますか？",
+    a: "簡易LINE botの構築、Notionテンプレ作成・運用設計、Zapier等を使った自動化、ChatGPTのプロンプト整備、ホームページの軽微な修正など。「中程度のNotionワークスペース構築」「シンプルなLINEボットの叩き台」くらいが目安です。",
   },
   {
-    q: "途中で解約できますか？",
-    a: "はい、最低契約期間はありません。月単位でいつでも解約可能です。解約後はAIスタッフは停止しますが、構築したFAQデータはお渡しします。",
+    q: "もっと大きな案件をお願いしたい場合はどうなりますか？",
+    a: "本格的なLINEボット構築・ホームページ制作・業務システム開発が必要になった場合は、顧問特典価格にてお見積もりします。通常価格より割引価格でご案内します。",
   },
   {
-    q: "API実費とは何ですか？",
-    a: "AIが返答するためのClaude APIや、LINE Messaging APIの利用料です。お店の問い合わせ件数によりますが、月¥1,500〜¥7,500が目安です。請求は実費分をクライアント様に直接ご負担いただく形になります。",
+    q: "解約したい時はどうすればいいですか？",
+    a: "最低契約期間は3ヶ月です。4ヶ月目以降はいつでも月単位で解約可能です。解約申請は前月末までにLINE経由でご連絡ください。",
   },
   {
-    q: "奄美外のお店でも依頼できますか？",
-    a: "はい、ご相談可能です。ALPACAは奄美大島が拠点ですが、LINEボット構築は完全リモートで対応できます。打ち合わせはオンラインで実施します。",
+    q: "島外(鹿児島本土・東京等)でも契約できますか？",
+    a: "はい、オンラインで完結します。LINE公式アカウント＋オンラインミーティングで運用するため、所在地に関係なくご利用いただけます。",
   },
   {
-    q: "AIエージェントって、つまり何ですか？",
-    a: "「人間の代わりに、決められた業務を自動でこなしてくれるAI」のことです。今回のLINE自動応答は、AIエージェントの中でも「お店の問い合わせ対応に特化したスタッフ」というイメージです。",
+    q: "業種制限はありますか？",
+    a: "基本的にどの業種でも対応可能です。ただし、レンタカー業界は代表が本業で関わっており、利益相反となるためお受けできません。",
+  },
+  {
+    q: "ChatGPTやLINEの月額利用料は別ですか？",
+    a: "はい、ツール側のAPI料金や月額利用料は別途実費でご負担いただきます。導入時にコストの見立てもご案内します。",
+  },
+  {
+    q: "ALPACAの実績を教えてください",
+    a: "TukTuk（レンタカー事業）でのAI活用・社内システム構築実績、Threads/Xでのキャラクター自動運用実績、ホームページ・LP制作実績などがあります。詳しくは別途事例集をお送りします。",
   },
 ];
 
 export default function AgentFAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      setRevealed(true);
+      io.disconnect();
+    }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafeId);
+    };
+  }, []);
 
   return (
-    <section id="faq" className="relative py-24 md:py-32 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
+    <section
+      id="faq"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-white py-24 md:py-32"
+    >
+      <div className="relative max-w-[1080px] mx-auto px-6 md:px-10">
         {/* セクション見出し */}
-        <div className="text-center mb-14 md:mb-16">
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 06
-            </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              FAQ
-            </p>
-          </div>
-          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
+        <div className="text-center mb-14 md:mb-20">
+          <p
+            className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in" : "pre"}`}
+            style={{ animationDelay: "0.05s" }}
+          >
+            FAQ — よくあるご質問
+          </p>
+          <h2
+            className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in" : "pre"}`}
+            style={{ animationDelay: "0.15s" }}
+          >
             よくある
-            <span className="relative inline-block">
-              <span className="relative z-10">ご質問</span>
-              <span className="absolute inset-x-0 bottom-1 h-[35%] bg-[#635BFF]/30 -z-0" aria-hidden="true" />
-            </span>
+            <br />
+            <span className="text-[#12C998]">ご質問</span>
           </h2>
         </div>
 
         {/* アコーディオン */}
-        <div className="space-y-3">
+        <div className="bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl overflow-hidden">
           {FAQS.map((faq, i) => {
             const isOpen = openIdx === i;
             return (
               <div
                 key={i}
-                className={`rounded-2xl ring-1 transition-all duration-300 ${
-                  isOpen
-                    ? "bg-[#F5F3FF] ring-[#635BFF]/30 shadow-[0_8px_24px_-8px_rgba(99,91,255,0.18)]"
-                    : "bg-white ring-[#1A202C]/10 hover:ring-[#1A202C]/20"
-                }`}
+                className={`border-b border-[#E5E9F5] last:border-0 transition-colors duration-300 ${
+                  isOpen ? "bg-white" : "hover:bg-white"
+                } ${revealed ? "fade-in" : "pre"}`}
+                style={{ animationDelay: `${0.25 + i * 0.05}s` }}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIdx(isOpen ? null : i)}
-                  className="w-full text-left px-5 md:px-7 py-5 flex items-start gap-4 cursor-pointer"
+                  className="w-full text-left px-6 md:px-10 py-7 md:py-8 flex items-start gap-6 cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-memphis-gothic font-black text-[#635BFF] text-sm flex-shrink-0 pt-[2px]">
+                  <span className="font-bold text-[#12C998] text-base md:text-lg tracking-wider flex-shrink-0 pt-[3px] tabular-nums">
                     Q{String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1 font-memphis-mincho font-extrabold text-[#1A202C] text-[15px] md:text-base leading-snug">
+                  <span className="flex-1 font-bold text-[#1D2A6E] text-base md:text-lg leading-snug">
                     {faq.q}
                   </span>
                   <span
-                    className={`flex-shrink-0 w-7 h-7 rounded-full bg-white ring-1 ring-[#1A202C]/15 flex items-center justify-center transition-transform duration-300 ${
-                      isOpen ? "rotate-45 bg-[#FF3D7F] ring-0" : ""
+                    className={`flex-shrink-0 w-10 h-10 rounded-full bg-[#E8F9F3] ring-1 ring-[#12C998]/40 flex items-center justify-center transition-all duration-500 ${
+                      isOpen ? "rotate-45 bg-[#12C998] ring-[#12C998]" : ""
                     }`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={isOpen ? "white" : "#1A202C"} strokeWidth="3" strokeLinecap="round">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={isOpen ? "white" : "#12C998"} strokeWidth="2.5" strokeLinecap="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="px-5 md:px-7 pb-5 pt-0 ml-12">
-                    <p className="text-[#1A202C]/75 text-[13px] md:text-sm leading-[2]">
+                  <div className="px-6 md:px-10 pb-8 md:pb-10 ml-[2.5rem] md:ml-[3rem]">
+                    <p className="text-[#5A6280] text-sm md:text-[15px] leading-loose max-w-2xl">
                       {faq.a}
                     </p>
                   </div>
@@ -102,6 +140,17 @@ export default function AgentFAQ() {
           })}
         </div>
       </div>
+
+      <style>{`
+        .pre { opacity: 0; transform: translateY(28px); }
+        @keyframes show-up { 0% { opacity: 0; transform: translateY(28px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: show-up 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .fade-in { animation: none !important; }
+          .pre { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 }

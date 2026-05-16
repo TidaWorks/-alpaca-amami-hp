@@ -1,212 +1,243 @@
 "use client";
 
-const PLANS = [
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
+
+const INCLUDED = [
+  "LINE公式アカウントで相談無制限（営業日24時間以内返信）",
+  "月5時間以内の軽実装(簡易LINE bot・Notion・Zapier・ChatGPT活用等)",
+  "月1テキストレポート（AI最新情報＋御社向けご提案）",
+  "大型案件の顧問特典価格",
+];
+
+const SPOT = [
+  { label: "定例MTG", price: "¥10,000", unit: "/30分" },
+  { label: "月5時間超過分", price: "¥10,000", unit: "/時間" },
+];
+
+const DISCOUNT = [
   {
-    name: "ライト",
-    badge: "はじめての方に",
-    badgeColor: "bg-[#12C998]",
-    initial: "¥50,000",
-    monthly: "¥8,000",
-    desc: "まずは試してみたい、という方向けの最小構成。FAQ自動応答と簡単な予約受付に絞った導入パック。",
-    items: [
-      "FAQ自動応答（10問まで）",
-      "予約受付（日付・人数・名前）",
-      "スプシ連携（自動記録）",
-      "月次レポート",
-      "メール/LINEサポート",
-    ],
-    cta: "ライトで相談する",
-    featured: false,
+    label: "LINEボット本構築",
+    normal: "通常 ¥80,000〜",
+    discount: "顧問特典価格でお見積もり",
   },
   {
-    name: "スタンダード",
-    badge: "人気プラン",
-    badgeColor: "bg-[#FF3D7F]",
-    initial: "¥150,000",
-    monthly: "¥20,000",
-    desc: "本格的にお店の運営に組み込みたい方向け。会話の自由度と通知連携を強化。",
-    items: [
-      "FAQ自動応答（無制限）",
-      "予約受付（カスタマイズ可）",
-      "重要案件の人間通知",
-      "お店の口調を学習",
-      "週次レポート＋月次MTG",
-      "FAQメンテ（月1回）",
-    ],
-    cta: "スタンダードで相談する",
-    featured: true,
+    label: "ホームページ制作",
+    normal: "通常 ¥250,000〜",
+    discount: "顧問特典価格でお見積もり",
   },
   {
-    name: "プロ",
-    badge: "完全カスタム",
-    badgeColor: "bg-[#635BFF]",
-    initial: "¥250,000〜",
-    monthly: "¥40,000〜",
-    desc: "業務フロー全体を自動化したい方向け。POS連携・売上集計・複数ボット連動まで対応。",
-    items: [
-      "スタンダードの全機能",
-      "業務フロー自動化",
-      "POS/Square等の連携",
-      "売上・在庫データ集計",
-      "週次MTG＋随時改修",
-      "優先サポート",
-    ],
-    cta: "プロで相談する",
-    featured: false,
+    label: "業務システム開発",
+    normal: "通常 ¥300,000〜",
+    discount: "顧問特典価格でお見積もり",
   },
 ];
 
 export default function AgentPricing() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      setRevealed(true);
+      io.disconnect();
+    }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafeId);
+    };
+  }, []);
+
   return (
-    <section id="pricing" className="relative py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section
+      id="pricing"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-white py-24 md:py-32"
+    >
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         {/* セクション見出し */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 04
-            </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              PRICING
-            </p>
-          </div>
-          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
-            シンプルな
-            <span className="relative inline-block">
-              <span className="relative z-10">3プラン</span>
-              <span className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FF3D7F]/30 -z-0" aria-hidden="true" />
-            </span>
+        <div className="text-center mb-14 md:mb-20">
+          <p
+            className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in" : "pre"}`}
+            style={{ animationDelay: "0.05s" }}
+          >
+            PRICING — 月額一本
+          </p>
+          <h2
+            className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-7 ${revealed ? "fade-in" : "pre"}`}
+            style={{ animationDelay: "0.15s" }}
+          >
+            料金は、
+            <br className="md:hidden" />
+            <span className="text-[#12C998]">月¥50,000の一本</span>
+            。
           </h2>
-          <p className="text-[#1A202C]/70 text-sm md:text-base font-bold leading-relaxed">
-            お店の規模に合わせて選べます。途中変更も可能です。
+          <p
+            className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in" : "pre"}`}
+            style={{ animationDelay: "0.3s" }}
+          >
+            入会金なし、最低契約期間3ヶ月、4ヶ月目以降は月単位で解約可能です。
           </p>
         </div>
 
-        {/* 3プラン */}
-        <div className="grid md:grid-cols-3 gap-6 md:gap-7">
-          {PLANS.map((p) => (
-            <div
-              key={p.name}
-              className={`relative rounded-3xl p-8 transition-all duration-300 ${
-                p.featured
-                  ? "bg-gradient-to-br from-[#1A1B3F] via-[#3B2C73] to-[#635BFF] text-white shadow-[0_20px_60px_-12px_rgba(99,91,255,0.45)] md:scale-105"
-                  : "bg-[#F5F3FF] ring-1 ring-[#1A202C]/8 hover:shadow-[0_12px_40px_-8px_rgba(99,91,255,0.18)] hover:-translate-y-1"
-              }`}
-            >
-              {/* バッジ */}
-              <span
-                className={`absolute -top-3 left-1/2 -translate-x-1/2 ${p.badgeColor} text-white font-black text-[10px] tracking-widest px-3 py-1.5 rounded-full shadow-md`}
-              >
-                {p.badge}
+        {/* メインプラン */}
+        <div className={`relative border border-[#E5E9F5] rounded-3xl overflow-hidden mb-12 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.4s" }}>
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-0">
+            {/* 左：商品名＋含まれるもの */}
+            <div className="p-10 md:p-14 bg-white md:border-r border-[#E5E9F5]">
+              <span className="inline-block text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-6">
+                月額サブスクリプション
               </span>
-
-              <div className="text-center mb-6 mt-2">
-                <h3
-                  className={`font-memphis-mincho font-extrabold text-2xl mb-2 ${
-                    p.featured ? "text-white" : "text-[#1A202C]"
-                  }`}
-                >
-                  {p.name}
-                </h3>
-              </div>
-
-              {/* 価格 */}
-              <div
-                className={`text-center mb-6 pb-6 border-b ${
-                  p.featured ? "border-white/20" : "border-[#1A202C]/10"
-                }`}
-              >
-                <div className="flex items-baseline justify-center gap-1 mb-1.5">
-                  <span
-                    className={`text-[10px] font-bold ${
-                      p.featured ? "text-white/70" : "text-[#1A202C]/60"
-                    }`}
-                  >
-                    構築費
-                  </span>
-                  <span
-                    className={`font-memphis-gothic font-black text-2xl ${
-                      p.featured ? "text-white" : "text-[#1A202C]"
-                    }`}
-                  >
-                    {p.initial}
-                  </span>
-                </div>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span
-                    className={`text-[10px] font-bold ${
-                      p.featured ? "text-white/70" : "text-[#1A202C]/60"
-                    }`}
-                  >
-                    月額
-                  </span>
-                  <span
-                    className={`font-memphis-gothic font-black text-3xl ${
-                      p.featured ? "text-[#12C998]" : "text-[#635BFF]"
-                    }`}
-                  >
-                    {p.monthly}
-                  </span>
-                  <span
-                    className={`text-[10px] font-bold ${
-                      p.featured ? "text-white/70" : "text-[#1A202C]/60"
-                    }`}
-                  >
-                    /月
-                  </span>
-                </div>
-              </div>
-
-              <p
-                className={`text-[12px] leading-[1.9] mb-5 ${
-                  p.featured ? "text-white/80" : "text-[#1A202C]/70"
-                }`}
-              >
-                {p.desc}
+              <h3 className="text-[#1D2A6E] text-3xl md:text-5xl font-bold leading-tight mb-6">
+                アルパカAI顧問
+              </h3>
+              <p className="text-[#5A6280] text-base leading-loose mb-10">
+                奄美のあなたの会社のAI担当者として、
+                <br className="hidden md:block" />
+                日々の相談から軽実装まで、まるっとお引き受けします。
               </p>
 
-              <ul className="space-y-2.5 mb-7">
-                {p.items.map((item) => (
-                  <li
-                    key={item}
-                    className={`text-[12px] flex items-start gap-2 ${
-                      p.featured ? "text-white/90" : "text-[#1A202C]/85"
-                    }`}
-                  >
-                    <span
-                      className={`mt-[3px] flex-shrink-0 w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] font-black ${
-                        p.featured ? "bg-[#12C998] text-white" : "bg-[#635BFF] text-white"
-                      }`}
-                    >
-                      ✓
+              <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-5">
+                含まれるもの
+              </p>
+              <ul className="space-y-4">
+                {INCLUDED.map((item) => (
+                  <li key={item} className="flex items-start gap-4 text-[#1A1A1A] text-sm md:text-[15px]">
+                    <span className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#12C998] text-white flex items-center justify-center">
+                      <Check className="w-3 h-3" strokeWidth={3.5} aria-hidden="true" />
                     </span>
-                    <span className="font-bold leading-snug">{item}</span>
+                    <span className="font-bold leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>
-
-              <a
-                href="#contact"
-                className={`block text-center font-black text-sm rounded-full px-5 py-3 transition-all hover:scale-[1.03] active:scale-[0.97] ${
-                  p.featured
-                    ? "bg-[#FF6B35] text-white shadow-md hover:shadow-lg hover:bg-[#15296B]"
-                    : "bg-[#1A202C] text-white hover:bg-[#FF6B35]"
-                }`}
-              >
-                {p.cta} →
-              </a>
             </div>
-          ))}
+
+            {/* 右：価格＋CTA — ミントベタ塗り */}
+            <div className="relative p-10 md:p-14 flex flex-col justify-center bg-[#12C998] overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none opacity-[0.12]" aria-hidden="true" style={{
+                backgroundImage: "radial-gradient(rgba(255,255,255,1) 1px, transparent 1px)",
+                backgroundSize: "22px 22px",
+              }} />
+              <div className="relative">
+                <p className="text-[10px] font-bold tracking-[0.4em] text-white/80 mb-3">
+                  月額
+                </p>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="font-bold text-white text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none tabular-nums">
+                    ¥50,000
+                  </span>
+                </div>
+                <p className="text-white/85 text-xs font-bold mb-10">
+                  入会金なし／最低契約期間3ヶ月
+                </p>
+
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center justify-between gap-2 w-full bg-white text-[#1D2A6E] font-bold text-sm md:text-base rounded-full pl-7 pr-2 py-2 hover:bg-[#1D2A6E] hover:text-white transition-colors duration-300"
+                >
+                  無料で相談する
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#1D2A6E] text-white group-hover:bg-white group-hover:text-[#1D2A6E] transition-all duration-300 group-hover:rotate-[-45deg]">
+                    <ArrowRight className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+                  </span>
+                </a>
+                <p className="text-white/85 text-[11px] font-bold text-center mt-4">
+                  30分のオンラインヒアリングから
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* 注釈 */}
-        <p className="text-center text-[#1A202C]/55 text-[11px] font-bold mt-10 leading-relaxed">
-          ※ Claude API・LINE API等の実費はクライアント負担となります（月¥1,500〜¥7,500目安）
-          <br />
-          ※ 業種・要件により変動。詳細はお見積もりにてご案内します。
-        </p>
+        {/* スポット追加 + 顧問特典価格 */}
+        <div className="grid md:grid-cols-2 gap-5 mb-14">
+          <div className={`bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.6s" }}>
+            <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-6">
+              スポット追加
+            </p>
+            <ul className="space-y-5">
+              {SPOT.map(({ label, price, unit }) => (
+                <li key={label} className="flex items-baseline justify-between gap-3 pb-5 border-b border-[#E5E9F5] last:border-0 last:pb-0">
+                  <span className="text-[#1D2A6E] text-sm md:text-base font-bold leading-snug">
+                    {label}
+                  </span>
+                  <span className="flex items-baseline gap-1 flex-shrink-0">
+                    <span className="font-bold text-[#1D2A6E] text-2xl tabular-nums">
+                      {price}
+                    </span>
+                    <span className="text-[#5A6280] text-xs font-bold">
+                      {unit}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[#5A6280] text-xs font-bold leading-relaxed mt-5">
+              ※ 超過分は翌月への繰越なし
+            </p>
+          </div>
+
+          <div className={`bg-white border-2 border-[#12C998]/40 rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.7s" }}>
+            <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-6">
+              顧問特典価格
+            </p>
+            <ul className="space-y-5">
+              {DISCOUNT.map(({ label, normal, discount }) => (
+                <li key={label} className="pb-5 border-b border-[#E5E9F5] last:border-0 last:pb-0">
+                  <p className="text-[#1D2A6E] text-sm md:text-base font-bold leading-snug">
+                    {label}
+                  </p>
+                  <p className="text-[#5A6280] text-xs font-bold mt-1 line-through">
+                    {normal}
+                  </p>
+                  <p className="text-[#12C998] text-xs font-bold mt-1">
+                    → {discount}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* 最後のCTAボタン */}
+        <div className="text-center">
+          <a
+            href="#contact"
+            className="group inline-flex items-center gap-3 bg-[#12C998] text-white font-bold text-base md:text-lg pl-9 pr-2 py-2 rounded-full hover:bg-[#0DA67D] transition-colors duration-200"
+          >
+            無料で相談する
+            <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-[#12C998] transition-transform duration-300 group-hover:rotate-[-45deg]">
+              <ArrowRight className="w-5 h-5" strokeWidth={2.5} aria-hidden="true" />
+            </span>
+          </a>
+        </div>
       </div>
+
+      <style>{`
+        .pre { opacity: 0; transform: translateY(32px); }
+        @keyframes show-up { 0% { opacity: 0; transform: translateY(32px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: show-up 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .fade-in { animation: none !important; }
+          .pre { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 }

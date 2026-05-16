@@ -1,207 +1,193 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+
+function NumberTicker({ to, suffix = "", duration = 1200, start = false }: { to: number; suffix?: string; duration?: number; start?: boolean }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let rafId: number;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const progress = Math.min(1, (t - t0) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.floor(to * eased));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+      else setValue(to);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [to, duration, start]);
+  return <span className="tabular-nums">{value.toLocaleString("ja-JP")}{suffix}</span>;
+}
 
 export default function SystemHero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            io.disconnect();
+          }
+        });
       },
-      { threshold: 0.15 }
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
     );
     io.observe(el);
-    return () => io.disconnect();
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      setRevealed(true);
+      io.disconnect();
+    }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafeId);
+    };
   }, []);
 
   return (
     <section
       id="concept"
-      ref={ref}
-      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#EFF6FF] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28 min-h-[640px] md:min-h-[680px]"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-white pb-16 md:pb-24"
     >
-      {/* フルブリード背景画像（PC=ワイド / モバイル=縦） */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* PC: ワイド版、左→右に溶ける */}
-        <div
-          className="hidden md:block absolute inset-0"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
-            maskImage:
-              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
-          }}
-        >
-          <Image
-            src="/images/system-hero.png"
-            alt="奄美の事業者がノートPCで業務システムを操作する様子"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-right"
-          />
-        </div>
-        {/* モバイル: 縦版、上→下に画像、テキストエリア上にフェード */}
-        <div className="md:hidden absolute inset-0">
-          <Image
-            src="/images/system-hero-mobile.png"
-            alt="奄美の事業者がノートPCで業務システムを操作する様子"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          {/* 上半分を白くフェード（テキスト可読性） */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F3FF]/95 via-[#F5F3FF]/60 to-transparent" />
-        </div>
-        {/* 下端を背景に溶かすフェード */}
-        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-[#EFF6FF]" />
+      {/* 背景：薄ブルー＋雲SVG */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-[#F4F6FF] to-[#EEF1FF]" />
+        <svg className="absolute top-[8%] right-[6%] w-[280px] md:w-[400px] h-auto opacity-50" viewBox="0 0 400 200" fill="none">
+          <ellipse cx="120" cy="120" rx="80" ry="50" fill="#DCE5FF" />
+          <ellipse cx="200" cy="100" rx="100" ry="60" fill="#DCE5FF" />
+          <ellipse cx="290" cy="130" rx="70" ry="45" fill="#DCE5FF" />
+        </svg>
       </div>
 
-      {/* 装飾：波 */}
-      <svg
-        aria-hidden="true"
-        className="absolute -top-12 right-0 w-[420px] md:w-[640px] opacity-40 pointer-events-none z-[1]"
-        viewBox="0 0 600 200"
-        fill="none"
-        style={{ animation: "sysHeroWaveDrift 8s ease-in-out infinite" }}
-      >
-        <path
-          d="M0 100 Q 75 40 150 100 T 300 100 T 450 100 T 600 100"
-          stroke="#635BFF"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M0 130 Q 75 70 150 130 T 300 130 T 450 130 T 600 130"
-          stroke="#DBEAFE"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
+      {/* 上部：ヘッドライン + Heroビジュアル */}
+      <div className="relative pt-28 md:pt-36">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 grid md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-center">
+          {/* 左：ヘッドライン */}
+          <div>
+            <p
+              className={`inline-flex items-center gap-2 text-[11px] tracking-[0.3em] text-[#2860E1] font-bold mb-7 border border-[#2860E1]/30 bg-[#2860E1]/10 rounded-full px-4 py-2 ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.05s" }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2860E1] animate-pulse" />
+              業務システム開発 · 奄美大島
+            </p>
+
+            <h1
+              className={`text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-8 md:mb-10 ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.15s" }}
+            >
+              業務を、
+              <br />
+              <span className="text-[#2860E1]">ひとつの仕組み</span>
+              <br />
+              に。
+            </h1>
+
+            <p
+              className={`text-[#5A6280] text-base md:text-lg leading-loose mb-10 max-w-xl ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.3s" }}
+            >
+              奄美大島の業務システム開発スタジオ。
+              <br className="hidden md:block" />
+              現場を聞いて、必要な機能だけの仕組みをゼロからつくります。
+              <br className="hidden md:block" />
+              納品後の運用も並走します。
+            </p>
+
+            <div
+              className={`flex flex-wrap items-center gap-5 ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.45s" }}
+            >
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-3 bg-[#2860E1] text-white font-bold text-sm pl-7 pr-2 py-2 rounded-full hover:bg-[#1D4FCE] transition-colors duration-200"
+              >
+                無料で相談する
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#2860E1] transition-transform duration-300 group-hover:rotate-[-45deg]">
+                  <ArrowRight className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+                </span>
+              </a>
+              <a
+                href="#features"
+                className="group inline-flex items-baseline gap-2 text-sm font-bold text-[#1D2A6E]"
+              >
+                <span className="relative">
+                  できることを見る
+                  <span className="absolute left-0 -bottom-[3px] w-full h-[1.5px] bg-[#1D2A6E] scale-x-100 origin-left transition-transform duration-500 group-hover:scale-x-0" />
+                </span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+
+          {/* 右：Heroビジュアル画像 */}
+          <div className={`relative ${revealed ? "fade-in-up" : "pre-up"}`} style={{ animationDelay: "0.4s" }}>
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/images/system-v3/05-hero-sp.png" />
+              <img
+                src="/images/system-v3/01-hero-pc.png"
+                alt="奄美の事業者が業務システムのダッシュボードを使うイメージ"
+                className="w-full h-auto rounded-2xl"
+                width={1920}
+                height={1080}
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+
+      {/* 信頼ポイント帯 */}
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
+        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.6s" }}>
+          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#2860E1]/40 transition-colors duration-300">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">EFFICIENCY</p>
+            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
+              月末集計<NumberTicker to={3} start={revealed} />
+              <span className="text-base ml-1">時間→5分</span>
+            </p>
+            <p className="text-[12px] text-[#5A6280] font-bold">手作業から自動集計へ</p>
+          </div>
+          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#2860E1]/40 transition-colors duration-300">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">CUSTOM</p>
+            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
+              業務に<NumberTicker to={100} start={revealed} />
+              <span className="text-base ml-1">%合わせる</span>
+            </p>
+            <p className="text-[12px] text-[#5A6280] font-bold">市販ソフトじゃない、現場仕様</p>
+          </div>
+          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#2860E1]/40 transition-colors duration-300">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">PRICE</p>
+            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
+              ¥<NumberTicker to={300000} start={revealed} />
+              <span className="text-base ml-1">〜</span>
+            </p>
+            <p className="text-[12px] text-[#5A6280] font-bold">構築費用は要見積もり</p>
+          </div>
+        </div>
+      </div>
 
       <style>{`
-        @keyframes sysHeroWaveDrift {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(-12px); }
-        }
-        @keyframes sysHeroSpin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes sysHeroShine {
-          0% { transform: translateX(-120%) skewX(-12deg); }
-          60%, 100% { transform: translateX(220%) skewX(-12deg); }
-        }
-        @keyframes sysHeroFloat {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-        }
-        @keyframes sysHeroPulse {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
+        .pre-x { opacity: 0; transform: translate(0, 24px); }
+        .pre-up { opacity: 0; transform: translateY(40px); }
+        @keyframes fade-show-x { 0% { opacity: 0; transform: translate(0, 24px); } 100% { opacity: 1; transform: translate(0, 0); } }
+        @keyframes fade-show-up { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in-x { animation: fade-show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        .fade-in-up { animation: fade-show-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+        @media (prefers-reduced-motion: reduce) {
+          .fade-in-x, .fade-in-up { animation: none !important; }
+          .pre-x, .pre-up { opacity: 1; transform: none; }
         }
       `}</style>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* ── テキストブロック ── */}
-        <div
-          className="relative max-w-xl transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-          }}
-        >
-          {/* セクション番号タグ */}
-          <div className="inline-flex items-center gap-3 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 00
-            </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              SYSTEM DEVELOPMENT
-            </p>
-          </div>
-
-          {/* メインヘッドライン */}
-          <h1 className="text-[#1A202C] text-[2rem] md:text-[2.6rem] lg:text-[3.2rem] leading-[1.2] font-extrabold mb-6 tracking-tight">
-            業務を
-            <span className="text-[#635BFF]">システム</span>
-            で、
-            <br />
-            もっと
-            <span className="relative inline-block">
-              <span className="relative z-10">シンプルに</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FFC400]/60 -z-0"
-                aria-hidden="true"
-              />
-            </span>
-            。
-          </h1>
-
-          {/* サブコピー */}
-          <p className="text-[#1A202C]/75 text-[0.95rem] md:text-base leading-[2] mb-8 max-w-md">
-            多機能じゃなく、必要なものだけ。
-            <br />
-            奄美の事業者にちょうどいい仕組みを、ALPACAがつくります。
-          </p>
-
-          {/* CTAボタン群 */}
-          <div className="flex flex-wrap items-center gap-3 mb-10">
-            <a
-              href="#contact"
-              className="group relative inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: "linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%)",
-                  animation: "sysHeroShine 3.6s ease-in-out infinite",
-                }}
-              />
-              <span className="relative z-10">無料で相談する</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 group-hover:translate-x-1 transition-transform duration-200">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a
-              href="#features"
-              className="group inline-flex items-center text-sm font-black text-[#1A202C] underline decoration-[#635BFF] decoration-[2px] underline-offset-[6px] hover:decoration-[#FFC400] hover:underline-offset-[8px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
-            >
-              機能を見る <span className="ml-1 inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
-            </a>
-          </div>
-
-          {/* キーワードタグ */}
-          <div className="flex flex-wrap items-center gap-2">
-            {["効率化", "可視化", "自動化", "リアルタイム", "信頼"].map((k, i) => (
-              <span
-                key={k}
-                className="text-xs font-bold text-[#635BFF] bg-white border border-[#DBEAFE] rounded-full px-3 py-1.5 hover:bg-[#635BFF] hover:text-white hover:border-[#635BFF] hover:-translate-y-0.5 cursor-default"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(8px)",
-                  transition: `opacity 0.5s ease ${500 + i * 80}ms, transform 0.5s ease ${500 + i * 80}ms, background 0.25s, color 0.25s, border-color 0.25s, translate 0.25s`,
-                }}
-              >
-                {k}
-              </span>
-            ))}
-          </div>
-        </div>
-
-      </div>
     </section>
   );
 }

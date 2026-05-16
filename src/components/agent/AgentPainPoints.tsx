@@ -1,88 +1,170 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 const PAINS = [
   {
-    no: "01",
-    icon: "🌙",
-    title: "営業時間外の問い合わせを取り逃してる",
-    body: "夜中のLINE、翌朝に返信した頃にはもうお客さんは別のお店を予約している。せっかくのチャンスが毎日消えていく。",
+    img: "11-pain-chatgpt",
+    title: "ChatGPTは触ったけど、業務にどう活かせばいいか分からない",
+    body: "話題のAIツールを試してはみたけれど、自分の会社の業務にどう組み込めばいいかが見えてこない。",
+    follow: "アルパカAI顧問なら、LINEで気軽に「これに使えますか？」と聞けます。",
   },
   {
-    no: "02",
-    icon: "📞",
-    title: "同じ質問に毎日答えてる",
-    body: "「営業時間は？」「駐車場ある？」「定休日いつ？」毎日同じ質問。本当はもっと別のことに時間を使いたい。",
+    img: "12-pain-isolation",
+    title: "AI導入を相談できる相手が、島内にいない",
+    body: "東京のコンサルに頼むほどでもないけれど、奄美にはAIに詳しい顧問もエンジニアもほぼいない。",
+    follow: "島の事業者さんに伴走する、AI専門の顧問契約です。",
   },
   {
-    no: "03",
-    icon: "👥",
-    title: "スタッフ雇うほどじゃないけど人手は欲しい",
-    body: "問い合わせ対応のためだけに人を雇うのは現実的じゃない。でも自分一人で全部こなすのも限界がある。",
+    img: "13-pain-cost",
+    title: "LINEボットや自動化に興味あるけど、初期費用が読めない",
+    body: "見積もりを取るたびに金額がバラバラ。何にいくらかかるのか、相場感がそもそも分からない。",
+    follow: "月¥50,000の固定費。軽い実装なら追加料金なしで対応します。",
+  },
+  {
+    img: "14-pain-news",
+    title: "AI最新情報のキャッチアップが追いつかない",
+    body: "毎週新しいツール・新しいモデルが出てくる。どれが本物で、どれが自社に関係あるのか判断できない。",
+    follow: "月1のテキストレポートで、御社向けの情報だけお届けします。",
+  },
+  {
+    img: "15-pain-competitor",
+    title: "競合他社が始めたら焦るけど、何から始めればいいか分からない",
+    body: "「うちもAIやらないとマズい」とは思うけれど、第一歩が踏み出せないまま時間だけが過ぎていく。",
+    follow: "まずはLINEで現状をお聞かせください。優先順位から一緒に整理します。",
   },
 ];
 
 export default function AgentPainPoints() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      setRevealed(true);
+      io.disconnect();
+    }
+    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafeId);
+    };
+  }, []);
+
   return (
     <section
       id="pain"
-      className="relative py-24 md:py-32 bg-[#F5F3FF]"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[#FAFAFA] py-24 md:py-32"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         {/* セクション見出し */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-3 mb-5">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 01
+        <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
+          <div>
+            <p
+              className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.05s" }}
+            >
+              PAIN POINTS — 奄美の現場から
             </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              PAIN POINTS
-            </p>
+            <h2
+              className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`}
+              style={{ animationDelay: "0.15s" }}
+            >
+              こんな
+              <br />
+              <span className="text-[#12C998]">お悩み</span>、
+              <br />
+              ありませんか？
+            </h2>
           </div>
-          <h2 className="font-memphis-mincho text-[#1A202C] text-3xl md:text-5xl font-extrabold tracking-tight mb-5">
-            こんな
-            <span className="relative inline-block">
-              <span className="relative z-10">困りごと</span>
-              <span className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FF3D7F]/30 -z-0" aria-hidden="true" />
-            </span>
-            、ありませんか？
-          </h2>
-          <p className="text-[#1A202C]/70 text-sm md:text-base font-bold leading-relaxed">
-            奄美のお店オーナーさんから、よく聞く声です。
+          <p
+            className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
+            style={{ animationDelay: "0.3s" }}
+          >
+            奄美の事業者さんからよく聞く、AIまわりの「分からない」をまとめました。
           </p>
         </div>
 
-        {/* カード3枚 */}
-        <div className="grid md:grid-cols-3 gap-6 md:gap-7">
-          {PAINS.map((p) => (
+        {/* カード5枚 — 画像メイン */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {PAINS.map(({ img, title, body, follow }, i) => (
             <div
-              key={p.no}
-              className="relative bg-white rounded-3xl p-7 md:p-8 ring-1 ring-[#1A202C]/8 shadow-[0_8px_32px_-8px_rgba(99,91,255,0.12)] hover:shadow-[0_12px_40px_-8px_rgba(99,91,255,0.22)] hover:-translate-y-1 transition-all duration-300"
+              key={title}
+              className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#12C998]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
+              style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
-              <div className="absolute top-5 right-5 text-[10px] font-black tracking-widest text-[#635BFF]/40">
-                {p.no}
+              <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
+                <img
+                  src={`/images/agent-v3/${img}.png`}
+                  alt=""
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  width={1080}
+                  height={1080}
+                  loading="lazy"
+                />
               </div>
-              <div className="text-4xl mb-5">{p.icon}</div>
-              <h3 className="font-memphis-mincho font-extrabold text-[#1A202C] text-lg md:text-xl mb-3 leading-snug">
-                {p.title}
-              </h3>
-              <p className="text-[#1A202C]/70 text-[13px] md:text-sm leading-[1.9]">
-                {p.body}
-              </p>
+              <div className="p-7 md:p-8 flex flex-col">
+                <h3 className="font-bold text-[#1D2A6E] text-base md:text-lg mb-4 leading-snug">
+                  {title}
+                </h3>
+                <p className="text-[#5A6280] text-sm leading-loose mb-5 flex-1">
+                  {body}
+                </p>
+                <div className="mt-auto pt-4 border-t border-[#E5E9F5]">
+                  <p className="text-[#12C998] text-[13px] font-bold leading-relaxed">
+                    → {follow}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* 解決策への橋渡し */}
-        <div className="text-center mt-16 md:mt-20">
-          <p className="font-memphis-mincho text-[#1A202C] text-xl md:text-2xl font-extrabold leading-relaxed">
-            ALPACAの
-            <span className="text-[#635BFF]">AIスタッフ</span>が、
+        {/* 橋渡し */}
+        <div className="text-center mt-20 md:mt-24">
+          <p
+            className={`text-[#1D2A6E] text-2xl md:text-4xl font-bold leading-relaxed ${revealed ? "fade-in-x" : "pre-x"}`}
+            style={{ animationDelay: "0.8s" }}
+          >
+            AIまわりのことは、
+            <span className="text-[#12C998]">アルパカAI顧問</span>
+            に
             <br className="md:hidden" />
-            ぜんぶ自動で答えます。
+            気軽に相談してください。
           </p>
         </div>
       </div>
+
+      <style>{`
+        .pre { opacity: 0; transform: translateY(28px); }
+        @keyframes show-up { 0% { opacity: 0; transform: translateY(28px); } 100% { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: show-up 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+
+        .pre-x { opacity: 0; transform: translate(0, 24px); }
+        @keyframes show-x { 0% { opacity: 0; transform: translate(0, 24px); } 100% { opacity: 1; transform: translate(0, 0); } }
+        .fade-in-x { animation: show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .fade-in, .fade-in-x { animation: none !important; }
+          .pre, .pre-x { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 }
