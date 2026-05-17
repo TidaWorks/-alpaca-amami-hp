@@ -1,69 +1,98 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
+
+export type UseRevealOptions = IntersectionObserverInit & {
+  /** 一度 reveal したら observer を切る（既定: true） */
+  once?: boolean;
+};
 
 /**
- * IntersectionObserver で要素が画面内に入ったら true を返す。
+ * 共通 reveal フック（モーションシステム統一・2026-05-17 改修）。
+ * セクションが画面に入ったら revealed = true を返す。
  *
- * 改善点（2026-04-28）:
- * - マウント時に getBoundingClientRect() で既に画面内ならその場で setVisible(true)
- * - フェイルセーフ: 1秒後には必ず可視化（IO 発火しないケースを防ぐ）
- * - prefers-reduced-motion: reduce 時は即座に visible
+ * 設計メモ:
+ * - fail-safe（setTimeout 強制 true）は撤去。
+ *   観測漏れが起きないよう threshold / rootMargin を呼び出し側で調整する。
+ * - prefers-reduced-motion: reduce なら即時表示。
+ * - SSR セーフ（IntersectionObserver / matchMedia 未定義時は即時表示）。
  *
- * 戻り値: [ref, visible]
+ * 戻り値（後方互換のため tuple + object のハイブリッド）:
+ *   const [ref, revealed] = useReveal();         // 旧来の使い方
+ *   const { ref, revealed } = useReveal();       // 推奨の使い方
+ *   const r = useReveal(); r.ref / r.revealed;
  */
+export type UseRevealReturn<T extends HTMLElement> = readonly [
+  RefObject<T | null>,
+  boolean,
+] & {
+  ref: RefObject<T | null>;
+  revealed: boolean;
+  /** 旧 API 互換（= revealed） */
+  visible: boolean;
+};
+
 export function useReveal<T extends HTMLElement = HTMLElement>(
-  options: IntersectionObserverInit = { threshold: 0.15 }
-) {
+  options: UseRevealOptions | number = {}
+): UseRevealReturn<T> {
+  const opts: UseRevealOptions =
+    typeof options === "number" ? { threshold: options } : options;
+  const { threshold = 0.15, rootMargin = "0px 0px -10% 0px", once = true } =
+    opts;
+
   const ref = useRef<T | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
+    if (typeof window === "undefined") return;
 
-    // reduced-motion の場合は即可視化
-    if (typeof window !== "undefined" && window.matchMedia) {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReduced) {
-        setVisible(true);
-        return;
-      }
-    }
-
-    // 既に画面内なら即 visible
-    const rect = node.getBoundingClientRect();
-    const inView =
-      rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.bottom > 0;
-    if (inView) {
-      setVisible(true);
+    // モーション低減モードは即時表示
+    const prefersReduced =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setRevealed(true);
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
+    const el = ref.current;
+    if (!el) return;
+
+    // IntersectionObserver 非対応環境は即時表示
+    if (typeof IntersectionObserver === "undefined") {
+      setRevealed(true);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setRevealed(true);
+            if (once) io.disconnect();
+            break;
+          } else if (!once) {
+            setRevealed(false);
+          }
         }
       },
-      options
+      { threshold, rootMargin }
     );
-    observer.observe(node);
 
-    // フェイルセーフ: 1秒後にも visible にしてしまう
-    const failSafe = window.setTimeout(() => {
-      setVisible(true);
-      observer.disconnect();
-    }, 1000);
-
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(failSafe);
-    };
+    io.observe(el);
+    return () => io.disconnect();
+    // threshold が配列の場合に毎レンダで参照が変わるのを避けるため
+    // 呼び出し側で安定した値を渡す前提とする
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [rootMargin, once]);
 
-  return [ref, visible] as const;
+  // tuple + object のハイブリッド戻り値
+  const tuple = [ref, revealed] as const;
+  return Object.assign(tuple, {
+    ref,
+    revealed,
+    visible: revealed,
+  }) as UseRevealReturn<T>;
 }
+
+export default useReveal;

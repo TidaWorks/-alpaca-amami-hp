@@ -7,7 +7,7 @@ const steps = [
     number: "01",
     title: "ヒアリング",
     badge: "無料",
-    color: "#635BFF",
+    color: "#1D2A6E",
     description: "業種・現状の課題・希望をお聞きします。島内なら直接お伺い、島外はオンラインで。",
   },
   {
@@ -77,9 +77,30 @@ export default function HomeFlow() {
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight">
             プロジェクトの
             <br className="md:hidden" />
-            <span className="text-[#635BFF]">進め方</span>
+            <span className="text-[#1D2A6E]">進め方</span>
             。
           </h2>
+        </div>
+
+        <div
+          className="mb-10 md:mb-14 rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-md transition-all duration-700"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+            transitionDelay: "120ms",
+          }}
+        >
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/10-flow-sp.png" />
+            <img
+              src="/images/home-v3/09-flow-pc.png"
+              alt="ALPACAの制作フロー4ステップを表現するドキュメンタリー写真（打ち合わせ・設計・制作・納品）"
+              className="w-full h-auto"
+              width={1920}
+              height={1080}
+              loading="lazy"
+            />
+          </picture>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">

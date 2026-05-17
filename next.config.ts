@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
     ],
   },
   devIndicators: false,
+  async redirects() {
+    return [
+      {
+        source: "/agent",
+        destination: "/smart",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -284,7 +284,7 @@ export default function SystemCTA() {
               <span className="text-[#5A6280]/40">/</span>
               <a href="/web" className="hover:text-[#2860E1] transition-colors">ホームページ・LP制作</a>
               <span className="text-[#5A6280]/40">/</span>
-              <a href="/agent" className="hover:text-[#2860E1] transition-colors">LINE自動化ボット</a>
+              <a href="/smart" className="hover:text-[#2860E1] transition-colors">アルパカスマート</a>
               <span className="text-[#5A6280]/40">/</span>
               <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#2860E1] transition-colors">Instagram</a>
             </p>

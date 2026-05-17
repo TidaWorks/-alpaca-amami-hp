@@ -42,7 +42,7 @@ export default function HomeAbout() {
         aria-hidden="true"
         className="absolute -top-40 -right-40 w-[420px] h-[420px] rounded-full pointer-events-none blur-3xl opacity-25"
         style={{
-          background: "radial-gradient(circle, #635BFF 0%, transparent 70%)",
+          background: "radial-gradient(circle, #1D2A6E 0%, transparent 70%)",
           animation: "alpacaAboutDrift 20s ease-in-out infinite",
         }}
       />
@@ -62,6 +62,27 @@ export default function HomeAbout() {
       `}</style>
 
       <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
+        <div
+          className="mb-10 md:mb-14 rounded-3xl overflow-hidden border border-white/15 shadow-2xl transition-all duration-700"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+            transitionDelay: "60ms",
+          }}
+        >
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/08-about-sp.png" />
+            <img
+              src="/images/home-v3/07-about-pc.png"
+              alt="作田大地が奄美大島の地元事業者にヒアリングし、現場を見学するドキュメンタリー写真"
+              className="w-full h-auto"
+              width={1920}
+              height={1080}
+              loading="lazy"
+            />
+          </picture>
+        </div>
+
         <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14 items-center">
           <div>
             <div
@@ -71,7 +92,7 @@ export default function HomeAbout() {
                 transform: visible ? "translateY(0)" : "translateY(12px)",
               }}
             >
-              <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B35]">
+              <p className="text-[11px] font-bold tracking-[0.4em] text-[#FF6B9E]">
                 CHAPTER 03
               </p>
               <span className="w-6 h-[1px] bg-white/40" />
@@ -125,7 +146,7 @@ export default function HomeAbout() {
               transition: "opacity 0.7s ease 350ms, transform 0.5s ease, box-shadow 0.4s ease, background 0.3s ease, translate 0.3s ease",
             }}
           >
-            <p className="text-[10px] font-black tracking-[0.3em] text-[#635BFF] mb-4">PROFILE</p>
+            <p className="text-[10px] font-black tracking-[0.3em] text-[#1D2A6E] mb-4">PROFILE</p>
             <dl className="space-y-3">
               {[
                 { k: "屋号", v: "ALPACA（アルパカ）" },
@@ -148,7 +169,7 @@ export default function HomeAbout() {
               href={SITE.contact.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-5 inline-flex items-center gap-2 text-xs font-black text-[#635BFF] hover:text-[#5249E0] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
+              className="group mt-5 inline-flex items-center gap-2 text-xs font-black text-[#1D2A6E] hover:text-[#5249E0] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-[-8deg] transition-transform duration-300">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />

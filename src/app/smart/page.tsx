@@ -10,9 +10,9 @@ import AgentFAQ from "@/components/agent/AgentFAQ";
 import AgentCTA from "@/components/agent/AgentCTA";
 
 export const metadata = {
-  title: "アルパカAI顧問 | ALPACA - 奄美のあなたの会社にAI担当者を月¥50,000で",
+  title: "アルパカスマート | ALPACA - 業務を、スマートに。いつでも相談できるAI担当者を月¥50,000で",
   description:
-    "奄美大島の事業者向けAI顧問サービス。LINE公式アカウントでの相談無制限、月5時間以内の実装込み、月¥50,000の継続サブスクリプション。AIの導入と運用をまるごとサポート。",
+    "奄美大島の事業者向け月額制AIサポート「アルパカスマート」。LINE公式アカウントでの相談無制限、月5時間以内の軽実装込み、追加実装は¥5,000/時間。最低契約期間3ヶ月。業務をAIでスマートにする伴走サービス。",
 };
 
 export default function AgentPage() {

@@ -9,7 +9,7 @@ const services = [
     href: "/system",
     price: "¥300,000〜",
     note: "要見積 / 納期2週間〜",
-    color: "#635BFF",
+    color: "#1D2A6E",
     desc: "予約管理・顧客台帳・売上集計・LINE Bot連携など、業務にあわせたオーダーメイドシステム。紙とExcelからの脱却を支援。",
     points: ["予約・顧客・売上の一元管理", "リアルタイム可視化", "LINE自動応答もオプション対応"],
     main: true,
@@ -59,6 +59,21 @@ const services = [
       </svg>
     ),
   },
+  {
+    badge: "MONTHLY",
+    title: "アルパカスマート",
+    href: "/smart",
+    price: "月¥50,000〜",
+    note: "最低3ヶ月／追加実装¥5,000/h",
+    color: "#12C998",
+    desc: "業務を、スマートに。いつでも相談できるAI担当者。LINEで日々の困りごとを相談、月5時間の軽実装込み。AIで業務を少しずつ楽に。",
+    points: ["LINE相談無制限（24時間以内返信）", "月5時間まで軽実装込み", "AI最新情報を月1レポート配信"],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function HomeServices() {
@@ -105,17 +120,38 @@ export default function HomeServices() {
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold leading-tight mb-3">
             事業をまるごと支える、
             <br className="md:hidden" />
-            <span className="text-[#635BFF]">3つのサービス</span>
+            <span className="text-[#1D2A6E]">4つのサービス</span>
             。
           </h2>
           <p className="text-[#1A202C]/70 text-sm md:text-base">
-            業務改善システムを軸に、ホームページ・ランディングページ制作・保守までワンストップ。
+            業務システム開発を軸に、ホームページ・ランディングページ制作、月額AIサポートまでワンストップ。
           </p>
+        </div>
+
+        <div
+          className="mb-10 md:mb-14 rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-md transition-all duration-700"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+            transitionDelay: "120ms",
+          }}
+        >
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/04-services-sp.png" />
+            <img
+              src="/images/home-v3/03-services-pc.png"
+              alt="奄美の事業者がパソコン・スマホ・タブレットでサービスを使うシーン"
+              className="w-full h-auto"
+              width={1920}
+              height={1080}
+              loading="lazy"
+            />
+          </picture>
         </div>
 
         {/* メインサービス（業務システム）— 大カード */}
         <div
-          className="group relative bg-gradient-to-br from-[#635BFF]/8 via-white to-[#12C998]/5 border-2 border-[#635BFF]/20 rounded-3xl p-6 md:p-12 mb-6 shadow-md hover:shadow-2xl hover:border-[#635BFF]/40 transition-all duration-500 overflow-hidden"
+          className="group relative bg-gradient-to-br from-[#1D2A6E]/8 via-white to-[#12C998]/5 border-2 border-[#1D2A6E]/20 rounded-3xl p-6 md:p-12 mb-6 shadow-md hover:shadow-2xl hover:border-[#1D2A6E]/40 transition-all duration-500 overflow-hidden"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -132,10 +168,10 @@ export default function HomeServices() {
           />
           <div className="absolute top-6 right-6 hidden md:block">
             <span
-              className="inline-block bg-[#635BFF] text-white text-[10px] font-black tracking-widest rounded-full px-3 py-1.5 shadow"
+              className="inline-block bg-[#1D2A6E] text-white text-[10px] font-black tracking-widest rounded-full px-3 py-1.5 shadow"
               style={{ animation: "alpacaFloat 4s ease-in-out infinite" }}
             >
-              ★ MAIN
+              MAIN SERVICE
             </span>
           </div>
           <style>{`
@@ -151,23 +187,23 @@ export default function HomeServices() {
 
           <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-12">
             <div className="md:w-[42%]">
-              <span className="inline-block text-[10px] font-black text-white bg-[#635BFF] rounded-full px-3 py-1 mb-4 tracking-[0.2em]">
+              <span className="inline-block text-[10px] font-black text-white bg-[#1D2A6E] rounded-full px-3 py-1 mb-4 tracking-[0.2em]">
                 {services[0].badge}
               </span>
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#635BFF] text-white flex items-center justify-center mb-4 shadow-md group-hover:rotate-[-6deg] group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#1D2A6E] text-white flex items-center justify-center mb-4 shadow-md group-hover:rotate-[-6deg] group-hover:scale-110 transition-transform duration-300">
                 {services[0].icon}
               </div>
               <h3 className="text-[#1A202C] text-xl md:text-3xl font-extrabold mb-2 md:mb-3">
                 {services[0].title}
               </h3>
-              <p className="text-2xl md:text-3xl font-extrabold text-[#635BFF] tabular-nums mb-1">
+              <p className="text-2xl md:text-3xl font-extrabold text-[#1D2A6E] tabular-nums mb-1">
                 {services[0].price}
               </p>
               <p className="text-xs text-[#1A202C]/55 mb-5">{services[0].note}</p>
 
               <a
                 href={services[0].href}
-                className="group/btn relative inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
+                className="group/btn relative inline-flex items-center gap-2 bg-[#FF6B9E] text-white font-black text-sm px-5 py-3 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B9E] focus-visible:ring-offset-2"
               >
                 <span
                   aria-hidden="true"
@@ -184,14 +220,14 @@ export default function HomeServices() {
               </a>
             </div>
 
-            <div className="md:w-[58%] md:pl-8 md:border-l md:border-[#635BFF]/20">
+            <div className="md:w-[58%] md:pl-8 md:border-l md:border-[#1D2A6E]/20">
               <p className="text-sm md:text-base text-[#1A202C]/80 leading-relaxed mb-5">
                 {services[0].desc}
               </p>
               <ul className="space-y-2.5">
                 {services[0].points.map((p) => (
                   <li key={p} className="flex items-start gap-3">
-                    <svg className="mt-[3px] flex-shrink-0 w-4 h-4 text-[#635BFF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="mt-[3px] flex-shrink-0 w-4 h-4 text-[#1D2A6E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                     <span className="text-sm text-[#1A202C] leading-relaxed">{p}</span>
@@ -202,8 +238,8 @@ export default function HomeServices() {
           </div>
         </div>
 
-        {/* サブサービス2つ：Web制作 / ランディングページ制作 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* サブサービス3つ：HP制作 / LP制作 / アルパカスマート */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.slice(1).map((service, i) => (
             <a
               key={service.title}

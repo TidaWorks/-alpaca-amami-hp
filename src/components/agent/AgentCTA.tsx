@@ -77,13 +77,13 @@ export default function AgentCTA() {
           >
             30分のオンラインヒアリングで、
             <br className="hidden md:block" />
-            御社にAI顧問が必要かどうかも含めてお話しします。
+            御社にアルパカスマートが必要かどうかも含めてお話しします。
           </p>
 
           {/* CTAボタン */}
           <div className={`flex flex-wrap items-center justify-center gap-6 mb-12 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.45s" }}>
             <a
-              href={`${SITE.contact.emailHref}?subject=アルパカAI顧問の無料相談予約`}
+              href={`${SITE.contact.emailHref}?subject=アルパカスマートの無料相談予約`}
               className="group inline-flex items-center gap-3 bg-[#12C998] text-white font-bold text-sm md:text-base pl-9 pr-2 py-2 rounded-full hover:bg-[#0DA67D] transition-colors duration-200"
             >
               無料相談を予約

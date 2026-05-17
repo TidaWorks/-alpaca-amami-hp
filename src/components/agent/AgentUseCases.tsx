@@ -1,42 +1,69 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import {
+  BedDouble,
+  UtensilsCrossed,
+  Map,
+  Scale,
+  Stethoscope,
+  type LucideIcon,
+} from "lucide-react";
 
-const CASES = [
+type CaseItem = {
+  industry: string;
+  question: string;
+  answer: string;
+  Icon: LucideIcon;
+  accent: string; // 業種カラー（アイコン＆装飾色）
+  bg: string;    // アイコンエリアの薄背景
+};
+
+const CASES: CaseItem[] = [
   {
-    img: "16-case-hotel",
     industry: "宿泊業",
     question: "外国人観光客の予約問い合わせをAIで多言語対応したい",
     answer:
-      "LINEボット＋多言語翻訳の組み合わせで対応可能です。月5時間枠で簡易版を構築、本格運用は顧問特典価格でお見積もりします。",
+      "LINEボット＋多言語翻訳の組み合わせで対応可能です。月5時間枠で簡易版を構築、本格運用はスマート特典価格でお見積もりします。",
+    Icon: BedDouble,
+    accent: "#2860E1",
+    bg: "#E8F0FE",
   },
   {
-    img: "17-case-restaurant",
     industry: "飲食店",
     question: "インスタDM返信が追いつかない、AIで自動化できる？",
     answer:
       "Meta Business SuiteとChatGPT API連携で自動応答化できます。月5時間枠で構築・調整まで対応します。",
+    Icon: UtensilsCrossed,
+    accent: "#E85A4F",
+    bg: "#FDECE9",
   },
   {
-    img: "18-case-tour",
     industry: "観光ガイド",
     question: "予約管理を紙からデジタルに移行したい",
     answer:
       "Notion予約データベースを構築、スマホからも確認できる運用フローを設計します。月5時間以内で完了します。",
+    Icon: Map,
+    accent: "#12C998",
+    bg: "#E2F8F1",
   },
   {
-    img: "19-case-shigyou",
     industry: "士業",
     question: "議事録作成が時間かかる、AIで効率化したい",
     answer:
       "Otter / Notta の導入支援＋運用フロー設計を行います。文字起こしから要約までの一連の流れを整えます。",
+    Icon: Scale,
+    accent: "#1D2A6E",
+    bg: "#E5E9F5",
   },
   {
-    img: "20-case-medical",
     industry: "医療・介護",
     question: "問い合わせ電話が多すぎる、自動応答に振りたい",
     answer:
       "LINEボットでの問い合わせ受付＋電話AI応答の組み合わせをご提案します。導入規模に応じて段階的に進めます。",
+    Icon: Stethoscope,
+    accent: "#E8669A",
+    bg: "#FCEAF1",
   },
 ];
 
@@ -104,26 +131,46 @@ export default function AgentUseCases() {
           </p>
         </div>
 
-        {/* 5業種画像グリッド */}
+        {/* 5業種カードグリッド */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {CASES.map(({ img, industry, question, answer }, i) => (
+          {CASES.map(({ industry, question, answer, Icon, accent, bg }, i) => (
             <div
               key={industry}
               className={`group bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#12C998]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
               style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
-              <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
-                <img
-                  src={`/images/agent-v3/${img}.png`}
-                  alt={`${industry}の利用シーン`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  width={1080}
-                  height={1080}
-                  loading="lazy"
+              <div
+                className="relative aspect-[16/9] overflow-hidden flex items-center justify-center"
+                style={{ backgroundColor: bg }}
+              >
+                {/* 装飾ドット（業種カラー、控えめ） */}
+                <span
+                  aria-hidden
+                  className="absolute top-5 left-5 w-2 h-2 rounded-full opacity-60"
+                  style={{ backgroundColor: accent }}
+                />
+                <span
+                  aria-hidden
+                  className="absolute bottom-5 right-5 w-2 h-2 rounded-full opacity-40"
+                  style={{ backgroundColor: accent }}
+                />
+                <span
+                  aria-hidden
+                  className="absolute top-1/2 right-8 -translate-y-1/2 w-1.5 h-1.5 rounded-full opacity-30"
+                  style={{ backgroundColor: accent }}
+                />
+                <Icon
+                  aria-hidden
+                  strokeWidth={1.5}
+                  className="w-20 h-20 md:w-24 md:h-24 transition-transform duration-500 group-hover:scale-110"
+                  style={{ color: accent }}
                 />
               </div>
               <div className="p-7 md:p-8">
-                <p className="text-[10px] font-bold tracking-[0.3em] text-[#12C998] mb-3">
+                <p
+                  className="text-[10px] font-bold tracking-[0.3em] mb-3"
+                  style={{ color: accent }}
+                >
                   業種
                 </p>
                 <p className="font-bold text-[#1D2A6E] text-xl md:text-2xl mb-5">
@@ -133,7 +180,7 @@ export default function AgentUseCases() {
                   「{question}」
                 </p>
                 <p className="text-[#5A6280] text-sm leading-loose">
-                  <span className="text-[#12C998] font-bold">→ </span>
+                  <span className="font-bold" style={{ color: accent }}>→ </span>
                   {answer}
                 </p>
               </div>

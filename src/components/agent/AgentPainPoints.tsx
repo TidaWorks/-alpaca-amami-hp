@@ -7,13 +7,13 @@ const PAINS = [
     img: "11-pain-chatgpt",
     title: "ChatGPTは触ったけど、業務にどう活かせばいいか分からない",
     body: "話題のAIツールを試してはみたけれど、自分の会社の業務にどう組み込めばいいかが見えてこない。",
-    follow: "アルパカAI顧問なら、LINEで気軽に「これに使えますか？」と聞けます。",
+    follow: "アルパカスマートなら、LINEで気軽に「これに使えますか？」と聞けます。",
   },
   {
     img: "12-pain-isolation",
     title: "AI導入を相談できる相手が、島内にいない",
     body: "東京のコンサルに頼むほどでもないけれど、奄美にはAIに詳しい顧問もエンジニアもほぼいない。",
-    follow: "島の事業者さんに伴走する、AI専門の顧問契約です。",
+    follow: "島の事業者さんに伴走する、AI専門の月額契約です。",
   },
   {
     img: "13-pain-cost",
@@ -143,7 +143,7 @@ export default function AgentPainPoints() {
             style={{ animationDelay: "0.8s" }}
           >
             AIまわりのことは、
-            <span className="text-[#12C998]">アルパカAI顧問</span>
+            <span className="text-[#12C998]">アルパカスマート</span>
             に
             <br className="md:hidden" />
             気軽に相談してください。

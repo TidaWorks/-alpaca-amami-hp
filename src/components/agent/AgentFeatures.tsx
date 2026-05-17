@@ -1,27 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { MessageCircle, Wrench, FileText, Sparkles } from "lucide-react";
 
 const FEATURE_TEXT = [
   {
     no: "01",
     title: "LINE公式アカウントで相談無制限",
     body: "AIの活用方法、ツール選び、運用の悩み、なんでもLINEで送ってください。営業日24時間以内に返信します。定例MTGなし、思いついた時に気軽に。",
+    Icon: MessageCircle,
   },
   {
     no: "02",
     title: "月5時間以内の軽実装",
     body: "簡易LINE bot、Notion設定、Zapier自動化、ChatGPT活用支援、ホームページの軽微な修正など。追加見積もりなしで、月5時間まで実装します。",
+    Icon: Wrench,
   },
   {
     no: "03",
     title: "月1テキストレポート",
     body: "業界のAI最新情報と、御社向けのご提案を月1回テキストでお届け。新しいツール・モデル・活用事例の中から、本当に使えるものだけを選んでお伝えします。",
+    Icon: FileText,
   },
   {
     no: "04",
-    title: "大型実装の顧問特典価格",
-    body: "本格的なLINEボット構築・ホームページ制作・業務システム開発が必要になった時は、顧問契約特典の割引価格でお見積もりします。",
+    title: "大型実装のスマート特典価格",
+    body: "本格的なLINEボット構築・ホームページ制作・業務システム開発が必要になった時は、月額契約特典の割引価格でお見積もりします。",
+    Icon: Sparkles,
   },
 ];
 
@@ -60,27 +65,48 @@ export default function AgentFeatures() {
     <section
       id="features"
       ref={sectionRef}
-      className="relative overflow-hidden bg-white py-24 md:py-32"
+      className="relative overflow-hidden bg-gradient-to-br from-white via-[#F5FBF9] to-[#E8F9F3]/40"
     >
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
-        {/* セクション見出し */}
-        <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
-          <div>
-            <p
-              className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
-              style={{ animationDelay: "0.05s" }}
-            >
-              WHAT&apos;S INCLUDED — 月額の中身
-            </p>
-            <h2
-              className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`}
-              style={{ animationDelay: "0.15s" }}
-            >
-              月¥50,000に
-              <br />
-              <span className="text-[#12C998]">含まれるもの</span>
-            </h2>
-          </div>
+      {/* 背景ドットパターン（浮き感解消：地に質感を与える） */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(18,201,152,0.18) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+        }}
+      />
+
+      {/* 抽象シェイプ：左上ミントブラー */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#12C998]/15 blur-3xl"
+      />
+      {/* 抽象シェイプ：右下ミントブラー */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 -right-32 w-[520px] h-[520px] rounded-full bg-[#12C998]/10 blur-3xl"
+      />
+
+      {/* セクション中身：中央寄せ 1280px */}
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 pt-24 md:pt-32 pb-24 md:pb-32">
+        {/* 見出し（中央寄せ） */}
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+          <p
+            className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
+            style={{ animationDelay: "0.05s" }}
+          >
+            PRICING — 月額の中身
+          </p>
+          <h2
+            className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-8 ${revealed ? "fade-in-x" : "pre-x"}`}
+            style={{ animationDelay: "0.15s" }}
+          >
+            月¥50,000に
+            <br />
+            <span className="text-[#12C998]">含まれるもの</span>
+          </h2>
           <p
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.3s" }}
@@ -89,34 +115,68 @@ export default function AgentFeatures() {
           </p>
         </div>
 
-        {/* 中央：4要素ビジュアル画像（PC/SP切替） */}
-        <div className={`mb-14 md:mb-20 bg-[#FAFAFA] border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.3s" }}>
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/images/agent-v3/07-features-sp.png" />
-            <img
-              src="/images/agent-v3/02-features-pc.png"
-              alt="アルパカAI顧問 月額に含まれる4つのサービス"
-              className="w-full h-auto"
-              width={1920}
-              height={1080}
+        {/* 画像カード（浮き感解消：ミントグロー + ブラー装飾円で背景と溶かす） */}
+        <div
+          className={`relative mx-auto max-w-5xl mb-20 md:mb-24 ${revealed ? "fade-in" : "pre"}`}
+          style={{ animationDelay: "0.35s" }}
+        >
+          {/* 装飾アクセント：カード左上ミント円 */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-10 -left-10 w-40 h-40 rounded-full bg-[#12C998]/30 blur-2xl"
+          />
+          {/* 装飾アクセント：カード右下ミント円 */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-12 -right-12 w-56 h-56 rounded-full bg-[#12C998]/25 blur-3xl"
+          />
+          {/* 装飾アクセント：紺の薄いライン（角に） */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-3 -right-3 w-24 h-24 border-2 border-[#1D2A6E]/10 rounded-3xl"
+          />
+
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#12C998]/20 ring-1 ring-[#12C998]/10">
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet="/images/agent-v3/07-features-sp.png"
+              />
+              <img
+                src="/images/agent-v3/02-features-pc.png"
+                alt="アルパカスマート 月額に含まれる4つのサービス"
+                className="block w-full h-auto object-cover"
+                width={1920}
+                height={1080}
+              />
+            </picture>
+            {/* カード下端をミントに溶かすグラデーション（境界曖昧化） */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#E8F9F3]/60 to-transparent"
             />
-          </picture>
+          </div>
         </div>
 
-        {/* 詳細テキスト 4カード */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {FEATURE_TEXT.map(({ no, title, body }, i) => (
+        {/* 4ポイント説明（数字バッジ + アイコン + 見出し + 説明、2カラム） */}
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-12 lg:gap-x-16 lg:gap-y-14">
+          {FEATURE_TEXT.map(({ no, title, body, Icon }, i) => (
             <div
               key={title}
-              className={`group bg-white border border-[#E5E9F5] rounded-2xl p-8 md:p-10 hover:border-[#12C998]/40 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
-              style={{ animationDelay: `${0.4 + i * 0.08}s` }}
+              className={`relative ${revealed ? "fade-in" : "pre"}`}
+              style={{ animationDelay: `${0.45 + i * 0.1}s` }}
             >
-              <div className="flex items-baseline gap-4 mb-5">
-                <span className="font-bold text-[#12C998] text-3xl tracking-tight tabular-nums">
+              {/* 数字バッジ + アイコン */}
+              <div className="flex items-center gap-4 mb-4">
+                <span className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#12C998] to-[#0EA67D] text-white font-bold text-lg tabular-nums shadow-lg shadow-[#12C998]/30">
                   {no}
                 </span>
+                <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#12C998]/10 text-[#12C998]">
+                  <Icon size={22} strokeWidth={2.2} />
+                </span>
               </div>
-              <h3 className="font-bold text-[#1D2A6E] text-xl md:text-2xl mb-4 leading-snug">
+
+              <h3 className="font-bold text-[#1D2A6E] text-xl md:text-2xl leading-snug mb-3">
                 {title}
               </h3>
               <p className="text-[#5A6280] text-sm md:text-[15px] leading-loose">
@@ -126,16 +186,23 @@ export default function AgentFeatures() {
           ))}
         </div>
 
-        {/* 含まれないものの注記 */}
-        <div className={`mt-12 md:mt-14 bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl p-8 md:p-10 max-w-3xl ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.9s" }}>
-          <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-5">
-            含まれないもの
-          </p>
-          <ul className="space-y-3 text-[#1A1A1A] text-sm font-bold leading-loose">
-            <li>※ 定例MTG（必要時のみスポット ¥10,000/30分）</li>
-            <li>※ 月5時間を超える実装作業（¥10,000/時間、繰り越しなし）</li>
-            <li>※ 本格的なホームページ・業務システム・LINEボット本構築（顧問特典価格にて別途お見積もり）</li>
-          </ul>
+        {/* 含まれないものの注記（中央寄せ） */}
+        <div
+          className={`mt-20 md:mt-24 mx-auto max-w-3xl ${revealed ? "fade-in" : "pre"}`}
+          style={{ animationDelay: "0.9s" }}
+        >
+          <div className="relative bg-white/70 backdrop-blur-sm border border-[#E5E9F5] rounded-2xl p-8 md:p-10 shadow-lg shadow-[#1D2A6E]/[0.04]">
+            <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-5">
+              含まれないもの
+            </p>
+            <ul className="space-y-3 text-[#1A1A1A] text-sm font-bold leading-loose">
+              <li>※ 定例MTG（必要時のみスポット ¥10,000/30分）</li>
+              <li>※ 月5時間を超える実装作業（¥10,000/時間、繰り越しなし）</li>
+              <li>
+                ※ 本格的なホームページ・業務システム・LINEボット本構築（スマート特典価格にて別途お見積もり）
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 

@@ -40,3 +40,7 @@ public/images/agent-codex/
 public/images/agent-light/
 public/images/agent-pro/
 public/images/agent-pro-v2/
+public/images/agent-bake/
+
+# Lazyweb調査用のリファレンス成果物（リポジトリ管理外）
+.lazyweb/

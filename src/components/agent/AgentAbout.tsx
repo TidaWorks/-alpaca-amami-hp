@@ -54,7 +54,7 @@ export default function AgentAbout() {
             className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.05s" }}
           >
-            ABOUT — アルパカAI顧問とは
+            ABOUT — アルパカスマートとは
           </p>
           <h2
             className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-7 ${revealed ? "fade-in" : "pre"}`}
@@ -80,7 +80,7 @@ export default function AgentAbout() {
             <source media="(max-width: 767px)" srcSet="/images/agent-v3/10-about-sp.png" />
             <img
               src="/images/agent-v3/05-about-pc.png"
-              alt="アルパカAI顧問の4つの柱"
+              alt="アルパカスマートの4つの柱"
               className="w-full h-auto"
               width={1920}
               height={1080}

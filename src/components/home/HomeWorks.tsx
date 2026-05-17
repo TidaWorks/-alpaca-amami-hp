@@ -89,12 +89,33 @@ export default function HomeWorks() {
           </p>
         </div>
 
+        <div
+          className="mb-10 md:mb-14 rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-md transition-all duration-700"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+            transitionDelay: "120ms",
+          }}
+        >
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/06-works-sp.png" />
+            <img
+              src="/images/home-v3/05-works-pc.png"
+              alt="奄美大島の各業種オーナー（美容師・シェフ・ダイビングインストラクター・キャンプ場運営）の現場ドキュメンタリー写真"
+              className="w-full h-auto"
+              width={1920}
+              height={1080}
+              loading="lazy"
+            />
+          </picture>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {works.map((work, i) => (
             <a
               key={work.name}
               href={work.href}
-              className="group relative bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#635BFF]"
+              className="group relative bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1D2A6E]"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -185,9 +206,13 @@ export default function HomeWorks() {
         >
           <a
             href="/web"
-            className="group inline-flex items-center gap-2 text-sm font-black text-[#1A202C] underline decoration-[#12C998] decoration-[2px] underline-offset-[6px] hover:decoration-[#635BFF] hover:underline-offset-[8px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
+            className="group inline-flex items-baseline gap-2 text-sm font-black text-[#1A202C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm"
           >
-            すべての実績を見る（9業種公開中）<span className="inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
+            <span className="relative">
+              すべての実績を見る（9業種公開中）
+              <span className="absolute left-0 -bottom-[3px] w-full h-[1.5px] bg-[#1A202C] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
         </div>
       </div>

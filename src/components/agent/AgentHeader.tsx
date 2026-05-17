@@ -37,7 +37,7 @@ export default function AgentHeader() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md border-b border-[#E5E9F5]"
-            : "bg-transparent"
+            : "bg-white/80 backdrop-blur-md border-b border-white/40 md:bg-transparent md:backdrop-blur-none md:border-transparent"
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-5 md:py-6 flex items-center justify-between">
@@ -46,7 +46,7 @@ export default function AgentHeader() {
               ALPACA
             </span>
             <span className="hidden sm:inline text-[10px] font-bold tracking-[0.3em] pl-3 border-l text-[#5A6280] border-[#E5E9F5]">
-              アルパカAI顧問
+              アルパカスマート
             </span>
           </a>
 

@@ -66,7 +66,7 @@ export default function HomeContact() {
     {
       type: "tel",
       href: SITE.contact.telHref,
-      bg: "#635BFF",
+      bg: "#1D2A6E",
       textColor: "#FFFFFF",
       label: "TEL",
       title: "電話で相談",
@@ -117,7 +117,7 @@ export default function HomeContact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative bg-gradient-to-br from-white via-[#F5F3FF] to-[#ECFDF5] pt-20 md:pt-28 pb-12 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
+      className="relative bg-gradient-to-br from-white via-[#EEF1FF] to-[#ECFDF5] pt-20 md:pt-28 pb-12 px-6 scroll-mt-20 overflow-hidden border-t border-[#E5E7EB]"
     >
       <div className="relative max-w-4xl mx-auto">
         <div
@@ -138,7 +138,7 @@ export default function HomeContact() {
           </div>
           <h2 className="text-[#1A202C] text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
             まずは
-            <span className="text-[#635BFF]">気軽に</span>
+            <span className="text-[#1D2A6E]">気軽に</span>
             <br className="md:hidden" />
             ご相談ください。
           </h2>
@@ -193,7 +193,7 @@ export default function HomeContact() {
             フォームから送る
           </h3>
           {submit === "success" ? (
-            <div role="status" className="bg-[#F5F3FF] border border-[#DBEAFE] rounded-xl p-6 text-center">
+            <div role="status" className="bg-[#EEF1FF] border border-[#DBEAFE] rounded-xl p-6 text-center">
               <p className="text-[#1A202C] text-lg font-extrabold mb-2">
                 送信ありがとうございました！
               </p>
@@ -205,9 +205,12 @@ export default function HomeContact() {
               <button
                 type="button"
                 onClick={() => setSubmit("idle")}
-                className="mt-5 inline-flex items-center text-sm font-black text-[#635BFF] underline decoration-[#635BFF] decoration-[2px] underline-offset-[6px]"
+                className="group mt-5 inline-flex items-baseline gap-2 text-sm font-black text-[#1D2A6E]"
               >
-                もう一度送る
+                <span className="relative">
+                  もう一度送る
+                  <span className="absolute left-0 -bottom-[3px] w-full h-[1.5px] bg-[#1D2A6E] scale-x-100 group-hover:scale-x-0 origin-right transition-transform duration-300" />
+                </span>
               </button>
             </div>
           ) : (
@@ -223,7 +226,7 @@ export default function HomeContact() {
                   placeholder="お名前"
                   value={form.name}
                   onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#635BFF] focus:ring-2 focus:ring-[#635BFF]/20 transition-colors"
+                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#1D2A6E] focus:ring-2 focus:ring-[#1D2A6E]/20 transition-colors"
                 />
               </div>
               <div>
@@ -237,7 +240,7 @@ export default function HomeContact() {
                   placeholder="example@email.com"
                   value={form.email}
                   onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#635BFF] focus:ring-2 focus:ring-[#635BFF]/20 transition-colors"
+                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#1D2A6E] focus:ring-2 focus:ring-[#1D2A6E]/20 transition-colors"
                 />
               </div>
               <div>
@@ -251,7 +254,7 @@ export default function HomeContact() {
                   placeholder="ご相談内容をお書きください（業種・現状の課題・希望サービスなどお気軽に）"
                   value={form.message}
                   onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
-                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#635BFF] focus:ring-2 focus:ring-[#635BFF]/20 resize-none transition-colors"
+                  className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg px-4 py-3 text-sm text-[#1A202C] placeholder:text-[#1A202C]/40 focus:outline-none focus:bg-white focus:border-[#1D2A6E] focus:ring-2 focus:ring-[#1D2A6E]/20 resize-none transition-colors"
                 />
               </div>
               {submit === "error" && errorMsg && (
@@ -259,10 +262,17 @@ export default function HomeContact() {
                   {errorMsg}
                 </p>
               )}
+              <p className="text-xs text-[#1A202C]/65 leading-relaxed">
+                お問い合わせ内容は、ご返信および業務連絡のためにのみ利用します。詳細は
+                <a href="/privacy" className="text-[#1D2A6E] font-bold underline-offset-4 hover:underline">
+                  プライバシーポリシー
+                </a>
+                をご確認ください。送信をもって同意いただいたものとみなします。
+              </p>
               <button
                 type="submit"
                 disabled={submit === "submitting"}
-                className="group/sub relative inline-flex items-center justify-center bg-[#FF6B35] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group/sub relative inline-flex items-center justify-center bg-[#FF6B9E] text-white font-black text-sm tracking-widest px-8 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B9E] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 <span
                   aria-hidden="true"
@@ -308,12 +318,19 @@ export default function HomeContact() {
             奄美大島を拠点に、Web制作・システム開発・保守運用を承ります。
           </p>
           <p className="text-[#1A202C]/55 text-xs mb-3 flex items-center justify-center gap-3 flex-wrap">
-            <a href="/web" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">Web制作</a>
+            <a href="/web" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm">ホームページ・LP制作</a>
             <span>/</span>
-            <a href="/system" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">システム開発</a>
+            <a href="/system" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm">システム開発</a>
             <span>/</span>
-            <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm">
+            <a href="/smart" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm">アルパカスマート</a>
+            <span>/</span>
+            <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm">
               Instagram
+            </a>
+          </p>
+          <p className="text-[#1A202C]/55 text-xs mb-3">
+            <a href="/privacy" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm underline-offset-4 hover:underline">
+              プライバシーポリシー
             </a>
           </p>
           <p className="text-[#1A202C]/40 text-xs">

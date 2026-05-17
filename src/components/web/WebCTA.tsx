@@ -321,8 +321,8 @@ export default function WebCTA() {
                   </a>
                 </li>
                 <li>
-                  <a href="/agent" className="text-white hover:text-[#FFE900] transition-colors text-sm">
-                    LINE自動化ボット
+                  <a href="/smart" className="text-white hover:text-[#FFE900] transition-colors text-sm">
+                    アルパカスマート
                   </a>
                 </li>
                 <li>

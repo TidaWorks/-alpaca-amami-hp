@@ -3,6 +3,7 @@ import { Outfit, Shippori_Antique_B1, Shippori_Mincho, Klee_One, Zen_Kurenaido }
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import ScrollProgress from "@/components/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
 import { SITE } from "@/lib/site";
 
 const outfit = Outfit({
@@ -229,9 +230,11 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} ${kleeOne.variable} ${zenKurenaido.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
-        <ScrollProgress />
-        <ScrollResetOnReload />
-        <main id="main">{children}</main>
+        <SmoothScroll>
+          <ScrollProgress />
+          <ScrollResetOnReload />
+          <main id="main">{children}</main>
+        </SmoothScroll>
       </body>
     </html>
   );

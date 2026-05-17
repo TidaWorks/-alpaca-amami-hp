@@ -1,168 +1,227 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { ArrowRight, Bell, ChevronDown } from "lucide-react";
+import { useReveal } from "@/hooks/useReveal";
 
+/**
+ * Hero (Section 1) — SmartHR系の人物切り抜き + 大ヘッドライン構造（V34ベース）
+ * ・ミントグラデ背景
+ * ・上部にダークグリーンタグピル
+ * ・中央に人物（漁師/農家風）の透過写真
+ * ・写真に被るように大ヘッドライン
+ * ・黄色トッパー付き2CTA縦並び
+ * ・下部にダッシュボードUIモック（CSS）
+ */
 export default function HomeHero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const { ref, revealed } = useReveal<HTMLDivElement>({
+    threshold: 0.1,
+    rootMargin: "0px 0px -10% 0px",
+  });
 
   return (
     <section
       ref={ref}
-      className="relative bg-gradient-to-br from-[#F5F3FF] via-white to-[#ECFDF5] overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28 min-h-[640px] md:min-h-[680px]"
+      className="relative overflow-hidden"
+      aria-label="ALPACA ヒーロー"
+      style={{
+        background:
+          "radial-gradient(ellipse 90% 60% at 20% 0%, #6CF0CC 0%, transparent 60%), radial-gradient(ellipse 70% 50% at 80% 30%, #14E0AC 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 50% 100%, #075E4A 0%, transparent 70%), linear-gradient(180deg, #12C998 0%, #0FA67D 70%, #0B8C6E 100%)",
+      }}
     >
-      {/* フルブリード背景画像（PC=ワイド / モバイル=縦） */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* PC: ワイド版、左→右に溶ける */}
-        <div
-          className="hidden md:block absolute inset-0"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
-            maskImage:
-              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, #000 45%, #000 100%)",
-          }}
-        >
-          <Image
-            src="/images/home-hero.jpg"
-            alt="奄美の事業者がスマホで業務を確認する様子"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-right"
-          />
-        </div>
-        {/* モバイル: 縦版、上→下に画像、テキストエリア上にフェード */}
-        <div className="md:hidden absolute inset-0">
-          <Image
-            src="/images/home-hero-mobile.png"
-            alt="奄美の事業者がスマホで業務を確認する様子"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-            style={{ objectPosition: "center 90%" }}
-          />
-          {/* 上半分を白くフェード（テキスト可読性UP：60%まで強くキープ） */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F3FF] via-[#F5F3FF]/85 via-55% to-transparent" />
-        </div>
-        {/* 下端を背景に溶かすフェード */}
-        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-[#ECFDF5]" />
-      </div>
-
-      {/* 装飾ブロブ */}
+      {/* 装飾レイヤー：ソフトブロブ（光の塊で奥行き） */}
       <div
         aria-hidden="true"
-        className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full pointer-events-none blur-3xl opacity-25 z-[1]"
+        className="absolute -top-40 -left-32 w-[480px] h-[480px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #635BFF 0%, transparent 70%)",
-          animation: "alpacaBlobDrift 18s ease-in-out infinite",
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 65%)",
+          filter: "blur(20px)",
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-32 -left-32 w-[360px] h-[360px] rounded-full pointer-events-none blur-3xl opacity-20 z-[1]"
+        className="absolute top-1/3 -right-40 w-[420px] h-[420px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #12C998 0%, transparent 70%)",
-          animation: "alpacaBlobDrift 22s ease-in-out infinite reverse",
+          background:
+            "radial-gradient(circle at 60% 50%, rgba(108,240,204,0.55) 0%, rgba(108,240,204,0) 65%)",
+          filter: "blur(24px)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/3 w-[360px] h-[360px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(255,238,17,0.18) 0%, rgba(255,238,17,0) 70%)",
+          filter: "blur(28px)",
         }}
       />
 
-      <style>{`
-        @keyframes alpacaBlobDrift {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(20px, -10px) scale(1.05); }
-          66% { transform: translate(-15px, 12px) scale(0.97); }
-        }
-        @keyframes alpacaShine {
-          0% { transform: translateX(-120%) skewX(-12deg); }
-          60%, 100% { transform: translateX(220%) skewX(-12deg); }
-        }
-      `}</style>
+      {/* 装飾レイヤー：ノイズテクスチャ（紙の質感、上質感） */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.12]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "180px 180px",
+        }}
+      />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div
-          className="relative max-w-xl transition-all duration-700"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-          }}
-        >
-          <div className="inline-flex items-center gap-3 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.4em] text-[#1D3A8A]">
-              CHAPTER 00
-            </p>
-            <span className="w-8 h-[1px] bg-[#1D3A8A]/30" />
-            <p className="text-[11px] font-bold tracking-[0.3em] text-[#0A1228]/60">
-              BRAND CONCEPT
-            </p>
+      {/* 装飾：浮遊する小さなドット（控えめ） */}
+      <span
+        aria-hidden="true"
+        className="absolute top-32 left-8 w-2 h-2 rounded-full bg-white/40 pointer-events-none"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute top-1/2 right-10 w-1.5 h-1.5 rounded-full bg-[#FFEE11]/50 pointer-events-none"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute bottom-1/3 left-12 w-3 h-3 rounded-full bg-white/30 pointer-events-none"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute top-1/4 right-1/4 w-1 h-1 rounded-full bg-[#6CF0CC] pointer-events-none"
+      />
+
+      <div
+        className="relative max-w-[1184px] mx-auto px-6 md:px-8 pt-20 md:pt-28 transition-all duration-700"
+        style={{
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "translateY(0)" : "translateY(16px)",
+        }}
+      >
+        {/* 上部：ダークグリーンタグピル */}
+        <div className="flex justify-center mb-6 md:mb-8">
+          <span
+            className="inline-flex items-center text-[13px] md:text-base font-bold px-5 py-2.5 md:px-7 md:py-3 rounded-2xl text-white"
+            style={{ background: "#075E4A" }}
+          >
+            業務改善 <span className="mx-2 opacity-70">×</span> AI標準装備{" "}
+            <span className="ml-1">で時間を取り戻す</span>
+          </span>
+        </div>
+
+        {/* 中央：人物切り抜き写真＋大ヘッドラインオーバーレイ */}
+        <div className="relative">
+          {/* 人物画像 */}
+          <div className="relative mx-auto w-full max-w-[520px] aspect-[4/5]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/home-v3/fisherman-portrait.png"
+              alt="ALPACAを使う奄美の事業者（40代男性、漁師・農家風）"
+              className="w-full h-full object-contain object-bottom"
+              loading="eager"
+              decoding="async"
+            />
           </div>
 
-          <h1 className="text-[#1A202C] text-[2.4rem] md:text-[3.4rem] lg:text-[4rem] leading-[1.2] font-extrabold mb-6 tracking-tight">
-            奄美の事業を、
-            <br />
-            <span className="text-[#635BFF]">デザイン</span>
-            <span className="text-[#1A202C]">と</span>
-            <span className="text-[#12C998]">仕組み</span>
-            <span className="text-[#1A202C]">で</span>
-            <br />
-            <span className="relative inline-block">
-              <span className="relative z-10">整える</span>
-              <span
-                className="absolute inset-x-0 bottom-1 h-[35%] bg-[#FFC400]/60 -z-0"
-                aria-hidden="true"
-              />
-            </span>
-            。
+          {/* 大ヘッドライン（写真下部に被るように） */}
+          <h1
+            className="absolute left-1/2 -translate-x-1/2 bottom-[8%] md:bottom-[12%] text-white font-extrabold text-center w-[95%] whitespace-nowrap"
+            style={{
+              fontSize: "clamp(2.5rem, 8vw, 5.5rem)",
+              lineHeight: 1.1,
+              letterSpacing: "0.01em",
+              textShadow: "0 6px 24px rgba(7,94,74,0.5)",
+            }}
+          >
+            <span className="block">あなただけの、</span>
+            <span className="block">業務改善システム</span>
           </h1>
+        </div>
 
-          <p className="text-[#1A202C]/75 text-[0.95rem] md:text-base leading-[2] mb-9 max-w-md">
-            奄美大島を拠点にする、Web制作とシステム開発のスタジオ。
-            <br />
-            ホームページ・ランディングページ・業務改善システムを、一つの窓口でご相談いただけます。
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 mb-10">
-            <a
-              href="#services"
-              className="group relative inline-flex items-center gap-2 bg-[#FF6B35] text-white font-black text-sm px-6 py-3.5 rounded-full shadow-md hover:shadow-xl hover:bg-[#15296B] hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2"
+        {/* 2つのCTAボタン縦並び（黄色トッパー付き） */}
+        <div className="relative -mt-2 md:-mt-4 flex flex-col items-center gap-5 md:gap-6 pb-12 md:pb-16">
+          {/* CTA 1：無料相談 */}
+          <div className="relative w-full max-w-[440px]">
+            <span
+              className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center text-[12px] md:text-[13px] font-bold px-4 py-1 rounded-full whitespace-nowrap z-10"
+              style={{ background: "#FFEE11", color: "#075E4A" }}
             >
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: "linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%)",
-                  animation: "alpacaShine 3.6s ease-in-out infinite",
-                }}
-              />
-              <span className="relative z-10">サービスを見る</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 group-hover:translate-x-1 transition-transform duration-200">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
+              いつでも相談OK！
+            </span>
             <a
               href="#contact"
-              className="group inline-flex items-center text-sm font-black text-[#1A202C] underline decoration-[#12C998] decoration-[2px] underline-offset-[6px] hover:decoration-[#635BFF] hover:underline-offset-[8px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#635BFF] focus-visible:ring-offset-2 rounded-sm"
+              className="block w-full text-center text-white font-bold text-lg md:text-xl px-8 py-5 md:py-6 rounded-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+              style={{ background: "#075E4A" }}
             >
-              無料で相談する <span className="ml-1 group-hover:translate-x-1 transition-transform duration-200 inline-block">→</span>
+              無料相談 <ArrowRight className="inline w-5 h-5 ml-1 -mt-0.5" strokeWidth={2.5} />
             </a>
+          </div>
+
+          {/* CTA 2：サービスを見る */}
+          <div className="relative w-full max-w-[440px]">
+            <span
+              className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center text-[12px] md:text-[13px] font-bold px-4 py-1 rounded-full whitespace-nowrap z-10"
+              style={{ background: "#FFEE11", color: "#075E4A" }}
+            >
+              デモ見れます！
+            </span>
+            <a
+              href="#service"
+              className="block w-full text-center text-[#075E4A] font-bold text-lg md:text-xl px-8 py-5 md:py-6 rounded-full bg-white transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              サービスを見る <ArrowRight className="inline w-5 h-5 ml-1 -mt-0.5" strokeWidth={2.5} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 下部：ダッシュボードUIモック（チラ見せ） */}
+      <div className="relative max-w-[1184px] mx-auto px-4 md:px-8">
+        <div
+          className="bg-white rounded-t-2xl md:rounded-t-3xl shadow-2xl overflow-hidden mx-auto max-w-[1024px]"
+          style={{
+            transform: "translateY(2%)",
+          }}
+        >
+          {/* ダッシュボードヘッダー */}
+          <div className="flex items-center justify-between bg-[#F8FAFA] px-4 md:px-6 py-3 border-b border-[#E5E7EB]">
+            <div className="flex items-center gap-3">
+              <span className="font-extrabold text-sm md:text-base text-[#0B8C6E]">
+                ALPACA
+              </span>
+              <span className="hidden md:inline text-xs text-[#4C4C4C]">
+                / ダッシュボード
+              </span>
+            </div>
+            <div className="flex items-center gap-2 md:gap-3">
+              <Bell className="w-4 h-4 text-[#4C4C4C]" strokeWidth={2} />
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 rounded-full bg-[#12C998]" />
+                <span className="hidden md:inline text-xs text-[#23221F] font-medium">
+                  山田 太郎
+                </span>
+                <ChevronDown className="w-3 h-3 text-[#4C4C4C]" strokeWidth={2.5} />
+              </div>
+            </div>
+          </div>
+
+          {/* KPIカード3枚 */}
+          <div className="grid grid-cols-3 gap-2 md:gap-4 p-3 md:p-6">
+            {[
+              { label: "今月の売上", value: "¥8,742,000", delta: "+18.6%" },
+              { label: "今月の案件数", value: "128件", delta: "+12.5%" },
+              { label: "タスク完了率", value: "87%", delta: "+9.3%" },
+            ].map((kpi) => (
+              <div
+                key={kpi.label}
+                className="bg-white border border-[#E5E7EB] rounded-lg md:rounded-xl p-2 md:p-4"
+              >
+                <p className="text-[9px] md:text-xs text-[#4C4C4C] mb-1 md:mb-1.5">
+                  {kpi.label}
+                </p>
+                <p className="text-[11px] md:text-lg font-extrabold text-[#23221F] tabular-nums leading-tight">
+                  {kpi.value}
+                </p>
+                <p className="text-[8px] md:text-[11px] text-[#0B8C6E] font-bold mt-0.5">
+                  前月比 ▲ {kpi.delta}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

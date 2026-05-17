@@ -7,29 +7,29 @@ const INCLUDED = [
   "LINE公式アカウントで相談無制限（営業日24時間以内返信）",
   "月5時間以内の軽実装(簡易LINE bot・Notion・Zapier・ChatGPT活用等)",
   "月1テキストレポート（AI最新情報＋御社向けご提案）",
-  "大型案件の顧問特典価格",
+  "大型案件のスマート特典価格",
 ];
 
 const SPOT = [
   { label: "定例MTG", price: "¥10,000", unit: "/30分" },
-  { label: "月5時間超過分", price: "¥10,000", unit: "/時間" },
+  { label: "月5時間超過分", price: "¥5,000", unit: "/時間" },
 ];
 
 const DISCOUNT = [
   {
     label: "LINEボット本構築",
     normal: "通常 ¥80,000〜",
-    discount: "顧問特典価格でお見積もり",
+    discount: "スマート特典価格でお見積もり",
   },
   {
     label: "ホームページ制作",
     normal: "通常 ¥250,000〜",
-    discount: "顧問特典価格でお見積もり",
+    discount: "スマート特典価格でお見積もり",
   },
   {
     label: "業務システム開発",
     normal: "通常 ¥300,000〜",
-    discount: "顧問特典価格でお見積もり",
+    discount: "スマート特典価格でお見積もり",
   },
 ];
 
@@ -105,7 +105,7 @@ export default function AgentPricing() {
                 月額サブスクリプション
               </span>
               <h3 className="text-[#1D2A6E] text-3xl md:text-5xl font-bold leading-tight mb-6">
-                アルパカAI顧問
+                アルパカスマート
               </h3>
               <p className="text-[#5A6280] text-base leading-loose mb-10">
                 奄美のあなたの会社のAI担当者として、
@@ -164,7 +164,7 @@ export default function AgentPricing() {
           </div>
         </div>
 
-        {/* スポット追加 + 顧問特典価格 */}
+        {/* スポット追加 + スマート特典価格 */}
         <div className="grid md:grid-cols-2 gap-5 mb-14">
           <div className={`bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.6s" }}>
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-6">
@@ -194,7 +194,7 @@ export default function AgentPricing() {
 
           <div className={`bg-white border-2 border-[#12C998]/40 rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.7s" }}>
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-6">
-              顧問特典価格
+              スマート特典価格
             </p>
             <ul className="space-y-5">
               {DISCOUNT.map(({ label, normal, discount }) => (
