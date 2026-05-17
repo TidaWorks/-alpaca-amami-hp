@@ -24,7 +24,7 @@ const CASES: CaseItem[] = [
     industry: "宿泊業",
     question: "外国人観光客の予約問い合わせをAIで多言語対応したい",
     answer:
-      "LINEボット＋多言語翻訳の組み合わせで対応可能です。月5時間枠で簡易版を構築、本格運用はスマート特典価格でお見積もりします。",
+      "AI翻訳付きの自動応答で対応可能です。月5時間枠で簡易版を構築、本格運用はスマート特典価格でお見積もりします。",
     Icon: BedDouble,
     accent: "#2860E1",
     bg: "#E8F0FE",
@@ -33,7 +33,7 @@ const CASES: CaseItem[] = [
     industry: "飲食店",
     question: "インスタDM返信が追いつかない、AIで自動化できる？",
     answer:
-      "Meta Business SuiteとChatGPT API連携で自動応答化できます。月5時間枠で構築・調整まで対応します。",
+      "DM自動応答の仕組みづくりで、よく来る質問をAIに肩代わりさせられます。月5時間枠で構築・調整まで対応します。",
     Icon: UtensilsCrossed,
     accent: "#E85A4F",
     bg: "#FDECE9",
@@ -42,7 +42,7 @@ const CASES: CaseItem[] = [
     industry: "観光ガイド",
     question: "予約管理を紙からデジタルに移行したい",
     answer:
-      "Notion予約データベースを構築、スマホからも確認できる運用フローを設計します。月5時間以内で完了します。",
+      "スマホからも確認できるデジタル予約管理の運用フローを設計します。月5時間以内で完了します。",
     Icon: Map,
     accent: "#12C998",
     bg: "#E2F8F1",
@@ -51,7 +51,7 @@ const CASES: CaseItem[] = [
     industry: "士業",
     question: "議事録作成が時間かかる、AIで効率化したい",
     answer:
-      "Otter / Notta の導入支援＋運用フロー設計を行います。文字起こしから要約までの一連の流れを整えます。",
+      "AI文字起こしツールの導入支援＋運用フロー設計を行います。文字起こしから要約までの一連の流れを整えます。",
     Icon: Scale,
     accent: "#1D2A6E",
     bg: "#E5E9F5",
@@ -60,7 +60,7 @@ const CASES: CaseItem[] = [
     industry: "医療・介護",
     question: "問い合わせ電話が多すぎる、自動応答に振りたい",
     answer:
-      "LINEボットでの問い合わせ受付＋電話AI応答の組み合わせをご提案します。導入規模に応じて段階的に進めます。",
+      "自動応答での問い合わせ受付＋電話AI応答の組み合わせをご提案します。導入規模に応じて段階的に進めます。",
     Icon: Stethoscope,
     accent: "#E8669A",
     bg: "#FCEAF1",

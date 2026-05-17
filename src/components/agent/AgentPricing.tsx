@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
 const INCLUDED = [
-  "LINE公式アカウントで相談無制限（営業日24時間以内返信）",
-  "月5時間以内の軽実装(簡易LINE bot・Notion・Zapier・ChatGPT活用等)",
-  "月1テキストレポート（AI最新情報＋御社向けご提案）",
+  "チャットで相談無制限（営業日24時間以内返信）",
+  "月5時間以内の軽実装（業務にAIを取り入れる初期設定や小さな業務改善のお手伝い）",
+  "最新のAI情報を不定期でちょくちょくお届け",
   "大型案件のスマート特典価格",
 ];
 
@@ -17,7 +17,7 @@ const SPOT = [
 
 const DISCOUNT = [
   {
-    label: "LINEボット本構築",
+    label: "自動応答ボット本構築",
     normal: "通常 ¥80,000〜",
     discount: "スマート特典価格でお見積もり",
   },

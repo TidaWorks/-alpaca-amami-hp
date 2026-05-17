@@ -218,7 +218,7 @@ export default function AgentHero() {
               >
                 AIをどう使えばいいか分からない。
                 <br className="hidden md:block" />
-                そんな事業者さんへ、LINEで気軽に相談できる
+                そんな事業者さんへ、チャットで気軽に相談できる
                 <br className="hidden md:block" />
                 月額サポートをご用意しました。
               </p>
@@ -281,7 +281,7 @@ export default function AgentHero() {
                   <source media="(max-width: 767px)" srcSet="/images/agent-v3/06-hero-sp.png" />
                   <img
                     src="/images/agent-v3/01-hero-pc.png"
-                    alt="アルパカスマート — LINEで相談できるAI担当者"
+                    alt="アルパカスマート — チャットで相談できるAI担当者"
                     className="w-full h-auto block"
                     width={1280}
                     height={1280}
@@ -296,7 +296,7 @@ export default function AgentHero() {
               >
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
-                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">LINE公式</span>
+                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">チャット相談</span>
                 </div>
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
@@ -304,7 +304,7 @@ export default function AgentHero() {
                 </div>
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
-                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">月1レポート</span>
+                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">AI最新情報</span>
                 </div>
               </div>
             </div>
