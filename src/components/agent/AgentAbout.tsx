@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Wrench, FileText, Sparkles } from "lucide-react";
 
 const PILLARS = [
-  { Icon: MessageCircle, label: "相談", desc: "LINEで日々の困りごと" },
-  { Icon: Wrench, label: "実装", desc: "月5時間以内の軽実装" },
-  { Icon: FileText, label: "レポート", desc: "AI最新情報を月1配信" },
-  { Icon: Sparkles, label: "特典", desc: "大型案件は割引価格で" },
+  { Icon: MessageCircle, label: "相談", desc: "チャットで毎日のお悩み無制限" },
+  { Icon: Wrench, label: "実装", desc: "月5時間以内の業務改善お手伝い" },
+  { Icon: FileText, label: "情報", desc: "最新AIニュースを随時お届け" },
+  { Icon: Sparkles, label: "特典", desc: "大型案件は顧問割引価格で" },
 ];
 
 export default function AgentAbout() {
@@ -57,35 +57,39 @@ export default function AgentAbout() {
             ABOUT — アルパカスマートとは
           </p>
           <h2
-            className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-7 ${revealed ? "fade-in" : "pre"}`}
+            className={`text-[#1D2A6E] text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-7 ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.15s" }}
           >
-            会社の<span className="text-[#12C998]">AI担当者</span>として、
-            <br className="hidden md:block" />
-            まるっと伴走します。
+            <span className="whitespace-nowrap">会社の<span className="text-[#12C998]">AI担当者</span>として、</span>
+            <br />
+            <span className="whitespace-nowrap">まるっと伴走します。</span>
           </h2>
           <p
             className={`text-[#5A6280] text-base md:text-lg leading-loose max-w-2xl mx-auto ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            「相談」「実装」「レポート」「特典」の4本柱で、
+            「相談」「実装」「情報」「特典」の4本柱で、
             <br className="hidden md:block" />
-            奄美の小規模事業者さんのAI活用を月¥50,000で支えます。
+            小規模事業者さんのAI活用を月¥50,000で支えます。
           </p>
         </div>
 
-        {/* 中央：Aboutビジュアル（PC/SP切替） */}
-        <div className={`mb-12 md:mb-16 bg-[#FAFAFA] border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.35s" }}>
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/images/agent-v3/10-about-sp.png" />
-            <img
-              src="/images/agent-v3/05-about-pc.png"
-              alt="アルパカスマートの4つの柱"
-              className="w-full h-auto"
-              width={1920}
-              height={1080}
-            />
-          </picture>
+        {/* 中央：象徴ビジュアル — 月¥50,000バッジ */}
+        <div
+          className={`mb-12 md:mb-16 text-center ${revealed ? "fade-in" : "pre"}`}
+          style={{ animationDelay: "0.35s" }}
+        >
+          <div className="inline-flex flex-col items-center bg-gradient-to-br from-[#12C998] to-[#0DA67D] rounded-3xl px-10 md:px-16 py-8 md:py-10 shadow-2xl shadow-[#12C998]/30">
+            <span className="text-white/80 text-[10px] md:text-xs font-bold tracking-[0.4em] mb-2">
+              月額
+            </span>
+            <span className="text-white text-5xl md:text-7xl font-bold leading-none tabular-nums tracking-tight">
+              ¥50,000
+            </span>
+            <span className="text-white/85 text-xs md:text-sm font-bold mt-3">
+              入会金なし／最低契約期間3ヶ月
+            </span>
+          </div>
         </div>
 
         {/* 4本柱バッジ */}

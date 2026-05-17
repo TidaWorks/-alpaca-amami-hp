@@ -127,7 +127,7 @@ export default function AgentUseCases() {
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            奄美の事業者さんから実際に寄せられる相談を、業種別にまとめました。
+            事業者さんから実際に寄せられる相談を、業種別にまとめました。
           </p>
         </div>
 

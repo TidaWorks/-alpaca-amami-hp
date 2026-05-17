@@ -77,7 +77,7 @@ export default function AgentPricing() {
             className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.05s" }}
           >
-            PRICING — 月額一本
+            PRICING — 料金
           </p>
           <h2
             className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-7 ${revealed ? "fade-in" : "pre"}`}
@@ -85,14 +85,14 @@ export default function AgentPricing() {
           >
             料金は、
             <br className="md:hidden" />
-            <span className="text-[#12C998]">月¥50,000の一本</span>
+            <span className="text-[#12C998]">定額5万円</span>
             。
           </h2>
           <p
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            入会金なし、最低契約期間3ヶ月、4ヶ月目以降は月単位で解約可能です。
+            追加の実装は¥5,000/時間。入会金なし、最低契約期間3ヶ月、4ヶ月目以降は月単位で解約可能です。
           </p>
         </div>
 
@@ -108,7 +108,7 @@ export default function AgentPricing() {
                 アルパカスマート
               </h3>
               <p className="text-[#5A6280] text-base leading-loose mb-10">
-                奄美のあなたの会社のAI担当者として、
+                あなたの会社のAI担当者として、
                 <br className="hidden md:block" />
                 日々の相談から軽実装まで、まるっとお引き受けします。
               </p>

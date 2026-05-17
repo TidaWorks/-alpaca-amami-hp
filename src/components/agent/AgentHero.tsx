@@ -3,31 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Heart, Star, Check, Clock } from "lucide-react";
 
-function NumberTicker({ to, suffix = "", prefix = "", duration = 1200, start = false }: { to: number; suffix?: string; prefix?: string; duration?: number; start?: boolean }) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    let rafId: number;
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const progress = Math.min(1, (t - t0) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.floor(to * eased));
-      if (progress < 1) rafId = requestAnimationFrame(tick);
-      else setValue(to);
-    };
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, [to, duration, start]);
-  return (
-    <span className="tabular-nums">
-      {prefix}
-      {value.toLocaleString("ja-JP")}
-      {suffix}
-    </span>
-  );
-}
-
 export default function AgentHero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -59,7 +34,7 @@ export default function AgentHero() {
     <section
       id="concept"
       ref={sectionRef}
-      className="relative overflow-hidden bg-gradient-to-br from-[#F5FBF9] via-white to-[#E8F9F3]/40 pb-16 md:pb-24"
+      className="relative overflow-hidden bg-gradient-to-br from-[#F5FBF9] via-white to-[#E8F9F3]/40 pb-0 md:pb-24"
     >
       {/* ===== SP専用ヒーロー：案18 全幅画像 + 胸元ピンクCTA（md未満で表示） ===== */}
       <div className="relative md:hidden pt-[100px]">
@@ -76,10 +51,10 @@ export default function AgentHero() {
         >
           サービス内容を見る
         </a>
-        {/* 画像下→白セクションへの繋ぎフェード（ミントから白へグラデ） */}
+        {/* 画像下→白セクションへの繋ぎフェード（ミントから白へグラデ、SPは短め） */}
         <div
           aria-hidden="true"
-          className="h-16 bg-gradient-to-b from-[#12C998]/0 via-[#E8F9F3]/60 to-white"
+          className="h-8 bg-gradient-to-b from-[#12C998]/0 via-[#E8F9F3]/60 to-white"
         />
       </div>
 
@@ -311,54 +286,6 @@ export default function AgentHero() {
 
           </div>
         </div>
-      </div>
-
-      {/* 信頼ポイント帯 — Number Ticker付き（維持） */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-10 mt-16 md:mt-24">
-        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.6s" }}>
-          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#12C998]/40 transition-colors duration-300 shadow-sm shadow-[#1D2A6E]/5">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">RESPONSE</p>
-            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
-              <NumberTicker to={24} start={revealed} />
-              <span className="text-base ml-1">時間以内</span>
-            </p>
-            <p className="text-[12px] text-[#5A6280] font-bold">営業日24時間以内に返信</p>
-          </div>
-          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#12C998]/40 transition-colors duration-300 shadow-sm shadow-[#1D2A6E]/5">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">IMPLEMENT</p>
-            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
-              月<NumberTicker to={5} start={revealed} />
-              <span className="text-base ml-1">時間まで</span>
-            </p>
-            <p className="text-[12px] text-[#5A6280] font-bold">追加見積もりなしの軽実装枠</p>
-          </div>
-          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#12C998]/40 transition-colors duration-300 shadow-sm shadow-[#1D2A6E]/5">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">CONTRACT</p>
-            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
-              最低<NumberTicker to={3} start={revealed} />
-              <span className="text-base ml-1">ヶ月から</span>
-            </p>
-            <p className="text-[12px] text-[#5A6280] font-bold">4ヶ月目以降は月単位で解約OK</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Trust画像帯 — Powered by（維持） */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-10 mt-16 md:mt-20">
-        <p className={`text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-5 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.75s" }}>
-          POWERED BY
-        </p>
-        <picture>
-          <source media="(max-width: 767px)" srcSet="/images/agent-v3/09-trust-sp.png" />
-          <img
-            src="/images/agent-v3/04-trust-pc.png"
-            alt="アルパカスマートが活用する主要AIサービス"
-            className={`w-full h-auto rounded-xl ${revealed ? "fade-in-x" : "pre-x"}`}
-            style={{ animationDelay: "0.85s" }}
-            width={1920}
-            height={1080}
-          />
-        </picture>
       </div>
 
       <style>{`

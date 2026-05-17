@@ -36,7 +36,7 @@
 | `/` | 玄関ページ。ALPACAブランド全体像 | HomeHeader / HomeHero / HomeServices / HomeWorks / HomeAbout / HomeFlow / HomeFAQ / HomeContact |
 | `/web` | ホームページ・LP制作専用LP | WebHeader / WebHero / WebPainPoints / WebFeatures / WebPricing / WebFlow / WebManifesto / WebFAQ / WebCTA |
 | `/system` | 業務システム開発専用LP | SystemHeader / SystemHero / SystemPainPoints / SystemFeatures / SystemPricing / SystemFlow / SystemManifesto / SystemFAQ / SystemCTA |
-| `/smart` | アルパカスマート（月額AIサポート）専用LP | AgentHeader / AgentHero / AgentAbout / AgentPainPoints / AgentFeatures / AgentUseCases / AgentPricing / AgentFlow / AgentFAQ / AgentCTA |
+| `/smart` | アルパカスマート（月額AIサポート）専用LP | AgentHeader / AgentHero / AgentPainPoints / AgentFeatures / AgentUseCases / AgentPricing / AgentFlow / AgentFAQ / AgentCTA |
 
 - `src/app/page.tsx` → トップ
 - `src/app/web/page.tsx` → /web

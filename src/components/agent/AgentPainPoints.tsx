@@ -10,12 +10,6 @@ const PAINS = [
     follow: "アルパカスマートなら、チャットで気軽に「これに使えますか？」と聞けます。",
   },
   {
-    img: "12-pain-isolation",
-    title: "AI導入を相談できる相手が、島内にいない",
-    body: "東京のコンサルに頼むほどでもないけれど、奄美にはAIに詳しい顧問もエンジニアもほぼいない。",
-    follow: "島の事業者さんに伴走する、AI専門の月額契約です。",
-  },
-  {
     img: "13-pain-cost",
     title: "自動応答ボットや自動化に興味あるけど、初期費用が読めない",
     body: "見積もりを取るたびに金額がバラバラ。何にいくらかかるのか、相場感がそもそも分からない。",
@@ -70,7 +64,7 @@ export default function AgentPainPoints() {
     <section
       id="pain"
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#FAFAFA] py-24 md:py-32"
+      className="relative overflow-hidden bg-[#FAFAFA] py-12 md:py-32"
     >
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         {/* セクション見出し */}
@@ -80,7 +74,7 @@ export default function AgentPainPoints() {
               className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
               style={{ animationDelay: "0.05s" }}
             >
-              PAIN POINTS — 奄美の現場から
+              PAIN POINTS — 現場の声から
             </p>
             <h2
               className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`}
@@ -97,7 +91,7 @@ export default function AgentPainPoints() {
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            奄美の事業者さんからよく聞く、AIまわりの「分からない」をまとめました。
+            事業者さんからよく聞く、AIまわりの「分からない」をまとめました。
           </p>
         </div>
 
@@ -143,10 +137,10 @@ export default function AgentPainPoints() {
             style={{ animationDelay: "0.8s" }}
           >
             AIまわりのことは、
-            <span className="text-[#12C998]">アルパカスマート</span>
+            <span className="text-[#12C998]">ALPACA</span>
             に
             <br className="md:hidden" />
-            気軽に相談してください。
+            気軽にご相談ください。
           </p>
         </div>
       </div>

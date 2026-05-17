@@ -13,7 +13,7 @@ const FEATURE_TEXT = [
   {
     no: "02",
     title: "月5時間以内の軽実装",
-    body: "お問い合わせの自動応答づくり、繰り返し作業をAIで肩代わり、文章作成・要約・翻訳のサポート、業務にAIを取り入れる初期設定など、小さな業務改善のお手伝いを月5時間ぶんお引き受けします。",
+    body: "お問い合わせの自動応答づくり、繰り返し作業をAIで肩代わり、文章作成・要約・翻訳のサポート、業務にAIを取り入れる初期設定など、小さな業務改善のお手伝いをお引き受けします。",
     Icon: Wrench,
   },
   {
@@ -115,48 +115,6 @@ export default function AgentFeatures() {
           </p>
         </div>
 
-        {/* 画像カード（浮き感解消：ミントグロー + ブラー装飾円で背景と溶かす） */}
-        <div
-          className={`relative mx-auto max-w-5xl mb-20 md:mb-24 ${revealed ? "fade-in" : "pre"}`}
-          style={{ animationDelay: "0.35s" }}
-        >
-          {/* 装飾アクセント：カード左上ミント円 */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-10 -left-10 w-40 h-40 rounded-full bg-[#12C998]/30 blur-2xl"
-          />
-          {/* 装飾アクセント：カード右下ミント円 */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-12 -right-12 w-56 h-56 rounded-full bg-[#12C998]/25 blur-3xl"
-          />
-          {/* 装飾アクセント：紺の薄いライン（角に） */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-3 -right-3 w-24 h-24 border-2 border-[#1D2A6E]/10 rounded-3xl"
-          />
-
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#12C998]/20 ring-1 ring-[#12C998]/10">
-            <picture>
-              <source
-                media="(max-width: 767px)"
-                srcSet="/images/agent-v3/07-features-sp.png"
-              />
-              <img
-                src="/images/agent-v3/02-features-pc.png"
-                alt="アルパカスマート 月額に含まれる4つのサービス"
-                className="block w-full h-auto object-cover"
-                width={1920}
-                height={1080}
-              />
-            </picture>
-            {/* カード下端をミントに溶かすグラデーション（境界曖昧化） */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#E8F9F3]/60 to-transparent"
-            />
-          </div>
-        </div>
 
         {/* 4ポイント説明（数字バッジ + アイコン + 見出し + 説明、2カラム） */}
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-12 lg:gap-x-16 lg:gap-y-14">
@@ -197,7 +155,7 @@ export default function AgentFeatures() {
             </p>
             <ul className="space-y-3 text-[#1A1A1A] text-sm font-bold leading-loose">
               <li>※ 定例MTG（必要時のみスポット ¥10,000/30分）</li>
-              <li>※ 月5時間を超える実装作業（¥10,000/時間、繰り越しなし）</li>
+              <li>※ 月5時間を超える実装作業（¥5,000/時間、繰り越しなし）</li>
               <li>
                 ※ 本格的なホームページ・業務システム・自動応答ボット本構築（スマート特典価格にて別途お見積もり）
               </li>
