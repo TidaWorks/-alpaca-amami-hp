@@ -1,7 +1,6 @@
 import HomeLogoIntro from "@/components/home/HomeLogoIntro";
 import HomeHeader from "@/components/home/HomeHeader";
 import HomeHero from "@/components/home/HomeHero";
-import HomeNumberOne from "@/components/home/HomeNumberOne";
 import HomeSolution from "@/components/home/HomeSolution";
 import HomeService from "@/components/home/HomeService";
 import HomeWhyChosen from "@/components/home/HomeWhyChosen";
@@ -22,8 +21,6 @@ export default function Home() {
       <HomeHeader />
       {/* 1. Hero */}
       <HomeHero />
-      {/* 4. Number One ─ ALPACAの3つの強み */}
-      <HomeNumberOne />
       {/* 5. Solution */}
       <HomeSolution />
       {/* 6. Service (最重要) */}
