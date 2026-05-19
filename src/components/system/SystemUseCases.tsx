@@ -6,32 +6,32 @@ const CASES = [
   {
     img: "14-case-restaurant",
     industry: "飲食店",
-    question: "POSと予約と売上を1つにまとめたい",
-    answer: "iPadメニュー注文・売上集計・予約管理を1システムで連動。月末集計を3時間→5分に。",
+    question: "予約と売上を1つにまとめたい",
+    answer: "予約管理・売上記録・顧客情報を1つのシステムに集約。日々の業務をスマホ1台で。",
   },
   {
     img: "15-case-beauty",
     industry: "美容室・サロン",
     question: "予約管理を紙からデジタルに移したい",
-    answer: "顧客×担当×時間枠を一覧管理、自動リマインダー送信・カット履歴記録まで標準実装。",
-  },
-  {
-    img: "16-case-realestate",
-    industry: "不動産",
-    question: "物件・契約・顧客を一元管理したい",
-    answer: "物件マスター・賃貸契約・入居者情報・更新時期通知をまとめてダッシュボード化。",
+    answer: "顧客×担当×時間枠を一覧管理、カット履歴記録まで標準実装。",
   },
   {
     img: "17-case-clinic",
     industry: "整骨院・接骨院",
     question: "紙のカルテをスマホで見られるようにしたい",
-    answer: "電子カルテ・施術履歴・予約管理・LINEリマインダー連動。タブレット1枚で完結する運用に。",
+    answer: "電子カルテ・施術履歴・予約管理を統合。タブレット1枚で完結する運用に。",
   },
   {
     img: "18-case-retail",
     industry: "小売・物販",
     question: "在庫が見えない、発注が後手に回る",
-    answer: "POSと連動した在庫・売上集計、自動アラートで欠品ゼロを目指す仕組みに。",
+    answer: "在庫数の記録・売上集計・欠品アラートを仕組みで自動化。日々の在庫把握が一目で。",
+  },
+  {
+    img: "19-case-construction",
+    industry: "建設業",
+    question: "紙の日報・案件管理を効率化したい",
+    answer: "現場日報をスマホ入力に切替、案件ステータス・施主台帳も一画面に。書類ベースから脱出して時間を生む運用に。",
   },
 ];
 
@@ -64,11 +64,11 @@ export default function SystemUseCases() {
             <h2 className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.15s" }}>
               業種別の
               <br />
-              <span className="text-[#2860E1]">構築例</span>
+              <span className="text-[#2860E1]">対応例</span>
             </h2>
           </div>
           <p className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.3s" }}>
-            奄美の事業者さんから実際に寄せられる業務システム化のご相談例を、業種別にまとめました。
+            業種別に、対応可能な業務システムの設計例。実際の構築は現場ヒアリングをふまえてカスタマイズします。
           </p>
         </div>
 
@@ -91,7 +91,7 @@ export default function SystemUseCases() {
         </div>
 
         <p className={`text-center mt-10 text-[#5A6280] text-[13px] font-bold leading-relaxed ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "1.0s" }}>
-          ※ 上記は代表例です。他業種・複数業務の連動など、まずはご相談ください。
+          ※ 上記は対応可能な業種の一例です。他業種・複数業務の連動など、まずはご相談ください。
         </p>
       </div>
 

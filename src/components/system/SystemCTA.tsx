@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Phone, MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { MessageCircle, Mail, ArrowRight } from "lucide-react";
 import { SITE } from "@/lib/site";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -48,7 +48,7 @@ export default function SystemCTA() {
       if (!res.ok || !data.ok) {
         const reason = typeof data.error === "string" ? data.error : `${res.status}`;
         if (reason === "not_configured") {
-          setErrorMsg("送信機能の準備中です。お手数ですが、上のメール・電話・DMからご連絡ください。");
+          setErrorMsg("送信機能の準備中です。お手数ですが、上のメール・DMからご連絡ください。");
         } else {
           setErrorMsg("送信に失敗しました。少し時間をおいて再度お試しください。");
         }
@@ -65,13 +65,13 @@ export default function SystemCTA() {
 
   const contacts = [
     {
-      type: "tel",
-      href: SITE.contact.telHref,
-      Icon: Phone,
-      label: "TEL",
-      title: "電話で相談",
-      body: SITE.contact.tel,
-      hint: "平日 9:00 - 18:00",
+      type: "mail",
+      href: SITE.contact.emailHref,
+      Icon: Mail,
+      label: "MAIL",
+      title: "メールで相談",
+      body: SITE.contact.email,
+      hint: "24時間受付",
     },
     {
       type: "dm",
@@ -81,15 +81,6 @@ export default function SystemCTA() {
       title: "Instagram DM",
       body: SITE.contact.instagramHandle,
       hint: "DMでお気軽に",
-    },
-    {
-      type: "mail",
-      href: SITE.contact.emailHref,
-      Icon: Mail,
-      label: "MAIL",
-      title: "メールで相談",
-      body: SITE.contact.email,
-      hint: "24時間受付",
     },
   ];
 
@@ -137,7 +128,7 @@ export default function SystemCTA() {
           </div>
 
           {/* 連絡先カード3つ */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-14 max-w-2xl mx-auto">
             {contacts.map((c, i) => {
               const IconComponent = c.Icon;
               return (
@@ -189,7 +180,7 @@ export default function SystemCTA() {
                 <p className="text-sm text-[#2A2E45] leading-loose">
                   内容を確認の上、2営業日以内にご返信いたします。
                   <br />
-                  急ぎの場合は上記の電話・DMもご利用ください。
+                  急ぎの場合は上記のDMもご利用ください。
                 </p>
                 <button
                   type="button"

@@ -99,9 +99,9 @@ export default function SystemHero() {
             >
               奄美大島の業務システム開発スタジオ。
               <br className="hidden md:block" />
-              現場を聞いて、必要な機能だけの仕組みをゼロからつくります。
+              現場の声を聞いて、必要な機能だけを設計。
               <br className="hidden md:block" />
-              納品後の運用も並走します。
+              納品後の運用まで、ずっと伴走します。
             </p>
 
             <div
@@ -148,15 +148,7 @@ export default function SystemHero() {
 
       {/* 信頼ポイント帯 */}
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
-        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.6s" }}>
-          <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#2860E1]/40 transition-colors duration-300">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">EFFICIENCY</p>
-            <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">
-              月末集計<NumberTicker to={3} start={revealed} />
-              <span className="text-base ml-1">時間→5分</span>
-            </p>
-            <p className="text-[12px] text-[#5A6280] font-bold">手作業から自動集計へ</p>
-          </div>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.6s" }}>
           <div className="bg-white border border-[#E5E9F5] rounded-2xl p-6 hover:border-[#2860E1]/40 transition-colors duration-300">
             <p className="text-[10px] font-bold tracking-[0.2em] text-[#5A6280] mb-3">CUSTOM</p>
             <p className="text-3xl md:text-4xl font-bold text-[#1D2A6E] leading-none mb-2">

@@ -33,10 +33,8 @@ export default function HomeHeader() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-[#E5E7EB]"
-            : "bg-transparent"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
+          scrolled ? "shadow-sm border-b border-[#E5E7EB]" : "border-b border-transparent"
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
