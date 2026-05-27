@@ -3,7 +3,6 @@ import HomeHeader from "@/components/home/HomeHeader";
 import HomeHero from "@/components/home/HomeHero";
 import HomeSolution from "@/components/home/HomeSolution";
 import HomeService from "@/components/home/HomeService";
-import HomeWhyChosen from "@/components/home/HomeWhyChosen";
 import HomeCaseStudy from "@/components/home/HomeCaseStudy";
 import HomeNotification from "@/components/home/HomeNotification";
 import HomeSupportFlow from "@/components/home/HomeSupportFlow";
@@ -25,8 +24,6 @@ export default function Home() {
       <HomeSolution />
       {/* 6. Service (最重要) */}
       <HomeService />
-      {/* 7. Why Chosen */}
-      <HomeWhyChosen />
       {/* 8. Case Study */}
       <HomeCaseStudy />
       {/* 9. Knowhow ─ 削除（資料なしのため、2026-05-17） */}
