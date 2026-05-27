@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "#service", label: "サービス" },
-  { href: "#works", label: "実績" },
-  { href: "#about", label: "ALPACAについて" },
-  { href: "#flow", label: "進め方" },
-  { href: "#faq", label: "よくある質問" },
-  { href: "#contact", label: "お問い合わせ" },
+  { href: "/#service", label: "サービス" },
+  { href: "/#works", label: "実績" },
+  { href: "/#about", label: "ALPACAについて" },
+  { href: "/#flow", label: "進め方" },
+  { href: "/#faq", label: "よくある質問" },
+  { href: "/#contact", label: "お問い合わせ" },
 ];
 
 export default function HomeHeader() {
@@ -63,7 +63,7 @@ export default function HomeHeader() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               className="text-xs font-black text-white bg-[#FF6B9E] rounded-full px-4 py-2 hover:bg-[#15296B] hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B9E] focus-visible:ring-offset-2"
             >
               無料相談 →
@@ -114,7 +114,7 @@ export default function HomeHeader() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-4 inline-flex items-center justify-center text-sm font-black text-white bg-[#FF6B9E] rounded-full px-5 py-3 hover:bg-[#15296B] active:scale-95 transition-all duration-200 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B9E] focus-visible:ring-offset-2"
             >

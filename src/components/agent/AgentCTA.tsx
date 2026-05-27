@@ -60,7 +60,7 @@ export default function AgentCTA() {
             style={{ animationDelay: "0.05s" }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#12C998] animate-pulse" />
-            CONTACT — まずはお気軽に
+            CONTACT
           </p>
           <h2
             className={`text-white text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-10 ${revealed ? "fade-in" : "pre"}`}
@@ -103,30 +103,19 @@ export default function AgentCTA() {
             </a>
           </div>
 
-          {/* 安心の一言 */}
-          <p className={`inline-flex items-center gap-3 border border-white/15 rounded-full px-6 py-3 text-white/75 text-xs md:text-sm font-bold mb-12 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.6s" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#12C998]" />
-            営業電話・しつこい勧誘は一切ありません
-          </p>
-
-          {/* 連絡先 */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-white/65 text-xs md:text-sm font-bold ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.75s" }}>
-            <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#12C998]" />
-              {SITE.contact.email}
-            </span>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#12C998]" />
-              返信は1〜2営業日以内
-            </span>
-          </div>
-
           {/* フッター */}
-          <footer className="mt-24 pt-10 border-t border-white/10 text-white/45 text-[11px] font-bold tracking-wider flex flex-col items-center gap-3">
-            <a href="/privacy" className="text-white/65 hover:text-white transition-colors underline-offset-4 hover:underline">
-              プライバシーポリシー
-            </a>
+          <footer className="mt-24 pt-10 border-t border-white/10 text-white/45 text-[11px] font-bold tracking-wider flex flex-col items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              <a href="/privacy" className="text-white/65 hover:text-white transition-colors underline-offset-4 hover:underline">
+                プライバシーポリシー
+              </a>
+              <a href="/terms" className="text-white/65 hover:text-white transition-colors underline-offset-4 hover:underline">
+                利用規約
+              </a>
+              <a href="/tokushoho" className="text-white/65 hover:text-white transition-colors underline-offset-4 hover:underline">
+                特定商取引法に基づく表記
+              </a>
+            </div>
             <span>© 2026 ALPACA · 鹿児島県奄美大島 · alpaca-amami.com</span>
           </footer>
         </div>

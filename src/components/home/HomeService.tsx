@@ -54,16 +54,16 @@ const services: Service[] = [
   {
     badge: "AGENT",
     title: "アルパカスマート（月額AIサポート）",
-    price: "月¥50,000〜",
-    note: "最低3ヶ月 / 追加実装¥5,000/h",
+    price: "月¥30,000〜",
+    note: "いつでも解約OK／本格実装は別途お見積もり",
     href: "/smart",
-    desc: "LINE相談無制限。月5時間の軽実装込み。AI最新情報レポート配信。",
+    desc: "チャット相談無制限。軽サポート込み。AI最新情報を随時お届け。",
     icon: Bot,
-    features: ["LINE相談無制限", "月5h軽実装", "AI最新情報レポート", "LINE Bot構築", "顧問特典価格"],
+    features: ["チャット相談無制限", "軽サポート込み", "AI最新情報を随時お届け", "顧問特典価格"],
     image: {
       src: "/images/agent-v3/01-hero-pc.png",
-      alt: "アルパカスマートのイメージビジュアル。LINEとAIを組み合わせた自動応対のフロー",
-      caption: "LINE×AIで自動応対。窓口の取りこぼしを減らす",
+      alt: "アルパカスマートのイメージビジュアル。チャットとAIを組み合わせた自動応対のフロー",
+      caption: "チャット×AIで自動応対。窓口の取りこぼしを減らす",
     },
   },
 ];
@@ -192,41 +192,29 @@ export default function HomeService() {
 
         {/* サブ：従業員ポータル相当（ALPACA版＝関連メニュー） */}
         <div
-          className="mt-24 md:mt-32 rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+          className="mt-24 md:mt-32 rounded-3xl p-8 md:p-12"
           style={{ background: "#F2FBF7" }}
         >
-          <div>
+          <div className="max-w-2xl mx-auto text-center">
             <h3
               className="text-xl md:text-2xl font-bold mb-3"
               style={{ color: "#0FA67D" }}
             >
-              すべてLINEから相談OK
+              すべてチャットから相談OK
             </h3>
-            <p className="text-sm md:text-base text-[#23221F] leading-[1.8] mb-4">
+            <p className="text-sm md:text-base text-[#23221F] leading-[1.8] mb-6">
               「これってALPACAに頼めるの？」も気軽に。
               <br />
               業種・規模・予算に合わせて、最適な組み合わせをご提案します。
             </p>
-            <ul className="space-y-2">
-              {["LINE公式アカウント窓口", "営業日24時間以内返信", "見積もり無料", "島内なら対面ヒアリング"].map((f) => (
+            <ul className="space-y-2 inline-block text-left">
+              {["チャット窓口", "営業日24時間以内返信", "見積もり無料", "島内なら対面ヒアリング"].map((f) => (
                 <li key={f} className="flex items-center gap-2 text-sm text-[#23221F]">
                   <Check className="w-4 h-4 flex-shrink-0" style={{ color: "#0B8C6E" }} strokeWidth={3} />
                   {f}
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="aspect-[4/3] max-w-[320px] mx-auto md:max-w-none">
-            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg ring-1 ring-[#12C998]/15 bg-white">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/agent-v3/01-hero-pc.png"
-                alt="LINEから相談できるアルパカスマートの窓口イメージ"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
           </div>
         </div>
       </div>

@@ -279,9 +279,15 @@ export default function SystemCTA() {
               <span className="text-[#5A6280]/40">/</span>
               <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#2860E1] transition-colors">Instagram</a>
             </p>
-            <p className="text-[#5A6280] text-xs mb-3 font-bold">
+            <p className="text-[#5A6280] text-xs mb-3 font-bold flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
               <a href="/privacy" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
                 プライバシーポリシー
+              </a>
+              <a href="/terms" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
+                利用規約
+              </a>
+              <a href="/tokushoho" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
+                特定商取引法に基づく表記
               </a>
             </p>
             <p className="text-[#5A6280]/70 text-xs">&copy; 2026 ALPACA. All rights reserved.</p>

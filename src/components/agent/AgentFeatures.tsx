@@ -12,8 +12,8 @@ const FEATURE_TEXT = [
   },
   {
     no: "02",
-    title: "月5時間以内の軽実装",
-    body: "お問い合わせの自動応答づくり、繰り返し作業をAIで肩代わり、文章作成・要約・翻訳のサポート、業務にAIを取り入れる初期設定など、小さな業務改善のお手伝いをお引き受けします。",
+    title: "軽サポート込み",
+    body: "プロンプト設計、AIツールの選定・比較、スプレッドシート×AIの小規模な自動化、業務改善アイデア出し、議事録AI文字起こしの導入支援など、小さな業務改善のサポートを伴走でお引き受けします。",
     Icon: Wrench,
   },
   {
@@ -24,7 +24,7 @@ const FEATURE_TEXT = [
   },
   {
     no: "04",
-    title: "大型実装のスマート特典価格",
+    title: "大型実装は顧問特典価格",
     body: "本格的な自動応答ボット構築・ホームページ制作・業務システム開発が必要になった時は、月額契約特典の割引価格でお見積もりします。",
     Icon: Sparkles,
   },
@@ -103,7 +103,7 @@ export default function AgentFeatures() {
             className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-8 ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.15s" }}
           >
-            月¥50,000に
+            月¥30,000に
             <br />
             <span className="text-[#12C998]">含まれるもの</span>
           </h2>
@@ -111,7 +111,7 @@ export default function AgentFeatures() {
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            「相談すること」と「軽い実装」を、定額でまるっとお引き受けします。
+            「相談すること」と「軽いサポート」を、定額で伴走します。
           </p>
         </div>
 
@@ -154,11 +154,11 @@ export default function AgentFeatures() {
               含まれないもの
             </p>
             <ul className="space-y-3 text-[#1A1A1A] text-sm font-bold leading-loose">
-              <li>※ 定例MTG（必要時のみスポット ¥10,000/30分）</li>
-              <li>※ 月5時間を超える実装作業（¥5,000/時間、繰り越しなし）</li>
+              <li>※ スポットMTG（必要時のみ ¥5,000）</li>
               <li>
-                ※ 本格的なホームページ・業務システム・自動応答ボット本構築（スマート特典価格にて別途お見積もり）
+                ※ 本格的なホームページ・業務システム・自動応答ボット本構築（顧問特典価格にて別途お見積もり）
               </li>
+              <li>※ データ移行・SNS運用代行・広告運用・大量画像/動画制作</li>
             </ul>
           </div>
         </div>

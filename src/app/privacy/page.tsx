@@ -36,7 +36,7 @@ export default function PrivacyPage() {
               <ul className="space-y-1">
                 <li>屋号: ALPACA（アルパカ）</li>
                 <li>代表: 作田 大地</li>
-                <li>所在地: 鹿児島県奄美大島</li>
+                <li>所在地: {SITE.address}</li>
                 <li>
                   連絡先: {SITE.contact.email} / {SITE.contact.tel}
                 </li>
@@ -139,6 +139,7 @@ export default function PrivacyPage() {
                   <a
                     href={SITE.contact.telHref}
                     className="text-[#635BFF] underline-offset-4 hover:underline"
+                    suppressHydrationWarning
                   >
                     {SITE.contact.tel}
                   </a>{" "}

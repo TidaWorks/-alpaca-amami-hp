@@ -5,31 +5,25 @@ import { ArrowRight, Check } from "lucide-react";
 
 const INCLUDED = [
   "チャットで相談無制限（営業日24時間以内返信）",
-  "月5時間以内の軽実装（業務にAIを取り入れる初期設定や小さな業務改善のお手伝い）",
+  "軽サポート込み（プロンプト設計・調査・既存ツール設定・業務改善アイデア出しなど）",
   "最新のAI情報を随時お届け",
-  "大型案件のスマート特典価格",
+  "大型案件は顧問特典価格でお見積もり",
 ];
 
 const SPOT = [
-  { label: "定例MTG", price: "¥10,000", unit: "/30分" },
-  { label: "月5時間超過分", price: "¥5,000", unit: "/時間" },
+  { label: "スポットMTG", price: "¥5,000", unit: "" },
 ];
 
 const DISCOUNT = [
   {
-    label: "自動応答ボット本構築",
-    normal: "通常 ¥80,000〜",
-    discount: "スマート特典価格でお見積もり",
-  },
-  {
     label: "ホームページ制作",
     normal: "通常 ¥250,000〜",
-    discount: "スマート特典価格でお見積もり",
+    discount: "顧問特典価格でお見積もり",
   },
   {
     label: "業務システム開発",
     normal: "通常 ¥300,000〜",
-    discount: "スマート特典価格でお見積もり",
+    discount: "顧問特典価格でお見積もり",
   },
 ];
 
@@ -85,14 +79,14 @@ export default function AgentPricing() {
           >
             料金は、
             <br className="md:hidden" />
-            <span className="text-[#12C998]">定額5万円</span>
+            <span className="text-[#12C998]">定額3万円</span>
             。
           </h2>
           <p
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            追加の実装は¥5,000/時間。入会金なし、最低契約期間3ヶ月、4ヶ月目以降は月単位で解約可能です。
+            入会金なし、最低契約期間なし、いつでも月単位で解約可能です。本格的な実装は別途お見積もり（顧問特典価格）。
           </p>
         </div>
 
@@ -110,7 +104,7 @@ export default function AgentPricing() {
               <p className="text-[#5A6280] text-base leading-loose mb-10">
                 あなたの会社のAI担当者として、
                 <br className="hidden md:block" />
-                日々の相談から軽実装まで、まるっとお引き受けします。
+                日々の相談から軽サポートまで、伴走します。
               </p>
 
               <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-5">
@@ -140,11 +134,11 @@ export default function AgentPricing() {
                 </p>
                 <div className="flex items-baseline gap-1 mb-2">
                   <span className="font-bold text-white text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none tabular-nums">
-                    ¥50,000
+                    ¥30,000
                   </span>
                 </div>
                 <p className="text-white/85 text-xs font-bold mb-10">
-                  入会金なし／最低契約期間3ヶ月
+                  入会金なし／いつでも解約OK
                 </p>
 
                 <a
@@ -187,14 +181,11 @@ export default function AgentPricing() {
                 </li>
               ))}
             </ul>
-            <p className="text-[#5A6280] text-xs font-bold leading-relaxed mt-5">
-              ※ 超過分は翌月への繰越なし
-            </p>
           </div>
 
           <div className={`bg-white border-2 border-[#12C998]/40 rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.7s" }}>
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-6">
-              スマート特典価格
+              顧問特典価格
             </p>
             <ul className="space-y-5">
               {DISCOUNT.map(({ label, normal, discount }) => (

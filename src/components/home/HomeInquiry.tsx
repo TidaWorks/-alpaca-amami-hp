@@ -117,9 +117,15 @@ export default function HomeInquiry() {
               Instagram
             </a>
           </p>
-          <p className="text-[#4C4C4C] text-xs mb-3">
+          <p className="text-[#4C4C4C] text-xs mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <a href="/privacy" className="hover:text-[#0B8C6E] transition-colors underline-offset-4 hover:underline">
               プライバシーポリシー
+            </a>
+            <a href="/terms" className="hover:text-[#0B8C6E] transition-colors underline-offset-4 hover:underline">
+              利用規約
+            </a>
+            <a href="/tokushoho" className="hover:text-[#0B8C6E] transition-colors underline-offset-4 hover:underline">
+              特定商取引法に基づく表記
             </a>
           </p>
           <p className="text-[#8D8D8D] text-xs">

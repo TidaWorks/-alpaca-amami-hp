@@ -328,9 +328,15 @@ export default function HomeContact() {
               Instagram
             </a>
           </p>
-          <p className="text-[#1A202C]/55 text-xs mb-3">
+          <p className="text-[#1A202C]/55 text-xs mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <a href="/privacy" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm underline-offset-4 hover:underline">
               プライバシーポリシー
+            </a>
+            <a href="/terms" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm underline-offset-4 hover:underline">
+              利用規約
+            </a>
+            <a href="/tokushoho" className="hover:text-[#1D2A6E] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2A6E] focus-visible:ring-offset-2 rounded-sm underline-offset-4 hover:underline">
+              特定商取引法に基づく表記
             </a>
           </p>
           <p className="text-[#1A202C]/40 text-xs">

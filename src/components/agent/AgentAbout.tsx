@@ -87,7 +87,7 @@ export default function AgentAbout() {
               ¥50,000
             </span>
             <span className="text-white/85 text-xs md:text-sm font-bold mt-3">
-              入会金なし／最低契約期間3ヶ月
+              入会金なし／いつでも解約OK
             </span>
           </div>
         </div>

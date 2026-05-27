@@ -10,7 +10,7 @@ import SystemFAQ from "@/components/system/SystemFAQ";
 import SystemCTA from "@/components/system/SystemCTA";
 
 export const metadata = {
-  title: "業務システム開発 | ALPACA - 奄美大島の現場に合わせた仕組みづくり",
+  title: "業務システム開発 — 奄美大島の現場に合わせた仕組みづくり",
   description:
     "奄美大島の小規模事業者向けに、予約管理・顧客管理・売上集計などの業務システムを現場ヒアリングから構築。仕組み化で時間と利益を取り戻します。",
 };
