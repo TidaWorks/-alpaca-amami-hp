@@ -126,7 +126,7 @@ export default function WebHero() {
             </span>
           </a>
           <a
-            href="#works"
+            href="#gallery"
             className="group inline-flex items-baseline gap-2 text-sm text-black"
           >
             <span className="relative">

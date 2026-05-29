@@ -61,7 +61,7 @@ const services: Service[] = [
     icon: Bot,
     features: ["チャット相談無制限", "軽サポート込み", "AI最新情報を随時お届け", "顧問特典価格"],
     image: {
-      src: "/images/agent-v3/01-hero-pc.png",
+      src: "/images/agent-v3/01-hero-pc-3x2.png",
       alt: "アルパカスマートのイメージビジュアル。チャットとAIを組み合わせた自動応対のフロー",
       caption: "チャット×AIで自動応対。窓口の取りこぼしを減らす",
     },
@@ -168,7 +168,7 @@ export default function HomeService() {
               <div className={i % 2 === 1 ? "md:order-1" : ""}>
                 <figure className="flex flex-col gap-3">
                   <div
-                    className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg ring-1 ring-[#12C998]/15 bg-[#F2FBF7]"
+                    className="relative aspect-[3/2] rounded-2xl overflow-hidden shadow-lg ring-1 ring-[#12C998]/15 bg-[#F2FBF7]"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

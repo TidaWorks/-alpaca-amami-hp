@@ -46,7 +46,7 @@ export default function AgentHero() {
           height={1920}
         />
         <a
-          href="#about"
+          href="#features"
           className="absolute left-1/2 top-[82%] inline-block bg-[#FF3D8B] text-white font-bold text-base px-8 py-4 rounded-full shadow-xl shadow-[#FF3D8B]/40 active:bg-[#E03078] transition-colors duration-200 whitespace-nowrap agentCtaBob"
         >
           サービス内容を見る

@@ -29,7 +29,7 @@ export default function SystemFlow() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#FAFAFA] py-24 md:py-32">
+    <section id="flow" ref={sectionRef} className="relative overflow-hidden bg-[#FAFAFA] py-24 md:py-32 scroll-mt-20">
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-16">
           <div>

@@ -2,6 +2,7 @@ import AgentHeader from "@/components/agent/AgentHeader";
 import AgentHero from "@/components/agent/AgentHero";
 import AgentPainPoints from "@/components/agent/AgentPainPoints";
 import AgentFeatures from "@/components/agent/AgentFeatures";
+import AgentUseCases from "@/components/agent/AgentUseCases";
 import AgentPricing from "@/components/agent/AgentPricing";
 import AgentFlow from "@/components/agent/AgentFlow";
 import AgentFAQ from "@/components/agent/AgentFAQ";
@@ -20,6 +21,7 @@ export default function AgentPage() {
       <AgentHero />
       <AgentPainPoints />
       <AgentFeatures />
+      <AgentUseCases />
       <AgentPricing />
       <AgentFlow />
       <AgentFAQ />

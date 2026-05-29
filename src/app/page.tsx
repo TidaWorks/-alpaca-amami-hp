@@ -3,7 +3,7 @@ import HomeHeader from "@/components/home/HomeHeader";
 import HomeHero from "@/components/home/HomeHero";
 import HomeSolution from "@/components/home/HomeSolution";
 import HomeService from "@/components/home/HomeService";
-import HomeCaseStudy from "@/components/home/HomeCaseStudy";
+// import HomeCaseStudy from "@/components/home/HomeCaseStudy"; // 導入事例セクション削除（2026-05-29）
 import HomeNotification from "@/components/home/HomeNotification";
 import HomeSupportFlow from "@/components/home/HomeSupportFlow";
 import HomeInquiry from "@/components/home/HomeInquiry";
@@ -24,8 +24,8 @@ export default function Home() {
       <HomeSolution />
       {/* 6. Service (最重要) */}
       <HomeService />
-      {/* 8. Case Study */}
-      <HomeCaseStudy />
+      {/* 8. Case Study ─ 削除（導入事例セクション、2026-05-29 大地さん指示） */}
+      {/* <HomeCaseStudy /> */}
       {/* 9. Knowhow ─ 削除（資料なしのため、2026-05-17） */}
       {/* 10. Trend ─ スキップ */}
       {/* 11. Notification */}

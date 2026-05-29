@@ -4,6 +4,7 @@ import WebHero from "@/components/web/WebHero";
 import WebManifesto from "@/components/web/WebManifesto";
 import WebPainPoints from "@/components/web/WebPainPoints";
 import WebFeatures from "@/components/web/WebFeatures";
+import GalleryMarquee from "@/components/web/GalleryMarquee";
 import WebPricing from "@/components/web/WebPricing";
 import WebFlow from "@/components/web/WebFlow";
 import WebFAQ from "@/components/web/WebFAQ";
@@ -24,6 +25,7 @@ export default function WebPage() {
       <WebManifesto />
       <WebPainPoints />
       <WebFeatures />
+      <GalleryMarquee />
       <WebPricing />
       <WebFlow />
       <WebFAQ />

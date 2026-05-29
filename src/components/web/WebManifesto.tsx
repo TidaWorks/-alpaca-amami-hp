@@ -39,9 +39,9 @@ export default function WebManifesto() {
 
   return (
     <section
-      id="works"
+      id="about"
       ref={ref}
-      className="relative overflow-hidden bg-[#F8F8F8] py-32 md:py-40 px-6"
+      className="relative overflow-hidden bg-[#F8F8F8] py-32 md:py-40 px-6 scroll-mt-20"
     >
       {/* 装飾シェイプ */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -107,7 +107,7 @@ export default function WebManifesto() {
                   transform: visible ? "translateY(0)" : "translateY(16px)",
                 }}
               >
-                Our state ment
+                Our Statement
               </p>
               <h2
                 className="text-black text-[3.5rem] md:text-[6rem] lg:text-[7rem] leading-[0.95] tracking-[-0.02em] transition-all duration-700"
@@ -119,8 +119,7 @@ export default function WebManifesto() {
                 }}
               >
                 <span className="block">Our</span>
-                <span className="block">state</span>
-                <span className="block">ment</span>
+                <span className="block">Statement</span>
               </h2>
               <p
                 className="text-sm tracking-[0.2em] text-black/70 mt-6 transition-all duration-700"

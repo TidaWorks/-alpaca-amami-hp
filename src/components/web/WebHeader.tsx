@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "#concept", label: "私たちについて" },
+  { href: "#about", label: "私たちについて" },
   { href: "#features", label: "サービス" },
-  { href: "#works", label: "プロジェクト" },
+  { href: "#gallery", label: "制作実績" },
   { href: "#pricing", label: "料金" },
   { href: "#faq", label: "よくある質問" },
   { href: "#contact", label: "お問い合わせ" },
