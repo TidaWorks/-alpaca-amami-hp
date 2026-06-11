@@ -61,7 +61,7 @@ const services: Service[] = [
     icon: Bot,
     features: ["チャット相談無制限", "軽サポート込み", "AI最新情報を随時お届け", "顧問特典価格"],
     image: {
-      src: "/images/agent-v3/01-hero-pc-3x2.png",
+      src: "/images/agent-v3/01-hero-pc.png",
       alt: "アルパカスマートのイメージビジュアル。チャットとAIを組み合わせた自動応対のフロー",
       caption: "チャット×AIで自動応対。窓口の取りこぼしを減らす",
     },
@@ -176,7 +176,7 @@ export default function HomeService() {
                       alt={s.image.alt}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-top sda-zoom"
                     />
                   </div>
                   {s.image.caption && (

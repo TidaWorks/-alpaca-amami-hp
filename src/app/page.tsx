@@ -7,6 +7,7 @@ import HomeService from "@/components/home/HomeService";
 import HomeNotification from "@/components/home/HomeNotification";
 import HomeSupportFlow from "@/components/home/HomeSupportFlow";
 import HomeInquiry from "@/components/home/HomeInquiry";
+import SectionDivider from "@/components/SectionDivider";
 
 /**
  * ALPACA トップページ — SmartHR系13セクション構造（2026-05-17）
@@ -20,6 +21,7 @@ export default function Home() {
       <HomeHeader />
       {/* 1. Hero */}
       <HomeHero />
+      <SectionDivider from="#07BC98" />
       {/* 5. Solution */}
       <HomeSolution />
       {/* 6. Service (最重要) */}
@@ -30,6 +32,7 @@ export default function Home() {
       {/* 10. Trend ─ スキップ */}
       {/* 11. Notification */}
       <HomeNotification />
+      <SectionDivider from="#FFFFFF" to="#F8F8F8" flip />
       {/* 12. Support Flow */}
       <HomeSupportFlow />
       {/* 13. Inquiry CTA */}

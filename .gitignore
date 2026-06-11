@@ -44,3 +44,6 @@ public/images/agent-bake/
 
 # Lazyweb調査用のリファレンス成果物（リポジトリ管理外）
 .lazyweb/
+
+# 画像生成スキルのフォールバック保存先（サイト本体ではない）
+ai-images/
