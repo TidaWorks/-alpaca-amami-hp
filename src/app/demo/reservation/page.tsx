@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 /* ─── 型定義 ─── */
 type Reservation = {
@@ -316,6 +316,11 @@ export default function ReservationDemo() {
   const [reservations, setReservations] = useState<Reservation[]>(() => generateDummyData());
   const [showModal, setShowModal] = useState(false);
 
+  // ハイドレーション不一致防止：日付依存の描画はマウント後に行う。
+  // SSR/初回クライアント描画は同じ空プレースホルダにして不一致を消す。
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const dayCount = reservations.filter(r => r.date === selectedDate).length;
   const monthCount = reservations.filter(r => r.date.startsWith(`${year}-${String(month + 1).padStart(2, "0")}`)).length;
 
@@ -335,6 +340,11 @@ export default function ReservationDemo() {
   const handleDelete = (id: number) => {
     setReservations(prev => prev.filter(r => r.id !== id));
   };
+
+  if (!mounted) {
+    // マウント前プレースホルダ（日付テキストを出さないことで不一致を回避）
+    return <div className="min-h-screen bg-[#F8F7F4]" aria-busy="true" />;
+  }
 
   return (
     <div className="min-h-screen bg-[#F8F7F4] font-[var(--font-noto-sans-jp)]">

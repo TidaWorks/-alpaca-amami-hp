@@ -94,37 +94,42 @@ export default function OsteopathicPage() {
   }, []);
 
   // Day-of-week + time-of-day reception status
-  const today = new Date();
-  const dow = today.getDay(); // 0=Sun, 6=Sat
-  const hour = today.getHours();
-  let receptionLabel = "受付中";
-  let receptionColor = "#48B89C";
-  if (dow === 0) {
-    // Sunday: closed all day
-    receptionLabel = "本日休診";
-    receptionColor = "#9BA8B5";
-  } else if (dow === 6) {
-    // Saturday: open 9-13 only
-    if (hour >= 13) {
-      receptionLabel = "本日受付終了";
-      receptionColor = "#9BA8B5";
-    } else if (hour < 9) {
-      receptionLabel = "本日9時より受付";
-      receptionColor = "#9BA8B5";
+  // ハイドレーション不一致防止：初期描画はSSRと同じ既定値「受付中」にし、
+  // マウント後に現在時刻から実際のステータスへ更新する。
+  const [reception, setReception] = useState({ label: "受付中", color: "#48B89C" });
+  useEffect(() => {
+    const today = new Date();
+    const dow = today.getDay(); // 0=Sun, 6=Sat
+    const hour = today.getHours();
+    let label = "受付中";
+    let color = "#48B89C";
+    if (dow === 0) {
+      label = "本日休診";
+      color = "#9BA8B5";
+    } else if (dow === 6) {
+      if (hour >= 13) {
+        label = "本日受付終了";
+        color = "#9BA8B5";
+      } else if (hour < 9) {
+        label = "本日9時より受付";
+        color = "#9BA8B5";
+      }
+    } else {
+      if (hour < 9) {
+        label = "本日9時より受付";
+        color = "#9BA8B5";
+      } else if (hour >= 12 && hour < 14) {
+        label = "昼休み中";
+        color = "#9BA8B5";
+      } else if (hour >= 19) {
+        label = "本日受付終了";
+        color = "#9BA8B5";
+      }
     }
-  } else {
-    // Weekday (Mon-Fri): open 9-12, closed 12-14 (lunch), open 14-19
-    if (hour < 9) {
-      receptionLabel = "本日9時より受付";
-      receptionColor = "#9BA8B5";
-    } else if (hour >= 12 && hour < 14) {
-      receptionLabel = "昼休み中";
-      receptionColor = "#9BA8B5";
-    } else if (hour >= 19) {
-      receptionLabel = "本日受付終了";
-      receptionColor = "#9BA8B5";
-    }
-  }
+    setReception({ label, color });
+  }, []);
+  const receptionLabel = reception.label;
+  const receptionColor = reception.color;
 
   const footerLinkMap: Record<string, string> = {
     "施術メニュー": "menu",
