@@ -1,32 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Wrench, FileText, Sparkles } from "lucide-react";
+import { Settings, Link2, GraduationCap, ShieldCheck } from "lucide-react";
 
 const FEATURE_TEXT = [
   {
     no: "01",
-    title: "チャットで相談無制限",
-    body: "AIの活用方法、ツール選び、運用の悩み、なんでも気軽にチャットで送ってください。営業日24時間以内に返信します。定例MTGなし、思いついた時に気軽に。",
-    Icon: MessageCircle,
+    title: "初期セットアップ",
+    body: "Codex Desktopのインストールから、ALPACA SMART用カスタム指示の設計、業務に合わせたプロジェクト構築まで。お客様のPC上で「あなた専用のAI秘書」が動く状態を作ります。",
+    Icon: Settings,
   },
   {
     no: "02",
-    title: "軽サポート込み",
-    body: "プロンプト設計、AIツールの選定・比較、スプレッドシート×AIの小規模な自動化、業務改善アイデア出し、議事録AI文字起こしの導入支援など、小さな業務改善のサポートを伴走でお引き受けします。",
-    Icon: Wrench,
+    title: "連携3つを業務に合わせて構築",
+    body: "Gmail / LINE / Google カレンダー / freee / マネーフォワード / kintone 等の中から、業種・現場で本当に使うものを3つ選定。認証フローまでこちらで構築し、すぐ使える状態でお渡しします。",
+    Icon: Link2,
   },
   {
     no: "03",
-    title: "最新のAI情報を随時お届け",
-    body: "業界のAI最新情報を、御社の業務に関係しそうなものに絞って随時お届けします。新しいツール・モデル・活用事例の中から、本当に使えるものだけを選んでお伝えします。",
-    Icon: FileText,
+    title: "90分の使い方レクチャー",
+    body: "「こう話しかけると、こう返ってくる」をオンラインまたは対面で実演5本。その場でお客様にも5本やっていただき、よく使う言い回しのカンペをお渡しします。AIに触ったことが無い方でも、その日から使えるように。",
+    Icon: GraduationCap,
   },
   {
     no: "04",
-    title: "大型実装は顧問特典価格",
-    body: "本格的な自動応答ボット構築・ホームページ制作・業務システム開発が必要になった時は、月額契約特典の割引価格でお見積もりします。",
-    Icon: Sparkles,
+    title: "承認ゲート設計＋責任分界契約",
+    body: "AIエージェントは「下書き／提案／確認画面まで」担当し、送信・支払い・予約確定などの実行は必ず人が承認する設計。責任の所在も契約書で明文化することで、暴走や事故を構造的に防ぎます。",
+    Icon: ShieldCheck,
   },
 ];
 
@@ -97,13 +97,13 @@ export default function AgentFeatures() {
             className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.05s" }}
           >
-            PRICING — 月額の中身
+            SERVICE — サービスの中身
           </p>
           <h2
             className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-8 ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.15s" }}
           >
-            月¥30,000に
+            初期セットアップに
             <br />
             <span className="text-[#12C998]">含まれるもの</span>
           </h2>
@@ -111,7 +111,7 @@ export default function AgentFeatures() {
             className={`text-[#5A6280] text-base md:text-lg leading-loose ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.3s" }}
           >
-            「相談すること」と「軽いサポート」を、定額で伴走します。
+            「触れる状態」になるまで、奄美からまるっとお引き受けします。
           </p>
         </div>
 
@@ -151,14 +151,15 @@ export default function AgentFeatures() {
         >
           <div className="relative bg-white/70 backdrop-blur-sm border border-[#E5E9F5] rounded-2xl p-8 md:p-10 shadow-lg shadow-[#1D2A6E]/[0.04]">
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-5">
-              含まれないもの
+              別途オプション（必要に応じて）
             </p>
             <ul className="space-y-3 text-[#1A1A1A] text-sm font-bold leading-loose">
-              <li>※ スポットMTG（必要時のみ ¥5,000）</li>
-              <li>
-                ※ 本格的なホームページ・業務システム・自動応答ボット本構築（顧問特典価格にて別途お見積もり）
-              </li>
-              <li>※ データ移行・SNS運用代行・広告運用・大量画像/動画制作</li>
+              <li>※ 連携追加（¥10,000〜/連携、5連携セット ¥50,000）</li>
+              <li>※ 高度なAction開発（カスタムSaaS連携・APIエンドポイント自作 ¥50,000〜）</li>
+              <li>※ 過去メール一括取り込みなど大量データ移行（¥30,000〜）</li>
+              <li>※ 業務フローの大幅再設計（¥50,000〜）</li>
+              <li>※ お客様スタッフ2人目以降のレクチャー（¥30,000/人）</li>
+              <li>※ ChatGPT Plus月額（¥3,000/月）はお客様側でご契約をお願いします</li>
             </ul>
           </div>
         </div>

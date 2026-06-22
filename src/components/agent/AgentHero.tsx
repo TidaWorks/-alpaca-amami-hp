@@ -40,7 +40,7 @@ export default function AgentHero() {
       <div className="relative md:hidden pt-[100px]">
         <img
           src="/images/agent-v3/06-hero-sp.png"
-          alt="あなたの業務をガラッと変える！アルパカスマート"
+          alt="もう、事務作業に追われない。アルパカスマート"
           className="w-full h-auto block"
           width={1080}
           height={1920}
@@ -167,7 +167,7 @@ export default function AgentHero() {
                 className={`relative text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-6 md:mb-8 ${revealed ? "fade-in-x" : "pre-x"}`}
                 style={{ animationDelay: "0.15s" }}
               >
-                業務を、
+                もう、
                 <br />
                 <span className="relative inline-block">
                   {/* ヘッドラインのキーワード下に薄ミント面（維持） */}
@@ -175,27 +175,27 @@ export default function AgentHero() {
                     aria-hidden="true"
                     className="absolute inset-x-0 bottom-1 h-3 md:h-4 bg-[#12C998]/15 rounded-sm -z-10"
                   />
-                  <span className="text-[#12C998]">スマートに</span>
+                  <span className="text-[#12C998]">事務作業</span>
                 </span>
-                。
+                <span>に追われない。</span>
               </h1>
 
               <p
                 className={`text-[#1D2A6E] text-lg md:text-2xl font-bold leading-snug mb-8 max-w-xl ${revealed ? "fade-in-x" : "pre-x"}`}
                 style={{ animationDelay: "0.22s" }}
               >
-                いつでも相談できる、AI担当者。
+                奄美のAI導入パートナー。
               </p>
 
               <p
                 className={`text-[#5A6280] text-base md:text-lg leading-loose mb-10 max-w-xl ${revealed ? "fade-in-x" : "pre-x"}`}
                 style={{ animationDelay: "0.3s" }}
               >
-                AIをどう使えばいいか分からない。
+                Gmail / LINE / Google カレンダー / freee / マネーフォワード / kintone 等、
                 <br className="hidden md:block" />
-                そんな事業者さんへ、チャットで気軽に相談できる
+                50以上のサービスと繋がる「あなた専用のAI秘書」を、
                 <br className="hidden md:block" />
-                月額サポートをご用意しました。
+                奄美からセットアップします。
               </p>
 
               <div
@@ -245,8 +245,8 @@ export default function AgentHero() {
                   <Clock className="w-4 h-4" strokeWidth={2.5} />
                 </span>
                 <span className="leading-tight">
-                  <span className="block text-[9px] tracking-[0.18em] font-bold text-[#5A6280]">SUPPORT</span>
-                  <span className="block text-[13px] font-bold text-[#1D2A6E]">24h以内返信／相談無制限</span>
+                  <span className="block text-[9px] tracking-[0.18em] font-bold text-[#5A6280]">SETUP</span>
+                  <span className="block text-[13px] font-bold text-[#1D2A6E]">初期¥70,000＋月¥15,000</span>
                 </span>
               </div>
 
@@ -256,7 +256,7 @@ export default function AgentHero() {
                   <source media="(max-width: 767px)" srcSet="/images/agent-v3/06-hero-sp.png" />
                   <img
                     src="/images/agent-v3/01-hero-pc.png"
-                    alt="アルパカスマート — チャットで相談できるAI担当者"
+                    alt="アルパカスマート — あなた専用のAI秘書を奄美からセットアップ"
                     className="w-full h-auto block"
                     width={1280}
                     height={1280}
@@ -271,15 +271,15 @@ export default function AgentHero() {
               >
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
-                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">チャット相談</span>
+                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">Codex Desktop</span>
                 </div>
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
-                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">24時間以内返信</span>
+                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">連携50以上</span>
                 </div>
                 <div className="bg-white/85 backdrop-blur-sm border border-[#12C998]/30 rounded-full px-3 py-2 text-center inline-flex items-center justify-center gap-1.5">
                   <Check className="w-3 h-3 text-[#12C998]" strokeWidth={3} />
-                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">AI最新情報</span>
+                  <span className="text-[11px] font-bold text-[#1D2A6E] whitespace-nowrap">承認ゲート設計</span>
                 </div>
               </div>
             </div>
