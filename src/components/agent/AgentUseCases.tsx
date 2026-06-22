@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  BedDouble,
   UtensilsCrossed,
+  BedDouble,
+  Scissors,
   Map,
-  Scale,
-  Stethoscope,
+  HardHat,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,49 +21,49 @@ type CaseItem = {
 
 const CASES: CaseItem[] = [
   {
-    industry: "宿泊業",
-    question: "外国人観光客の予約問い合わせをAIで多言語対応したい",
-    answer:
-      "現状ヒアリングからAI翻訳テンプレ準備まで軽サポートでご支援。本格的な自動応答ボット構築は顧問特典価格で別途お見積もりします。",
-    Icon: BedDouble,
-    accent: "#2860E1",
-    bg: "#E8F0FE",
-  },
-  {
     industry: "飲食店",
-    question: "インスタDM返信が追いつかない、AIで自動化できる？",
+    question: "問い合わせ・予約・仕入れ・経理まで、毎日の事務作業に追われてる",
     answer:
-      "DM分析＋AIテンプレ作成のサポートで、よく来る質問への対応を効率化。本格的な自動応答ボット導入は顧問特典価格でお見積もりします。",
+      "Gmail / LINE / freee を繋いで、問い合わせの一次対応から予約管理・経費精算まで、AI秘書が下書きを作ります。送信・確定は店主が承認するので、誤送信の不安なく回せます。",
     Icon: UtensilsCrossed,
     accent: "#E85A4F",
     bg: "#FDECE9",
   },
   {
-    industry: "観光ガイド",
-    question: "予約管理を紙からデジタルに移行したい",
+    industry: "宿泊業",
+    question: "予約問い合わせや顧客対応に時間が取られて、おもてなしに集中できない",
     answer:
-      "現状ヒアリング＋ツール選定＋運用フロー設計まで軽サポートでご支援します。ツール導入後は使い方レクチャーまで伴走します。",
+      "Gmail / LINE / Notion を繋いで、予約問い合わせの返信文と顧客台帳の更新をAI秘書が用意。最終的な確認・送信はオーナーが担当する設計です。",
+    Icon: BedDouble,
+    accent: "#2860E1",
+    bg: "#E8F0FE",
+  },
+  {
+    industry: "サロン",
+    question: "予約調整・顧客カルテ更新・売上集計でレジ前に時間が消える",
+    answer:
+      "LINE / Google カレンダー / freee を繋いで、予約調整の下書き・カルテ更新・売上集計をAIで整理。経営と接客に集中できる時間が増えます。",
+    Icon: Scissors,
+    accent: "#E8669A",
+    bg: "#FCEAF1",
+  },
+  {
+    industry: "観光業",
+    question: "ツアー予約・案内対応・経費精算をひとりで全部やってる",
+    answer:
+      "Gmail / LINE / Google カレンダーを繋いで、ツアー予約調整・問い合わせ回答・経費精算をAI秘書がサポート。島でお客様と過ごす時間を増やします。",
     Icon: Map,
     accent: "#12C998",
     bg: "#E2F8F1",
   },
   {
-    industry: "士業",
-    question: "議事録作成が時間かかる、AIで効率化したい",
+    industry: "土木建設",
+    question: "工程管理・書類業務・現場からの報告に手が回らない",
     answer:
-      "AI文字起こしツールの導入支援＋運用フロー設計を行います。文字起こしから要約までの一連の流れを整えます。",
-    Icon: Scale,
-    accent: "#1D2A6E",
-    bg: "#E5E9F5",
-  },
-  {
-    industry: "医療・介護",
-    question: "問い合わせ電話が多すぎる、自動応答に振りたい",
-    answer:
-      "自動応答での問い合わせ受付＋電話AI応答の組み合わせをご提案します。導入規模に応じて段階的に進めます。",
-    Icon: Stethoscope,
-    accent: "#E8669A",
-    bg: "#FCEAF1",
+      "Gmail / kintone / Backlog を繋いで、工程管理表の更新・書類作成・現場LINEからの日報整理をAIで集約。承認は現場監督が一括で。",
+    Icon: HardHat,
+    accent: "#F59E0B",
+    bg: "#FEF3C7",
   },
 ];
 
