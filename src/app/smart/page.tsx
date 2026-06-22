@@ -9,9 +9,9 @@ import AgentFAQ from "@/components/agent/AgentFAQ";
 import AgentCTA from "@/components/agent/AgentCTA";
 
 export const metadata = {
-  title: "アルパカスマート — 業務を、スマートに。月¥30,000のAI担当者",
+  title: "アルパカスマート — もう、事務作業に追われない。 | 奄美のAI導入パートナー",
   description:
-    "奄美大島発・月額制AIサポート「アルパカスマート」。チャットで相談無制限、軽サポート込み。本格実装は別途お見積もり（顧問特典価格）。いつでも月単位で解約可能。業務をAIでスマートにする伴走サービス。",
+    "奄美大島発・AIエージェント秘書セットアップ「アルパカスマート」。Gmail / LINE / Google カレンダー / freee / マネーフォワード / kintone 等、50以上のサービスと繋がるあなた専用のAI秘書を、奄美からセットアップします。初期¥70,000＋月額¥15,000、承認ゲート設計＋責任分界契約で安心。",
 };
 
 export default function AgentPage() {
