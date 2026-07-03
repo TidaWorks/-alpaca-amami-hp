@@ -96,7 +96,7 @@ export default function AgentPainPoints() {
         </div>
 
         {/* カード5枚 — 画像メイン */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
           {PAINS.map(({ img, title, body, follow }, i) => (
             <div
               key={title}

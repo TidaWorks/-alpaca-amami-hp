@@ -89,7 +89,7 @@ export default function SystemPainPoints() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
           {PAINS.map(({ img, title, body, follow }, i) => (
             <div key={title} className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:bg-[#2860E1]/5 hover:border-[#2860E1]/30 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
