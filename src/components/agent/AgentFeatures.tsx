@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Settings, Link2, GraduationCap, ShieldCheck } from "lucide-react";
+import { useReveal } from "@/hooks/useReveal";
 
 const FEATURE_TEXT = [
   {
@@ -31,35 +31,7 @@ const FEATURE_TEXT = [
 ];
 
 export default function AgentFeatures() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const el = sectionRef.current;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setRevealed(true);
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
-    );
-    io.observe(el);
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.95) {
-      setRevealed(true);
-      io.disconnect();
-    }
-    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
-    return () => {
-      io.disconnect();
-      window.clearTimeout(failsafeId);
-    };
-  }, []);
+  const { ref: sectionRef, revealed } = useReveal<HTMLElement>({ threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
 
   return (
     <section

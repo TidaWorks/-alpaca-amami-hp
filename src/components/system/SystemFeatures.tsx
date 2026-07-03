@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useReveal } from "@/hooks/useReveal";
 
 const FEATURE_TEXT = [
   { no: "01", title: "予約管理", body: "顧客×日時×担当を1画面で。ダブルブッキング防止に対応。" },
@@ -10,22 +10,7 @@ const FEATURE_TEXT = [
 ];
 
 export default function SystemFeatures() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const el = sectionRef.current;
-    const io = new IntersectionObserver(
-      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { setRevealed(true); io.disconnect(); } }); },
-      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
-    );
-    io.observe(el);
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.95) { setRevealed(true); io.disconnect(); }
-    const failsafeId = window.setTimeout(() => setRevealed(true), 800);
-    return () => { io.disconnect(); window.clearTimeout(failsafeId); };
-  }, []);
+  const { ref: sectionRef, revealed } = useReveal<HTMLElement>({ threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
 
   return (
     <section id="features" ref={sectionRef} className="relative overflow-hidden bg-white py-24 md:py-32">

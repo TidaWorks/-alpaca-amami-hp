@@ -35,6 +35,11 @@ body {
   font-weight: 500;
 }
 
+/* 見出し: text-wrap balance で改行バランスを整える */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
 /* KAIROS ハンド書きフォント */
 .font-hand {
   font-family: var(--font-hand);
