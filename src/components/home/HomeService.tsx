@@ -54,7 +54,7 @@ const services: Service[] = [
   {
     badge: "AGENT",
     title: "アルパカスマート（月額AIサポート）",
-    price: "月¥30,000〜",
+    price: "初期¥70,000＋月¥15,000",
     note: "いつでも解約OK／本格実装は別途お見積もり",
     href: "/smart",
     desc: "チャット相談無制限。軽サポート込み。AI最新情報を随時お届け。",
