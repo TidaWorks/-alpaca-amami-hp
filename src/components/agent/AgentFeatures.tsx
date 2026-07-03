@@ -66,7 +66,7 @@ export default function AgentFeatures() {
         {/* 見出し（中央寄せ） */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <p
-            className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
+            className={`inline-block text-[10px] tracking-[0.4em] bg-[#12C998] text-white font-bold mb-6 rounded-full px-3 py-1 ${revealed ? "fade-in-x" : "pre-x"}`}
             style={{ animationDelay: "0.05s" }}
           >
             SERVICE — サービスの中身
@@ -93,7 +93,7 @@ export default function AgentFeatures() {
           {FEATURE_TEXT.map(({ no, title, body, Icon }, i) => (
             <div
               key={title}
-              className={`relative ${revealed ? "fade-in" : "pre"}`}
+              className={`group relative ${revealed ? "fade-in" : "pre"}`}
               style={{ animationDelay: `${0.45 + i * 0.1}s` }}
             >
               {/* 数字バッジ + アイコン */}
@@ -101,7 +101,7 @@ export default function AgentFeatures() {
                 <span className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#12C998] to-[#0EA67D] text-white font-bold text-lg tabular-nums shadow-lg shadow-[#12C998]/30">
                   {no}
                 </span>
-                <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#12C998]/10 text-[#12C998]">
+                <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#12C998] text-white transition-transform duration-300 group-hover:scale-110">
                   <Icon size={22} strokeWidth={2.2} />
                 </span>
               </div>

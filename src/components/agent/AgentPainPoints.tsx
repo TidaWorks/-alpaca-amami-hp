@@ -71,7 +71,7 @@ export default function AgentPainPoints() {
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
           <div>
             <p
-              className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
+              className={`inline-block text-[10px] tracking-[0.4em] bg-[#12C998] text-white font-bold mb-6 rounded-full px-3 py-1 ${revealed ? "fade-in-x" : "pre-x"}`}
               style={{ animationDelay: "0.05s" }}
             >
               PAIN POINTS — 現場の声から
@@ -100,7 +100,7 @@ export default function AgentPainPoints() {
           {PAINS.map(({ img, title, body, follow }, i) => (
             <div
               key={title}
-              className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#12C998]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
+              className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:bg-[#12C998]/5 hover:border-[#12C998]/30 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
               style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">

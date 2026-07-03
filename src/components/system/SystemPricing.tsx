@@ -61,7 +61,7 @@ export default function SystemPricing() {
           transform: visible ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 0.7s, transform 0.7s",
         }}>
-          <p className="inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-5 px-3 py-1 rounded-full bg-[#2860E1]/10">
+          <p className="inline-block text-[10px] tracking-[0.4em] text-white font-bold mb-5 px-3 py-1 rounded-full bg-[#2860E1]">
             料金 — オーダーメイドの見積
           </p>
           <h2 className="text-[#1D2A6E] text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.3] tracking-tight mb-6">
@@ -78,11 +78,11 @@ export default function SystemPricing() {
         <div className="grid md:grid-cols-2 gap-6 md:gap-7">
           {/* 構築 */}
           <div
-            className="relative bg-white rounded-3xl border border-[#E5E9F5] shadow-[0_4px_20px_rgba(40,96,225,0.06)] hover:shadow-[0_12px_36px_rgba(40,96,225,0.14)] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            className="relative bg-white rounded-3xl border border-[#E5E9F5] shadow-[0_4px_20px_rgba(40,96,225,0.06)] hover:shadow-[0_12px_36px_rgba(40,96,225,0.14)] hover:ring-2 hover:ring-[#2860E1]/50 transition-all duration-300 overflow-hidden"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s, box-shadow 0.3s, translate 0.3s",
+              transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s, box-shadow 0.3s",
             }}
           >
             <div className="p-8 md:p-10">
@@ -98,8 +98,8 @@ export default function SystemPricing() {
 
               <div className="mb-8 pb-6 border-b border-[#E5E9F5]">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-sm text-[#5A6280] font-bold">¥</span>
-                  <span className="text-[#1D2A6E] text-5xl md:text-6xl font-bold tabular-nums leading-none">
+                  <span className="text-sm text-[#2860E1] font-bold">¥</span>
+                  <span className="text-[#2860E1] text-5xl md:text-6xl font-bold tabular-nums leading-none">
                     300,000
                   </span>
                   <span className="text-sm text-[#5A6280] font-bold ml-1">〜</span>
@@ -130,11 +130,11 @@ export default function SystemPricing() {
 
           {/* 保守 */}
           <div
-            className="relative bg-gradient-to-br from-[#F4F6FF] to-[#EEF1FF] rounded-3xl border border-[#2860E1]/15 shadow-[0_8px_28px_rgba(40,96,225,0.12)] hover:shadow-[0_16px_44px_rgba(40,96,225,0.2)] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            className="relative bg-gradient-to-br from-[#F4F6FF] to-[#EEF1FF] rounded-3xl border border-[#2860E1]/15 shadow-[0_8px_28px_rgba(40,96,225,0.12)] hover:shadow-[0_16px_44px_rgba(40,96,225,0.2)] hover:ring-2 hover:ring-[#2860E1] transition-all duration-300 overflow-hidden"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.8s ease 0.42s, transform 0.8s ease 0.42s, box-shadow 0.3s, translate 0.3s",
+              transition: "opacity 0.8s ease 0.42s, transform 0.8s ease 0.42s, box-shadow 0.3s",
             }}
           >
             <div className="p-8 md:p-10">
@@ -150,8 +150,8 @@ export default function SystemPricing() {
 
               <div className="mb-8 pb-6 border-b border-[#2860E1]/15">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-sm text-[#5A6280] font-bold">¥</span>
-                  <span className="text-[#1D2A6E] text-5xl md:text-6xl font-bold tabular-nums leading-none">
+                  <span className="text-sm text-[#2860E1] font-bold">¥</span>
+                  <span className="text-[#2860E1] text-5xl md:text-6xl font-bold tabular-nums leading-none">
                     20,000
                   </span>
                   <span className="text-sm text-[#5A6280] font-bold ml-1">〜 / 月</span>

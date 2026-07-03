@@ -109,7 +109,7 @@ export default function AgentUseCases() {
         <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
           <div>
             <p
-              className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`}
+              className={`inline-block text-[10px] tracking-[0.4em] bg-[#12C998] text-white font-bold mb-6 rounded-full px-3 py-1 ${revealed ? "fade-in-x" : "pre-x"}`}
               style={{ animationDelay: "0.05s" }}
             >
               USE CASES — 業種別
@@ -136,7 +136,7 @@ export default function AgentUseCases() {
           {CASES.map(({ industry, question, answer, Icon, accent, bg }, i) => (
             <div
               key={industry}
-              className={`group bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#12C998]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
+              className={`group bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:bg-[#12C998]/5 hover:border-[#12C998]/30 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`}
               style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
               <div
@@ -162,7 +162,7 @@ export default function AgentUseCases() {
                 <Icon
                   aria-hidden
                   strokeWidth={1.5}
-                  className="w-20 h-20 md:w-24 md:h-24 transition-transform duration-500 group-hover:scale-110"
+                  className="w-20 h-20 md:w-24 md:h-24 transition-transform duration-500 group-hover:rotate-3"
                   style={{ color: accent }}
                 />
               </div>

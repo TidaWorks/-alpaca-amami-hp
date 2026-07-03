@@ -88,22 +88,19 @@ export default function SystemCTA() {
     <section
       ref={ref}
       id="contact"
-      className="relative bg-white overflow-hidden"
+      className="relative bg-[#1D2A6E] overflow-hidden"
     >
       <div className="relative py-28 md:py-36 px-6 md:px-10">
         {/* 雲SVG */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-[#F4F6FF] to-[#EEF1FF]" />
-          <svg className="absolute -top-10 -right-20 w-[420px] h-auto opacity-40" viewBox="0 0 400 200" fill="none">
-            <ellipse cx="120" cy="120" rx="80" ry="50" fill="#DCE5FF" />
-            <ellipse cx="200" cy="100" rx="100" ry="60" fill="#DCE5FF" />
-            <ellipse cx="290" cy="130" rx="70" ry="45" fill="#DCE5FF" />
-          </svg>
-          <svg className="absolute bottom-[10%] -left-10 w-[320px] h-auto opacity-30 hidden md:block" viewBox="0 0 400 200" fill="none">
-            <ellipse cx="120" cy="120" rx="80" ry="50" fill="#DCE5FF" />
-            <ellipse cx="200" cy="100" rx="100" ry="60" fill="#DCE5FF" />
-            <ellipse cx="290" cy="130" rx="70" ry="45" fill="#DCE5FF" />
-          </svg>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(40,96,225,0.25)_0%,rgba(40,96,225,0)_60%)]" />
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)",
+              backgroundSize: "26px 26px",
+            }}
+          />
         </div>
 
         <div className="relative max-w-[1200px] mx-auto">
@@ -113,16 +110,16 @@ export default function SystemCTA() {
             transform: visible ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.7s, transform 0.7s",
           }}>
-            <p className="inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-5 px-3 py-1 rounded-full bg-white border border-[#E5E9F5]">
+            <p className="inline-block text-[10px] tracking-[0.4em] text-white font-bold mb-5 px-3 py-1 rounded-full bg-[#2860E1]">
               お問い合わせ — まずはお気軽に
             </p>
-            <h2 className="text-[#1D2A6E] text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.3] tracking-tight mb-6">
+            <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.3] tracking-tight mb-6">
               まずは気軽に
               <br className="md:hidden" />
-              <span className="text-[#2860E1]">ご相談</span>
+              <span className="text-[#7AB3FF]">ご相談</span>
               ください。
             </h2>
-            <p className="text-[#2A2E45] text-base md:text-lg leading-loose max-w-2xl mx-auto">
+            <p className="text-white/75 text-base md:text-lg leading-loose max-w-2xl mx-auto">
               奄美島内なら直接お伺いします。オンラインも対応可能です。
             </p>
           </div>
@@ -137,24 +134,24 @@ export default function SystemCTA() {
                   href={c.href}
                   target={c.type === "dm" ? "_blank" : undefined}
                   rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-                  className="relative bg-white rounded-3xl border border-[#E5E9F5] shadow-[0_4px_20px_rgba(40,96,225,0.06)] hover:shadow-[0_12px_36px_rgba(40,96,225,0.14)] hover:-translate-y-1 transition-all duration-300 p-7 cursor-pointer"
+                  className="relative bg-white/[0.06] rounded-3xl border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:shadow-[0_12px_36px_rgba(40,96,225,0.3)] hover:scale-[1.02] transition-all duration-300 p-7 cursor-pointer"
                   style={{
                     opacity: visible ? 1 : 0,
                     transform: visible ? "translateY(0)" : "translateY(20px)",
-                    transition: `opacity 0.7s ease ${0.3 + i * 0.1}s, transform 0.5s ease ${0.3 + i * 0.1}s, box-shadow 0.3s, translate 0.3s`,
+                    transition: `opacity 0.7s ease ${0.3 + i * 0.1}s, transform 0.5s ease ${0.3 + i * 0.1}s, box-shadow 0.3s`,
                   }}
                 >
                   <span className="absolute -top-2 -right-2 text-[10px] tracking-widest px-3 py-1 rounded-full bg-[#2860E1] text-white font-bold">
                     {c.label}
                   </span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#F4F6FF] flex items-center justify-center mb-4">
-                    <IconComponent className="w-5 h-5 text-[#2860E1]" strokeWidth={2} aria-hidden="true" />
+                  <div className="w-12 h-12 rounded-2xl bg-[#2860E1]/30 flex items-center justify-center mb-4">
+                    <IconComponent className="w-5 h-5 text-white" strokeWidth={2} aria-hidden="true" />
                   </div>
-                  <span className="block text-[#1D2A6E] text-base font-bold mb-2">
+                  <span className="block text-white text-base font-bold mb-2">
                     {c.title}
                   </span>
-                  <span className="block text-[#2A2E45] text-sm break-all mb-2">{c.body}</span>
-                  <span className="block text-[#5A6280] text-xs font-bold tracking-wide">{c.hint}</span>
+                  <span className="block text-white/70 text-sm break-all mb-2">{c.body}</span>
+                  <span className="block text-white/45 text-xs font-bold tracking-wide">{c.hint}</span>
                 </a>
               );
             })}
@@ -263,34 +260,34 @@ export default function SystemCTA() {
           </div>
 
           {/* フッター */}
-          <footer className="border-t border-[#E5E9F5] pt-10 text-center">
-            <p className="text-2xl font-bold tracking-wide mb-3 text-[#1D2A6E]">
+          <footer className="border-t border-white/15 pt-10 text-center">
+            <p className="text-2xl font-bold tracking-wide mb-3 text-white">
               ALPACA
             </p>
-            <p className="text-[#5A6280] text-sm mb-4 leading-loose">
+            <p className="text-white/60 text-sm mb-4 leading-loose">
               奄美大島を拠点に、業務システム構築・保守運用を承ります。
             </p>
-            <p className="text-[#5A6280] text-xs mb-4 flex items-center justify-center gap-3 flex-wrap font-bold">
-              <a href="/" className="hover:text-[#2860E1] transition-colors">トップ</a>
-              <span className="text-[#5A6280]/40">/</span>
-              <a href="/web" className="hover:text-[#2860E1] transition-colors">ホームページ・LP制作</a>
-              <span className="text-[#5A6280]/40">/</span>
-              <a href="/smart" className="hover:text-[#2860E1] transition-colors">アルパカスマート</a>
-              <span className="text-[#5A6280]/40">/</span>
-              <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#2860E1] transition-colors">Instagram</a>
+            <p className="text-white/60 text-xs mb-4 flex items-center justify-center gap-3 flex-wrap font-bold">
+              <a href="/" className="hover:text-white transition-colors">トップ</a>
+              <span className="text-white/30">/</span>
+              <a href="/web" className="hover:text-white transition-colors">ホームページ・LP制作</a>
+              <span className="text-white/30">/</span>
+              <a href="/smart" className="hover:text-white transition-colors">アルパカスマート</a>
+              <span className="text-white/30">/</span>
+              <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
             </p>
-            <p className="text-[#5A6280] text-xs mb-3 font-bold flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-              <a href="/privacy" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
+            <p className="text-white/60 text-xs mb-3 font-bold flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <a href="/privacy" className="hover:text-white transition-colors underline-offset-4 hover:underline">
                 プライバシーポリシー
               </a>
-              <a href="/terms" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
+              <a href="/terms" className="hover:text-white transition-colors underline-offset-4 hover:underline">
                 利用規約
               </a>
-              <a href="/tokushoho" className="hover:text-[#2860E1] transition-colors underline-offset-4 hover:underline">
+              <a href="/tokushoho" className="hover:text-white transition-colors underline-offset-4 hover:underline">
                 特定商取引法に基づく表記
               </a>
             </p>
-            <p className="text-[#5A6280]/70 text-xs">&copy; 2026 ALPACA. All rights reserved.</p>
+            <p className="text-white/45 text-xs">&copy; 2026 ALPACA. All rights reserved.</p>
           </footer>
         </div>
       </div>

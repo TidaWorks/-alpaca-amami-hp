@@ -116,10 +116,10 @@ export default function AgentCTA() {
       <div className="relative pb-20 md:pb-24">
         <div className="max-w-[1080px] mx-auto px-6 md:px-10 text-center">
           <p
-            className={`inline-flex items-center gap-2 text-[10px] tracking-[0.3em] text-[#12C998] font-bold mb-8 border border-[#12C998]/40 bg-[#12C998]/10 rounded-full px-4 py-2 ${revealed ? "fade-in" : "pre"}`}
+            className={`inline-flex items-center gap-2 text-[10px] tracking-[0.3em] text-white font-bold mb-8 bg-[#12C998] rounded-full px-4 py-2 ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.05s" }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#12C998] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
             お問い合わせ
           </p>
           <h2
@@ -150,14 +150,14 @@ export default function AgentCTA() {
                   href={c.href}
                   target={c.type === "dm" ? "_blank" : undefined}
                   rel={c.type === "dm" ? "noopener noreferrer" : undefined}
-                  className={`relative bg-white/[0.06] rounded-3xl border border-white/15 hover:border-[#12C998]/50 hover:bg-white/[0.1] hover:-translate-y-1 transition-all duration-300 p-7 cursor-pointer ${revealed ? "fade-in" : "pre"}`}
+                  className={`relative bg-white/[0.06] rounded-3xl border border-white/15 hover:border-white/30 hover:bg-white/[0.12] hover:shadow-[0_8px_24px_rgba(18,201,152,0.2)] hover:scale-[1.02] transition-all duration-300 p-7 cursor-pointer ${revealed ? "fade-in" : "pre"}`}
                   style={{ animationDelay: `${0.4 + i * 0.1}s` }}
                 >
                   <span className="absolute -top-2 -right-2 text-[10px] tracking-widest px-3 py-1 rounded-full bg-[#12C998] text-white font-bold">
                     {c.label}
                   </span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#12C998]/15 flex items-center justify-center mb-4">
-                    <IconComponent className="w-5 h-5 text-[#12C998]" strokeWidth={2} aria-hidden="true" />
+                  <div className="w-12 h-12 rounded-2xl bg-[#12C998] flex items-center justify-center mb-4">
+                    <IconComponent className="w-5 h-5 text-white" strokeWidth={2} aria-hidden="true" />
                   </div>
                   <span className="block text-white text-base font-bold mb-2">{c.title}</span>
                   <span className="block text-white/70 text-sm break-all mb-2">{c.body}</span>

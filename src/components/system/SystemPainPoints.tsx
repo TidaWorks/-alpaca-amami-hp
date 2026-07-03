@@ -73,7 +73,7 @@ export default function SystemPainPoints() {
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-end mb-14 md:mb-20">
           <div>
-            <p className={`inline-block text-[10px] tracking-[0.4em] text-[#2860E1] font-bold mb-6 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.05s" }}>
+            <p className={`inline-block text-[10px] tracking-[0.4em] bg-[#2860E1] text-white font-bold mb-6 rounded-full px-3 py-1 ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.05s" }}>
               PAIN POINTS — 業務にある詰まり
             </p>
             <h2 className={`text-[#1D2A6E] text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] ${revealed ? "fade-in-x" : "pre-x"}`} style={{ animationDelay: "0.15s" }}>
@@ -91,7 +91,7 @@ export default function SystemPainPoints() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {PAINS.map(({ img, title, body, follow }, i) => (
-            <div key={title} className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#2860E1]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
+            <div key={title} className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:bg-[#2860E1]/5 hover:border-[#2860E1]/30 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
                 <img src={`/images/system-v3/${img}.png`} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
               </div>

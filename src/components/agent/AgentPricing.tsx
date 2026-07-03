@@ -77,7 +77,7 @@ export default function AgentPricing() {
         {/* セクション見出し */}
         <div className="text-center mb-14 md:mb-20">
           <p
-            className={`inline-block text-[10px] tracking-[0.4em] text-[#12C998] font-bold mb-6 ${revealed ? "fade-in" : "pre"}`}
+            className={`inline-block text-[10px] tracking-[0.4em] bg-[#12C998] text-white font-bold mb-6 rounded-full px-3 py-1 ${revealed ? "fade-in" : "pre"}`}
             style={{ animationDelay: "0.05s" }}
           >
             PRICING — 料金
@@ -103,7 +103,7 @@ export default function AgentPricing() {
         </div>
 
         {/* メインプラン：初期費 + 月額サポート 横並び */}
-        <div className={`relative border border-[#E5E9F5] rounded-3xl overflow-hidden mb-12 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.4s" }}>
+        <div className={`relative border border-[#E5E9F5] rounded-3xl overflow-hidden mb-12 hover:ring-2 hover:ring-[#12C998]/30 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.4s" }}>
           <div className="grid md:grid-cols-2 gap-0">
             {/* 左：初期費 */}
             <div className="p-10 md:p-14 bg-white md:border-r border-[#E5E9F5]">
@@ -114,7 +114,7 @@ export default function AgentPricing() {
                 初期セットアップ
               </h3>
               <div className="flex items-baseline gap-2 mb-8">
-                <span className="font-bold text-[#1D2A6E] text-5xl md:text-6xl tracking-tight leading-none tabular-nums">
+                <span className="font-bold text-[#12C998] text-5xl md:text-6xl tracking-tight leading-none tabular-nums">
                   ¥70,000
                 </span>
                 <span className="text-[#5A6280] text-sm font-bold">／一括</span>
@@ -191,7 +191,7 @@ export default function AgentPricing() {
 
         {/* オプション + 重めオプション */}
         <div className="grid md:grid-cols-2 gap-5 mb-14">
-          <div className={`bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.6s" }}>
+          <div className={`bg-[#FAFAFA] border border-[#E5E9F5] rounded-2xl p-8 md:p-10 hover:ring-2 hover:ring-[#12C998]/50 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.6s" }}>
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#5A6280] mb-6">
               連携追加オプション
             </p>
@@ -214,7 +214,7 @@ export default function AgentPricing() {
             </ul>
           </div>
 
-          <div className={`bg-white border-2 border-[#12C998]/40 rounded-2xl p-8 md:p-10 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.7s" }}>
+          <div className={`bg-white border-2 border-[#12C998]/40 rounded-2xl p-8 md:p-10 hover:ring-2 hover:ring-[#12C998] transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.7s" }}>
             <p className="text-[10px] font-bold tracking-[0.4em] text-[#12C998] mb-6">
               プロジェクトご相談
             </p>
