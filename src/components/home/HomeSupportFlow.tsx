@@ -50,11 +50,17 @@ export default function HomeSupportFlow() {
 
         {/* フロー図 */}
         <div className="relative">
-          {/* PCで横線 */}
+          {/* PCで横線（reveal時に左→右へ伸びる） */}
           <div
             aria-hidden="true"
             className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px]"
-            style={{ background: "#12C998", opacity: 0.3 }}
+            style={{
+              background: "#12C998",
+              opacity: 0.3,
+              transformOrigin: "left center",
+              transform: revealed ? "scaleX(1)" : "scaleX(0)",
+              transition: "transform 0.7s ease-out",
+            }}
           />
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-4 relative">
             {steps.map((s, i) => (

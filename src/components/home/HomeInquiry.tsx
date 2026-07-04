@@ -51,7 +51,7 @@ export default function HomeInquiry() {
           </p>
           <a
             href={SITE.contact.emailHref}
-            className="inline-flex items-center gap-2 bg-white text-[#075E4A] font-bold px-10 py-4 rounded-full text-base hover:-translate-y-0.5 transition-all duration-150"
+            className="mo-cta-shine inline-flex items-center gap-2 bg-white text-[#075E4A] font-bold px-10 py-4 rounded-full text-base transition-all duration-150"
             style={{ padding: "16px 48px" }}
           >
             お問い合わせ

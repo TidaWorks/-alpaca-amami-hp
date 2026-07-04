@@ -163,21 +163,21 @@ export default function AgentHero() {
                 ALPACA SMART · AMAMI
               </p>
 
-              <h1
-                className={`relative text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-6 md:mb-8 ${revealed ? "fade-in-x" : "pre-x"}`}
-                style={{ animationDelay: "0.15s" }}
-              >
-                もう、
-                <br />
-                <span className="relative inline-block">
-                  {/* ヘッドラインのキーワード下に薄ミント面（維持） */}
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 bottom-1 h-3 md:h-4 bg-[#12C998]/15 rounded-sm -z-10"
-                  />
-                  <span className="text-[#12C998]">事務作業</span>
+              <h1 className="relative text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-6 md:mb-8">
+                <span className={`block mo-hline ${revealed ? "mo-hline-in" : ""}`} style={{ animationDelay: "0.15s" }}>
+                  もう、
                 </span>
-                <span>に追われない。</span>
+                <span className={`block mo-hline ${revealed ? "mo-hline-in" : ""}`} style={{ animationDelay: "0.27s" }}>
+                  <span className="relative inline-block">
+                    {/* ヘッドラインのキーワード下に薄ミント面（維持） */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 bottom-1 h-3 md:h-4 bg-[#12C998]/15 rounded-sm -z-10"
+                    />
+                    <span className="text-[#12C998]">事務作業</span>
+                  </span>
+                  <span>に追われない。</span>
+                </span>
               </h1>
 
               <p
@@ -296,6 +296,11 @@ export default function AgentHero() {
         .fade-in-x { animation: fade-show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
         .fade-in-up { animation: fade-show-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
 
+        /* h1 の行stagger（2026-07-04 モーション上乗せ）: 行ごとに120ms刻みで登場 */
+        .mo-hline { opacity: 0; transform: translateY(20px); }
+        @keyframes mo-hline-show { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .mo-hline-in { animation: mo-hline-show 0.7s ease-out both; }
+
         @keyframes agentBlobDrift {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(18px, -12px) scale(1.05); }
@@ -341,6 +346,8 @@ export default function AgentHero() {
         @media (prefers-reduced-motion: reduce) {
           .fade-in-x, .fade-in-up { animation: none !important; }
           .pre-x, .pre-up { opacity: 1; transform: none; }
+          .mo-hline-in { animation: none !important; }
+          .mo-hline { opacity: 1; transform: none; }
           .agentFloat1, .agentFloat2, .agentFloat3,
           .agentDashFlow path { animation: none !important; }
           [class*="badge-float-"] { animation: none !important; opacity: 1 !important; transform: none !important; }

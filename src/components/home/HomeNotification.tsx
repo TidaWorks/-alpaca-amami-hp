@@ -46,10 +46,15 @@ export default function HomeNotification() {
           </a>
         </div>
         <ul className="border-t border-[#DADADA]/70">
-          {notifications.map((n) => (
+          {notifications.map((n, i) => (
             <li
               key={n.date + n.title}
-              className="flex flex-col md:flex-row md:items-center gap-1 md:gap-6 py-4 md:py-5 border-b border-[#DADADA]/70"
+              className="flex flex-col md:flex-row md:items-center gap-1 md:gap-6 py-4 md:py-5 border-b border-[#DADADA]/70 transition-all duration-700"
+              style={{
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? "translateY(0)" : "translateY(12px)",
+                transitionDelay: `${i * 100}ms`,
+              }}
             >
               <time className="text-sm font-bold tabular-nums text-[#4C4C4C] md:w-28 flex-shrink-0">
                 {n.date}

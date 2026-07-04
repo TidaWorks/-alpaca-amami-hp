@@ -8,6 +8,7 @@ import SystemFlow from "@/components/system/SystemFlow";
 import SystemPricing from "@/components/system/SystemPricing";
 import SystemFAQ from "@/components/system/SystemFAQ";
 import SystemCTA from "@/components/system/SystemCTA";
+import SectionDivider from "@/components/SectionDivider";
 
 export const metadata = {
   title: "業務システム開発 — 奄美大島の現場に合わせた仕組みづくり",
@@ -21,9 +22,11 @@ export default function SystemPage() {
       <SystemHeader />
       <SystemHero />
       <SystemAbout />
+      <SectionDivider from="#FFFFFF" to="#EEF1FF" />
       <SystemPainPoints />
       <SystemFeatures />
       <SystemUseCases />
+      <SectionDivider from="#EEF1FF" to="#FAFAFA" flip />
       <SystemFlow />
       <SystemPricing />
       <SystemFAQ />

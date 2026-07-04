@@ -53,13 +53,13 @@ const services: Service[] = [
   },
   {
     badge: "AGENT",
-    title: "アルパカスマート（月額AIサポート）",
-    price: "月¥30,000〜",
-    note: "いつでも解約OK／本格実装は別途お見積もり",
+    title: "アルパカスマート（AIエージェント秘書）",
+    price: "初期¥70,000＋月¥15,000",
+    note: "セットアップ一括＋月額サポート／いつでも解約OK",
     href: "/smart",
-    desc: "チャット相談無制限。軽サポート込み。AI最新情報を随時お届け。",
+    desc: "Gmail・カレンダー・LINEなどを1つのAI秘書に連携し、事務作業を自動化。セットアップから運用まで伴走。",
     icon: Bot,
-    features: ["チャット相談無制限", "軽サポート込み", "AI最新情報を随時お届け", "顧問特典価格"],
+    features: ["AI秘書セットアップ", "業務に合わせた連携3つの初期構築", "90分の使い方レクチャー", "月1回30分の運用相談"],
     image: {
       src: "/images/agent-v3/01-hero-pc.png",
       alt: "アルパカスマートのイメージビジュアル。チャットとAIを組み合わせた自動応対のフロー",
@@ -156,8 +156,8 @@ export default function HomeService() {
 
                 <a
                   href={s.href}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white transition-all duration-150 hover:-translate-y-0.5"
-                  style={{ background: "#075E4A" }}
+                  className="mo-cta-shine inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white transition-all duration-150"
+                  style={{ backgroundColor: "#075E4A" }}
                 >
                   詳細を見る
                   <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

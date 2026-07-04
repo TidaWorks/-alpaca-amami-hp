@@ -36,6 +36,37 @@ const HEAVY_OPTION = [
   },
 ];
 
+/**
+ * 主要数字のカウントアップ（SystemHero.tsx のローカル rAF ticker と同じパターンをこのファイル内に複製）。
+ * prefers-reduced-motion: reduce の場合は即座に最終値を表示する。
+ */
+function NumberTicker({ to, suffix = "", duration = 1200, start = false }: { to: number; suffix?: string; duration?: number; start?: boolean }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setValue(to);
+      return;
+    }
+    let rafId: number;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const progress = Math.min(1, (t - t0) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.floor(to * eased));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+      else setValue(to);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [to, duration, start]);
+  return <span className="tabular-nums">{value.toLocaleString("ja-JP")}{suffix}</span>;
+}
+
 export default function AgentPricing() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -115,7 +146,7 @@ export default function AgentPricing() {
               </h3>
               <div className="flex items-baseline gap-2 mb-8">
                 <span className="font-bold text-[#1D2A6E] text-5xl md:text-6xl tracking-tight leading-none tabular-nums">
-                  ¥70,000
+                  ¥<NumberTicker to={70000} start={revealed} />
                 </span>
                 <span className="text-[#5A6280] text-sm font-bold">／一括</span>
               </div>
@@ -150,7 +181,7 @@ export default function AgentPricing() {
                 </h3>
                 <div className="flex items-baseline gap-2 mb-8">
                   <span className="font-bold text-white text-5xl md:text-6xl tracking-tight leading-none tabular-nums">
-                    ¥15,000
+                    ¥<NumberTicker to={15000} start={revealed} />
                   </span>
                   <span className="text-white/85 text-sm font-bold">／月</span>
                 </div>

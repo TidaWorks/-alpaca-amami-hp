@@ -7,6 +7,7 @@ import AgentPricing from "@/components/agent/AgentPricing";
 import AgentFlow from "@/components/agent/AgentFlow";
 import AgentFAQ from "@/components/agent/AgentFAQ";
 import AgentCTA from "@/components/agent/AgentCTA";
+import SectionDivider from "@/components/SectionDivider";
 
 export const metadata = {
   title: "アルパカスマート — もう、事務作業に追われない。 | 奄美のAI導入パートナー",
@@ -22,9 +23,11 @@ export default function AgentPage() {
       <AgentPainPoints />
       <AgentFeatures />
       <AgentUseCases />
+      <SectionDivider from="#F0FBF7" to="#FFFFFF" />
       <AgentPricing />
       <AgentFlow />
       <AgentFAQ />
+      <SectionDivider from="#FFFFFF" to="#1D2A6E" flip />
       <AgentCTA />
     </div>
   );

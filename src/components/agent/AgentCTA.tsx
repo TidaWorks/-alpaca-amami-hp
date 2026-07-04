@@ -256,7 +256,7 @@ export default function AgentCTA() {
                 <button
                   type="submit"
                   disabled={submit === "submitting"}
-                  className="group inline-flex items-center gap-2 bg-[#12C998] text-white font-bold text-sm md:text-base rounded-full px-7 py-3.5 hover:bg-[#0DA67D] transition-all duration-300 shadow-[0_4px_16px_rgba(18,201,152,0.3)] hover:shadow-[0_8px_24px_rgba(18,201,152,0.4)] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                  className="mo-cta-shine group inline-flex items-center gap-2 bg-[#12C998] text-white font-bold text-sm md:text-base rounded-full px-7 py-3.5 hover:bg-[#0DA67D] transition-all duration-300 shadow-[0_4px_16px_rgba(18,201,152,0.3)] hover:shadow-[0_8px_24px_rgba(18,201,152,0.4)] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {submit === "submitting" ? "送信中..." : "送信する"}
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} aria-hidden="true" />

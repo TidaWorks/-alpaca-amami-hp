@@ -82,15 +82,16 @@ export default function SystemHero() {
               業務システム開発 · 奄美大島
             </p>
 
-            <h1
-              className={`text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-8 md:mb-10 ${revealed ? "fade-in-x" : "pre-x"}`}
-              style={{ animationDelay: "0.15s" }}
-            >
-              業務を、
-              <br />
-              <span className="text-[#2860E1]">ひとつの仕組み</span>
-              <br />
-              に。
+            <h1 className="text-[#1D2A6E] text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] font-bold tracking-tight mb-8 md:mb-10">
+              <span className={`block mo-hline ${revealed ? "mo-hline-in" : ""}`} style={{ animationDelay: "0.15s" }}>
+                業務を、
+              </span>
+              <span className={`block mo-hline ${revealed ? "mo-hline-in" : ""}`} style={{ animationDelay: "0.27s" }}>
+                <span className="text-[#2860E1]">ひとつの仕組み</span>
+              </span>
+              <span className={`block mo-hline ${revealed ? "mo-hline-in" : ""}`} style={{ animationDelay: "0.39s" }}>
+                に。
+              </span>
             </h1>
 
             <p
@@ -175,9 +176,17 @@ export default function SystemHero() {
         @keyframes fade-show-up { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
         .fade-in-x { animation: fade-show-x 0.85s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
         .fade-in-up { animation: fade-show-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) both; }
+
+        /* h1 の行stagger（2026-07-04 モーション上乗せ）: 行ごとに120ms刻みで登場 */
+        .mo-hline { opacity: 0; transform: translateY(20px); }
+        @keyframes mo-hline-show { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .mo-hline-in { animation: mo-hline-show 0.7s ease-out both; }
+
         @media (prefers-reduced-motion: reduce) {
           .fade-in-x, .fade-in-up { animation: none !important; }
           .pre-x, .pre-up { opacity: 1; transform: none; }
+          .mo-hline-in { animation: none !important; }
+          .mo-hline { opacity: 1; transform: none; }
         }
       `}</style>
     </section>
