@@ -17,14 +17,14 @@ const cases = [
   },
   {
     name: "Bistro ADAN",
-    image: "/images/demo-screenshots/restaurant.png",
+    image: "/images/demo-screenshots/restaurant.webp",
     copy: "島食材ビストロのHP・予約導線をシンプルに整理。",
     industry: "飲食",
     href: "/demo/restaurant",
   },
   {
     name: "Hair Salon kukuru",
-    image: "/images/demo-screenshots/salon.png",
+    image: "/images/demo-screenshots/salon.webp",
     copy: "美容室の世界観をデザインで表現、予約までの導線を短く。",
     industry: "美容室",
     href: "/demo/salon",

@@ -39,7 +39,7 @@ export default function AgentHero() {
       {/* ===== SP専用ヒーロー：案18 全幅画像 + 胸元ピンクCTA（md未満で表示） ===== */}
       <div className="relative md:hidden pt-[100px]">
         <img
-          src="/images/agent-v3/06-hero-sp.png"
+          src="/images/agent-v3/06-hero-sp.webp"
           alt="もう、事務作業に追われない。アルパカスマート"
           className="w-full h-auto block"
           width={1080}
@@ -253,9 +253,9 @@ export default function AgentHero() {
               {/* ===== 画像本体（主役） ===== */}
               <div className="relative rounded-3xl overflow-hidden bg-white shadow-2xl shadow-[#12C998]/20 ring-1 ring-[#12C998]/10">
                 <picture>
-                  <source media="(max-width: 767px)" srcSet="/images/agent-v3/06-hero-sp.png" />
+                  <source media="(max-width: 767px)" srcSet="/images/agent-v3/06-hero-sp.webp" />
                   <img
-                    src="/images/agent-v3/01-hero-pc.png"
+                    src="/images/agent-v3/01-hero-pc.webp"
                     alt="アルパカスマート — あなた専用のAI秘書を奄美からセットアップ"
                     className="w-full h-auto block"
                     width={1280}

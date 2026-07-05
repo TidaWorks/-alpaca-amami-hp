@@ -134,9 +134,9 @@ export default function SystemHero() {
           {/* 右：Heroビジュアル画像 */}
           <div className={`relative ${revealed ? "fade-in-up" : "pre-up"}`} style={{ animationDelay: "0.4s" }}>
             <picture>
-              <source media="(max-width: 767px)" srcSet="/images/system-v3/05-hero-sp.png" />
+              <source media="(max-width: 767px)" srcSet="/images/system-v3/05-hero-sp.webp" />
               <img
-                src="/images/system-v3/01-hero-pc.png"
+                src="/images/system-v3/01-hero-pc.webp"
                 alt="奄美の事業者が業務システムのダッシュボードを使うイメージ"
                 className="w-full h-auto rounded-2xl"
                 width={1920}

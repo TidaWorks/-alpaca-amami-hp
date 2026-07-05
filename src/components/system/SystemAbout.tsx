@@ -62,8 +62,8 @@ export default function SystemAbout() {
 
         <div className={`mb-12 md:mb-16 bg-[#FAFAFA] border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.35s" }}>
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/system-v3/06-about-sp.png" />
-            <img src="/images/system-v3/02-about-pc.png" alt="紙とExcelから業務システムへの移行図" className="w-full h-auto" width={1920} height={1080} />
+            <source media="(max-width: 767px)" srcSet="/images/system-v3/06-about-sp.webp" />
+            <img src="/images/system-v3/02-about-pc.webp" alt="紙とExcelから業務システムへの移行図" className="w-full h-auto" width={1920} height={1080} />
           </picture>
         </div>
 

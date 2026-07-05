@@ -105,7 +105,7 @@ export default function AgentPainPoints() {
             >
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
                 <img
-                  src={`/images/agent-v3/${img}.png`}
+                  src={`/images/agent-v3/${img}.webp`}
                   alt=""
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   width={1080}

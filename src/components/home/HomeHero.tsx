@@ -23,9 +23,9 @@ export default function HomeHero() {
         }}
       >
         <picture>
-          <source media="(max-width: 767px)" srcSet="/images/home-v3/home-sp-garatto.png" />
+          <source media="(max-width: 767px)" srcSet="/images/home-v3/home-sp-garatto.webp" />
           <img
-            src="/images/home-v3/home-pc-garatto.png"
+            src="/images/home-v3/home-pc-garatto.webp"
             alt="あなたの業務を、ガラッと変える！ — ALPACA"
             className="w-full h-auto block"
             width={1920}

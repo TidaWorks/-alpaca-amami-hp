@@ -101,9 +101,9 @@ export default function AgentFlow() {
         {/* タイムライン画像（PC/SP切替） */}
         <div className={`mb-12 md:mb-16 bg-white border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.3s" }}>
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/agent-v3/08-flow-sp.png" />
+            <source media="(max-width: 767px)" srcSet="/images/agent-v3/08-flow-sp.webp" />
             <img
-              src="/images/agent-v3/03-flow-pc.png"
+              src="/images/agent-v3/03-flow-pc.webp"
               alt="ご相談から運用開始までの5ステップ"
               className="w-full h-auto"
               width={1920}

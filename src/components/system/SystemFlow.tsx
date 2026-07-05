@@ -49,8 +49,8 @@ export default function SystemFlow() {
 
         <div className={`mb-12 md:mb-16 bg-white border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.3s" }}>
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/system-v3/08-flow-sp.png" />
-            <img src="/images/system-v3/04-flow-pc.png" alt="ヒアリングから保守までの5ステップ" className="w-full h-auto" width={1920} height={1080} />
+            <source media="(max-width: 767px)" srcSet="/images/system-v3/08-flow-sp.webp" />
+            <img src="/images/system-v3/04-flow-pc.webp" alt="ヒアリングから保守までの5ステップ" className="w-full h-auto" width={1920} height={1080} />
           </picture>
         </div>
 

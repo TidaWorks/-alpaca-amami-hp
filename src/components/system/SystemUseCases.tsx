@@ -76,7 +76,7 @@ export default function SystemUseCases() {
           {CASES.map(({ img, industry, question, answer }, i) => (
             <div key={industry} className={`group bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#2860E1]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
-                <img src={`/images/system-v3/${img}.png`} alt={`${industry}の利用シーン`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
+                <img src={`/images/system-v3/${img}.webp`} alt={`${industry}の利用シーン`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
               </div>
               <div className="p-7 md:p-8">
                 <p className="text-[10px] font-bold tracking-[0.3em] text-[#2860E1] mb-3">業種</p>

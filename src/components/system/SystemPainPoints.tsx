@@ -93,7 +93,7 @@ export default function SystemPainPoints() {
           {PAINS.map(({ img, title, body, follow }, i) => (
             <div key={title} className={`group relative bg-white border border-[#E5E9F5] rounded-2xl overflow-hidden hover:border-[#2860E1]/50 hover:-translate-y-1 transition-all duration-300 ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: `${0.3 + i * 0.08}s` }}>
               <div className="aspect-square bg-[#F4F6F8] overflow-hidden">
-                <img src={`/images/system-v3/${img}.png`} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
+                <img src={`/images/system-v3/${img}.webp`} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width={1080} height={1080} loading="lazy" />
               </div>
               <div className="p-7 md:p-8 flex flex-col">
                 <h3 className="font-bold text-[#1D2A6E] text-base md:text-lg mb-4 leading-snug">{title}</h3>

@@ -31,7 +31,7 @@ const services: Service[] = [
     icon: Globe,
     features: ["LP 1ページ", "複数ページHP", "ブログ機能", "SEO初期設定", "お問い合わせフォーム", "Googleマップ連携", "SNS連携", "スマホ最適化"],
     image: {
-      src: "/images/demo-screenshots/restaurant.png",
+      src: "/images/demo-screenshots/restaurant.webp",
       alt: "ALPACAが制作した飲食店向けホームページのデモ画面。写真とメニュー、予約ボタンが配置されたモバイル対応のデザイン",
       caption: "飲食店・サロン・ガイドハウスなど、9業種のデモを公開中",
     },
@@ -46,7 +46,7 @@ const services: Service[] = [
     icon: Database,
     features: ["予約管理", "顧客台帳", "売上集計", "在庫管理", "ダッシュボード", "権限管理", "LINE連携", "CSV出力"],
     image: {
-      src: "/images/system/sections/05-dashboard-mockup.png",
+      src: "/images/system/sections/05-dashboard-mockup.webp",
       alt: "予約・顧客・売上を一元管理する業務システムのダッシュボード画面。グラフと数値、テーブルで現場の数字を一望できる",
       caption: "予約・顧客・売上を一元管理。ブラウザだけで現場の数字を一望",
     },
@@ -61,7 +61,7 @@ const services: Service[] = [
     icon: Bot,
     features: ["AI秘書セットアップ", "業務に合わせた連携3つの初期構築", "90分の使い方レクチャー", "月1回30分の運用相談"],
     image: {
-      src: "/images/agent-v3/01-hero-pc.png",
+      src: "/images/agent-v3/01-hero-pc.webp",
       alt: "アルパカスマートのイメージビジュアル。チャットとAIを組み合わせた自動応対のフロー",
       caption: "チャット×AIで自動応対。窓口の取りこぼしを減らす",
     },

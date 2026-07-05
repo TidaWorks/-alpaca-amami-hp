@@ -8,7 +8,7 @@ const works = [
     category: "美容室",
     type: "ホームページ",
     href: "/demo/salon",
-    image: "/images/demo-screenshots/salon.png",
+    image: "/images/demo-screenshots/salon.webp",
     color: "#FF6B9E",
   },
   {
@@ -16,7 +16,7 @@ const works = [
     category: "ビストロ",
     type: "ホームページ",
     href: "/demo/restaurant",
-    image: "/images/demo-screenshots/restaurant.png",
+    image: "/images/demo-screenshots/restaurant.webp",
     color: "#E63946",
   },
   {
@@ -24,7 +24,7 @@ const works = [
     category: "ダイビングショップ",
     type: "ホームページ",
     href: "/demo/diving",
-    image: "/images/demo-screenshots/diving.png",
+    image: "/images/demo-screenshots/diving.webp",
     color: "#1D9BF0",
   },
   {
@@ -32,7 +32,7 @@ const works = [
     category: "キャンプ場",
     type: "ホームページ",
     href: "/demo/camp",
-    image: "/images/demo-screenshots/camp.png",
+    image: "/images/demo-screenshots/camp.webp",
     color: "#3FA34D",
   },
 ];
@@ -98,9 +98,9 @@ export default function HomeWorks() {
           }}
         >
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/home-v3/06-works-sp.png" />
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/06-works-sp.webp" />
             <img
-              src="/images/home-v3/05-works-pc.png"
+              src="/images/home-v3/05-works-pc.webp"
               alt="奄美大島の各業種オーナー（美容師・シェフ・ダイビングインストラクター・キャンプ場運営）の現場ドキュメンタリー写真"
               className="w-full h-auto"
               width={1920}

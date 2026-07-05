@@ -137,9 +137,9 @@ export default function HomeServices() {
           }}
         >
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/home-v3/04-services-sp.png" />
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/04-services-sp.webp" />
             <img
-              src="/images/home-v3/03-services-pc.png"
+              src="/images/home-v3/03-services-pc.webp"
               alt="奄美の事業者がパソコン・スマホ・タブレットでサービスを使うシーン"
               className="w-full h-auto"
               width={1920}

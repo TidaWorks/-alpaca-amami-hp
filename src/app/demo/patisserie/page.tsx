@@ -589,7 +589,7 @@ export default function PatisseriePage() {
         .hero-bg {
           position: absolute;
           inset: 0;
-          background-image: url('/images/demo/patisserie/hero.jpg');
+          background-image: url('/images/demo/patisserie/hero.webp');
           background-size: cover;
           background-position: center;
           will-change: transform;

@@ -71,9 +71,9 @@ export default function HomeAbout() {
           }}
         >
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/home-v3/08-about-sp.png" />
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/08-about-sp.webp" />
             <img
-              src="/images/home-v3/07-about-pc.png"
+              src="/images/home-v3/07-about-pc.webp"
               alt="作田大地が奄美大島の地元事業者にヒアリングし、現場を見学するドキュメンタリー写真"
               className="w-full h-auto"
               width={1920}

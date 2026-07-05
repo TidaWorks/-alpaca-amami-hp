@@ -91,9 +91,9 @@ export default function HomeFlow() {
           }}
         >
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/home-v3/10-flow-sp.png" />
+            <source media="(max-width: 767px)" srcSet="/images/home-v3/10-flow-sp.webp" />
             <img
-              src="/images/home-v3/09-flow-pc.png"
+              src="/images/home-v3/09-flow-pc.webp"
               alt="ALPACAの制作フロー4ステップを表現するドキュメンタリー写真（打ち合わせ・設計・制作・納品）"
               className="w-full h-auto"
               width={1920}

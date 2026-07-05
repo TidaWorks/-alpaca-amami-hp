@@ -33,8 +33,8 @@ export default function SystemFeatures() {
 
         <div className={`mb-14 md:mb-20 bg-[#FAFAFA] border border-[#E5E9F5] rounded-3xl overflow-hidden ${revealed ? "fade-in" : "pre"}`} style={{ animationDelay: "0.3s" }}>
           <picture>
-            <source media="(max-width: 767px)" srcSet="/images/system-v3/07-features-sp.png" />
-            <img src="/images/system-v3/03-features-pc.png" alt="業務システムの4つの主要機能" className="w-full h-auto" width={1920} height={1080} />
+            <source media="(max-width: 767px)" srcSet="/images/system-v3/07-features-sp.webp" />
+            <img src="/images/system-v3/03-features-pc.webp" alt="業務システムの4つの主要機能" className="w-full h-auto" width={1920} height={1080} />
           </picture>
         </div>
 
