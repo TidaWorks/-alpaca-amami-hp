@@ -24,7 +24,7 @@ const CASES: CaseItem[] = [
     industry: "飲食店",
     question: "問い合わせ・予約・仕入れ・経理まで、毎日の事務作業に追われてる",
     answer:
-      "Gmail / LINE / freee を繋いで、問い合わせの一次対応から予約管理・経費精算まで、AI秘書が下書きを作ります。送信・確定は店主が承認するので、誤送信の不安なく回せます。",
+      "Gmail / LINE / freee を繋いで、問い合わせ返信の下書き・予約管理・経費精算までAI秘書が代行します。送信・確定は店主が承認するので、誤送信の不安なく本業に戻れます。",
     Icon: UtensilsCrossed,
     accent: "#E85A4F",
     bg: "#FDECE9",

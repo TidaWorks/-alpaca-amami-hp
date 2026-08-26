@@ -5,7 +5,7 @@
 export const SITE = {
   name: "ALPACA",
   url: "https://alpaca-amami.com",
-  address: "鹿児島県奄美市名瀬有屋町",
+  address: "鹿児島県奄美市有屋町",
   contact: {
     tel: "080-2790-6757",
     telHref: "tel:08027906757",

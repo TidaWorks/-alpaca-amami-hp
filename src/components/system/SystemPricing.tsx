@@ -186,7 +186,7 @@ export default function SystemPricing() {
           className="text-xs md:text-sm text-[#5A6280] leading-loose mt-12 max-w-3xl mx-auto text-center"
           style={{ opacity: visible ? 1 : 0, transition: "opacity 0.7s ease 0.7s" }}
         >
-          ※ 規模・機能要件により金額は変動します。AI機能組み込み（要約・チャット・自動応答など）、LINE自動化ボット構築（¥80,000〜）、外部API連携（¥50,000〜/件）など個別オプションも対応可能。リリース後の継続伴走・AI活用相談は<a href="/smart" className="text-[#2860E1] font-bold underline-offset-4 hover:underline">アルパカスマート（月¥30,000〜）</a>でもサポート。詳細はヒアリング後の正式お見積りでご確認いただけます（相談は無料）。
+          ※ 規模・機能要件により金額は変動します。AI機能組み込み（要約・チャット・自動応答など）、LINE自動化ボット構築（¥80,000〜）、外部API連携（¥50,000〜/件）など個別オプションも対応可能。リリース後の継続伴走・AI活用相談は<a href="/smart" className="text-[#2860E1] font-bold underline-offset-4 hover:underline">アルパカスマート（初期¥70,000＋月¥15,000〜）</a>でもサポート。詳細はヒアリング後の正式お見積りでご確認いただけます（相談は無料）。
         </p>
       </div>
     </section>
