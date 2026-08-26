@@ -4,7 +4,7 @@ import HomeHeader from "@/components/home/HomeHeader";
 export const metadata = {
   title: "利用規約",
   description:
-    "ALPACAの利用規約。各種サービス（ホームページ制作、業務システム開発、アルパカスマート月額AIサポート）の契約条件・解約・知的財産権などを定めています。",
+    "ALPACAの利用規約。各種サービス（ホームページ制作、業務システム開発、アルパカスマートAIエージェント秘書セットアップ）の契約条件・解約・知的財産権などを定めています。",
   robots: { index: true, follow: true },
 };
 
@@ -39,7 +39,7 @@ export default function TermsPage() {
                 <li>ランディングページ制作</li>
                 <li>ホームページ制作</li>
                 <li>業務システム開発</li>
-                <li>アルパカスマート（月額AIサポート）</li>
+                <li>アルパカスマート（AIエージェント秘書セットアップ）</li>
                 <li>その他、当事業者が提供する付随サービス</li>
               </ul>
             </Section>

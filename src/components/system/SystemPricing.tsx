@@ -102,9 +102,9 @@ export default function SystemPricing() {
                   <span className="text-[#1D2A6E] text-5xl md:text-6xl font-bold tabular-nums leading-none">
                     300,000
                   </span>
-                  <span className="text-sm text-[#5A6280] font-bold ml-1">〜</span>
+                  <span className="text-sm text-[#5A6280] font-bold ml-1">〜¥1,500,000</span>
                 </div>
-                <p className="text-xs text-[#5A6280] mt-4 tracking-wide font-bold">納期 2週間〜（規模次第）</p>
+                <p className="text-xs text-[#5A6280] mt-4 tracking-wide font-bold">納期 2週間〜（規模次第）／規模により金額変動</p>
               </div>
 
               <ul className="space-y-3 mb-10">
