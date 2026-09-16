@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ひだまり保育園 | 奄美大島の認可保育園",
+  title: "奄美旅行中の一時預かり | 保育園LPデモ",
   description:
-    "奄美大島の認可保育園「ひだまり保育園」。豊かな自然の中で子どもたちの個性を大切に育む、あたたかい保育を実践しています。",
+    "奄美旅行中のお子さまをお預かりする、一時預かりサービスのランディングページデモです。",
 };
 
 export default function NurseryDemoLayout({
@@ -11,5 +11,14 @@ export default function NurseryDemoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <style>{`
+        body:has(.nursery-page) [aria-label="ALPACA制作のデモサイトです"],
+        body:has(.nursery-page) [aria-label="ALPACAのデモサイト案内"] { display: none !important; }
+        body:has(.nursery-page) main#main > div { padding-bottom: 0 !important; }
+      `}</style>
+      {children}
+    </>
+  );
 }
