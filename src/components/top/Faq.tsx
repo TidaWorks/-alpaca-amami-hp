@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { isReduced } from "./motion";
+import { ph } from "./phrase";
 
 export const FAQS = [
   {
@@ -54,7 +55,7 @@ function Item({ q, a, i }: { q: string; a: string; i: number }) {
         <span className="tp-faq__plus" aria-hidden="true" />
       </button>
       <div className="tp-faq__a" id={`tp-faq-${i}`} ref={body} style={{ height: 0, opacity: 0 }}>
-        <p className="tp-faq__atxt">{a}</p>
+        <p className="tp-faq__atxt">{ph(a)}</p>
       </div>
     </li>
   );

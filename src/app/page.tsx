@@ -12,6 +12,7 @@ import BounceTitle from "@/components/top/BounceTitle";
 import Reveal from "@/components/top/Reveal";
 import ReasonCards from "@/components/top/ReasonCards";
 import Slot from "@/components/top/Slot";
+import { ph } from "@/components/top/phrase";
 import Faq from "@/components/top/Faq";
 import ContactForm from "@/components/top/ContactForm";
 import { SITE } from "@/lib/site";
@@ -172,7 +173,7 @@ export default function Home() {
               <div className="tp-worry__img">
                 <Slot id={w.id} label={w.img} tone="d" />
               </div>
-              <p className="tp-worry__q">{w.q}</p>
+              <p className="tp-worry__q">{ph(w.q)}</p>
             </li>
           ))}
         </ul>
@@ -194,13 +195,13 @@ export default function Home() {
               <CalendarCheck aria-hidden="true" />
               <span>AI顧問</span>
             </p>
-            <p className="tp-what__lead">奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。</p>
+            <p className="tp-what__lead">{ph("奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。")}</p>
           </div>
           <div className="tp-what__rows">
             {WHAT_ROWS.map((r) => (
               <a key={r.k} href="#price" className="tp-row tp-what__row">
                 <span className="tp-what__k">{r.k}</span>
-                <span className="tp-what__v">{r.v}</span>
+                <span className="tp-what__v">{ph(r.v)}</span>
               </a>
             ))}
           </div>
@@ -252,7 +253,7 @@ export default function Home() {
                   <p className="tp-price__yen">{p.price}</p>
                   <ul className="tp-price__detail">
                     {p.detail.map((d) => (
-                      <li key={d}>{d}</li>
+                      <li key={d}>{ph(d)}</li>
                     ))}
                   </ul>
                   <span className="tp-price__go" aria-hidden="true">
@@ -275,7 +276,7 @@ export default function Home() {
         <a href="#contact" className="tp-bnr tp-bnr--main">
           <span className="tp-bnr__txt">
             <span className="tp-bnr__small">無料相談</span>
-            <span className="tp-bnr__big">まずは30分、話してみる</span>
+            <span className="tp-bnr__big">{ph("まずは30分、話してみる")}</span>
           </span>
           <span className="tp-bnr__img">
             <Slot id="K01" label="パカ君（フラット）" src={PAKA[0]} />
@@ -306,8 +307,8 @@ export default function Home() {
               </div>
               <div className="tp-rcard__body">
                 <p className="tp-rcard__n">{r.n}</p>
-                <h3 className="tp-rcard__t">{r.t}</h3>
-                <p className="tp-rcard__d">{r.d}</p>
+                <h3 className="tp-rcard__t">{ph(r.t)}</h3>
+                <p className="tp-rcard__d">{ph(r.d)}</p>
               </div>
             </article>
           ))}
@@ -334,7 +335,7 @@ export default function Home() {
                   <Slot id={`${f.id}i`} label="パカ君（フラット）" src={PAKA[i]} />
                 </span>
               </div>
-              <p className="tp-fblock__lead">{f.lead}</p>
+              <p className="tp-fblock__lead">{ph(f.lead)}</p>
               <h3 className="tp-fblock__h">{f.title}</h3>
               {i === FLOW.length - 1 && (
                 <a href="#contact" className="tp-btn tp-fblock__btn">
@@ -361,7 +362,7 @@ export default function Home() {
               ALPACAについて
             </h2>
             <p className="tp-about__txt">
-              奄美大島・有屋町の会社。代表 作田 大地。自社でもAIの秘書を毎日使って仕事を回している（Telegramで話しかけると動く）
+              {ph("奄美大島・有屋町の会社。代表 作田 大地。自社でもAIの秘書を毎日使って仕事を回している（Telegramで話しかけると動く）")}
             </p>
           </div>
         </div>
@@ -410,7 +411,7 @@ export default function Home() {
                 <MessageCircle />
               </span>
               <span className="tp-cta__small">無料相談</span>
-              <span className="tp-cta__big">まずは30分、話してみる</span>
+              <span className="tp-cta__big">{ph("まずは30分、話してみる")}</span>
             </a>
             <a href={SITE.contact.emailHref} className="tp-cta__btn tp-cta__btn--ink">
               <span className="tp-cta__icon" aria-hidden="true">
