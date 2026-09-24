@@ -180,7 +180,11 @@ export default function Hero() {
       {/* ローディング */}
       <div className="tp-loading" ref={loadingRef} aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="tp-loading__img" src="/images/top/paka-run-1.webp" alt="" data-slot="L01" />
+        <span className="tp-loading__imgs" data-slot="L01">
+          {[1, 2, 3, 4].map((n) => (
+            <img key={n} className={`tp-loading__img tp-loading__img--${n}`} src={`/images/top/paka-run-${n}.webp`} alt="" />
+          ))}
+        </span>
         <p className="tp-loading__txt">
           {LOADING.split("").map((c, i) => (
             <span key={i} className="tp-loading__char" style={{ animationDelay: `${i * 0.025}s` }}>

@@ -23,7 +23,8 @@ import { SITE } from "@/lib/site";
 const PAKA = ["/images/top/paka-run-1.webp", "/images/top/paka-run-2.webp", "/images/top/paka-run-3.webp", "/images/top/paka-run-4.webp"];
 
 // 初回訪問の判定（7日以内に来ていたらオープニングの白い幕を出さない）。描画前に実行してちらつきを防ぐ
-const REVISIT_SCRIPT = `try{var t=+localStorage.getItem('tp-visited');if(t&&Date.now()-t<6048e5)document.documentElement.classList.add('tp-revisit')}catch(e){}`;
+// あわせてローディングの絵を開くたびに4種から選ぶ（お手本も開くたびに絵が変わる）
+const REVISIT_SCRIPT = `document.documentElement.dataset.tpLoad=String(Math.floor(Math.random()*4)+1);try{var t=+localStorage.getItem('tp-visited');if(t&&Date.now()-t<6048e5)document.documentElement.classList.add('tp-revisit')}catch(e){}`;
 
 const WORRIES = [
   { id: "P01", q: "「AIが便利なのは分かる。でも、うちの仕事のどこに使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）" },

@@ -241,6 +241,8 @@ html:has(.tp) {
   pointer-events: auto;
 }
 .tp-header__logo {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -640,6 +642,19 @@ html:has(.tp) {
 .tp-loading__img {
   width: 24rem;
   height: auto;
+}
+.tp-loading__img:not(.tp-loading__img--1) {
+  display: none;
+}
+html[data-tp-load="2"] .tp-loading__img--1,
+html[data-tp-load="3"] .tp-loading__img--1,
+html[data-tp-load="4"] .tp-loading__img--1 {
+  display: none;
+}
+html[data-tp-load="2"] .tp-loading__img--2,
+html[data-tp-load="3"] .tp-loading__img--3,
+html[data-tp-load="4"] .tp-loading__img--4 {
+  display: block;
 }
 .tp-loading__txt {
   display: flex;
@@ -1644,7 +1659,7 @@ html.tp-revisit .tp-veil {
   display: flex;
   justify-content: center;
   gap: 4rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
   padding-inline: 16px;
 }
 .tp-rcard {
@@ -2121,7 +2136,7 @@ html.tp-revisit .tp-veil {
 .tp-cta__btn--main {
   background: var(--tp-main);
   color: #fff;
-  border-radius: 0 0 0 2rem;
+  border-radius: 2rem 0 0 2rem;
 }
 .tp-cta__btn--ink {
   background: var(--tp-ink);
@@ -2129,7 +2144,7 @@ html.tp-revisit .tp-veil {
 }
 .tp-cta__btn--sub {
   background: var(--tp-sub);
-  border-radius: 0 0 2rem 0;
+  border-radius: 0 2rem 2rem 0;
 }
 .tp-cta__icon {
   position: relative;
@@ -2343,7 +2358,7 @@ html.tp-revisit .tp-veil {
   }
   .tp-cta__btn--main {
     grid-column: 1 / -1;
-    border-radius: 0;
+    border-radius: 1.6rem 1.6rem 0 0;
   }
   .tp-cta__btn--ink {
     border-radius: 0 0 0 1.6rem;
