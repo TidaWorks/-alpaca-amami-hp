@@ -1506,6 +1506,12 @@ html.tp-revisit .tp-veil {
   line-height: 1.6;
   letter-spacing: 0.05em;
 }
+/* お手本の値: PC だけ英字の下に 1rem 食い込ませる（見出しの高さがお手本より 11px 高かった） */
+@media (min-width: 768px) {
+  .tp-title__ja {
+    margin-top: -1rem;
+  }
+}
 .tp-panel__title {
   margin-top: -9.7rem;
 }
@@ -1592,35 +1598,42 @@ html.tp-revisit .tp-veil {
   }
 }
 
-/* アイコン付きボタン（#30） */
+/* アイコン付きボタン（#30）。お手本の lcl-btn-list の値: 間 2rem、上下 3.45rem・左右 1.4rem、角丸 2rem、丸い絵 6rem、文字 2rem */
 .tp-ibtns {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.6rem;
+  gap: 2rem;
   margin-top: 4.5rem;
+  padding-inline: 16px;
 }
 .tp-ibtn {
   display: inline-flex;
   align-items: center;
-  gap: 1.2rem;
   min-height: 44px;
-  padding: 0.9rem 2rem 0.9rem 1rem;
+  padding: 3.45rem 1.4rem;
   border: 1px solid var(--tp-line);
-  border-radius: 99rem;
+  border-radius: 2rem;
   background: #fff;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  line-height: 1.4;
   transition:
     background-color 0.25s ease,
     color 0.25s ease,
     border-color 0.25s ease;
 }
+.tp-ibtn__txt {
+  margin-inline: 1rem 2rem;
+}
 .tp-ibtn__icon {
   position: relative;
   display: grid;
   place-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 6rem;
+  height: 6rem;
+  flex: none;
+  border-radius: 50%;
+  background: #e8f7f2;
 }
 .tp-ibtn__icon::before {
   content: "";
@@ -1633,14 +1646,15 @@ html.tp-revisit .tp-veil {
 }
 .tp-ibtn__icon svg {
   position: relative;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.8rem;
+  height: 2.8rem;
   color: var(--tp-main);
   transition: scale 0.25s ease;
 }
 .tp-ibtn__arrow {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
 }
 @media (any-hover: hover) {
   .tp-ibtn:hover {
@@ -1696,26 +1710,35 @@ html.tp-revisit .tp-veil {
     right: 1.8rem;
     top: 2rem;
   }
+  /* お手本のスマホ: 11rem 幅の縦並びの四角を 1rem 空けて、上下 0.9rem、角丸 1rem、絵 3.5rem、文字 1.3rem */
   .tp-ibtns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: calc(100% - 32px);
+    flex-wrap: nowrap;
     margin: 2.4rem auto 0;
-    gap: 0.8rem;
+    gap: 1rem;
   }
   .tp-ibtn {
     flex-direction: column;
     justify-content: center;
-    gap: 0.4rem;
-    padding: 1.2rem 0.4rem 1rem;
-    border-radius: 1.2rem;
-    font-size: 1.25rem;
-    line-height: 1.4;
+    width: 11rem;
+    padding: 0.9rem 0;
+    border-radius: 1rem;
+    font-size: 1.3rem;
     text-align: center;
   }
+  .tp-ibtn__txt {
+    margin: 0.5rem auto 1rem;
+  }
   .tp-ibtn__icon {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .tp-ibtn__icon svg {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .tp-ibtn__arrow {
+    width: 1.5rem;
+    height: 1.5rem;
   }
   .tp-ibtn__arrow {
     color: var(--tp-main);
@@ -2679,6 +2702,14 @@ html.tp-revisit .tp-veil {
 
 /* ---- タブレット幅（768〜1023px）: PC の寸法のままだとはみ出す所だけ縮める ---- */
 @media (min-width: 768px) and (max-width: 1199px) {
+  /* 29rem×3＋6rem×2 だと 1024px で3枚目の傾いた角が画面の外に出る */
+  .tp-reason__cards {
+    gap: 3rem;
+  }
+  /* 傾けた小見出しの端が 768px で 1px 画面から出ていた */
+  .tp-hero__lead {
+    max-width: calc(100vw - 48px);
+  }
   .tp-catch {
     flex-direction: column;
     align-items: center;
