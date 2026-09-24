@@ -727,7 +727,8 @@ html:has(.tp) {
     filter 0.25s ease,
     visibility 0s linear 0.3s;
 }
-@media (max-width: 767px) {
+/* 1199px 以下は中身が画面の端近くまで広がるので、右の縦長の導線が「料金を見る」や料金カードの矢印の上に載っていた。スマホと同じ下の帯にする */
+@media (max-width: 1199px) {
   .tp-side {
     top: auto;
     bottom: 0;
