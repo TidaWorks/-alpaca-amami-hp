@@ -1386,10 +1386,10 @@ html.tp-revisit .tp-veil {
   gap: 0;
   padding: 3rem 0 9rem;
 }
+/* お手本の CSS の値: 40rem × 50rem、すき間なし（傾きで隣と少し重なる）、奇数は 4.5rem 下げて +5°、偶数は -5° */
 .tp-gallery__ph {
-  width: 38rem;
-  height: 47rem;
-  margin-right: -1.2rem;
+  width: 40rem;
+  height: 50rem;
   flex: none;
   user-select: none;
 }
@@ -1403,24 +1403,29 @@ html.tp-revisit .tp-veil {
   overflow: hidden;
 }
 .tp-gallery__ph.is-odd .tp-gallery__in {
-  rotate: -5deg;
+  rotate: 5deg;
 }
 .tp-gallery__ph.is-even .tp-gallery__in {
-  rotate: 5deg;
+  rotate: -5deg;
 }
 .tp-gallery__illust {
   position: relative;
   z-index: 2;
-  margin-top: -18.2rem;
+  /* お手本の実測: 偶数の写真の上端から絵の上端まで 36.3rem。写真の列の下の余白（9rem）の分も引く */
+  margin-top: -22.7rem;
   pointer-events: none;
 }
+/* お手本: 22.3rem の正方形を 79.7rem 間隔（実測）で。奇数は 1rem 下げる */
 .tp-gallery__illust .tp-grow__set {
-  gap: 40rem;
-  padding: 0 20rem;
+  gap: 57.4rem;
+  padding: 0 28.7rem;
+}
+.tp-gallery__il:nth-child(odd) {
+  translate: 0 1rem;
 }
 .tp-gallery__il {
-  width: 20rem;
-  height: 20rem;
+  width: 22.3rem;
+  height: 22.3rem;
   align-self: flex-end;
   flex: none;
 }
@@ -1436,27 +1441,28 @@ html.tp-revisit .tp-veil {
     gap: 0;
     padding: 1.5rem 0 4rem;
   }
+  /* お手本のスマホ: 19rem × 23.8rem、奇数は 3rem 下げる、角丸 3rem。絵は 9.2rem、列は写真の下端から 8.2rem 上に重ねる */
   .tp-gallery__ph {
-    width: 16.5rem;
-    height: 21rem;
-    margin-right: -0.6rem;
+    width: 19rem;
+    height: 23.8rem;
   }
   .tp-gallery__ph.is-odd {
-    translate: 0 2rem;
+    translate: 0 3rem;
   }
   .tp-gallery__in {
-    border-radius: 3.5rem;
+    border-radius: 3rem;
   }
+  /* お手本のスマホの実測: 絵の間隔 29.2rem、偶数の写真の上端から絵まで 18.6rem */
   .tp-gallery__illust {
-    margin-top: -9rem;
+    margin-top: -9.2rem;
   }
   .tp-gallery__illust .tp-grow__set {
-    gap: 18rem;
-    padding: 0 9rem;
+    gap: 20rem;
+    padding: 0 10rem;
   }
   .tp-gallery__il {
-    width: 10.5rem;
-    height: 10.5rem;
+    width: 9.2rem;
+    height: 9.2rem;
   }
 }
 
@@ -1816,16 +1822,17 @@ html.tp-revisit .tp-veil {
 .tp-reason__title {
   position: relative;
 }
+/* お手本の CSS の値: カード 29rem（スマホ 20rem）、間 6rem、見出しから 5rem（スマホ 4rem） */
 .tp-reason__cards {
   position: relative;
   display: flex;
   justify-content: center;
-  gap: 4rem;
-  margin-top: 2rem;
+  gap: 6rem;
+  margin-top: 5rem;
   padding-inline: 16px;
 }
 .tp-rcard {
-  width: 30rem;
+  width: 29rem;
   flex: none;
   border: 0.6rem solid #fff;
   border-radius: 3rem;
@@ -1875,8 +1882,9 @@ html.tp-revisit .tp-veil {
     translate: 150% 0;
   }
 }
+/* お手本のカードは 29rem × 約38rem の1枚絵。こちらは文字を HTML で載せるので、絵を 20rem にしてカード全体の高さをお手本に寄せる */
 .tp-rcard__img {
-  height: 27rem;
+  height: 20rem;
   border-radius: 2.4rem 2.4rem 0 0;
   overflow: hidden;
 }
@@ -1924,9 +1932,9 @@ html.tp-revisit .tp-veil {
   }
   .tp-reason__cards {
     justify-content: flex-start;
-    gap: 1.6rem;
-    margin-top: 1rem;
-    padding: 1.6rem calc(50% - 12rem) 2rem;
+    gap: 3rem;
+    margin-top: 2.4rem;
+    padding: 1.6rem calc(50% - 10rem) 2rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -1972,7 +1980,7 @@ html.tp-revisit .tp-veil {
     display: none;
   }
   .tp-rcard {
-    width: 24rem;
+    width: 20rem;
     scroll-snap-align: center;
     border-width: 0.4rem;
     border-radius: 2rem;
@@ -1984,7 +1992,7 @@ html.tp-revisit .tp-veil {
     rotate: 5deg;
   }
   .tp-rcard__img {
-    height: 20rem;
+    height: 13rem;
     border-radius: 1.6rem 1.6rem 0 0;
   }
   .tp-rcard__body {
@@ -2006,17 +2014,20 @@ html.tp-revisit .tp-veil {
   margin-top: -9rem;
   padding-bottom: 4rem;
 }
+/* お手本の学校紹介の CSS の値: 幅 95rem、写真の列 1fr ＋ 文字 40rem、写真 45rem × 54rem（縦長）、ブロックの間 8rem */
 .tp-fblock {
   display: grid;
-  grid-template-columns: minmax(0, 52rem) 40rem;
-  justify-content: center;
-  gap: 9rem;
+  grid-template-columns: minmax(0, 1fr) 40rem;
   align-items: center;
-  width: min(116rem, calc(100% - 32px));
-  margin: 10rem auto 0;
+  width: min(95rem, calc(100% - 32px));
+  margin: 8rem auto 0;
+}
+.tp-flow__title + .tp-fblock {
+  margin-top: 4rem;
 }
 .tp-fblock__ph {
-  height: 50rem;
+  width: min(45rem, 100%);
+  aspect-ratio: 45 / 54;
   border-radius: 8rem;
   overflow: hidden;
   opacity: 0;
@@ -2074,9 +2085,11 @@ html.tp-revisit .tp-veil {
   margin-top: 2.4rem;
   transition-delay: 0.25s, 0.25s, 0s, 0s, 0s, 0s;
 }
+/* お手本の番号の横の絵は 22rem 幅・440×299 の横長 */
 .tp-fblock__il {
-  width: 11rem;
-  height: 11rem;
+  flex-shrink: 0;
+  width: 22rem;
+  aspect-ratio: 440 / 299;
   opacity: 0;
   scale: 0.6;
   transition:
@@ -2098,27 +2111,35 @@ html.tp-revisit .tp-veil {
   .tp-flow {
     margin-top: -4rem;
   }
+  /* お手本のスマホ: 写真 29rem × 34.8rem を真ん中に、番号の段を 7.5rem 上げて写真の下に重ね、番号は左・絵は右 */
   .tp-fblock {
     grid-template-columns: 1fr;
-    gap: 2.4rem;
     margin-top: 5rem;
   }
+  .tp-flow__title + .tp-fblock {
+    margin-top: 2rem;
+  }
   .tp-fblock__ph {
-    height: 24rem;
-    border-radius: 3.5rem;
-    margin-inline: 1rem;
+    width: 29rem;
+    border-radius: 4rem;
+    margin-inline: auto;
   }
   .tp-fblock__n {
     font-size: 7.5rem;
   }
   .tp-fblock__txt {
     position: relative;
-    margin-top: -6.4rem;
-    padding-left: 1.2rem;
+    width: min(34.5rem, 100%);
+    margin-inline: auto;
+  }
+  .tp-fblock__num {
+    position: relative;
+    z-index: 1;
+    margin-top: -7.5rem;
+    justify-content: space-between;
   }
   .tp-fblock__il {
-    width: 8rem;
-    height: 8rem;
+    width: 16.5rem;
   }
   .tp-fblock__lead {
     font-size: 1.6rem;
@@ -2648,9 +2669,6 @@ html.tp-revisit .tp-veil {
   .tp-fblock {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-  }
-  .tp-fblock__ph {
-    height: 36rem;
   }
   /* 3枚が ±5° で重なっていたので、傾いても隣に届かない幅に */
   .tp-rcard {
