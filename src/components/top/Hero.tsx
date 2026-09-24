@@ -22,7 +22,9 @@ function Copy({ veil }: { veil?: boolean }) {
           <span>AIの手を。</span>
         </p>
         <p className="tp-hero__lead" aria-hidden={veil ? "true" : undefined}>
-          奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。
+          <span>奄美・鹿児島の会社と一緒に、</span>
+          <span>AIに任せられる仕事を</span>
+          <span>毎月ひとつずつ増やしていく顧問です。</span>
         </p>
       </div>
     </div>
@@ -62,8 +64,8 @@ export default function Hero() {
     // LOADING... の文字（#1 → #2）
     const chars = Array.from(loading.querySelectorAll<HTMLElement>(".tp-loading__char"));
     gsap.set(chars, { transformOrigin: "50% 100%" });
-    const lt = gsap.timeline();
-    lt.from(chars, { scaleY: 0.4, yPercent: 10, autoAlpha: 0, duration: 0.8, ease: EASE.bounceText, stagger: 0.025 });
+    // #1 は CSS の keyframes（JS を待たず表示直後から動く）。ここでは #2 の波だけ
+    const lt = gsap.timeline({ delay: 1.025 });
     const wave = gsap.timeline({ repeat: -1, repeatDelay: 0.65 });
     wave.to(chars, {
       keyframes: { "0%": { scaleY: 1, y: 0 }, "50%": { scaleY: 1.15, y: -2 }, "100%": { scaleY: 1, y: 0 } },
@@ -181,7 +183,7 @@ export default function Hero() {
         <img className="tp-loading__img" src="/images/top/paka-run-1.webp" alt="" data-slot="L01" />
         <p className="tp-loading__txt">
           {LOADING.split("").map((c, i) => (
-            <span key={i} className="tp-loading__char">
+            <span key={i} className="tp-loading__char" style={{ animationDelay: `${i * 0.025}s` }}>
               {c}
             </span>
           ))}
