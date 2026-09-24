@@ -1,16 +1,57 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { setupGsap, gsap, isReduced } from "./motion";
 import { SITE } from "@/lib/site";
 import { Phone } from "lucide-react";
 
-export const NAV = [
-  { href: "#what", label: "AI顧問とは" },
-  { href: "#price", label: "料金" },
-  { href: "#reason", label: "頼む理由" },
-  { href: "#flow", label: "毎月の流れ" },
-  { href: "#about", label: "ALPACAについて" },
+type Sub = { href: string; label: string; note?: string };
+export const NAV: { href: string; label: string; sub: Sub[] }[] = [
+  {
+    href: "#what",
+    label: "AI顧問とは",
+    sub: [
+      { href: "#what", label: "AI顧問とは", note: "毎月ひとつずつ、AIに任せる仕事を増やす" },
+      { href: "#voice", label: "社長の困りごと" },
+      { href: "#faq", label: "よくある質問" },
+    ],
+  },
+  {
+    href: "#price",
+    label: "料金",
+    sub: [
+      { href: "#price", label: "AI顧問", note: "月15万円〜" },
+      { href: "/system", label: "システム開発", note: "要見積もり" },
+      { href: "/web", label: "ホームページ制作", note: "25万円〜" },
+    ],
+  },
+  {
+    href: "#reason",
+    label: "頼む理由",
+    sub: [
+      { href: "#reason", label: "期間の縛りなし" },
+      { href: "#reason", label: "奄美の会社は訪問も" },
+      { href: "#reason", label: "自社でもAIの秘書を毎日使っている" },
+    ],
+  },
+  {
+    href: "#flow",
+    label: "毎月の流れ",
+    sub: [
+      { href: "#flow", label: "01 仕事を洗い出す" },
+      { href: "#flow", label: "02 任せる所を決める" },
+      { href: "#flow", label: "03 仕組みを作る" },
+      { href: "#flow", label: "04 根付かせる" },
+    ],
+  },
+  {
+    href: "#about",
+    label: "ALPACAについて",
+    sub: [
+      { href: "#about", label: "ALPACAについて" },
+      { href: "#contact", label: "お問い合わせ" },
+    ],
+  },
 ];
 
 const SUB = [
@@ -77,15 +118,7 @@ export default function Header() {
             </a>
           ))}
         </div>
-        <ul className="tp-header__menu">
-          {NAV.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="tp-header__link">
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <MegaMenu />
       </nav>
 
       <div className="tp-header__cta">
@@ -112,7 +145,7 @@ export default function Header() {
 
       <div className="tp-drawer" id="tp-drawer" onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}>
         <ul className="tp-drawer__list">
-          {[...NAV, ...SUB].map((l) => (
+          {[...NAV.map(({ href, label }) => ({ href, label })), ...SUB].map((l) => (
             <li key={l.href}>
               <a href={l.href} className="tp-drawer__link">
                 {l.label}
@@ -125,5 +158,95 @@ export default function Header() {
         </a>
       </div>
     </header>
+  );
+}
+
+/**
+ * PC のメニュー（#37）: 乗せると下にパネルが開き、背景が 50% 暗くなる。
+ * 別の項目へ移るとパネルが左右にずれながら入れ替わり、高さもなめらかに変わる。項目の下の目印が横に滑る
+ */
+function MegaMenu() {
+  const [active, setActive] = useState(-1);
+  const [prev, setPrev] = useState(-1);
+  const [box, setBox] = useState({ left: 0, width: 0, height: 0, bar: 0, barW: 0, barTop: 0 });
+  const items = useRef<(HTMLLIElement | null)[]>([]);
+  const bodies = useRef<(HTMLDivElement | null)[]>([]);
+  const closeT = useRef(0);
+
+  const open = (i: number) => {
+    window.clearTimeout(closeT.current);
+    if (!window.matchMedia("(any-hover: hover) and (min-width: 1024px)").matches) return;
+    const li = items.current[i];
+    const body = bodies.current[i];
+    if (!li || !body) return;
+    const r = li.getBoundingClientRect();
+    const w = Math.min(window.innerWidth - 32, Math.max(360, body.scrollWidth));
+    const left = Math.max(16, Math.min(window.innerWidth - w - 16, r.left + r.width / 2 - w / 2));
+    setBox({ left, width: w, height: body.offsetHeight, bar: r.left, barW: r.width, barTop: r.bottom - 12 });
+    setPrev(active);
+    setActive(i);
+  };
+  const close = () => {
+    window.clearTimeout(closeT.current);
+    closeT.current = window.setTimeout(() => {
+      setPrev(-1);
+      setActive(-1);
+    }, 120);
+  };
+  useEffect(() => {
+    document.documentElement.classList.toggle("tp-mega-open", active >= 0);
+  }, [active]);
+  useEffect(() => () => window.clearTimeout(closeT.current), []);
+
+  return (
+    <>
+      <ul className="tp-header__menu" onPointerLeave={close}>
+        {NAV.map((l, i) => (
+          <li key={l.href} ref={(el) => { items.current[i] = el; }} onPointerEnter={() => open(i)}>
+            <a href={l.href} className={`tp-header__link ${active === i ? "is-active" : ""}`} onFocus={() => open(i)}>
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <span
+        className={`tp-mega__bar ${active >= 0 ? "is-on" : ""}`}
+        style={{ transform: `translateX(${box.bar}px)`, width: box.barW, top: box.barTop }}
+        aria-hidden="true"
+      />
+      <div className={`tp-mega__shade ${active >= 0 ? "is-on" : ""}`} aria-hidden="true" onPointerEnter={close} />
+      <div
+        className={`tp-mega ${active >= 0 ? "is-on" : ""} ${prev < 0 ? "is-first" : ""}`}
+        style={{ left: box.left, width: box.width, height: box.height }}
+        onPointerEnter={() => window.clearTimeout(closeT.current)}
+        onPointerLeave={close}
+      >
+        {NAV.map((l, i) => {
+          // 今の項目より左の中身は左に、右の中身は右に控えておき、切り替えで横から滑り込ませる
+          const side = active < 0 ? 0 : Math.sign(i - active);
+          return (
+            <div
+              key={l.href}
+              ref={(el) => { bodies.current[i] = el; }}
+              className={`tp-mega__body ${i === active ? "is-active" : ""}`}
+              style={{ "--side": side } as React.CSSProperties}
+              aria-hidden={i !== active}
+            >
+              <p className="tp-mega__ttl">{l.label}</p>
+              <ul className="tp-mega__list">
+                {l.sub.map((s) => (
+                  <li key={s.label}>
+                    <a href={s.href} className="tp-mega__link" tabIndex={i === active ? 0 : -1} onClick={() => setActive(-1)}>
+                      <span>{s.label}</span>
+                      {s.note && <span className="tp-mega__note">{s.note}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

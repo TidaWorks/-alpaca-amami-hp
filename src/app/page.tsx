@@ -140,7 +140,8 @@ function IconBtn({ href, icon, label }: { href: string; icon: React.ReactNode; l
   );
 }
 
-const FOOT_COPY = ["会社の", "仕事に、", "AIの", "手を。"];
+// #22 コピーを文字のかたまり（最大20）に分けて 0.025s ずつ出す
+const FOOT_COPY = [["会", "社", "の", "仕", "事", "に", "、"], ["AI", "の", "手", "を", "。"]];
 
 export default function Home() {
   return (
@@ -155,7 +156,7 @@ export default function Home() {
       <Band words={BAND1} id="B1" />
 
       {/* 3 困りごと（お手本 Pick up） */}
-      <section className="tp-wrap tp-2col tp-worry" aria-labelledby="tp-worry-h">
+      <section className="tp-wrap tp-2col tp-worry" id="voice" aria-labelledby="tp-worry-h">
         <div className="tp-sec-ttl">
           <p className="tp-sec-ttl__en" aria-hidden="true">
             Voice
@@ -386,9 +387,16 @@ export default function Home() {
         <div className="tp-fhero">
           <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" className="tp-fhero__slot" />
           <Reveal as="p" className="tp-fhero__copy">
-            {FOOT_COPY.map((c, i) => (
-              <span key={c} className="tp-fhero__part" style={{ transitionDelay: `${i * 0.025}s` }}>
-                {c}
+            {FOOT_COPY.map((line, li) => (
+              <span key={li} className="tp-fhero__line">
+                {line.map((c, ci) => {
+                  const i = FOOT_COPY.slice(0, li).reduce((n, l) => n + l.length, 0) + ci;
+                  return (
+                    <span key={ci} className="tp-fhero__part" style={{ transitionDelay: `${i * 0.025}s` }}>
+                      {c}
+                    </span>
+                  );
+                })}
               </span>
             ))}
           </Reveal>
