@@ -195,6 +195,27 @@ function MegaMenu() {
   };
   useEffect(() => {
     document.documentElement.classList.toggle("tp-mega-open", active >= 0);
+    if (active < 0) return;
+    // キーボードで開いた時: Esc か、メニューとパネルの外へフォーカスが出たら閉じる（開いたまま画面全体が暗くなっていた）
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setPrev(-1);
+      setActive(-1);
+    };
+    const onFocusIn = (e: FocusEvent) => {
+      const t = e.target as Node;
+      const inMenu = items.current.some((li) => li?.contains(t)) || bodies.current.some((b) => b?.contains(t));
+      if (!inMenu) {
+        setPrev(-1);
+        setActive(-1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("focusin", onFocusIn);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("focusin", onFocusIn);
+    };
   }, [active]);
   useEffect(() => () => window.clearTimeout(closeT.current), []);
 

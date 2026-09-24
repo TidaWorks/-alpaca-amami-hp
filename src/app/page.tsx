@@ -49,7 +49,7 @@ const WORRIES = [
 ];
 
 const WHAT_ROWS = [
-  { k: "料金", v: "月15万円〜（定例の打ち合わせ月1回）〜 月25万円（月2回）" },
+  { k: "料金", v: "月15万円（定例の打ち合わせ月1回）〜 月25万円（月2回）" },
   { k: "期間", v: "期間の縛りなし" },
   { k: "打ち合わせ", v: "オンライン。奄美の会社は訪問も" },
 ];
@@ -68,7 +68,7 @@ const PRICES = [
     id: "C01",
     name: "AI顧問",
     price: "月15万円〜",
-    detail: ["月15万円〜（定例 月1回）", "月25万円（定例 月2回）", "期間の縛りなし"],
+    detail: ["月15万円（定例 月1回）", "月25万円（定例 月2回）", "期間の縛りなし"],
     img: "定例の打ち合わせをしている社長と代表（横長）",
     href: "#flow",
   },
@@ -91,13 +91,13 @@ const PRICES = [
 ];
 
 const REASONS = [
-  { id: "R01", n: "01", t: "期間の縛りなし", d: "契約の期間に縛りはありません。", img: "カレンダーをめくるパカ君（ほぼ正方形）" },
-  { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美の会社は訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）" },
+  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "カレンダーをめくるパカ君（ほぼ正方形）" },
+  { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美なら訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）" },
   {
     id: "R03",
     n: "03",
     t: "自社でもAIの秘書を毎日使っている",
-    d: "自社でもAIの秘書を毎日使って仕事を回している（Telegramで話しかけると動く）",
+    d: "代表もTelegramのAI秘書に、毎日仕事を頼んでいます。",
     img: "スマホのTelegramでAIの秘書に話しかける画面（ほぼ正方形）",
   },
 ];
@@ -362,7 +362,7 @@ export default function Home() {
               ALPACAについて
             </h2>
             <p className="tp-about__txt">
-              {ph("奄美大島・有屋町の会社。代表 作田 大地。自社でもAIの秘書を毎日使って仕事を回している（Telegramで話しかけると動く）")}
+              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。自社でも、Telegramで話しかけると動くAIの秘書に毎日仕事を頼んでいます。")}
             </p>
           </div>
         </div>
@@ -418,7 +418,11 @@ export default function Home() {
                 <Mail />
               </span>
               <span className="tp-cta__small">メール</span>
-              <span className="tp-cta__mid">{SITE.contact.email}</span>
+              <span className="tp-cta__mid">
+                {/* 幅が足りない時は「@」の前で折る（768px で「gmail.c／om」と折れていた） */}
+                {SITE.contact.email.split("@")[0]}
+                <wbr />@{SITE.contact.email.split("@")[1]}
+              </span>
             </a>
             <a href={SITE.contact.telHref} className="tp-cta__btn tp-cta__btn--sub">
               <span className="tp-cta__icon" aria-hidden="true">

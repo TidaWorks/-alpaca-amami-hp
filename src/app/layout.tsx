@@ -27,6 +27,8 @@ const shipporiMincho = Shippori_Mincho({
   weight: ["400", "700", "800"],
   display: "swap",
   variable: "--font-shippori-mincho",
+  // 日本語は字の範囲ごとに百近いファイルに分かれる。先読みすると全部（約6.6MB）を取りに行き、load が 40秒を超えていた
+  preload: false,
 });
 
 const kleeOne = Klee_One({

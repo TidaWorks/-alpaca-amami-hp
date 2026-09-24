@@ -17,10 +17,17 @@ function Copy({ veil }: { veil?: boolean }) {
   return (
     <div className={`tp-hero__copy ${veil ? "tp-hero__copy--veil" : ""}`}>
       <div className="tp-hero__copyin" data-copy>
-        <p className="tp-catch" aria-hidden={veil ? "true" : undefined}>
-          <span>会社の仕事に、</span>
-          <span>AIの手を。</span>
-        </p>
+        {veil ? (
+          <p className="tp-catch" aria-hidden="true">
+            <span>会社の仕事に、</span>
+            <span>AIの手を。</span>
+          </p>
+        ) : (
+          <h1 className="tp-catch">
+            <span>会社の仕事に、</span>
+            <span>AIの手を。</span>
+          </h1>
+        )}
         <p className="tp-hero__lead" aria-hidden={veil ? "true" : undefined}>
           <span>奄美・鹿児島の会社と一緒に、</span>
           <span>AIに任せられる仕事を</span>
@@ -127,7 +134,8 @@ export default function Hero() {
 
   // #8 写真の自動切替（1枚 5秒）
   useEffect(() => {
-    if (!started) return;
+    // 動きを減らす設定の時は写真を切り替えない（1枚目のまま）
+    if (!started || isReduced()) return;
     const id = window.setInterval(() => setActive((a) => (a + 1) % SLIDES.length), 5000);
     return () => clearInterval(id);
   }, [started]);

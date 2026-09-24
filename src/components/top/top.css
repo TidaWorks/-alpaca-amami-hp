@@ -7,6 +7,8 @@
 /* ---- 大きさの基準: 1rem を画面幅に比例（PC 基準 1300px・スマホ 基準 375px）。このページだけに効かせる ---- */
 html:has(.tp) {
   font-size: clamp(10px, calc(100vw / 130), 12.3077px);
+  /* Tab で送った先がヘッダーの下に潜らないように */
+  scroll-padding-top: 10rem;
 }
 @media (max-width: 767px) {
   html:has(.tp) {
@@ -62,8 +64,11 @@ html:has(.tp) {
   margin: 0;
   padding: 0;
 }
-:where(.tp) :is(h2, h3, p, dl, dd) {
+:where(.tp) :is(h1, h2, h3, p, dl, dd) {
   margin: 0;
+}
+:where(.tp) h1 {
+  font-weight: 400;
 }
 :where(.tp) :is(p, h2, h3, li, dd, span) {
   word-break: auto-phrase;
@@ -382,17 +387,8 @@ html:has(.tp) {
   display: none;
 }
 
-@media (max-width: 1023px) and (min-width: 768px) {
-  .tp-header__menu {
-    gap: 2rem;
-    font-size: 1.3rem;
-  }
-  .tp-header__row1 .tp-header__sub {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
+/* 1023px 以下はメニューが1行に収まらない（768px で「毎月の／流れ」と2段に折れていた）のでハンバーガーにする */
+@media (max-width: 1023px) {
   .tp-header__logo {
     height: 6.5rem;
     padding: 0 2.4rem 0 1.4rem;
@@ -723,6 +719,13 @@ html:has(.tp) {
   translate: 100% 0;
   opacity: 0;
   pointer-events: none;
+  /* 隠れている間は Tab で止まらないように（消え終わってから） */
+  visibility: hidden;
+  transition:
+    translate 0.3s ease,
+    opacity 0.25s ease,
+    filter 0.25s ease,
+    visibility 0s linear 0.3s;
 }
 @media (max-width: 767px) {
   .tp-side {
@@ -760,6 +763,11 @@ html:has(.tp) {
   }
   .tp {
     padding-bottom: 5.2rem;
+  }
+  /* 下に固定した導線の裏に、Tab で送った先が隠れないように */
+  html:has(.tp) {
+    scroll-padding-top: 8rem;
+    scroll-padding-bottom: 7rem;
   }
 }
 
@@ -1491,7 +1499,7 @@ html.tp-revisit .tp-veil {
   width: min(100rem, calc(100% - 6rem));
   margin: 4.5rem auto 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 3.5rem;
 }
 .tp-price__card {
@@ -1975,6 +1983,9 @@ html.tp-revisit .tp-veil {
     height: 20rem;
     border-radius: 1.6rem 1.6rem 0 0;
   }
+  .tp-rcard__body {
+    padding: 1.6rem 1.6rem 2rem;
+  }
   .tp-rcard__t {
     font-size: 1.8rem;
   }
@@ -2369,7 +2380,6 @@ html.tp-revisit .tp-veil {
 .tp-cta__mid {
   font-size: 1.6rem;
   line-height: 1.4;
-  overflow-wrap: anywhere;
   padding-inline: 1rem;
 }
 .tp-cta__tel {
@@ -2638,11 +2648,24 @@ html.tp-revisit .tp-veil {
   .tp-fblock__ph {
     height: 36rem;
   }
+  /* 3枚が ±5° で重なっていたので、傾いても隣に届かない幅に */
   .tp-rcard {
-    flex: 0 1 30rem;
+    width: 21rem;
+  }
+  .tp-rcard__img {
+    height: 19rem;
+  }
+  .tp-rcard__body {
+    padding: 1.6rem 1.3rem 2rem;
+  }
+  .tp-rcard__t {
+    font-size: 1.6rem;
+  }
+  .tp-rcard__d {
+    font-size: 1.2rem;
   }
   .tp-reason__cards {
-    gap: 2.4rem;
+    gap: 4rem;
   }
   .tp-bnr {
     flex: 0 1 49rem;
@@ -2652,7 +2675,22 @@ html.tp-revisit .tp-veil {
     width: 12rem;
     height: 12rem;
   }
+  /* 3列だと1枚が 190px になり、名前と金額が折れて3枚目が枠からはみ出していた。1列にして絵を左に */
   .tp-price {
+    grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  .tp-price__card {
+    flex-direction: row;
+    border-radius: 3rem;
+  }
+  .tp-price__img {
+    flex: none;
+    width: 26rem;
+    height: auto;
+    min-height: 18rem;
+  }
+  .tp-price__yen {
+    font-size: 3rem;
   }
 }
