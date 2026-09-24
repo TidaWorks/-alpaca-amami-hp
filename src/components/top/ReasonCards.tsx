@@ -11,6 +11,9 @@ import Reveal from "./Reveal";
 export default function ReasonCards({ children, count }: { children: ReactNode; count: number }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
+  // 矢印で送った行き先。滑っている途中にもう一度押された時は、ここから次へ進める（すばやく2回押すと1枚しか進まなかった）
+  const target = useRef(0);
+  const moving = useRef(0);
 
   const list = () => wrap.current?.querySelector<HTMLElement>(".tp-reason__cards") ?? null;
 
@@ -25,6 +28,7 @@ export default function ReasonCards({ children, count }: { children: ReactNode; 
         if (Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid) < Math.abs(cards[best].offsetLeft + cards[best].offsetWidth / 2 - mid)) best = i;
       });
       setIdx(best);
+      if (!moving.current) target.current = best;
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
@@ -34,6 +38,9 @@ export default function ReasonCards({ children, count }: { children: ReactNode; 
     const el = list();
     if (!el) return;
     const n = (i + count) % count;
+    target.current = n;
+    window.clearTimeout(moving.current);
+    moving.current = window.setTimeout(() => (moving.current = 0), 700);
     const c = el.children[n] as HTMLElement;
     el.scrollTo({ left: c.offsetLeft + c.offsetWidth / 2 - el.clientWidth / 2, behavior: "smooth" });
   };
@@ -42,7 +49,7 @@ export default function ReasonCards({ children, count }: { children: ReactNode; 
     <div ref={wrap} className="tp-reason__slider">
       <Reveal className="tp-reason__cards">{children}</Reveal>
       <div className="tp-reason__ctrl">
-        <button type="button" className="tp-reason__arrow" aria-label="前のカード" onClick={() => go(idx - 1)}>
+        <button type="button" className="tp-reason__arrow" aria-label="前のカード" onClick={() => go(target.current - 1)}>
           <ArrowLeft aria-hidden="true" />
         </button>
         <span className="tp-reason__dots" aria-hidden="true">
@@ -50,7 +57,7 @@ export default function ReasonCards({ children, count }: { children: ReactNode; 
             <span key={i} className={i === idx ? "is-active" : ""} />
           ))}
         </span>
-        <button type="button" className="tp-reason__arrow" aria-label="次のカード" onClick={() => go(idx + 1)}>
+        <button type="button" className="tp-reason__arrow" aria-label="次のカード" onClick={() => go(target.current + 1)}>
           <ArrowRight aria-hidden="true" />
         </button>
       </div>
