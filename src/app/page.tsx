@@ -10,6 +10,7 @@ import PopSwap from "@/components/top/PopSwap";
 import GalleryRow from "@/components/top/GalleryRow";
 import BounceTitle from "@/components/top/BounceTitle";
 import Reveal from "@/components/top/Reveal";
+import ReasonCards from "@/components/top/ReasonCards";
 import Slot from "@/components/top/Slot";
 import Faq from "@/components/top/Faq";
 import ContactForm from "@/components/top/ContactForm";
@@ -297,7 +298,7 @@ export default function Home() {
           <Slot id="R00" label="奄美の空と海、手前に有屋町の街並み（横長・背景。下端の街並みが見える）" tone="b" />
         </div>
         <BounceTitle en="Reason" ja="ALPACAに頼む理由" className="tp-reason__title" />
-        <Reveal className="tp-reason__cards">
+        <ReasonCards count={REASONS.length}>
           {REASONS.map((r) => (
             <article key={r.id} className="tp-rcard">
               <div className="tp-rcard__img">
@@ -310,7 +311,7 @@ export default function Home() {
               </div>
             </article>
           ))}
-        </Reveal>
+        </ReasonCards>
         <div className="tp-ibtns tp-reason__btns">
           <IconBtn href="#flow" icon={<Route />} label="毎月の流れ" />
           <IconBtn href="#price" icon={<CalendarCheck />} label="料金" />
