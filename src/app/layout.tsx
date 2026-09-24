@@ -8,7 +8,7 @@ import { SITE } from "@/lib/site";
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "600", "700", "800", "900"],
   display: "swap",
   variable: "--font-outfit",
   preload: false,
@@ -220,7 +220,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <head>
         <meta name="format-detection" content="telephone=no, email=no, address=no" />
         <script

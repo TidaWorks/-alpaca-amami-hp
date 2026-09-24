@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function ScrollProgress() {
   const [width, setWidth] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
@@ -14,6 +16,8 @@ export default function ScrollProgress() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  if (pathname === "/") return null;
 
   return (
     <div
