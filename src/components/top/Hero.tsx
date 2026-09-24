@@ -78,7 +78,8 @@ export default function Hero() {
     const copy = veil.querySelector<HTMLElement>("[data-copy]");
     let tl: gsap.core.Timeline | null = null;
     const start = () => {
-      tl = gsap.timeline();
+      // お手本は load から 0.1〜0.3秒遅れて動き出す（連続写真の実測）。間を取って 0.15秒
+      tl = gsap.timeline({ delay: 0.15 });
       // #3 ローディングの幕
       tl.to(loading, { opacity: 0, duration: 0.4, ease: "tpEase" }, 0);
       tl.set(loading, { display: "none" }, 0.4);
