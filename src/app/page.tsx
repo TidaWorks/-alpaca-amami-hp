@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CalendarCheck, CircleHelp, Mail, MessageCircle, Phone, Route, Building2 } from "lucide-react";
 import "@/components/top/top.css";
@@ -19,6 +20,19 @@ import { SITE } from "@/lib/site";
  * お手本 e-chubu.jp の15セクションの流れと動きを ALPACA の中身に当てはめた物。
  * 対応表: docs/research/hp-renew-2026-09-25/MAPPING.md ／ 絵の枠: IMAGE-SLOTS.md
  */
+
+export const metadata: Metadata = {
+  title: { absolute: "ALPACA | 奄美・鹿児島の会社のAI顧問" },
+  description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問 月15万円〜（定例の打ち合わせ月1回）。期間の縛りなし。",
+  openGraph: {
+    title: "ALPACA | 奄美・鹿児島の会社のAI顧問",
+    description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。",
+    url: "https://alpaca-amami.com",
+    siteName: "ALPACA",
+    locale: "ja_JP",
+    type: "website",
+  },
+};
 
 const PAKA = ["/images/top/paka-run-1.webp", "/images/top/paka-run-2.webp", "/images/top/paka-run-3.webp", "/images/top/paka-run-4.webp"];
 
