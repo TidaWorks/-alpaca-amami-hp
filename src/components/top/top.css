@@ -731,22 +731,26 @@ html:has(.tp) {
 }
 /* 1199px 以下は中身が画面の端近くまで広がるので、右の縦長の導線が「料金を見る」や料金カードの矢印の上に載っていた。スマホと同じ下の帯にする */
 @media (max-width: 1199px) {
+  /* お手本のスマホ: 18.5rem の2つを 0.5rem 空けて真ん中に、上の角だけ丸い（1rem） */
   .tp-side {
     top: auto;
     bottom: 0;
     left: 0;
     flex-direction: row;
-    gap: 0;
+    justify-content: center;
+    gap: 0.5rem;
+    pointer-events: none;
   }
   .tp-side__btn {
-    flex: 1;
+    pointer-events: auto;
+    flex: none;
     flex-direction: row;
     justify-content: center;
-    width: auto;
+    width: 18.5rem;
     height: 5.2rem;
     min-height: 44px;
     padding: 0;
-    border-radius: 0;
+    border-radius: 1rem 1rem 0 0;
     font-size: 1.5rem;
     gap: 0.6rem;
   }
@@ -1721,20 +1725,22 @@ html.tp-revisit .tp-veil {
 /* =========================================================
    7 特設バナー
    ========================================================= */
+/* お手本の CSS の値: 22rem の正方形を 5rem 空けて2枚（スマホ 14rem・2rem）、角丸 2rem（スマホ 1rem）、上に 7rem（スマホ 4rem）。
+   お手本は文字まで描いた1枚絵。こちらは文字を HTML で左上に、絵を右下に置く */
 .tp-special {
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 5rem;
   margin-top: 7rem;
   padding-inline: 16px;
 }
 .tp-bnr {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 49rem;
+  flex-direction: column;
+  width: 22rem;
   height: 22rem;
-  padding: 0 3rem 0 4rem;
+  padding: 2.2rem 2rem 0 2.2rem;
   border-radius: 2rem;
   overflow: hidden;
 }
@@ -1746,24 +1752,34 @@ html.tp-revisit .tp-veil {
   background: var(--tp-sub);
 }
 .tp-bnr__txt {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.4rem;
 }
 .tp-bnr__small {
   font-family: var(--tp-font-en);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   letter-spacing: 0.08em;
 }
 .tp-bnr__big {
-  font-size: 2.6rem;
-  line-height: 1.4;
+  font-size: 2.1rem;
+  line-height: 1.45;
+}
+.tp-bnr--sub .tp-bnr__big {
+  font-family: var(--tp-font-en);
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.01em;
 }
 .tp-bnr__img {
-  width: 16rem;
-  height: 16rem;
-  flex: none;
+  position: absolute;
+  right: 1.2rem;
+  bottom: 0.8rem;
+  width: 10.5rem;
+  height: 10.5rem;
   transition:
     scale 0.25s ease,
     opacity 0.25s ease;
@@ -1776,25 +1792,29 @@ html.tp-revisit .tp-veil {
 }
 @media (max-width: 767px) {
   .tp-special {
-    flex-direction: column;
-    gap: 1.2rem;
+    gap: 2rem;
     margin-top: 4rem;
   }
   .tp-bnr {
-    width: 100%;
-    height: 12rem;
-    padding: 0 1.6rem 0 2.2rem;
-    border-radius: 1.6rem;
+    width: 14rem;
+    height: 14rem;
+    padding: 1.3rem 1rem 0 1.3rem;
+    border-radius: 1rem;
   }
   .tp-bnr__big {
-    font-size: 1.9rem;
+    font-size: 1.45rem;
+  }
+  .tp-bnr--sub .tp-bnr__big {
+    font-size: 1.25rem;
   }
   .tp-bnr__small {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .tp-bnr__img {
-    width: 9rem;
-    height: 9rem;
+    right: 0.6rem;
+    bottom: 0.4rem;
+    width: 6.4rem;
+    height: 6.4rem;
   }
 }
 
@@ -2153,16 +2173,17 @@ html.tp-revisit .tp-veil {
 /* =========================================================
    10 ALPACAについて（1枚バナー）
    ========================================================= */
+/* お手本の採用バナーの値: 幅 62.2rem（スマホ 33rem）、上に 15rem（スマホ 5rem） */
 .tp-about {
-  margin-top: 12rem;
+  margin-top: 15rem;
   padding-inline: 16px;
 }
 .tp-about__card {
   display: grid;
-  grid-template-columns: 24rem 1fr;
-  gap: 3.4rem;
+  grid-template-columns: 22rem 1fr;
+  gap: 3rem;
   align-items: center;
-  width: min(68rem, 100%);
+  width: min(62.2rem, 100%);
   margin-inline: auto;
   padding: 2.6rem;
   border-radius: 2rem;
@@ -2170,7 +2191,7 @@ html.tp-revisit .tp-veil {
   box-shadow: 0 0 5rem var(--tp-shadow);
 }
 .tp-about__img {
-  height: 24rem;
+  height: 22rem;
   border-radius: 1.4rem;
   overflow: hidden;
 }
@@ -2193,9 +2214,10 @@ html.tp-revisit .tp-veil {
 }
 @media (max-width: 767px) {
   .tp-about {
-    margin-top: 7rem;
+    margin-top: 5rem;
   }
   .tp-about__card {
+    width: min(33rem, 100%);
     grid-template-columns: 1fr;
     gap: 1.6rem;
     padding: 1.6rem;
@@ -2688,14 +2710,6 @@ html.tp-revisit .tp-veil {
   }
   .tp-reason__cards {
     gap: 4rem;
-  }
-  .tp-bnr {
-    flex: 0 1 49rem;
-    padding: 0 2rem 0 2.6rem;
-  }
-  .tp-bnr__img {
-    width: 12rem;
-    height: 12rem;
   }
   /* 3列だと1枚が 190px になり、名前と金額が折れて3枚目が枠からはみ出していた。1列にして絵を左に */
   .tp-price {
