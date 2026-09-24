@@ -285,7 +285,7 @@ html:has(.tp) {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: 0.6rem;
+  gap: 0;
 }
 .tp-header__row1 {
   display: flex;
@@ -296,6 +296,7 @@ html:has(.tp) {
 .tp-header__tel {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 0.5rem;
   font-family: var(--tp-font-en);
   font-weight: 700;
@@ -314,8 +315,13 @@ html:has(.tp) {
 .tp-header__link,
 .tp-header__sub {
   position: relative;
-  display: inline-block;
-  padding: 0.2rem 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.tp-header__link::after,
+.tp-header__sub::after {
+  bottom: calc(50% - 1.3em) !important;
 }
 .tp-header__link::after,
 .tp-header__sub::after,
@@ -1066,8 +1072,11 @@ html.tp-revisit .tp-veil {
   .tp-worry__img {
     flex: none;
     width: 10rem;
-    height: auto;
-    min-height: 10rem;
+    height: 10rem;
+    align-self: center;
+    margin-left: 0.8rem;
+    border-radius: 1rem;
+    overflow: hidden;
   }
   .tp-worry__q {
     padding: 1.2rem 1.4rem;
@@ -1690,7 +1699,7 @@ html.tp-revisit .tp-veil {
   }
 }
 .tp-rcard__img {
-  height: 22rem;
+  height: 27rem;
   border-radius: 2.4rem 2.4rem 0 0;
   overflow: hidden;
 }
@@ -1758,7 +1767,7 @@ html.tp-revisit .tp-veil {
     rotate: 2deg;
   }
   .tp-rcard__img {
-    height: 15rem;
+    height: 20rem;
     border-radius: 1.6rem 1.6rem 0 0;
   }
   .tp-rcard__t {
@@ -1779,7 +1788,7 @@ html.tp-revisit .tp-veil {
 }
 .tp-fblock {
   display: grid;
-  grid-template-columns: 52rem 40rem;
+  grid-template-columns: minmax(0, 52rem) 40rem;
   justify-content: center;
   gap: 9rem;
   align-items: center;
@@ -2261,7 +2270,18 @@ html.tp-revisit .tp-veil {
   color: var(--tp-main-deep);
 }
 .tp-company a {
-  border-bottom: 1px solid var(--tp-line);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-decoration-color: var(--tp-line);
+  text-underline-offset: 0.3em;
+}
+.tp-company dt,
+.tp-company dd {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
 }
 .tp-sitemap {
   margin-top: 5rem;
@@ -2278,6 +2298,7 @@ html.tp-revisit .tp-veil {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  min-width: 44px;
 }
 .tp-sitemap__sub {
   margin-top: 1.6rem;
@@ -2385,6 +2406,10 @@ html.tp-revisit .tp-veil {
 
 /* ---- タブレット幅（768〜1023px）: PC の寸法のままだとはみ出す所だけ縮める ---- */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .tp-catch {
+    flex-direction: column;
+    align-items: center;
+  }
   .tp-fblock {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
