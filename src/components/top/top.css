@@ -115,6 +115,8 @@ html:has(.tp) {
   height: 100%;
   overflow: hidden;
   display: grid;
+  /* 行と列を枠の大きさに固定する。auto のままだと絵の height: 100% が絵の元の比率で決まり、縦長の絵が枠の下で切れていた（流れの番号の横のパカ君など） */
+  grid-template: 100% / 100%;
   place-items: center;
   background: #cfe7de;
 }
@@ -954,7 +956,8 @@ html.tp-revisit .tp-veil {
   rotate: -4deg;
   text-shadow: 0 0.3rem 2.4rem rgba(0, 0, 0, 0.18);
   white-space: nowrap;
-  -webkit-text-stroke: 0.08em currentColor;
+  /* 0.08em だと Safari で「事」「を」の中の空きが埋まって塊になっていた */
+  -webkit-text-stroke: 0.045em currentColor;
   paint-order: stroke fill;
 }
 .tp-hero__lead span {
