@@ -5,9 +5,9 @@ import { setupGsap, gsap, EASE, isReduced } from "./motion";
 import Slot from "./Slot";
 
 const SLIDES = [
-  { id: "S01", label: "奄美の会社の事務所で、社長と代表が打ち合わせをしている場面（横長）", tone: "a" as const, src: "/images/top/hero-s01.webp", alt: "海の見える事務所で、社長とALPACAの顧問が打ち合わせをしているイラスト", posSp: "54% 50%" },
-  { id: "S02", label: "社員がスマホでAIに話しかけ、仕事を頼んでいる場面（横長）", tone: "b" as const, src: "/images/top/hero-s02.webp", alt: "事務の社員がスマホのAIに仕事を頼み、現場の社員がのぞき込んでいるイラスト", posSp: "52% 50%" },
-  { id: "S03", label: "奄美大島の海と、有屋町の街並み（横長）", tone: "c" as const, src: "/images/top/hero-s03.webp", alt: "奄美大島の海と、坂の上から見た町並みのイラスト", posSp: "50% 50%" },
+  { id: "S01", label: "奄美の会社の事務所で、社長と代表が打ち合わせをしている場面（横長）", tone: "a" as const, src: "/images/top/hero-s01.webp", srcSp: "/images/top/hero-s01-sp.webp", alt: "海の見える事務所で、社長とALPACAの顧問が打ち合わせをしているイラスト" },
+  { id: "S02", label: "社員がスマホでAIに話しかけ、仕事を頼んでいる場面（横長）", tone: "b" as const, src: "/images/top/hero-s02.webp", srcSp: "/images/top/hero-s02-sp.webp", alt: "事務の社員がスマホのAIに仕事を頼み、現場の社員が自分のスマホで受け取っているイラスト" },
+  { id: "S03", label: "奄美大島の海と、有屋町の街並み（横長）", tone: "c" as const, src: "/images/top/hero-s03.webp", srcSp: "/images/top/hero-s03-sp.webp", alt: "奄美大島の海と、坂の上から見た町並みのイラスト" },
 ];
 
 const VISIT_KEY = "tp-visited";
@@ -180,7 +180,7 @@ export default function Hero() {
               >
                 <div className="tp-hero__kb">
                   {/* 2・3枚目は切り替えが始まってから読む（最初の読み込みを 1枚目だけにする。1枚目が見えている 5秒の間に届く） */}
-                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} alt={s.alt} cover posSp={s.posSp} className="tp-hero__slot" eager={i === 0} />
+                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} srcSp={s.srcSp} alt={s.alt} cover className="tp-hero__slot" eager={i === 0} />
                 </div>
               </div>
             ))}

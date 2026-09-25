@@ -327,7 +327,7 @@ export default function Home() {
             <span className="tp-bnr__big">{ph("まずは30分、話してみる")}</span>
           </span>
           <span className="tp-bnr__img">
-            <Slot id="K01" label="手を振る顧問" src={man("advisor-wave")} alt="" />
+            <Slot id="K01" label="顧問が社長を事務所に迎え入れる場面" src="/images/top/scene/k01.webp" alt="" cover pos="50% 40%" />
           </span>
         </a>
         <a href={SITE.contact.instagramUrl} className="tp-bnr tp-bnr--sub" target="_blank" rel="noopener noreferrer">
@@ -336,7 +336,7 @@ export default function Home() {
             <span className="tp-bnr__big">{SITE.contact.instagramHandle}</span>
           </span>
           <span className="tp-bnr__img">
-            <Slot id="K02" label="スマホを持つ社員" src={man("staff-phone")} alt="" />
+            <Slot id="K02" label="事務の社員がスマホで奄美の海を撮る場面" src="/images/top/scene/k02.webp" alt="" cover pos="50% 50%" />
           </span>
         </a>
       </section>
@@ -435,7 +435,7 @@ export default function Home() {
       {/* 12〜14 フッター */}
       <footer className="tp-footer" id="tp-footer">
         <div className="tp-fhero">
-          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" cover posSp="52% 50%" className="tp-fhero__slot" />
+          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" srcSp="/images/top/scene/h01-sp.webp" cover className="tp-fhero__slot" />
           <Reveal as="p" className="tp-fhero__copy">
             {FOOT_COPY.map((line, li) => (
               <span key={li} className="tp-fhero__line">
