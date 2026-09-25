@@ -57,7 +57,7 @@ export default function Hero() {
   const loadingRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
   // オープニング
@@ -65,14 +65,14 @@ export default function Hero() {
     const loading = loadingRef.current;
     const veil = veilRef.current;
     const hero = heroRef.current;
-    const canvas = canvasRef.current;
+    const sceneEl = sceneRef.current;
     const stage = stageRef.current;
-    if (!loading || !veil || !hero || !canvas || !stage) return;
+    if (!loading || !veil || !hero || !sceneEl || !stage) return;
     setupGsap();
     const html = document.documentElement;
     const revisit = html.classList.contains("tp-revisit");
     // ファーストビューの絵（全部コード）。動きを減らす設定では止まった1枚
-    const scene: HeroScene = createHeroScene(canvas, stage, hero, isReduced());
+    const scene: HeroScene = createHeroScene(sceneEl, stage, hero, isReduced());
 
     if (isReduced()) {
       loading.style.display = "none";
@@ -179,11 +179,11 @@ export default function Hero() {
             </clipPath>
           </defs>
         </svg>
-        <div className="tp-hero__media">
-          {/* 絵を置く範囲（位置と大きさは CSS で決め、絵はここを基準に描く） */}
-          <div className="tp-hero__stage" ref={stageRef} aria-hidden="true" />
-          <canvas className="tp-hero__canvas" ref={canvasRef} aria-hidden="true" />
-        </div>
+        {/* 地（波の形で切る）と、絵の部品の箱は分ける。動く部品を clip-path の中に置くと、毎コマ切り抜き直しになって重い */}
+        <div className="tp-hero__media" />
+        {/* 絵を置く範囲（位置と大きさは CSS で決め、絵はここを基準に描く） */}
+        <div className="tp-hero__stage" ref={stageRef} aria-hidden="true" />
+        <div className="tp-hero__scene" ref={sceneRef} aria-hidden="true" />
         <Copy />
       </section>
 

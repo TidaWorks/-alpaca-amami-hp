@@ -11,7 +11,7 @@
  * 登場の後は、形がふわっと浮き、ゆっくり流れて A に吸い込まれ続ける。
  * マウス・指に少し反応（形がよける・奥行きがずれる）。スクロールで A は奥へ、形は下へほどけて次のセクションへ流れる。
  *
- * 軽さのため: 形は最初に1回だけ小さな canvas に描いておき（sprite）、毎コマは貼るだけ。
+ * 軽さのため: 形は最初に1回だけ小さな canvas に描いておき、DOM に置いて毎コマは transform だけ書き換える（ラスタ化し直さない）。
  * 画面外（IntersectionObserver）とタブが隠れている時は止める。動きを減らす設定では止まった1枚の絵。
  */
 
@@ -19,7 +19,6 @@ const M = "#09a07e";
 const Y = "#ffe45a";
 const K = "#1c1c1c";
 const WH = "#fff";
-const GROUND = "#fff09a";
 const SHADOW = "rgba(9,160,126,0.16)";
 
 // ALPACA の A のマーク（public/images/logo/alpaca-mark.png を potrace でなぞった1本の輪郭。556×552。頂点から左の脚→下→アルパカ→右の脚→頂点）
@@ -286,18 +285,6 @@ function drawKind(c: CanvasRenderingContext2D, k: Kind, s: number) {
   c.stroke();
 }
 
-type Sprite = { cv: HTMLCanvasElement; half: number };
-function makeSprite(k: Kind, s: number, dpr: number): Sprite {
-  const half = s * 0.72;
-  const px = Math.ceil(half * 2 * dpr);
-  const cv = document.createElement("canvas");
-  cv.width = cv.height = px;
-  const c = cv.getContext("2d")!;
-  c.setTransform(dpr, 0, 0, dpr, half * dpr, half * dpr);
-  drawKind(c, k, s);
-  return { cv, half };
-}
-
 // ---- 人物（今のヒーローの切り抜き。端末の位置は画像の中の割合） ----
 type PersonDef = { src: string; w: number; h: number; dev: [number, number]; head: number };
 const PEOPLE: PersonDef[] = [
@@ -311,7 +298,7 @@ const ORBS: Orb[] = [
   { k: "doc", ang: -150, depth: 1.1, size: 1, tilt: -8, from: 0, phase: 0.2 },
   { k: "chat", ang: -42, depth: 1.2, size: 1.02, tilt: 6, from: 1, phase: 1.3 },
   { k: "table", ang: -92, depth: 0.85, size: 0.94, tilt: 4, from: [0.2, -1.6], phase: 2.1 },
-  { k: "cal", ang: 176, depth: 1.0, size: 0.96, tilt: -5, from: [-1.9, -0.3], phase: 0.9 },
+  { k: "cal", ang: 176, depth: 1.0, size: 0.96, tilt: -5, from: [-1.45, -0.5], phase: 0.9 },
   { k: "chart", ang: 2, depth: 0.95, size: 0.94, tilt: 7, from: [1.9, 0.1], phase: 2.7 },
   { k: "mail", ang: 90, depth: 1.25, size: 0.9, tilt: -4, from: [0, 1.7], phase: 1.7 },
 ];
@@ -327,37 +314,102 @@ const STREAM_KINDS: Kind[] = ["check", "doc", "clock", "chat", "table", "mail", 
 
 export type HeroScene = { play: () => void; destroy: () => void };
 
-export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, hero: HTMLElement, reduced: boolean): HeroScene {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return { play() {}, destroy() {} };
-  const c = ctx;
-  const aPath = new Path2D(A_D);
+/** 動かす部品1つ（DOM の要素。毎コマは transform と opacity だけ、変わった時だけ書く） */
+type Lyr = { el: HTMLElement; tf: string; op: string };
+function lyr(el: HTMLElement, cls: string): Lyr {
+  el.className = "tp-hero__lyr " + cls;
+  el.setAttribute("aria-hidden", "true");
+  el.style.opacity = "0";
+  return { el, tf: "", op: "0" };
+}
+function put(l: Lyr, x: number, y: number, rot: number, sx: number, sy: number, op: number) {
+  const o = op <= 0.005 || sx <= 0.005 || sy <= 0.005 ? "0" : op >= 0.995 ? "1" : op.toFixed(3);
+  if (o !== l.op) {
+    l.el.style.opacity = o;
+    l.op = o;
+  }
+  if (o === "0") return;
+  const tf = `translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0)${rot ? ` rotate(${rot.toFixed(2)}deg)` : ""}${sx !== 1 || sy !== 1 ? ` scale(${sx.toFixed(4)},${sy.toFixed(4)})` : ""}`;
+  if (tf !== l.tf) {
+    l.el.style.transform = tf;
+    l.tf = tf;
+  }
+}
+function sizeCanvas(cv: HTMLCanvasElement, w: number, h: number, dpr: number) {
+  cv.width = Math.ceil(w * dpr);
+  cv.height = Math.ceil(h * dpr);
+  cv.style.width = w + "px";
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d")!;
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return g;
+}
 
+/**
+ * root: 絵を置く箱（ヒーローいっぱい）。stage: A と人物を置く範囲（CSS で決める）。
+ * 部品はすべて root の中の DOM。canvas は形ごとに小さく1回だけ描き、毎コマは transform だけ（ラスタ化し直さない）。
+ * A を線でなぞる 1.3秒と点線の輪を描く 1.1秒だけ、その小さな canvas を描き直す。
+ */
+export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTMLElement, reduced: boolean): HeroScene {
+  const aPath = new Path2D(A_D);
+  const SUP = 1.12; // A は弾んで大きくなる分だけ細かく描いておく
+
+  // 時間（人物の絵が読み込み済みだと onLoad がすぐ呼ばれて time を読むので、先に宣言する）
+  let time = 0; // 動いている間だけ進む秒
+  let startAt = reduced ? -100 : Infinity; // 登場の開始（time の値）
   let W = 0, H = 0, dpr = 1;
   // 配置（resize で決め直す）
   let cx = 0, cy = 0, ah = 0, aw = 0, rx = 0, ry = 0, P = 0, groundY = 0;
+  let queued = 0;
+  const redraw = () => {
+    if (queued) return;
+    queued = requestAnimationFrame(() => {
+      queued = 0;
+      draw();
+    });
+  };
+
+  // ---- 部品（奥から順に） ----
   const people = PEOPLE.map((d) => {
+    const ground = lyr(document.createElement("span"), "tp-hero__ground");
     const img = new Image();
     img.decoding = "async";
+    img.alt = "";
     img.src = d.src;
-    const p = { d, img, ok: false, x: 0, h: 0, w: 0, loadedAt: -1 };
-    img.onload = () => {
+    const person = lyr(img, "tp-hero__person");
+    root.append(ground.el, img);
+    const p = { d, img, ground, person, ok: false, x: 0, h: 0, w: 0, loadedAt: -1 };
+    const onLoad = () => {
       p.ok = true;
       p.loadedAt = time;
-      if (reduced) draw();
+      redraw();
     };
+    if (img.complete && img.naturalWidth) onLoad();
+    else img.addEventListener("load", onLoad, { once: true });
     return p;
   });
-  const sprites = new Map<string, Sprite>();
-  const sprite = (k: Kind, s: number) => {
-    const key = k + (s | 0);
-    let sp = sprites.get(key);
-    if (!sp) {
-      sp = makeSprite(k, s, dpr);
-      sprites.set(key, sp);
-    }
-    return sp;
-  };
+  const shadow = lyr(document.createElement("span"), "tp-hero__ashadow");
+  const ringCv = document.createElement("canvas");
+  const ring = lyr(ringCv, "");
+  const pulse = lyr(document.createElement("span"), "tp-hero__pulse");
+  const streams = [0, 1].map(() => ({ l: lyr(document.createElement("canvas"), ""), kind: "" }));
+  const aCv = document.createElement("canvas");
+  const aL = lyr(aCv, "");
+  const orbs = ORBS.map(() => lyr(document.createElement("canvas"), ""));
+  root.append(shadow.el, ringCv, pulse.el, ...streams.map((x) => x.l.el), aCv, ...orbs.map((o) => o.el));
+
+  let aState = ""; // A の canvas に今描いてある物（"fill" なら描き直し不要）
+  let ringState = -1; // 点線の輪の描けている割合
+  let aPad = 0;
+
+  function paintSprite(cv: HTMLCanvasElement, k: Kind, size: number) {
+    const half = size * 0.72;
+    const g = sizeCanvas(cv, half * 2, half * 2, dpr);
+    g.translate(half, half);
+    drawKind(g, k, size);
+    return half;
+  }
+  let orbHalf = 0, streamHalf = 0;
 
   function layout() {
     const hr = hero.getBoundingClientRect();
@@ -365,8 +417,6 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
     W = Math.max(1, Math.round(hr.width));
     H = Math.max(1, Math.round(hr.height));
     dpr = Math.min(window.devicePixelRatio || 1, 3);
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
     const sx = sr.left - hr.left, sy = sr.top - hr.top, sw = sr.width, sh = sr.height;
     const narrow = sw < 520;
     ah = clamp(Math.min(sw * (narrow ? 0.34 : 0.36), sh * 0.4), 84, 220);
@@ -385,8 +435,81 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
       p.w = p.d.w * sc;
       const off = Math.min(rx * (narrow ? 0.98 : 1.02), sw / 2 - p.w * 0.42);
       p.x = cx + (i === 0 ? -off : off);
+      p.img.style.width = p.w + "px";
+      p.img.style.height = p.h + "px";
+      p.ground.el.style.width = p.w * 1.24 + "px";
+      p.ground.el.style.height = p.w * 0.24 + "px";
     });
-    sprites.clear();
+    // 形の絵（1回だけ描く）
+    orbHalf = 0;
+    ORBS.forEach((o, i) => (orbHalf = paintSprite(orbs[i].el as HTMLCanvasElement, o.k, P)));
+    streams.forEach((x) => (x.kind = ""));
+    streamHalf = Math.round(P * 0.62) * 0.72;
+    // A の下の影・吸い込みの輪
+    shadow.el.style.width = aw * 0.84 + "px";
+    shadow.el.style.height = ah * 0.1 + "px";
+    pulse.el.style.width = aw * 2 + "px";
+    pulse.el.style.height = ah * 2 + "px";
+    pulse.el.style.borderWidth = Math.max(1.5, ah * 0.012) + "px";
+    aPad = Math.ceil(Math.max(8, ah * 0.05));
+    sizeCanvas(aCv, aw * SUP + aPad * 2, ah * SUP + aPad * 2, dpr);
+    aState = "";
+    ringState = -1;
+    [shadow, ring, pulse, aL, ...orbs, ...streams.map((x) => x.l), ...people.flatMap((p) => [p.ground, p.person])].forEach((l) => (l.tf = ""));
+  }
+
+  // A を描く（線でなぞる途中・塗り）。A の canvas の中は SUP 倍の大きさ
+  function paintA(drawK: number, fillK: number) {
+    const key = fillK >= 1 ? "fill" : drawK.toFixed(4) + "/" + fillK.toFixed(4);
+    if (key === aState) return;
+    aState = key;
+    const g = aCv.getContext("2d")!;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.clearRect(0, 0, aCv.width, aCv.height);
+    const k = (ah / A_H) * SUP;
+    g.setTransform(dpr * k, 0, 0, dpr * k, aPad * dpr, aPad * dpr);
+    if (fillK > 0) {
+      g.globalAlpha = inOutSine(fillK);
+      g.fillStyle = M;
+      g.fill(aPath);
+      g.globalAlpha = 1;
+    }
+    if (fillK < 1) {
+      const p = inOutCubic(drawK);
+      g.lineWidth = (Math.max(2.4, ah * 0.016) * SUP) / k;
+      g.lineJoin = "round";
+      g.lineCap = "round";
+      g.strokeStyle = M;
+      g.setLineDash([A_LEN * p, A_LEN + 10]);
+      g.stroke(aPath);
+      g.setLineDash([]);
+      // 線の先の黄色い点（ペン先）
+      if (drawK > 0 && drawK < 1) {
+        const pt = penAt(p);
+        g.setTransform(dpr, 0, 0, dpr, aPad * dpr, aPad * dpr);
+        g.fillStyle = Y;
+        g.strokeStyle = K;
+        g.lineWidth = Math.max(1.4, ah * 0.009) * SUP;
+        g.beginPath();
+        g.arc(pt[0] * k, pt[1] * k, Math.max(4, ah * 0.028) * SUP, 0, Math.PI * 2);
+        g.fill();
+        g.stroke();
+      }
+    }
+  }
+
+  function paintRing(k: number) {
+    if (k === ringState) return;
+    ringState = k;
+    const pad = 6;
+    const g = sizeCanvas(ringCv, (rx + pad) * 2, (ry + pad) * 2, dpr);
+    g.strokeStyle = "rgba(9,160,126,0.38)";
+    g.lineWidth = Math.max(1.5, ah * 0.01);
+    g.lineCap = "round";
+    g.setLineDash([0.1, Math.max(9, ah * 0.055)]);
+    g.beginPath();
+    g.ellipse(rx + pad, ry + pad, rx, ry, 0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * k);
+    g.stroke();
   }
 
   // ---- 入力（マウス・指・スクロール） ----
@@ -429,8 +552,6 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
   }
 
   // ---- 時間 ----
-  let time = 0; // 動いている間だけ進む秒
-  let startAt = reduced ? -100 : Infinity; // 登場の開始（time の値）
   let last = 0;
   let raf = 0;
   let visible = true;
@@ -452,7 +573,7 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
     parX += (tParX - parX) * f;
     parY += (tParY - parY) * f;
     ptrOnS += (ptrOn - ptrOnS) * f;
-    draw(dt);
+    draw();
     if (running) raf = requestAnimationFrame(tick);
   }
   function sleep() {
@@ -460,66 +581,8 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
     cancelAnimationFrame(raf);
   }
 
-  // ---- 1コマ描く ----
-  function drawA(t: number, x: number, y: number, scale: number) {
-    const k = ah / A_H;
-    const drawK = reduced ? 1 : seg(t, 0, 1.1);
-    const fillK = reduced ? 1 : seg(t, 0.95, 1.3);
-    if (drawK <= 0) return;
-    c.save();
-    c.translate(x, y);
-    c.scale(scale, scale);
-    c.translate((-A_W / 2) * k, (-A_H / 2) * k);
-    c.scale(k, k);
-    if (fillK > 0) {
-      c.globalAlpha = inOutSine(fillK);
-      c.fillStyle = M;
-      c.fill(aPath);
-      c.globalAlpha = 1;
-    }
-    if (fillK < 1) {
-      const p = inOutCubic(drawK);
-      c.lineWidth = Math.max(2.4, ah * 0.016) / k;
-      c.lineJoin = "round";
-      c.lineCap = "round";
-      c.strokeStyle = M;
-      c.setLineDash([A_LEN * p, A_LEN + 10]);
-      c.stroke(aPath);
-      c.setLineDash([]);
-    }
-    c.restore();
-    // 線の先の黄色い点（ペン先）
-    if (drawK > 0 && drawK < 1 && !reduced) {
-      const pt = penAt(inOutCubic(drawK));
-      const px = x + (pt[0] - A_W / 2) * k * scale;
-      const py = y + (pt[1] - A_H / 2) * k * scale;
-      const r = Math.max(4, ah * 0.028);
-      c.fillStyle = Y;
-      c.strokeStyle = K;
-      c.lineWidth = Math.max(1.4, ah * 0.009);
-      c.beginPath();
-      c.arc(px, py, r, 0, Math.PI * 2);
-      c.fill();
-      c.stroke();
-    }
-  }
-
-  function drawSprite(k: Kind, s: number, x: number, y: number, rot: number, sc: number, alpha: number) {
-    if (sc <= 0.01 || alpha <= 0.01) return;
-    const sp = sprite(k, s);
-    c.save();
-    c.globalAlpha = alpha;
-    c.translate(x, y);
-    if (rot) c.rotate(rot);
-    if (sc !== 1) c.scale(sc, sc);
-    c.drawImage(sp.cv, -sp.half, -sp.half, sp.half * 2, sp.half * 2);
-    c.restore();
-  }
-
-  function draw(dt = 0) {
-    void dt;
-    c.setTransform(dpr, 0, 0, dpr, 0, 0);
-    c.clearRect(0, 0, W, H);
+  // ---- 1コマ ----
+  function draw() {
     const t = reduced ? 30 : time - startAt; // 登場からの秒
     if (t < 0) return;
     const scrollY = reduced ? 0 : window.scrollY || 0;
@@ -531,90 +594,63 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
     const ax = cx - parX * 6;
     const ay = cy + floatY - parY * 4 + scrollY * 0.3;
     // 吸い込みの弾み
-    let pulse = 0;
+    let pulseK = 0;
     let ringK = -1;
     if (!reduced && t > STREAM_T0 + STREAM_DUR) {
       const n = Math.floor((t - STREAM_T0 - STREAM_DUR) / STREAM_GAP);
       const since = t - (STREAM_T0 + STREAM_DUR + n * STREAM_GAP);
-      pulse = since < 0.5 ? Math.sin(seg(since, 0, 0.5) * Math.PI) * (1 - seg(since, 0, 0.5)) : 0;
+      pulseK = since < 0.5 ? Math.sin(seg(since, 0, 0.5) * Math.PI) * (1 - seg(since, 0, 0.5)) : 0;
       ringK = since < 0.9 ? since / 0.9 : -1;
     }
     const popK = reduced ? 1 : seg(t, 1.0, 1.7);
-    const aScale = (0.94 + 0.06 * outElastic(popK, 0.35)) * (1 + pulse * 0.07) * (1 - s * 0.18);
+    const aScale = (0.94 + 0.06 * outElastic(popK, 0.35)) * (1 + pulseK * 0.07) * (1 - s * 0.18);
 
-    // 地面の影（A の下）
+    // A の下の影
     const shK = reduced ? 1 : outCubic(seg(t, 1.0, 1.5));
-    if (shK > 0) {
-      c.fillStyle = "rgba(9,160,126,0.12)";
-      c.beginPath();
-      c.ellipse(ax, cy + ah * 0.62 + scrollY * 0.3, aw * 0.42 * shK * (1 - floatY / ah), ah * 0.05 * shK, 0, 0, Math.PI * 2);
-      c.fill();
-    }
+    const shW = aw * 0.84, shH = ah * 0.1;
+    put(shadow, ax - shW / 2, cy + ah * 0.62 + scrollY * 0.3 - shH / 2, 0, shK * (1 - floatY / ah), shK, shK);
 
     // 点線の輪
     const ringDraw = reduced ? 1 : outCubic(seg(t, 2.1, 3.2));
-    if (ringDraw > 0) {
-      c.save();
-      c.strokeStyle = "rgba(9,160,126,0.38)";
-      c.lineWidth = Math.max(1.5, ah * 0.01);
-      c.lineCap = "round";
-      c.setLineDash([0.1, Math.max(9, ah * 0.055)]);
-      c.lineDashOffset = -t * 6;
-      c.beginPath();
-      const sp = 1 + s * 0.5;
-      c.ellipse(ax, ay, rx * sp, ry * sp, 0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ringDraw);
-      c.stroke();
-      c.restore();
-    }
+    if (ringDraw > 0) paintRing(ringDraw >= 1 ? 1 : Math.round(ringDraw * 200) / 200);
+    const rw = rx + 6, rh = ry + 6;
+    // 輪は A と一緒に浮かせない（大きい部品を毎コマ動かさない。マウスとスクロールの時だけ動く）
+    put(ring, ax - rw, ay - floatY - rh, 0, 1 + s * 0.5, 1 + s * 0.5, ringDraw > 0 ? 1 : 0);
     // 吸い込んだ時に広がる輪
-    if (ringK >= 0) {
-      c.strokeStyle = M;
-      c.globalAlpha = 0.45 * (1 - ringK);
-      c.lineWidth = Math.max(1.5, ah * 0.012);
-      c.beginPath();
-      c.ellipse(ax, ay, aw * (0.45 + 0.55 * outCubic(ringK)), ah * (0.45 + 0.55 * outCubic(ringK)), 0, 0, Math.PI * 2);
-      c.stroke();
-      c.globalAlpha = 1;
-    }
+    const pk = ringK >= 0 ? 0.45 + 0.55 * outCubic(ringK) : 0;
+    put(pulse, ax - aw, ay - ah, 0, pk, pk, ringK >= 0 ? 0.45 * (1 - ringK) : 0);
 
     // 人物（地面から弾んで立つ）
     people.forEach((p, i) => {
       const k0 = 1.15 + i * 0.14;
       const gk = reduced ? 1 : outCubic(seg(t, k0 - 0.1, k0 + 0.25));
       const px = p.x - parX * 3;
-      if (gk > 0) {
-        c.fillStyle = GROUND;
-        c.beginPath();
-        c.ellipse(px, groundY, p.w * 0.62 * gk, p.w * 0.12 * gk, 0, 0, Math.PI * 2);
-        c.fill();
-      }
-      if (!p.ok) return;
+      put(p.ground, px - p.w * 0.62, groundY - p.w * 0.12, 0, gk, gk, 1);
       const bk = reduced ? 1 : seg(t, k0, k0 + 0.5);
-      // 読み込みが遅れた時はふわっと出す
-      const la = reduced ? 1 : clamp((time - p.loadedAt) / 0.3);
-      if (bk <= 0) return;
-      // 半透明の人物は色が濁るので、透明度ではなく足元から伸びて出す（読み込みが遅れた時だけ短く透明度を使う）
-      const sy = outBack(bk, 1.3);
-      const sx = 1 - (sy - 1) * 0.4;
-      if (sy <= 0.02) return;
-      c.save();
-      c.globalAlpha = la;
-      c.translate(px, groundY + p.h * 0.02);
-      c.scale(sx, sy);
-      c.drawImage(p.img, -p.w / 2, -p.h, p.w, p.h);
-      c.restore();
+      // 読み込みが遅れた時はふわっと出す。半透明の人物は色が濁るので、登場は透明度ではなく足元から伸びて出す
+      const la = !p.ok ? 0 : reduced ? 1 : clamp((time - p.loadedAt) / 0.3);
+      const sy = bk <= 0 ? 0 : outBack(bk, 1.3);
+      put(p.person, px - p.w / 2, groundY + p.h * 0.02 - p.h, 0, 1 - (sy - 1) * 0.4, sy, sy <= 0.02 ? 0 : la);
     });
     const devPt = (i: number): [number, number] => {
       const p = people[i];
       return [p.x - parX * 3 + (p.d.dev[0] - 0.5) * p.w, groundY - p.h * (1 - p.d.dev[1])];
     };
 
-    // 流れて吸い込まれる形（A より先に描く＝A の中へ消える）
+    // 流れて吸い込まれる形（A の後ろ＝A の中へ消える）
+    const used = [false, false];
     if (!reduced && t > STREAM_T0) {
       const nMax = Math.floor((t - STREAM_T0) / STREAM_GAP);
       for (let n = Math.max(0, nMax - 1); n <= nMax; n++) {
         const u = (t - (STREAM_T0 + n * STREAM_GAP)) / STREAM_DUR;
         if (u < 0 || u >= 1) continue;
+        const slot = streams[n % 2];
+        used[n % 2] = true;
+        const k = STREAM_KINDS[n % STREAM_KINDS.length];
+        if (slot.kind !== k) {
+          paintSprite(slot.l.el as HTMLCanvasElement, k, Math.round(P * 0.62));
+          slot.kind = k;
+        }
         const [dx, dy] = devPt(n % 2);
         const tx = ax, ty = ay - ah * 0.25;
         const mxp = lerp(dx, tx, 0.5) + (n % 2 ? 1 : -1) * rx * 0.1;
@@ -623,26 +659,31 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
         const x = (1 - e) * (1 - e) * dx + 2 * (1 - e) * e * mxp + e * e * tx;
         const y = (1 - e) * (1 - e) * dy + 2 * (1 - e) * e * myp + e * e * ty;
         const sc = outBack(seg(u, 0, 0.25), 2) * (1 - 0.8 * seg(u, 0.55, 1));
-        const k = STREAM_KINDS[n % STREAM_KINDS.length];
-        drawSprite(k, Math.round(P * 0.62), x, y, (1 - e) * (n % 2 ? -0.5 : 0.5), sc, 1 - seg(u, 0.9, 1));
+        put(slot.l, x - streamHalf, y - streamHalf, (1 - e) * (n % 2 ? -29 : 29), sc, sc, 1 - seg(u, 0.9, 1));
       }
     }
+    streams.forEach((x, i) => !used[i] && put(x.l, 0, 0, 0, 0, 0, 0));
 
-    drawA(t, ax, ay, aScale);
+    // A
+    const drawK = reduced ? 1 : seg(t, 0, 1.1);
+    const fillK = reduced ? 1 : seg(t, 0.95, 1.3);
+    if (drawK > 0) paintA(drawK, fillK);
+    const aww = aw * SUP + aPad * 2, ahh = ah * SUP + aPad * 2;
+    put(aL, ax - aww / 2, ay - ahh / 2, 0, aScale / SUP, aScale / SUP, drawK > 0 ? 1 : 0);
 
     // 集まってくる形
     ORBS.forEach((o, i) => {
       const t0 = ORB_T0 + i * ORB_GAP;
       const u = reduced ? 1 : seg(t, t0, t0 + ORB_DUR);
-      if (u <= 0) return;
+      if (u <= 0) return put(orbs[i], 0, 0, 0, 0, 0, 0);
       const d = o.depth;
       const bob = reduced ? 0 : Math.sin(t * 1.25 + o.phase * 2.3) * P * 0.09;
       const wob = reduced ? 0 : Math.sin(t * 0.9 + o.phase) * 2.5;
       const spread = 1 + s * 0.7 * d;
       const a = o.ang * RAD;
       let hx = ax + Math.cos(a) * rx * spread - parX * 14 * d;
-      let hy = ay + Math.sin(a) * ry * spread + bob - parY * 9 * d + sE * H * 0.45 * d;
-      // よける（近いほど強く・最大 P*0.55）
+      let hy = ay - floatY + Math.sin(a) * ry * spread + bob - parY * 9 * d + sE * H * 0.45 * d;
+      // よける（近いほど強く）
       const off = offs[i];
       let ox = 0, oy = 0;
       if (ptrOnS > 0.01) {
@@ -669,8 +710,8 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
       const x = (1 - e) * (1 - e) * fx + 2 * (1 - e) * e * mx + e * e * hx;
       const y = (1 - e) * (1 - e) * fy + 2 * (1 - e) * e * my + e * e * hy;
       const sc = (typeof o.from === "number" ? 0.25 + 0.75 * outBack(u, 1.8) : outBack(u, 1.5)) * o.size;
-      const rot = (o.tilt + wob + (1 - e) * (i % 2 ? 70 : -70) + s * 50 * d * (i % 2 ? 1 : -1)) * RAD;
-      drawSprite(o.k, P, x, y, rot, sc, seg(u, 0, 0.12));
+      const rot = o.tilt + wob + (1 - e) * (i % 2 ? 70 : -70) + s * 50 * d * (i % 2 ? 1 : -1);
+      put(orbs[i], x - orbHalf, y - orbHalf, rot, sc, sc, seg(u, 0, 0.12));
     });
   }
 
@@ -696,7 +737,13 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
   io.observe(hero);
   const onVis = () => (document.hidden ? sleep() : wake());
   document.addEventListener("visibilitychange", onVis);
+  let lastW = -1, lastH = -1;
   const ro = new ResizeObserver(() => {
+    // スマホのアドレスバーの出入りで高さだけ少し変わる時も置き直す（形の絵は幅が変わった時だけ描き直せば足りるが、単純さを優先）
+    const r = hero.getBoundingClientRect();
+    if (Math.round(r.width) === lastW && Math.round(r.height) === lastH) return;
+    lastW = Math.round(r.width);
+    lastH = Math.round(r.height);
     layout();
     draw();
   });
@@ -706,9 +753,6 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
   };
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  layout();
-  draw();
-
   return {
     play() {
       if (reduced || startAt !== Infinity) return;
@@ -717,9 +761,11 @@ export function createHeroScene(canvas: HTMLCanvasElement, stage: HTMLElement, h
     },
     destroy() {
       sleep();
+      cancelAnimationFrame(queued);
       io.disconnect();
       ro.disconnect();
       clearTimeout(touchTimer);
+      root.replaceChildren();
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("scroll", onScroll);
       hero.removeEventListener("pointermove", pm);

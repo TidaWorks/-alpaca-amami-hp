@@ -918,12 +918,37 @@ html.tp-revisit .tp-veil {
   right: 10rem;
   pointer-events: none;
 }
-.tp-hero__canvas {
+.tp-hero__scene {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* 絵の部品（位置・大きさ・動きは heroScene.ts が transform で決める） */
+.tp-hero__lyr {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: block;
+  max-width: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform-origin: 50% 50%;
+}
+.tp-hero__person {
+  transform-origin: 50% 100%;
+}
+.tp-hero__ground {
+  border-radius: 50%;
+  background: var(--tp-ground);
+}
+.tp-hero__ashadow {
+  border-radius: 50%;
+  background: rgba(9, 160, 126, 0.12);
+}
+.tp-hero__pulse {
+  border: 2px solid var(--tp-main);
+  border-radius: 50%;
 }
 .tp-hero__copy {
   position: absolute;
@@ -1019,6 +1044,10 @@ html.tp-revisit .tp-veil {
   }
   .tp-hero__lead {
     text-align: center;
+  }
+  /* 1199px 以下は画面の下に「無料相談」の帯が常にあるので、ヒーローのボタンは出さない（縦のタブレットで絵の上に重なっていた） */
+  .tp-hero__cta {
+    display: none;
   }
   .tp-hero__stage {
     top: 47%;
