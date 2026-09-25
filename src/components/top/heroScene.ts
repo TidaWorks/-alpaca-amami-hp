@@ -297,8 +297,8 @@ type Orb = { k: Kind; ang: number; depth: number; size: number; tilt: number; fr
 const ORBS: Orb[] = [
   { k: "doc", ang: -150, depth: 1.1, size: 1, tilt: -8, from: 0, phase: 0.2 },
   { k: "chat", ang: -42, depth: 1.2, size: 1.02, tilt: 6, from: 1, phase: 1.3 },
-  { k: "table", ang: -92, depth: 0.85, size: 0.94, tilt: 4, from: [1.5, -1.15], phase: 2.1 },
-  { k: "cal", ang: 176, depth: 1.0, size: 0.96, tilt: -5, from: [-1.45, -0.5], phase: 0.9 },
+  { k: "table", ang: -92, depth: 0.85, size: 0.94, tilt: 4, from: [0.9, -1.35], phase: 2.1 },
+  { k: "cal", ang: 176, depth: 1.0, size: 0.96, tilt: -5, from: [-1.2, -0.1], phase: 0.9 },
   { k: "chart", ang: 2, depth: 0.95, size: 0.94, tilt: 7, from: [1.9, 0.1], phase: 2.7 },
   { k: "mail", ang: 90, depth: 1.25, size: 0.9, tilt: -4, from: [0, 1.7], phase: 1.7 },
 ];
@@ -444,7 +444,7 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
     orbHalf = 0;
     ORBS.forEach((o, i) => (orbHalf = paintSprite(orbs[i].el as HTMLCanvasElement, o.k, P)));
     streams.forEach((x) => (x.kind = ""));
-    streamHalf = Math.round(P * 0.62) * 0.72;
+    streamHalf = Math.round(P * 0.75) * 0.72;
     // A の下の影・吸い込みの輪
     shadow.el.style.width = aw * 0.84 + "px";
     shadow.el.style.height = ah * 0.1 + "px";
@@ -633,9 +633,9 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
       const bk = reduced ? 1 : seg(t, k0, k0 + 0.5);
       // 読み込みが遅れた時はふわっと出す。半透明の人物は色が濁るので、登場は透明度ではなく足元から伸びて出す
       const la = !p.ok ? 0 : reduced ? 1 : clamp((time - p.loadedAt) / 0.3);
-      // 足元を軸に 0.55倍から少し行き過ぎて戻る（縦だけ伸ばすと平たく潰れたコマが出る）。出始めの 0.06秒だけ透明度
-      const sc = bk <= 0 ? 0 : 0.55 + 0.45 * outBack(bk, 1.7);
-      put(p.person, px - p.w / 2, groundY + p.h * 0.02 - p.h, 0, sc, sc, bk <= 0 ? 0 : la * seg(bk, 0, 0.12));
+      // 足元を軸に小さく出て、少し行き過ぎて戻る。縦だけ伸ばすと平たく潰れたコマ、透明度を使うと灰色に濁ったコマが出たので、どちらも使わない
+      const sc = bk <= 0 ? 0 : 0.15 + 0.85 * outBack(bk, 1.7);
+      put(p.person, px - p.w / 2, groundY + p.h * 0.02 - p.h, 0, sc, sc, bk <= 0 ? 0 : la);
     });
     const devPt = (i: number): [number, number] => {
       const p = people[i];
@@ -653,7 +653,7 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
         used[n % 2] = true;
         const k = STREAM_KINDS[n % STREAM_KINDS.length];
         if (slot.kind !== k) {
-          paintSprite(slot.l.el as HTMLCanvasElement, k, Math.round(P * 0.62));
+          paintSprite(slot.l.el as HTMLCanvasElement, k, Math.round(P * 0.75));
           slot.kind = k;
         }
         const [dx, dy] = devPt(n % 2);
