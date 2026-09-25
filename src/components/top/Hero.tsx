@@ -74,12 +74,18 @@ export default function Hero() {
     // #1 は CSS の keyframes（JS を待たず表示直後から動く）。ここでは #2 の波だけ
     const lt = gsap.timeline({ delay: 1.025 });
     const wave = gsap.timeline({ repeat: -1, repeatDelay: 0.65 });
+    const logo = loading.querySelector<HTMLElement>(".tp-loading__logo");
+    if (logo) {
+      gsap.set(logo, { transformOrigin: "50% 100%" });
+      // 英字の波の少し前に、ロゴが縦に伸びて上がって戻る
+      wave.to(logo, { keyframes: { "0%": { scaleY: 1, y: 0 }, "50%": { scaleY: 1.08, y: -8 }, "100%": { scaleY: 1, y: 0 } }, duration: 0.4, ease: "none" }, 0);
+    }
     wave.to(chars, {
       keyframes: { "0%": { scaleY: 1, y: 0 }, "50%": { scaleY: 1.15, y: -2 }, "100%": { scaleY: 1, y: 0 } },
       duration: 0.4,
       ease: "none",
       stagger: 0.025,
-    });
+    }, 0.1);
     lt.add(wave);
 
     const copy = veil.querySelector<HTMLElement>("[data-copy]");
@@ -210,13 +216,9 @@ export default function Hero() {
 
       {/* ローディング */}
       <div className="tp-loading" ref={loadingRef} aria-hidden="true">
+        {/* ロゴ（ALPACA の A のマーク）。英字と同じく、下端を軸に弾んで出て（#1）、波に合わせて弾み続ける（#2） */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <span className="tp-loading__imgs" data-slot="L01">
-          {[1, 2, 3, 4].map((n) => (
-            // lazy: 表示されない3枚（display: none）は読まない。4枚とも先読みされて 128KB が JS と帯域を取り合っていた
-            <img key={n} className={`tp-loading__img tp-loading__img--${n}`} src={`/images/top/paka-run-${n}.webp`} alt="" loading="lazy" />
-          ))}
-        </span>
+        <img className="tp-loading__logo" data-slot="L01" src="/images/top/logo-mark-lg.webp" alt="" width={557} height={552} decoding="async" />
         <p className="tp-loading__txt">
           {LOADING.split("").map((c, i) => (
             <span key={i} className="tp-loading__char" style={{ animationDelay: `${i * 0.025}s` }}>

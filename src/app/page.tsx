@@ -124,7 +124,7 @@ const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: 
 ];
 
 const REASONS = [
-  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "カレンダーをめくるパカ君（ほぼ正方形）", src: "/images/top/scene/r01.webp" },
+  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "壁のカレンダーの前で、顧問と社長が今月の予定を決めている", src: "/images/top/scene/r01-plan.webp" },
   { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美なら訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）", src: "/images/top/scene/r02.webp" },
   {
     id: "R03",
@@ -400,7 +400,8 @@ export default function Home() {
       <section className="tp-about" id="about" aria-labelledby="tp-about-h">
         <div className="tp-about__card">
           <div className="tp-about__img">
-            <Slot id="A01" label="代表 作田 大地の写真（正方形）" tone="d" src="/images/top/scene/a01.webp" cover posSp="50% 68%" />
+            {/* 仮の絵（顧問役の人物。実在の代表には似せていない）。大地さんの写真が届いたら差し替え（IMAGE-SLOTS.md） */}
+            <Slot id="A01" label="代表 作田 大地の写真（正方形）" tone="d" src="/images/top/scene/a01-advisor.webp" cover posSp="50% 45%" />
           </div>
           <div className="tp-about__body">
             <p className="tp-about__en" aria-hidden="true">

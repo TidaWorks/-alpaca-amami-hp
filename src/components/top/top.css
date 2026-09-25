@@ -816,22 +816,14 @@ html:has(.tp) {
   gap: 1.2rem;
   background: #fff;
 }
-.tp-loading__img {
-  width: 24rem;
-  height: auto;
-}
-.tp-loading__img:not(.tp-loading__img--1) {
-  display: none;
-}
-html[data-tp-load="2"] .tp-loading__img--1,
-html[data-tp-load="3"] .tp-loading__img--1,
-html[data-tp-load="4"] .tp-loading__img--1 {
-  display: none;
-}
-html[data-tp-load="2"] .tp-loading__img--2,
-html[data-tp-load="3"] .tp-loading__img--3,
-html[data-tp-load="4"] .tp-loading__img--4 {
+.tp-loading__logo {
   display: block;
+  width: 12rem;
+  height: auto;
+  transform-origin: 50% 100%;
+  /* 英字の #1 と同じ弾み（下端を軸に縦 0.4倍から伸びて出る） */
+  animation: tp-char-in 0.8s both
+    linear(0 0%, 0.3321 2.5%, 0.6221 5%, 0.8584 7.5%, 1.0372 10%, 1.1606 12.5%, 1.2345 15%, 1.2674 17.5%, 1.2686 20%, 1.2473 22.5%, 1.2117 25%, 1.1691 27.5%, 1.125 30%, 1.0835 32.5%, 1.0472 35%, 1.0177 37.5%, 0.9953 40%, 0.9799 42.5%, 0.9707 45%, 0.9666 47.5%, 0.9664 50%, 0.9691 52.5%, 0.9735 55%, 0.9789 57.5%, 0.9844 60%, 0.9896 62.5%, 0.9941 65%, 0.9978 67.5%, 1.0006 70%, 1.0025 72.5%, 1.0037 75%, 1.0042 77.5%, 1.0042 80%, 1.0039 82.5%, 1.0033 85%, 1.0026 87.5%, 1.002 90%, 1.0013 92.5%, 1.0007 95%, 1.0003 97.5%, 1 100%);
 }
 .tp-loading__txt {
   display: flex;
@@ -861,8 +853,8 @@ html[data-tp-load="4"] .tp-loading__img--4 {
   }
 }
 @media (max-width: 767px) {
-  .tp-loading__img {
-    width: 16rem;
+  .tp-loading__logo {
+    width: 9rem;
   }
 }
 .tp-veil {
