@@ -115,17 +115,38 @@ export default function Hero() {
         localStorage.setItem(VISIT_KEY, String(Date.now()));
       } catch {}
     };
+    // 始まりの合図: load か「ヒーローの1枚目と文字が揃った」の早い方（3周目）。
+    // load だけを待つと、画面の近くにある遅延読み込みの絵まで待つことになり、4G 相当で 11〜20秒ローディングのままだった
+    let fired = false;
+    const startOnce = () => {
+      if (fired) return;
+      fired = true;
+      window.removeEventListener("load", startOnce);
+      clearTimeout(fallback);
+      start();
+    };
     let fallback = 0;
-    if (document.readyState === "complete") start();
+    if (document.readyState === "complete") startOnce();
     else {
-      window.addEventListener("load", start, { once: true });
-      fallback = window.setTimeout(() => {
-        window.removeEventListener("load", start);
-        start();
-      }, 8000);
+      window.addEventListener("load", startOnce, { once: true });
+      fallback = window.setTimeout(startOnce, 8000);
+      const first = zoom.querySelector<HTMLImageElement>("img");
+      const imgReady = new Promise<void>((res) => {
+        if (!first || first.complete) return res();
+        first.addEventListener("load", () => res(), { once: true });
+        first.addEventListener("error", () => res(), { once: true });
+      });
+      // 文字はキャッチと小見出しに使う字だけ待つ（fonts.ready は日本語の字の範囲ごとの全ファイルを待つので 2〜3秒遅れた）
+      const catchEl = veil.querySelector<HTMLElement>(".tp-catch");
+      const fontReady =
+        document.fonts && catchEl
+          ? document.fonts.load(`1em ${getComputedStyle(catchEl).fontFamily}`, veil.textContent || "").catch(() => undefined)
+          : Promise.resolve();
+      Promise.all([imgReady, fontReady]).then(startOnce);
     }
     return () => {
-      window.removeEventListener("load", start);
+      fired = true;
+      window.removeEventListener("load", startOnce);
       clearTimeout(fallback);
       lt.kill();
       tl?.kill();
@@ -158,7 +179,8 @@ export default function Hero() {
                 className={`tp-hero__slide ${i === active ? "is-shown" : ""} ${started && i === active ? "is-active" : ""}`}
               >
                 <div className="tp-hero__kb">
-                  <Slot id={s.id} label={s.label} tone={s.tone} src={s.src} alt={s.alt} cover posSp={s.posSp} className="tp-hero__slot" />
+                  {/* 2・3枚目は切り替えが始まってから読む（最初の読み込みを 1枚目だけにする。1枚目が見えている 5秒の間に届く） */}
+                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} alt={s.alt} cover posSp={s.posSp} className="tp-hero__slot" eager={i === 0} />
                 </div>
               </div>
             ))}
@@ -191,7 +213,8 @@ export default function Hero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <span className="tp-loading__imgs" data-slot="L01">
           {[1, 2, 3, 4].map((n) => (
-            <img key={n} className={`tp-loading__img tp-loading__img--${n}`} src={`/images/top/paka-run-${n}.webp`} alt="" />
+            // lazy: 表示されない3枚（display: none）は読まない。4枚とも先読みされて 128KB が JS と帯域を取り合っていた
+            <img key={n} className={`tp-loading__img tp-loading__img--${n}`} src={`/images/top/paka-run-${n}.webp`} alt="" loading="lazy" />
           ))}
         </span>
         <p className="tp-loading__txt">

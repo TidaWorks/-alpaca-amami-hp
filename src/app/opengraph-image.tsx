@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "ALPACA - 奄美大島の業務システム開発・Web制作";
+export const alt = "ALPACA - 奄美・鹿児島の会社のAI顧問";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default async function OgImage() {
             marginBottom: "24px",
           }}
         >
-          奄美大島の業務システム開発・Web制作
+          奄美・鹿児島の会社のAI顧問
         </div>
 
         <div
@@ -57,7 +57,7 @@ export default async function OgImage() {
             lineHeight: 1.6,
           }}
         >
-          予約管理・顧客管理・売上集計・LINE連携
+          AI顧問・システム開発・HP制作
         </div>
 
         <div

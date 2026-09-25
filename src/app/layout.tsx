@@ -49,9 +49,9 @@ const zenKurenaido = Zen_Kurenaido({
 
 const siteName = "ALPACA";
 const siteUrl = "https://alpaca-amami.com";
-const siteTitle = "ALPACA | 奄美大島のWeb・システム制作スタジオ";
+const siteTitle = "ALPACA | 奄美・鹿児島の会社のAI顧問";
 const siteDescription =
-  "奄美大島の事業者向けWeb・システム制作スタジオALPACA。ホームページ制作、業務システム開発、LINE連携、保守運用まで、島のビジネスの「困った」を仕組みで解決します。";
+  "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問（月15万円〜・税別）、業務システムの開発、ホームページ制作。鹿児島県奄美市有屋町のALPACA。";
 const ogImage = `${siteUrl}/opengraph-image`;
 
 export const metadata: Metadata = {
@@ -61,20 +61,7 @@ export const metadata: Metadata = {
     template: "%s | ALPACA",
   },
   description: siteDescription,
-  keywords: [
-    "奄美大島",
-    "Web制作",
-    "ホームページ制作",
-    "業務システム開発",
-    "システム開発",
-    "予約管理システム",
-    "顧客管理",
-    "LINE予約",
-    "保守運用",
-    "奄美",
-    "鹿児島",
-    "島のIT",
-  ],
+  keywords: ["AI顧問", "AI導入支援", "AIエージェント", "業務の自動化", "システム開発", "ホームページ制作", "奄美大島", "奄美", "鹿児島"],
   authors: [{ name: "ALPACA（作田 大地）" }],
   creator: "ALPACA",
   publisher: "ALPACA",
@@ -94,7 +81,7 @@ export const metadata: Metadata = {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: "ALPACA - 奄美大島のWeb・システム制作スタジオ",
+        alt: "ALPACA - 奄美・鹿児島の会社のAI顧問",
       },
     ],
   },
@@ -135,7 +122,7 @@ const jsonLd = {
   address: {
     "@type": "PostalAddress",
     addressRegion: "鹿児島県",
-    addressLocality: "奄美大島",
+    addressLocality: "奄美市有屋町",
     addressCountry: "JP",
   },
   areaServed: [
@@ -152,16 +139,8 @@ const jsonLd = {
     "@type": "Person",
     name: "作田 大地",
   },
-  priceRange: "¥¥",
-  knowsAbout: [
-    "Web制作",
-    "業務システム開発",
-    "ホームページ制作",
-    "予約管理システム",
-    "顧客管理システム",
-    "LINE連携",
-    "保守運用サポート",
-  ],
+  knowsAbout: ["AI導入支援", "AIエージェント", "業務の自動化", "業務システム開発", "ホームページ制作"],
+  // 料金は税別（2026-09-25 の方針）。システム開発は要見積もりなので金額を載せない
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "サービス一覧",
@@ -170,46 +149,42 @@ const jsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "ホームページ制作",
+          name: "AI顧問",
           description:
-            "店舗サイト・コーポレートサイト・ランディングページ制作。スマホ対応、お問い合わせフォーム付き。",
+            "月1〜2回の打ち合わせで、AIに任せる仕事を決め、会社専用のAIエージェントや自動化を作り、社員が使えるまで教える顧問。期間の縛りなし。",
         },
         priceSpecification: {
-          "@type": "PriceSpecification",
+          "@type": "UnitPriceSpecification",
           price: "150000",
-          priceCurrency: "JPY",
           minPrice: "150000",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "オーダーメイドシステム開発",
-          description:
-            "予約管理・顧客管理・売上集計など、業務に合わせたシステムをゼロから構築。",
-        },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          price: "300000",
+          maxPrice: "250000",
           priceCurrency: "JPY",
-          minPrice: "300000",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "保守・運用サポート",
-          description:
-            "サーバー・ドメイン管理、バグ修正、小さな変更対応を月額で。",
-        },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          price: "12000",
-          priceCurrency: "JPY",
-          minPrice: "12000",
+          valueAddedTaxIncluded: false,
+          unitText: "月",
           billingDuration: "P1M",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "システム開発",
+          description: "業務に合わせた受託開発。料金は要見積もり。",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "ホームページ制作",
+          description: "LP・コーポレートサイトの制作。",
+        },
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: "250000",
+          minPrice: "250000",
+          priceCurrency: "JPY",
+          valueAddedTaxIncluded: false,
         },
       },
     ],

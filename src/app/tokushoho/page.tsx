@@ -23,14 +23,14 @@ export default function TokushohoPage() {
               特定商取引法に基づく表記
             </h1>
             <p className="text-sm text-[#1A202C]/65">
-              最終更新日: 2026年5月26日
+              最終更新日: 2026年9月25日
             </p>
           </div>
 
           <div className="space-y-10 text-[15px] leading-[1.9]">
-            <Row label="販売事業者名">ALPACA（アルパカ）</Row>
+            <Row label="販売事業者名">ALPACA</Row>
 
-            <Row label="運営責任者">作田 大地</Row>
+            <Row label="運営責任者">作田 大地（さくだ だいち）</Row>
 
             <Row label="所在地">{SITE.address}</Row>
 
@@ -57,18 +57,15 @@ export default function TokushohoPage() {
               </a>
             </Row>
 
+            {/* 2026-09-25 新しい方針（AI顧問・システム開発・HP制作）に合わせて書き換え。料金は税別 */}
             <Row label="販売価格">
               <ul className="space-y-1.5">
-                <li>ランディングページ制作：¥70,000〜¥120,000（税別）</li>
-                <li>ホームページ制作：¥250,000〜¥400,000（税別）</li>
-                <li>業務システム開発：¥300,000〜（要見積もり、税別）</li>
-                <li>
-                  アルパカスマート（AIエージェント秘書セットアップ）：初期¥70,000＋月額¥15,000（税別）
-                </li>
-                <li>スポットMTG：¥5,000（税別）</li>
+                <li>AI顧問：月額¥150,000（定例の打ち合わせ 月1回）〜 月額¥250,000（定例の打ち合わせ 月2回）（税別）</li>
+                <li>システム開発：要見積もり（税別）</li>
+                <li>ホームページ制作：¥250,000〜（税別）</li>
               </ul>
               <p className="text-xs text-[#1A202C]/60 mt-2">
-                ※ 具体的な金額は、要件ヒアリング後のお見積もりにて確定します。
+                ※ システム開発とホームページ制作の金額は、ご要望をうかがった後のお見積もりで確定します。
               </p>
             </Row>
 
@@ -76,9 +73,7 @@ export default function TokushohoPage() {
               <ul className="space-y-1.5">
                 <li>消費税</li>
                 <li>銀行振込手数料（お客様負担）</li>
-                <li>
-                  AIサービスのAPI利用料実費（アルパカスマートで該当ツールを利用する場合、月¥1,500〜¥7,500目安）
-                </li>
+                <li>AIサービスの利用料の実費（AIのサービスを使う場合）</li>
               </ul>
             </Row>
 
@@ -92,31 +87,29 @@ export default function TokushohoPage() {
             <Row label="支払時期">
               <ul className="space-y-1.5">
                 <li>
-                  スポット案件（HP・LP・システム開発）：契約時に着手金として50%、納品時に残金50%
+                  AI顧問（月額）：月額前払い。毎月1日に当月分を請求し、月末までにお支払いいただきます。
                 </li>
                 <li>
-                  アルパカスマート（月額サブスク）：月額前払い。毎月1日に当月分を請求し、月末までにお支払いいただきます。
+                  システム開発・ホームページ制作：契約時に着手金として50%、納品時に残金50%
                 </li>
               </ul>
             </Row>
 
             <Row label="役務の提供時期">
               <ul className="space-y-1.5">
-                <li>スポット案件：契約後、合意した納期に応じて提供します。</li>
-                <li>
-                  アルパカスマート：契約成立後、即時に提供を開始します。
-                </li>
+                <li>AI顧問：契約成立後、即時に提供を開始します。</li>
+                <li>システム開発・ホームページ制作：契約後、合意した納期に応じて提供します。</li>
               </ul>
             </Row>
 
             <Row label="キャンセル・解約・返金">
-              <p className="mb-3 font-bold">アルパカスマート（月額サブスク）</p>
+              <p className="mb-3 font-bold">AI顧問（月額）</p>
               <ul className="list-disc pl-5 space-y-1 mb-4">
-                <li>最低契約期間はなく、いつでも月単位で解約可能です。</li>
-                <li>解約は前月末までにチャット経由でご連絡ください。</li>
+                <li>契約期間の縛りはなく、月単位で解約できます。</li>
+                <li>解約は前月末までにメールか電話でご連絡ください。</li>
                 <li>既にお支払い済みの月額料金は返金できません。</li>
               </ul>
-              <p className="mb-3 font-bold">スポット案件</p>
+              <p className="mb-3 font-bold">システム開発・ホームページ制作</p>
               <ul className="list-disc pl-5 space-y-1">
                 <li>
                   作業着手前の解約は、着手金を全額返金いたします（振込手数料を除く）。

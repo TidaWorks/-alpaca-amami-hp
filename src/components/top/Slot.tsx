@@ -11,6 +11,8 @@ type Props = {
   className?: string;
   tone?: "a" | "b" | "c" | "d";
   src?: string;
+  /** スマホ（767px 以下）だけ別の絵にする時。ヒーローとフッターは描き直しでスマホ用の絵を足す想定（IMAGE-SLOTS.md） */
+  srcSp?: string;
   alt?: string;
   /** 黄色い地面のような下敷きを敷く（イラスト枠） */
   ground?: boolean;
@@ -19,13 +21,20 @@ type Props = {
   /** 切り抜き位置（object-position）。pos は PC、posSp はスマホ（767px 以下） */
   pos?: string;
   posSp?: string;
+  /** 最初の画面に出る絵（ヒーローの1枚目）だけ true。ほかは遅延読み込み */
+  eager?: boolean;
 };
 
-export default function Slot({ id, label, className = "", tone = "a", src, alt = "", ground, cover, pos, posSp }: Props) {
+export default function Slot({ id, label, className = "", tone = "a", src, srcSp, alt = "", ground, cover, pos, posSp, eager }: Props) {
   const style = {
     ...(pos ? { "--tp-pos": pos } : {}),
     ...(posSp ? { "--tp-pos-sp": posSp } : {}),
   } as CSSProperties;
+  // 全部 eager だと 49枚・約3MB を読み終わるまで load が来ず、オープニングが始まらなかった（3周目）
+  const img = src ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img className="tp-slot__img" src={src} alt={alt} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding="async" />
+  ) : null;
   return (
     <div
       className={`tp-slot tp-slot--${tone} ${src ? "is-filled" : ""} ${cover ? "is-cover" : ""} ${className}`}
@@ -34,8 +43,14 @@ export default function Slot({ id, label, className = "", tone = "a", src, alt =
     >
       {ground && <span className="tp-slot__ground" aria-hidden="true" />}
       {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img className="tp-slot__img" src={src} alt={alt} loading="eager" decoding="async" />
+        srcSp ? (
+          <picture className="tp-slot__pic">
+            <source media="(max-width: 767px)" srcSet={srcSp} />
+            {img}
+          </picture>
+        ) : (
+          img
+        )
       ) : (
         <span className="tp-slot__label" aria-hidden="true">
           <span className="tp-slot__id">{id}</span>

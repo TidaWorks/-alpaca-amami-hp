@@ -25,7 +25,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { absolute: "ALPACA | 奄美・鹿児島の会社のAI顧問" },
-  description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問 月15万円〜（定例の打ち合わせ月1回）。期間の縛りなし。",
+  description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問 月15万円〜（税別・定例の打ち合わせ月1回）。期間の縛りなし。",
   openGraph: {
     title: "ALPACA | 奄美・鹿児島の会社のAI顧問",
     description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。",
@@ -72,8 +72,8 @@ const WORRIES = [
   { id: "P03", q: "「人が足りない。新しく雇うより先に、今いる人の手を空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p03.webp", pos: "50% 45%" },
 ];
 
-const WHAT_ROWS = [
-  { k: "料金", v: "月15万円（定例の打ち合わせ月1回）〜 月25万円（月2回）" },
+const WHAT_ROWS: { k: string; v: string; note?: string }[] = [
+  { k: "料金", v: "月15万円（定例の打ち合わせ月1回）〜 月25万円（月2回）", note: "税別" },
   { k: "期間", v: "期間の縛りなし" },
   { k: "打ち合わせ", v: "オンライン。奄美の会社は訪問も" },
 ];
@@ -87,11 +87,13 @@ const GALLERY = [
   { id: "G06", label: "有屋町の街並み", tone: "b" as const, src: "/images/top/scene/g06.webp" },
 ];
 
-const PRICES = [
+// 飛び先はトップの中だけ（古い方針の下層 /system /web へは飛ばさない）
+const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: string[]; img: string; src: string; posSp: string; href: string }[] = [
   {
     id: "C01",
     name: "AI顧問",
     price: "月15万円〜",
+    tax: true,
     detail: ["月15万円（定例 月1回）", "月25万円（定例 月2回）", "期間の縛りなし"],
     img: "定例の打ち合わせをしている社長と代表（横長）",
     src: "/images/top/scene/c01.webp",
@@ -106,17 +108,18 @@ const PRICES = [
     img: "業務システムの画面が映ったパソコン（横長）",
     src: "/images/top/scene/c02.webp",
     posSp: "50% 45%",
-    href: "/system",
+    href: "#contact",
   },
   {
     id: "C03",
     name: "ホームページ制作",
     price: "25万円〜",
+    tax: true,
     detail: ["LP・コーポレートサイト", "WordPress・EC・ブログ機能はやりません"],
     img: "スマホとパソコンに映った会社のホームページ（横長）",
     src: "/images/top/scene/c03.webp",
     posSp: "50% 55%",
-    href: "/web",
+    href: "#contact",
   },
 ];
 
@@ -168,7 +171,14 @@ function IconBtn({ href, icon, label }: { href: string; icon: React.ReactNode; l
       <span className="tp-ibtn__icon" aria-hidden="true">
         {icon}
       </span>
-      <span className="tp-ibtn__txt">{label}</span>
+      {/* 「ALPACA」「について」の句で折る（Safari で「ALPACAについ／て」と折れていた） */}
+      <span className="tp-ibtn__txt">
+        {label.split(/(?<=^ALPACA)/).map((t) => (
+          <span key={t} className="tp-ph">
+            {t}
+          </span>
+        ))}
+      </span>
       <ArrowRight className="tp-ibtn__arrow" aria-hidden="true" />
     </a>
   );
@@ -233,7 +243,10 @@ export default function Home() {
             {WHAT_ROWS.map((r) => (
               <a key={r.k} href="#price" className="tp-row tp-what__row">
                 <span className="tp-what__k">{r.k}</span>
-                <span className="tp-what__v">{ph(r.v)}</span>
+                <span className="tp-what__v">
+                  {ph(r.v)}
+                  {r.note && <small className="tp-tax">（{r.note}）</small>}
+                </span>
               </a>
             ))}
           </div>
@@ -282,7 +295,10 @@ export default function Home() {
                 </div>
                 <div className="tp-price__body">
                   <h3 className="tp-price__name">{p.name}</h3>
-                  <p className="tp-price__yen">{p.price}</p>
+                  <p className="tp-price__yen">
+                    {p.price}
+                    {p.tax && <small className="tp-tax">（税別）</small>}
+                  </p>
                   <ul className="tp-price__detail">
                     {p.detail.map((d) => (
                       <li key={d}>{ph(d)}</li>
@@ -542,12 +558,6 @@ export default function Home() {
               </li>
               <li>
                 <a href="#faq">よくある質問</a>
-              </li>
-              <li>
-                <Link href="/system">システム開発</Link>
-              </li>
-              <li>
-                <Link href="/web">ホームページ制作</Link>
               </li>
             </ul>
             <ul className="tp-sitemap__sub">

@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+// 新しいトップの見出しへ（旧トップの #service #works は無くなった）
 const NAV_LINKS = [
-  { href: "/#service", label: "サービス" },
-  { href: "/#works", label: "実績" },
+  { href: "/#what", label: "AI顧問とは" },
+  { href: "/#price", label: "料金" },
+  { href: "/#flow", label: "毎月の流れ" },
   { href: "/#about", label: "ALPACAについて" },
-  { href: "/#flow", label: "進め方" },
   { href: "/#faq", label: "よくある質問" },
   { href: "/#contact", label: "お問い合わせ" },
 ];

@@ -20,9 +20,10 @@ export const NAV: { href: string; label: string; sub: Sub[] }[] = [
     href: "#price",
     label: "料金",
     sub: [
-      { href: "#price", label: "AI顧問", note: "月15万円〜" },
-      { href: "/system", label: "システム開発", note: "要見積もり" },
-      { href: "/web", label: "ホームページ制作", note: "25万円〜" },
+      // 古い方針の下層（/system /web）へは飛ばさない（作り直すまでトップの料金へ）
+      { href: "#price", label: "AI顧問", note: "月15万円〜（税別）" },
+      { href: "#price", label: "システム開発", note: "要見積もり" },
+      { href: "#price", label: "ホームページ制作", note: "25万円〜（税別）" },
     ],
   },
   {
