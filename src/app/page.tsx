@@ -67,9 +67,9 @@ const FLOW_PEOPLE = ["president-point", "staff-think", "advisor-laptop", "worker
 const REVISIT_SCRIPT = `document.documentElement.dataset.tpLoad=String(Math.floor(Math.random()*4)+1);try{var t=+localStorage.getItem('tp-visited');if(t&&Date.now()-t<6048e5)document.documentElement.classList.add('tp-revisit')}catch(e){}`;
 
 const WORRIES = [
-  { id: "P01", q: "「AIが便利なのは分かる。でも、うちの仕事のどこに使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p01.webp", pos: "50% 42%" },
-  { id: "P02", q: "「ツールを入れたけど、結局だれも使っていない」", img: "ほこりをかぶったパソコンと、目をそらす社員たち（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p02.webp", pos: "50% 45%" },
-  { id: "P03", q: "「人が足りない。新しく雇うより先に、今いる人の手を空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p03.webp", pos: "50% 45%" },
+  { id: "P01", q: "「AIがすごいのは知ってる。でも、うちのどの仕事に使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p01.webp", pos: "50% 42%" },
+  { id: "P02", q: "「便利なアプリを入れたけど、結局だれも開いてない」", img: "ほこりをかぶったパソコンと、目をそらす社員たち（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p02.webp", pos: "50% 45%" },
+  { id: "P03", q: "「求人を出しても人が来ない。今いる人の手を少しでも空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p03.webp", pos: "50% 45%" },
 ];
 
 const WHAT_ROWS: { k: string; v: string; note?: string }[] = [
@@ -104,7 +104,7 @@ const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: 
     id: "C02",
     name: "システム開発",
     price: "要見積もり",
-    detail: ["業務に合わせた受託開発", "実績: レンタカー会社の業務システム"],
+    detail: ["業務に合わせた受託開発"],
     img: "業務システムの画面が映ったパソコン（横長）",
     src: "/images/top/scene/c02.webp",
     posSp: "50% 45%",
@@ -124,23 +124,23 @@ const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: 
 ];
 
 const REASONS = [
-  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "壁のカレンダーの前で、顧問と社長が今月の予定を決めている", src: "/images/top/scene/r01-plan.webp" },
-  { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美なら訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）", src: "/images/top/scene/r02.webp" },
+  { id: "R01", n: "01", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。", img: "壁のカレンダーの前で、顧問と社長が今月の予定を決めている", src: "/images/top/scene/r01-plan.webp" },
+  { id: "R02", n: "02", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。", img: "車で島の会社へ向かう代表（ほぼ正方形）", src: "/images/top/scene/r02.webp" },
   {
     id: "R03",
     n: "03",
-    t: "自社でもAIの秘書を毎日使っている",
-    d: "代表もTelegramのAI秘書に、毎日仕事を頼んでいます。",
+    t: "奄美にいる",
+    d: "奄美の会社なら、会って話せます。",
     img: "スマホのTelegramでAIの秘書に話しかける画面（ほぼ正方形）",
     src: "/images/top/scene/r03.webp",
   },
 ];
 
 const FLOW = [
-  { id: "F01", n: "01", lead: "どの作業に何時間かかっているか、一緒に書き出す", title: "仕事を洗い出す", img: "ホワイトボードに仕事を書き出す社長と代表", src: "/images/top/scene/f01.webp" },
-  { id: "F02", n: "02", lead: "AIに任せる仕事と、人が残す仕事を分ける", title: "任せる所を決める", img: "付箋を「AI」「人」の2列に分けている手元", src: "/images/top/scene/f02.webp" },
-  { id: "F03", n: "03", lead: "会社専用のAIエージェントや自動化を作り、今のシステムとつなぐ", title: "仕組みを作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム", src: "/images/top/scene/f03.webp" },
-  { id: "F04", n: "04", lead: "社員が自分で使えるまで教え、翌月に効き目を見て次の仕事を決める", title: "根付かせる", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
+  { id: "F01", n: "01", lead: "どの作業に毎日何分かかっているか、一緒に書き出します", title: "書き出す", img: "ホワイトボードに仕事を書き出す社長と代表", src: "/images/top/scene/f01.webp" },
+  { id: "F02", n: "02", lead: "AIに任せる作業と、人が続ける作業を分けます。全部をAIにはしません", title: "分ける", img: "付箋を「AI」「人」の2列に分けている手元", src: "/images/top/scene/f02.webp" },
+  { id: "F03", n: "03", lead: "会社専用のAIや、今使っているソフトとつながる仕組みを作ります", title: "作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム", src: "/images/top/scene/f03.webp" },
+  { id: "F04", n: "04", lead: "社員さんが自分で使えるまで付き合います。翌月、何分減ったかを見て、次の作業へ", title: "使えるようにする", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
 ];
 
 const BAND1 = ["#AMAMI", "#AI", "#KAGOSHIMA", "#ALPACA"];
@@ -237,7 +237,7 @@ export default function Home() {
               <CalendarCheck aria-hidden="true" />
               <span>AI顧問</span>
             </p>
-            <p className="tp-what__lead">{ph("月1〜2回の打ち合わせで、AIに任せる仕事を決め、任せる仕組みまで作る顧問です。")}</p>
+            <p className="tp-what__lead">{ph("月に1〜2回、会社にうかがうか画面ごしに話して、AIに任せる仕事を1つずつ決めます。決めたら、動く仕組みまでこちらで作ります。")}</p>
           </div>
           <div className="tp-what__rows">
             {WHAT_ROWS.map((r) => (
@@ -411,7 +411,7 @@ export default function Home() {
               ALPACAについて
             </h2>
             <p className="tp-about__txt">
-              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。AI顧問のほかに、業務システムも、ホームページも作ります。")}
+              {ph("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページも作ります。")}
             </p>
           </div>
         </div>

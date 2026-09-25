@@ -23,15 +23,16 @@ function Copy({ veil }: { veil?: boolean }) {
           </h1>
         )}
         <p className="tp-hero__lead" aria-hidden={veil ? "true" : undefined}>
-          <span>奄美・鹿児島の会社と一緒に、</span>
-          <span>AIに任せられる仕事を</span>
-          <span>毎月ひとつずつ増やしていく顧問です。</span>
+          <span>自分の仕事の予定表も台帳も、</span>
+          <span>自分でシステムにして毎日使っています。</span>
+          <span>同じことを、あなたの会社で一緒にやります。</span>
+          <span>月15万円からの顧問です。</span>
         </p>
         {/* 幕の上の文字と写真の上の文字の位置をそろえるため、幕の側にも同じ大きさの見えないボタンを置く */}
         {veil ? (
           <span className="tp-hero__cta tp-hero__cta--ghost" aria-hidden="true">
             <span className="tp-btn tp-btn--main">
-              <span>まずは30分、話してみる</span>
+              <span>まずは30分、話を聞かせてください</span>
               <span className="tp-btn__sub">無料相談</span>
               <span className="tp-btn__arrow" />
             </span>
@@ -39,7 +40,7 @@ function Copy({ veil }: { veil?: boolean }) {
         ) : (
           <span className="tp-hero__cta">
             <a href="#contact" className="tp-btn tp-btn--main" data-scroll>
-              <span>まずは30分、話してみる</span>
+              <span>まずは30分、話を聞かせてください</span>
               <span className="tp-btn__sub">無料相談</span>
               <span className="tp-btn__arrow" aria-hidden="true" />
             </a>
