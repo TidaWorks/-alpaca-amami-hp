@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { setupGsap, gsap, EASE, isReduced } from "./motion";
-import Slot from "./Slot";
-
-const SLIDES = [
-  { id: "S01", label: "奄美の会社の事務所で、社長と代表が打ち合わせをしている場面（横長）", tone: "a" as const, src: "/images/top/hero-s01.webp", srcSp: "/images/top/hero-s01-sp.webp", alt: "海の見える事務所で、社長とALPACAの顧問が打ち合わせをしているイラスト" },
-  { id: "S02", label: "社員がスマホでAIに話しかけ、仕事を頼んでいる場面（横長）", tone: "b" as const, src: "/images/top/hero-s02.webp", srcSp: "/images/top/hero-s02-sp.webp", alt: "事務の社員がスマホのAIに仕事を頼み、現場の社員が自分のスマホで受け取っているイラスト" },
-  { id: "S03", label: "奄美大島の海と、有屋町の街並み（横長）", tone: "c" as const, src: "/images/top/hero-s03.webp", srcSp: "/images/top/hero-s03-sp.webp", alt: "奄美大島の海と、坂の上から見た町並みのイラスト" },
-];
+import { createHeroScene, type HeroScene } from "./heroScene";
 
 const VISIT_KEY = "tp-visited";
 const LOADING = "LOADING...";
@@ -20,12 +14,12 @@ function Copy({ veil }: { veil?: boolean }) {
         {veil ? (
           <p className="tp-catch" aria-hidden="true">
             <span>会社の仕事に、</span>
-            <span>AIの手を。</span>
+            <span className="tp-catch__mark">AIの手を。</span>
           </p>
         ) : (
           <h1 className="tp-catch">
             <span>会社の仕事に、</span>
-            <span>AIの手を。</span>
+            <span className="tp-catch__mark">AIの手を。</span>
           </h1>
         )}
         <p className="tp-hero__lead" aria-hidden={veil ? "true" : undefined}>
@@ -33,39 +27,60 @@ function Copy({ veil }: { veil?: boolean }) {
           <span>AIに任せられる仕事を</span>
           <span>毎月ひとつずつ増やしていく顧問です。</span>
         </p>
+        {/* 幕の上の文字と写真の上の文字の位置をそろえるため、幕の側にも同じ大きさの見えないボタンを置く */}
+        {veil ? (
+          <span className="tp-hero__cta tp-hero__cta--ghost" aria-hidden="true">
+            <span className="tp-btn tp-btn--main">
+              <span>まずは30分、話してみる</span>
+              <span className="tp-btn__sub">無料相談</span>
+              <span className="tp-btn__arrow" />
+            </span>
+          </span>
+        ) : (
+          <span className="tp-hero__cta">
+            <a href="#contact" className="tp-btn tp-btn--main" data-scroll>
+              <span>まずは30分、話してみる</span>
+              <span className="tp-btn__sub">無料相談</span>
+              <span className="tp-btn__arrow" aria-hidden="true" />
+            </a>
+          </span>
+        )}
       </div>
     </div>
   );
 }
 
 /**
- * ローディング（#1 #2 #3）→ 白い幕に黒いコピー（#4）→ 丸い穴（#6）→ ヒーロー（#7 #8 #9）
+ * ローディング（#1 #2 #3）→ 白い幕に黒いコピー（#4）→ 丸い穴（#6）→ ヒーロー（コードで描く絵。heroScene.ts）
  */
 export default function Hero() {
-  const [active, setActive] = useState(0);
-  const [started, setStarted] = useState(false);
   const loadingRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
-  const zoomRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   // オープニング
   useEffect(() => {
     const loading = loadingRef.current;
     const veil = veilRef.current;
-    const zoom = zoomRef.current;
-    if (!loading || !veil || !zoom) return;
+    const hero = heroRef.current;
+    const canvas = canvasRef.current;
+    const stage = stageRef.current;
+    if (!loading || !veil || !hero || !canvas || !stage) return;
     setupGsap();
     const html = document.documentElement;
     const revisit = html.classList.contains("tp-revisit");
+    // ファーストビューの絵（全部コード）。動きを減らす設定では止まった1枚
+    const scene: HeroScene = createHeroScene(canvas, stage, hero, isReduced());
 
     if (isReduced()) {
       loading.style.display = "none";
       veil.style.display = "none";
-      setStarted(true);
       try {
         localStorage.setItem(VISIT_KEY, String(Date.now()));
       } catch {}
-      return;
+      return () => scene.destroy();
     }
 
     // LOADING... の文字（#1 → #2）
@@ -110,13 +125,12 @@ export default function Hero() {
         // #6 白い幕に丸い穴
         tl.to(veil, { "--tp-mi": "100%", "--tp-mo": "150%", duration: 0.8, ease: "tpVeil" }, 1.4);
         tl.set(veil, { display: "none" }, 2.2);
+        // 絵の登場: 丸い穴が開き切る少し前から A を描き始める（穴は後半に速く開くので、早く始めると線が幕に隠れる）
+        tl.call(() => scene.play(), [], 1.95);
       } else {
         tl.set(veil, { display: "none" }, 0);
+        tl.call(() => scene.play(), [], 0.2);
       }
-      // #7 ヒーロー写真 1.4倍 → 1倍
-      tl.fromTo(zoom, { scale: 1.4 }, { scale: 1, duration: 3, ease: "tpInOut" }, 0.6);
-      // #5 自動切替の開始
-      tl.call(() => setStarted(true), [], 1.4);
       try {
         localStorage.setItem(VISIT_KEY, String(Date.now()));
       } catch {}
@@ -136,19 +150,14 @@ export default function Hero() {
     else {
       window.addEventListener("load", startOnce, { once: true });
       fallback = window.setTimeout(startOnce, 8000);
-      const first = zoom.querySelector<HTMLImageElement>("img");
-      const imgReady = new Promise<void>((res) => {
-        if (!first || first.complete) return res();
-        first.addEventListener("load", () => res(), { once: true });
-        first.addEventListener("error", () => res(), { once: true });
-      });
       // 文字はキャッチと小見出しに使う字だけ待つ（fonts.ready は日本語の字の範囲ごとの全ファイルを待つので 2〜3秒遅れた）
       const catchEl = veil.querySelector<HTMLElement>(".tp-catch");
       const fontReady =
         document.fonts && catchEl
           ? document.fonts.load(`1em ${getComputedStyle(catchEl).fontFamily}`, veil.textContent || "").catch(() => undefined)
           : Promise.resolve();
-      Promise.all([imgReady, fontReady]).then(startOnce);
+      // ヒーローの絵はコードで描くので、待つのはキャッチの字だけ
+      fontReady.then(startOnce);
     }
     return () => {
       fired = true;
@@ -156,20 +165,13 @@ export default function Hero() {
       clearTimeout(fallback);
       lt.kill();
       tl?.kill();
+      scene.destroy();
     };
   }, []);
 
-  // #8 写真の自動切替（1枚 5秒）
-  useEffect(() => {
-    // 動きを減らす設定の時は写真を切り替えない（1枚目のまま）
-    if (!started || isReduced()) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % SLIDES.length), 5000);
-    return () => clearInterval(id);
-  }, [started]);
-
   return (
     <>
-      <section className="tp-hero" id="top" aria-label="ALPACA AI顧問">
+      <section className="tp-hero" id="top" aria-label="ALPACA AI顧問" ref={heroRef}>
         <svg className="tp-hero__svg" width="0" height="0" aria-hidden="true" focusable="false">
           <defs>
             <clipPath id="tp-wave" clipPathUnits="objectBoundingBox">
@@ -178,33 +180,11 @@ export default function Hero() {
           </defs>
         </svg>
         <div className="tp-hero__media">
-          <div className="tp-hero__zoom" ref={zoomRef}>
-            {SLIDES.map((s, i) => (
-              <div
-                key={s.id}
-                className={`tp-hero__slide ${i === active ? "is-shown" : ""} ${started && i === active ? "is-active" : ""}`}
-              >
-                <div className="tp-hero__kb">
-                  {/* 2・3枚目は切り替えが始まってから読む（最初の読み込みを 1枚目だけにする。1枚目が見えている 5秒の間に届く） */}
-                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} srcSp={s.srcSp} spMedia="(max-width: 767px), (max-width: 1023px) and (orientation: portrait)" alt={s.alt} cover className="tp-hero__slot" eager={i === 0} />
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* 絵を置く範囲（位置と大きさは CSS で決め、絵はここを基準に描く） */}
+          <div className="tp-hero__stage" ref={stageRef} aria-hidden="true" />
+          <canvas className="tp-hero__canvas" ref={canvasRef} aria-hidden="true" />
         </div>
         <Copy />
-        <div className="tp-hero__cta">
-          <a href="#contact" className="tp-btn tp-btn--main" data-scroll>
-            <span>まずは30分、話してみる</span>
-            <span className="tp-btn__sub">無料相談</span>
-            <span className="tp-btn__arrow" aria-hidden="true" />
-          </a>
-        </div>
-        <ul className="tp-hero__dots" aria-hidden="true">
-          {SLIDES.map((s, i) => (
-            <li key={s.id} className={i === active ? "is-active" : ""} />
-          ))}
-        </ul>
       </section>
 
       {/* 白い幕（初回訪問だけ）。幕の上の黒いコピーと、写真の上の白いコピーを重ねてある */}

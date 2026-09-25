@@ -85,7 +85,8 @@ html:has(.tp) {
   .tp {
     font-size: 1.4rem;
     line-height: 1.8;
-    --tp-hero-h: 41rem;
+    /* ファーストビューの絵（文字の下に A と人物）が入る高さ。帯の上端が1画面目の下に見える程度 */
+    --tp-hero-h: min(max(56rem, calc(100svh - 12rem)), 70rem);
   }
 }
 
@@ -881,11 +882,6 @@ html.tp-revisit .tp-veil {
 .tp-hero__copy--veil .tp-hero__copyin {
   opacity: 0;
 }
-.tp-hero__copy--veil .tp-catch,
-.tp-hero__copy--veil .tp-hero__lead {
-  color: var(--tp-ink);
-  text-shadow: none;
-}
 @media (max-width: 767px) {
   .tp-veil__box {
     min-height: 0;
@@ -908,170 +904,165 @@ html.tp-revisit .tp-veil {
   inset: 0;
   overflow: hidden;
   clip-path: url(#tp-wave);
-}
-.tp-hero__zoom {
-  position: absolute;
-  inset: 0;
-  transform-origin: 50% 50%;
-}
-.tp-hero__slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-.tp-hero__slide.is-shown {
-  opacity: 1;
-}
-.tp-hero__kb {
-  position: absolute;
-  inset: 0;
-  scale: 1.1;
-  transition: scale 5.8s linear;
-}
-.tp-hero__slide.is-active .tp-hero__kb {
-  scale: 1;
-}
-.tp-hero__slot {
-  align-items: start;
-  padding-top: 12rem;
-}
-.tp-hero__slot.tp-slot--a {
-  background: linear-gradient(160deg, #5fb39c, #2f8a74);
-}
-.tp-hero__slot.tp-slot--b {
-  background: linear-gradient(160deg, #6f8a83, #44564f);
-}
-.tp-hero__slot.tp-slot--c {
-  background: linear-gradient(160deg, #4fa58d, #1f7560);
-}
-.tp-hero__slot .tp-slot__label {
-  color: rgba(255, 255, 255, 0.55);
-}
-/* 絵が入ったら上寄せの余白を外す。白い文字の下だけを横長の薄い帯で沈める（3周目）。
-   全体を沈めると空が灰色に濁り、お手本の明るい見せ方から離れていた。人物の顔に字が被る分は絵の描き直しで直す（IMAGE-SLOTS.md） */
-.tp-hero__slot.is-filled {
-  padding-top: 0;
-}
-.tp-hero__slot.is-filled::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+  /* 絵の地: 白からごく淡いミントへ。細かい点の方眼を薄く敷く（仕事の机の上の感じ） */
   background:
-    radial-gradient(ellipse 58% 24% at 50% 47%, rgba(3, 52, 41, 0.3), rgba(3, 52, 41, 0.12) 60%, rgba(3, 52, 41, 0) 100%);
+    radial-gradient(circle, rgba(9, 160, 126, 0.13) 0.11rem, transparent 0.13rem) 0 0 / 2.4rem 2.4rem,
+    radial-gradient(ellipse 55% 60% at 72% 48%, #e2f5ed 0%, #effaf5 55%, #f9fdfb 100%);
+}
+.tp-hero__stage {
+  position: absolute;
+  /* PC: 右半分（左は文字）。上はヘッダー、下は流れる帯の分をあける */
+  top: 11rem;
+  bottom: 16.5rem;
+  left: 53%;
+  right: 10rem;
   pointer-events: none;
+}
+.tp-hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .tp-hero__copy {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-bottom: 6rem;
+  justify-content: flex-start;
+  padding: 0 0 7rem 9rem;
   pointer-events: none;
 }
 .tp-hero__copyin {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2.4rem;
-  transform-origin: 50% 50%;
+  align-items: flex-start;
+  gap: 2.8rem;
+  transform-origin: 30% 50%;
 }
 .tp-catch {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   font-family: var(--tp-font-ja);
   font-size: 8.4rem;
-  line-height: 1.25;
+  line-height: 1.22;
   letter-spacing: 0.02em;
-  color: #fff;
+  color: var(--tp-ink);
   rotate: -4deg;
-  /* 字のすぐ外側に濃いミントの影を重ね、顔や明るい所に乗っても字の形が残るように */
-  text-shadow:
-    0 0.1rem 0.6rem rgba(3, 40, 32, 0.45),
-    0 0.3rem 2.4rem rgba(3, 40, 32, 0.35);
   white-space: nowrap;
   /* 0.08em だと Safari で「事」「を」の中の空きが埋まって塊になっていた */
-  -webkit-text-stroke: 0.045em currentColor;
+  -webkit-text-stroke: 0.04em currentColor;
   paint-order: stroke fill;
 }
+/* 「AIの手を。」の下に黄色の蛍光ペン（字の下 4割） */
+.tp-catch__mark {
+  padding: 0 0.08em;
+  margin-left: -0.08em;
+  background: linear-gradient(transparent 62%, var(--tp-sub) 62%, var(--tp-sub) 94%, transparent 94%);
+}
 .tp-hero__lead span {
-  display: inline-block;
+  display: block;
 }
 .tp-hero__lead {
   max-width: none;
   font-size: 1.8rem;
   line-height: 1.9;
-  color: #fff;
-  text-align: center;
+  color: var(--tp-ink);
+  text-align: left;
   rotate: -4deg;
-  text-shadow:
-    0 0.1rem 0.4rem rgba(3, 40, 32, 0.6),
-    0 0.2rem 1.4rem rgba(3, 40, 32, 0.4);
 }
 .tp-hero__cta {
-  position: absolute;
-  left: 50%;
-  bottom: 21rem;
-  translate: -50% 0;
-  z-index: 3;
+  display: block;
+  margin-top: 0.8rem;
+  pointer-events: auto;
 }
-.tp-hero__dots {
-  position: absolute;
-  left: 3.4rem;
-  top: 50%;
-  translate: 0 -50%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+.tp-hero__cta--ghost {
+  visibility: hidden;
 }
-.tp-hero__dots li {
-  width: 1.1rem;
-  height: 1.1rem;
-  border-radius: 50%;
-  background: #fff;
-  transition: background-color 0.25s ease;
+/* 1024〜1199px: 文字を少し小さくして、右の絵との間をあける */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .tp-hero__copy {
+    padding-left: 6rem;
+  }
+  .tp-catch {
+    font-size: 7rem;
+  }
+  .tp-hero__stage {
+    left: 55%;
+    right: 3rem;
+  }
 }
-.tp-hero__dots li.is-active {
-  background: var(--tp-main);
+/* 768〜1023px（縦のタブレット）: 文字の下に絵を置く分、ヒーローを高く */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tp {
+    --tp-hero-h: min(100svh, 96rem);
+  }
+}
+/* 1023px 以下: 文字が上、絵が下 */
+@media (max-width: 1023px) {
+  .tp-hero__copy {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 13rem 24px 0;
+  }
+  .tp-hero__copyin {
+    align-items: center;
+    gap: 2rem;
+    transform-origin: 50% 50%;
+  }
+  .tp-catch {
+    align-items: center;
+    font-size: 7.2rem;
+  }
+  .tp-hero__lead {
+    text-align: center;
+  }
+  .tp-hero__stage {
+    top: 47%;
+    bottom: 17rem;
+    left: 6%;
+    right: 6%;
+  }
+  .tp-hero__media {
+    background:
+      radial-gradient(circle, rgba(9, 160, 126, 0.13) 0.11rem, transparent 0.13rem) 0 0 / 2.4rem 2.4rem,
+      radial-gradient(ellipse 80% 45% at 50% 70%, #e2f5ed 0%, #effaf5 55%, #f9fdfb 100%);
+  }
 }
 @media (max-width: 767px) {
   .tp-hero {
     min-height: 0;
   }
-  .tp-hero__slot {
-    padding-top: 7rem;
-  }
   .tp-hero__copy {
-    padding: 4rem 16px 7rem;
+    padding: 8.6rem 16px 0;
   }
   .tp-hero__copyin {
     gap: 1.2rem;
   }
   .tp-catch {
-    flex-direction: column;
-    align-items: center;
-    font-size: 4rem;
-    line-height: 1.3;
+    font-size: 4.4rem;
+    line-height: 1.28;
   }
   .tp-hero__lead {
     font-size: 1.3rem;
-    line-height: 1.7;
-    max-width: 32rem;
+    line-height: 1.75;
   }
   .tp-hero__cta {
     display: none;
   }
-  .tp-hero__dots {
-    left: auto;
-    right: 1.4rem;
-    gap: 0.8rem;
+  .tp-hero__stage {
+    top: 29rem;
+    bottom: 8rem;
+    left: 16px;
+    right: 16px;
   }
-  .tp-hero__dots li {
-    width: 0.8rem;
-    height: 0.8rem;
+  .tp-hero__media {
+    background:
+      radial-gradient(circle, rgba(9, 160, 126, 0.13) 0.1rem, transparent 0.12rem) 0 0 / 2rem 2rem,
+      radial-gradient(ellipse 90% 45% at 50% 68%, #e2f5ed 0%, #effaf5 55%, #f9fdfb 100%);
   }
 }
 
@@ -2773,9 +2764,6 @@ html.tp-revisit .tp-veil {
     transition-duration: 0.01s !important;
     transition-delay: 0s !important;
   }
-  .tp-hero__kb {
-    scale: 1;
-  }
   .tp-title__en {
     visibility: visible;
   }
@@ -2788,19 +2776,6 @@ html.tp-revisit .tp-veil {
     gap: 3rem;
   }
   /* 傾けた小見出しの端が 768px で 1px 画面から出ていた */
-  /* 5周目: 横向きのタブレット（1024×768 前後）で、1行の小見出しの左端が社長の頭に掛かっていた →
-     2行に折って幅を半分近くにし、両端を人物の内側へ（傾けた端が 768px で画面から出ない幅でもある）。
-     1行増えた分、字の塊を少し上げてボタンと離す */
-  .tp-hero__lead {
-    max-width: min(32em, calc(100vw - 48px));
-  }
-  .tp-hero__copy {
-    padding-bottom: 10rem;
-  }
-  .tp-catch {
-    flex-direction: column;
-    align-items: center;
-  }
   .tp-fblock {
     width: calc(100% - 64px);
   }
