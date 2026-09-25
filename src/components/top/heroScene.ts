@@ -297,7 +297,7 @@ type Orb = { k: Kind; ang: number; depth: number; size: number; tilt: number; fr
 const ORBS: Orb[] = [
   { k: "doc", ang: -150, depth: 1.1, size: 1, tilt: -8, from: 0, phase: 0.2 },
   { k: "chat", ang: -42, depth: 1.2, size: 1.02, tilt: 6, from: 1, phase: 1.3 },
-  { k: "table", ang: -92, depth: 0.85, size: 0.94, tilt: 4, from: [0.2, -1.6], phase: 2.1 },
+  { k: "table", ang: -92, depth: 0.85, size: 0.94, tilt: 4, from: [1.5, -1.15], phase: 2.1 },
   { k: "cal", ang: 176, depth: 1.0, size: 0.96, tilt: -5, from: [-1.45, -0.5], phase: 0.9 },
   { k: "chart", ang: 2, depth: 0.95, size: 0.94, tilt: 7, from: [1.9, 0.1], phase: 2.7 },
   { k: "mail", ang: 90, depth: 1.25, size: 0.9, tilt: -4, from: [0, 1.7], phase: 1.7 },
@@ -469,10 +469,14 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
     const k = (ah / A_H) * SUP;
     g.setTransform(dpr * k, 0, 0, dpr * k, aPad * dpr, aPad * dpr);
     if (fillK > 0) {
-      g.globalAlpha = inOutSine(fillK);
+      // 塗りは下から上へ満ちる（半透明で重ねると色が濁って見えた）
+      g.save();
+      g.beginPath();
+      g.rect(-10, A_H * (1 - inOutCubic(fillK)), A_W + 20, A_H + 10);
+      g.clip();
       g.fillStyle = M;
       g.fill(aPath);
-      g.globalAlpha = 1;
+      g.restore();
     }
     if (fillK < 1) {
       const p = inOutCubic(drawK);
@@ -602,7 +606,7 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
       pulseK = since < 0.5 ? Math.sin(seg(since, 0, 0.5) * Math.PI) * (1 - seg(since, 0, 0.5)) : 0;
       ringK = since < 0.9 ? since / 0.9 : -1;
     }
-    const popK = reduced ? 1 : seg(t, 1.0, 1.7);
+    const popK = reduced ? 1 : seg(t, 1.25, 1.95);
     const aScale = (0.94 + 0.06 * outElastic(popK, 0.35)) * (1 + pulseK * 0.07) * (1 - s * 0.18);
 
     // A の下の影
@@ -629,8 +633,9 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
       const bk = reduced ? 1 : seg(t, k0, k0 + 0.5);
       // 読み込みが遅れた時はふわっと出す。半透明の人物は色が濁るので、登場は透明度ではなく足元から伸びて出す
       const la = !p.ok ? 0 : reduced ? 1 : clamp((time - p.loadedAt) / 0.3);
-      const sy = bk <= 0 ? 0 : outBack(bk, 1.3);
-      put(p.person, px - p.w / 2, groundY + p.h * 0.02 - p.h, 0, 1 - (sy - 1) * 0.4, sy, sy <= 0.02 ? 0 : la);
+      // 足元を軸に 0.55倍から少し行き過ぎて戻る（縦だけ伸ばすと平たく潰れたコマが出る）。出始めの 0.06秒だけ透明度
+      const sc = bk <= 0 ? 0 : 0.55 + 0.45 * outBack(bk, 1.7);
+      put(p.person, px - p.w / 2, groundY + p.h * 0.02 - p.h, 0, sc, sc, bk <= 0 ? 0 : la * seg(bk, 0, 0.12));
     });
     const devPt = (i: number): [number, number] => {
       const p = people[i];
@@ -666,7 +671,7 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
 
     // A
     const drawK = reduced ? 1 : seg(t, 0, 1.1);
-    const fillK = reduced ? 1 : seg(t, 0.95, 1.3);
+    const fillK = reduced ? 1 : seg(t, 0.92, 1.4);
     if (drawK > 0) paintA(drawK, fillK);
     const aww = aw * SUP + aPad * 2, ahh = ah * SUP + aPad * 2;
     put(aL, ax - aww / 2, ay - ahh / 2, 0, aScale / SUP, aScale / SUP, drawK > 0 ? 1 : 0);
@@ -711,7 +716,8 @@ export function createHeroScene(root: HTMLElement, stage: HTMLElement, hero: HTM
       const y = (1 - e) * (1 - e) * fy + 2 * (1 - e) * e * my + e * e * hy;
       const sc = (typeof o.from === "number" ? 0.25 + 0.75 * outBack(u, 1.8) : outBack(u, 1.5)) * o.size;
       const rot = o.tilt + wob + (1 - e) * (i % 2 ? 70 : -70) + s * 50 * d * (i % 2 ? 1 : -1);
-      put(orbs[i], x - orbHalf, y - orbHalf, rot, sc, sc, seg(u, 0, 0.12));
+      // スクロールで下へほどけた形は、帯と次のセクションに掛かる前に消える
+      put(orbs[i], x - orbHalf, y - orbHalf, rot, sc, sc, seg(u, 0, 0.12) * (1 - seg(s, 0.35, 0.7)));
     });
   }
 
