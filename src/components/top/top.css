@@ -2409,24 +2409,19 @@ html.tp-revisit .tp-veil {
 .tp-fhero__slot.is-filled {
   padding-top: 0;
 }
-/* 4周目: PC は下の申込ボタンが絵の下 23% に被り、2人の顔のすぐ下で切れて「塀から首だけ」に見えた。
-   絵を下端を軸に 1.1倍にして人物を 4〜5% 持ち上げ、肩と手まで見せる（上は空だけなので削れても困らない） */
-@media (min-width: 1024px) {
-  .tp-fhero__slot.is-filled .tp-slot__img {
-    scale: 1.1;
-    transform-origin: 50% 100%;
-  }
-}
 /* 768〜1023px は枠が横長の絵に対して狭く、両端の2人の顔が半分切れていた → スマホ用の縦の絵（page.tsx の spMedia）を下揃えで敷き、枠を縦に伸ばす */
 @media (min-width: 768px) and (max-width: 1023px) {
+  /* 5周目: 描き直した絵は2人が大きく顔が高い。1000px 前後の横長の枠では髪の上端が枠の 30% まで来るので、
+     枠を 64rem → 68rem にして下揃えの切り抜きを減らし、コピーは上の帯のすぐ下へ（768〜1023 で髪と 40px 以上空く） */
   .tp-fhero {
-    height: 64rem;
+    height: 68rem;
   }
   .tp-fhero__slot.is-filled .tp-slot__img {
     object-position: 50% 100%;
   }
-  .tp-fhero__copy {
-    top: 22%;
+  /* 下の .tp-fhero__copy（top: 25%）より後に読まれるので、親を付けて強くする（4周目の 22% は効いていなかった） */
+  .tp-fhero .tp-fhero__copy {
+    top: 9%;
   }
 }
 .tp-fhero__slot.is-filled::after {
@@ -2435,14 +2430,23 @@ html.tp-revisit .tp-veil {
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(ellipse 56% 26% at 50% 46%, rgba(3, 52, 41, 0.3), rgba(3, 52, 41, 0.12) 60%, rgba(3, 52, 41, 0) 100%);
+    radial-gradient(ellipse 56% 26% at 50% 33%, rgba(3, 52, 41, 0.3), rgba(3, 52, 41, 0.12) 60%, rgba(3, 52, 41, 0) 100%);
   pointer-events: none;
 }
+/* 5周目: 768〜1023px はコピーを上へ上げたので、字の下の薄い影も一緒に上へ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tp-fhero__slot.is-filled::after {
+    background:
+      radial-gradient(ellipse 60% 24% at 50% 24%, rgba(3, 52, 41, 0.3), rgba(3, 52, 41, 0.12) 60%, rgba(3, 52, 41, 0) 100%);
+  }
+}
+/* 5周目: 描き直した絵は2人が大きく顔が高い（顔の上端が絵の 42〜47%）。コピーは左下がりに傾くので、
+   38% のままだと左端の「会」が社長の頭に乗る → 空の中へ上げる（1024〜1920 で頭との間に 1% 以上） */
 .tp-fhero__copy {
   position: absolute;
   left: 0;
   right: 0;
-  top: 38%;
+  top: 25%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -2792,8 +2796,14 @@ html.tp-revisit .tp-veil {
     gap: 3rem;
   }
   /* 傾けた小見出しの端が 768px で 1px 画面から出ていた */
+  /* 5周目: 横向きのタブレット（1024×768 前後）で、1行の小見出しの左端が社長の頭に掛かっていた →
+     2行に折って幅を半分近くにし、両端を人物の内側へ（傾けた端が 768px で画面から出ない幅でもある）。
+     1行増えた分、字の塊を少し上げてボタンと離す */
   .tp-hero__lead {
-    max-width: calc(100vw - 48px);
+    max-width: min(32em, calc(100vw - 48px));
+  }
+  .tp-hero__copy {
+    padding-bottom: 10rem;
   }
   .tp-catch {
     flex-direction: column;
