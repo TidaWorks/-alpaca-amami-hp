@@ -36,16 +36,40 @@ export const metadata: Metadata = {
   },
 };
 
-const PAKA = ["/images/top/paka-run-1.webp", "/images/top/paka-run-2.webp", "/images/top/paka-run-3.webp", "/images/top/paka-run-4.webp"];
+// 登場人物（社長・事務の社員・現場の社員・顧問）の切り抜き。ポーズ集から1体ずつ抜いた透過 WebP
+const man = (n: string) => `/images/top/people/${n}.webp`;
+const PEOPLE_ALT: Record<string, string> = { president: "社長", staff: "事務の社員", worker: "現場の社員", advisor: "ALPACAの顧問" };
+const who = (n: string) => PEOPLE_ALT[n.split("-")[0]] ?? "";
+
+// 帯のイラスト（2か所×2枚1組）
+const BAND_PEOPLE: Record<string, [string, string][]> = {
+  B1: [
+    ["staff-carry", "advisor-laptop"],
+    ["president-talk", "worker-phone"],
+  ],
+  B2: [
+    ["staff-phone", "president-wave"],
+    ["worker-cheer", "advisor-wave"],
+  ],
+};
+// ギャラリーの上のイラスト列（4枠×3枚）
+const ILLUST_PEOPLE = [
+  ["president-think", "advisor-point", "staff-think"],
+  ["worker-phone", "staff-laptop", "president-talk"],
+  ["advisor-laptop", "worker-carry", "staff-point"],
+  ["president-cheer", "staff-wave", "worker-wave"],
+];
+// 毎月の流れの番号の横（書き出す／分ける／作る／根付かせる）
+const FLOW_PEOPLE = ["president-point", "staff-think", "advisor-laptop", "worker-cheer"];
 
 // 初回訪問の判定（7日以内に来ていたらオープニングの白い幕を出さない）。描画前に実行してちらつきを防ぐ
 // あわせてローディングの絵を開くたびに4種から選ぶ（お手本も開くたびに絵が変わる）
 const REVISIT_SCRIPT = `document.documentElement.dataset.tpLoad=String(Math.floor(Math.random()*4)+1);try{var t=+localStorage.getItem('tp-visited');if(t&&Date.now()-t<6048e5)document.documentElement.classList.add('tp-revisit')}catch(e){}`;
 
 const WORRIES = [
-  { id: "P01", q: "「AIが便利なのは分かる。でも、うちの仕事のどこに使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）" },
-  { id: "P02", q: "「ツールを入れたけど、結局だれも使っていない」", img: "ほこりをかぶったパソコンと、目をそらす社員たち（フラット・横長。スマホは正方形に切り抜く）" },
-  { id: "P03", q: "「人が足りない。新しく雇うより先に、今いる人の手を空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）" },
+  { id: "P01", q: "「AIが便利なのは分かる。でも、うちの仕事のどこに使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p01.webp", pos: "50% 42%" },
+  { id: "P02", q: "「ツールを入れたけど、結局だれも使っていない」", img: "ほこりをかぶったパソコンと、目をそらす社員たち（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p02.webp", pos: "50% 45%" },
+  { id: "P03", q: "「人が足りない。新しく雇うより先に、今いる人の手を空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p03.webp", pos: "50% 45%" },
 ];
 
 const WHAT_ROWS = [
@@ -55,12 +79,12 @@ const WHAT_ROWS = [
 ];
 
 const GALLERY = [
-  { id: "G01", label: "定例の打ち合わせで、社長と仕事を書き出している手元", tone: "a" as const },
-  { id: "G02", label: "奄美の海が見える事務所", tone: "b" as const },
-  { id: "G03", label: "社員がスマホでAIに話しかけている", tone: "c" as const },
-  { id: "G04", label: "代表 作田 大地が画面を見ながら説明している", tone: "d" as const },
-  { id: "G05", label: "片付いた机と、定時に帰る社員", tone: "a" as const },
-  { id: "G06", label: "有屋町の街並み", tone: "b" as const },
+  { id: "G01", label: "定例の打ち合わせで、社長と仕事を書き出している手元", tone: "a" as const, src: "/images/top/scene/g01.webp" },
+  { id: "G02", label: "奄美の海が見える事務所", tone: "b" as const, src: "/images/top/scene/g02.webp" },
+  { id: "G03", label: "社員がスマホでAIに話しかけている", tone: "c" as const, src: "/images/top/scene/g03.webp" },
+  { id: "G04", label: "代表 作田 大地が画面を見ながら説明している", tone: "d" as const, src: "/images/top/scene/g04.webp" },
+  { id: "G05", label: "片付いた机と、定時に帰る社員", tone: "a" as const, src: "/images/top/scene/g05.webp" },
+  { id: "G06", label: "有屋町の街並み", tone: "b" as const, src: "/images/top/scene/g06.webp" },
 ];
 
 const PRICES = [
@@ -70,6 +94,8 @@ const PRICES = [
     price: "月15万円〜",
     detail: ["月15万円（定例 月1回）", "月25万円（定例 月2回）", "期間の縛りなし"],
     img: "定例の打ち合わせをしている社長と代表（横長）",
+    src: "/images/top/scene/c01.webp",
+    posSp: "50% 30%",
     href: "#flow",
   },
   {
@@ -78,6 +104,8 @@ const PRICES = [
     price: "要見積もり",
     detail: ["業務に合わせた受託開発", "実績: レンタカー会社の業務システム"],
     img: "業務システムの画面が映ったパソコン（横長）",
+    src: "/images/top/scene/c02.webp",
+    posSp: "50% 45%",
     href: "/system",
   },
   {
@@ -86,27 +114,30 @@ const PRICES = [
     price: "25万円〜",
     detail: ["LP・コーポレートサイト", "WordPress・EC・ブログ機能はやりません"],
     img: "スマホとパソコンに映った会社のホームページ（横長）",
+    src: "/images/top/scene/c03.webp",
+    posSp: "50% 55%",
     href: "/web",
   },
 ];
 
 const REASONS = [
-  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "カレンダーをめくるパカ君（ほぼ正方形）" },
-  { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美なら訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）" },
+  { id: "R01", n: "01", t: "期間の縛りなし", d: "何か月続ける、という約束はありません。合わなければ、やめられます。", img: "カレンダーをめくるパカ君（ほぼ正方形）", src: "/images/top/scene/r01.webp" },
+  { id: "R02", n: "02", t: "奄美の会社は訪問も", d: "打ち合わせはオンライン。奄美なら訪問もします。", img: "車で島の会社へ向かう代表（ほぼ正方形）", src: "/images/top/scene/r02.webp" },
   {
     id: "R03",
     n: "03",
     t: "自社でもAIの秘書を毎日使っている",
     d: "代表もTelegramのAI秘書に、毎日仕事を頼んでいます。",
     img: "スマホのTelegramでAIの秘書に話しかける画面（ほぼ正方形）",
+    src: "/images/top/scene/r03.webp",
   },
 ];
 
 const FLOW = [
-  { id: "F01", n: "01", lead: "どの作業に何時間かかっているか、一緒に書き出す", title: "仕事を洗い出す", img: "ホワイトボードに仕事を書き出す社長と代表" },
-  { id: "F02", n: "02", lead: "AIに任せる仕事と、人が残す仕事を分ける", title: "任せる所を決める", img: "付箋を「AI」「人」の2列に分けている手元" },
-  { id: "F03", n: "03", lead: "会社専用のAIエージェントや自動化を作り、今のシステムとつなぐ", title: "仕組みを作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム" },
-  { id: "F04", n: "04", lead: "社員が自分で使えるまで教える。翌月に効き目を見て次へ", title: "根付かせる", img: "社員に使い方を教えている場面" },
+  { id: "F01", n: "01", lead: "どの作業に何時間かかっているか、一緒に書き出す", title: "仕事を洗い出す", img: "ホワイトボードに仕事を書き出す社長と代表", src: "/images/top/scene/f01.webp" },
+  { id: "F02", n: "02", lead: "AIに任せる仕事と、人が残す仕事を分ける", title: "任せる所を決める", img: "付箋を「AI」「人」の2列に分けている手元", src: "/images/top/scene/f02.webp" },
+  { id: "F03", n: "03", lead: "会社専用のAIエージェントや自動化を作り、今のシステムとつなぐ", title: "仕組みを作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム", src: "/images/top/scene/f03.webp" },
+  { id: "F04", n: "04", lead: "社員が自分で使えるまで教える。翌月に効き目を見て次へ", title: "根付かせる", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
 ];
 
 const BAND1 = ["#AMAMI", "#AI", "#KAGOSHIMA", "#ALPACA"];
@@ -120,8 +151,9 @@ function Band({ words, id }: { words: string[]; id: string }) {
           <span className={`tp-band__word tp-band__word--${i % 3}`}>{w}</span>
           {i % 2 === 1 && (
             <PopSwap hold={2.4} offset={i === 3 ? 1.2 : 0} className="tp-band__illust">
-              <Slot id={`${id}-${i}a`} label="パカ君（フラット）" src={PAKA[i % 4]} ground />
-              <Slot id={`${id}-${i}b`} label="パカ君（フラット）" src={PAKA[(i + 2) % 4]} ground />
+              {BAND_PEOPLE[id][i === 1 ? 0 : 1].map((n, k) => (
+                <Slot key={n} id={`${id}-${i}${k === 0 ? "a" : "b"}`} label={who(n)} src={man(n)} alt="" ground />
+              ))}
             </PopSwap>
           )}
         </span>
@@ -171,7 +203,7 @@ export default function Home() {
           {WORRIES.map((w) => (
             <li key={w.id} className="tp-worry__card">
               <div className="tp-worry__img">
-                <Slot id={w.id} label={w.img} tone="d" />
+                <Slot id={w.id} label={w.img} tone="d" src={w.src} cover pos={w.pos} posSp="50% 50%" />
               </div>
               <p className="tp-worry__q">{ph(w.q)}</p>
             </li>
@@ -220,7 +252,7 @@ export default function Home() {
           {GALLERY.map((g, i) => (
             <div key={g.id} className={`tp-gallery__ph ${i % 2 === 0 ? "is-odd" : "is-even"}`}>
               <div className="tp-gallery__in" data-reveal>
-                <Slot id={g.id} label={g.label} tone={g.tone} />
+                <Slot id={g.id} label={g.label} tone={g.tone} src={g.src} cover />
               </div>
             </div>
           ))}
@@ -229,8 +261,8 @@ export default function Home() {
           {[0, 1, 2, 3].map((k) => (
             <div key={k} className="tp-gallery__il">
               <PopSwap hold={3} offset={k % 2 === 1 ? 2.1 : 0}>
-                {[0, 1, 2].map((j) => (
-                  <Slot key={j} id={`I${k + 1}${j + 1}`} label="パカ君（フラット）" src={PAKA[(k + j) % 4]} ground />
+                {ILLUST_PEOPLE[k].map((n, j) => (
+                  <Slot key={n} id={`I${k + 1}${j + 1}`} label={who(n)} src={man(n)} alt="" ground />
                 ))}
               </PopSwap>
             </div>
@@ -246,7 +278,7 @@ export default function Home() {
             <li key={p.id}>
               <a href={p.href} className="tp-price__card">
                 <div className="tp-price__img">
-                  <Slot id={p.id} label={p.img} tone="c" />
+                  <Slot id={p.id} label={p.img} tone="c" src={p.src} cover posSp={p.posSp} />
                 </div>
                 <div className="tp-price__body">
                   <h3 className="tp-price__name">{p.name}</h3>
@@ -279,7 +311,7 @@ export default function Home() {
             <span className="tp-bnr__big">{ph("まずは30分、話してみる")}</span>
           </span>
           <span className="tp-bnr__img">
-            <Slot id="K01" label="パカ君（フラット）" src={PAKA[0]} />
+            <Slot id="K01" label="手を振る顧問" src={man("advisor-wave")} alt="" />
           </span>
         </a>
         <a href={SITE.contact.instagramUrl} className="tp-bnr tp-bnr--sub" target="_blank" rel="noopener noreferrer">
@@ -288,7 +320,7 @@ export default function Home() {
             <span className="tp-bnr__big">{SITE.contact.instagramHandle}</span>
           </span>
           <span className="tp-bnr__img">
-            <Slot id="K02" label="パカ君（フラット）" src={PAKA[2]} />
+            <Slot id="K02" label="スマホを持つ社員" src={man("staff-phone")} alt="" />
           </span>
         </a>
       </section>
@@ -296,14 +328,14 @@ export default function Home() {
       {/* 8 頼む理由（お手本 Reason） */}
       <section className="tp-reason" id="reason">
         <div className="tp-reason__bg">
-          <Slot id="R00" label="奄美の空と海、手前に有屋町の街並み（横長・背景。下端の街並みが見える）" tone="b" />
+          <Slot id="R00" label="奄美の空と海、手前に有屋町の街並み（横長・背景。下端の街並みが見える）" tone="b" src="/images/top/scene/r00.webp" cover pos="50% 60%" posSp="40% 50%" />
         </div>
         <BounceTitle en="Reason" ja="ALPACAに頼む理由" className="tp-reason__title" />
         <ReasonCards count={REASONS.length}>
           {REASONS.map((r) => (
             <article key={r.id} className="tp-rcard">
               <div className="tp-rcard__img">
-                <Slot id={r.id} label={r.img} tone="a" />
+                <Slot id={r.id} label={r.img} tone="a" src={r.src} cover />
               </div>
               <div className="tp-rcard__body">
                 <p className="tp-rcard__n">{r.n}</p>
@@ -326,13 +358,13 @@ export default function Home() {
         {FLOW.map((f, i) => (
           <Reveal key={f.id} className="tp-fblock">
             <div className="tp-fblock__ph">
-              <Slot id={f.id} label={f.img} tone={(["a", "b", "c", "d"] as const)[i]} />
+              <Slot id={f.id} label={f.img} tone={(["a", "b", "c", "d"] as const)[i]} src={f.src} cover />
             </div>
             <div className="tp-fblock__txt">
               <div className="tp-fblock__num">
                 <span className="tp-fblock__n">{f.n}</span>
                 <span className="tp-fblock__il">
-                  <Slot id={`${f.id}i`} label="パカ君（フラット）" src={PAKA[i]} />
+                  <Slot id={`${f.id}i`} label={who(FLOW_PEOPLE[i])} src={man(FLOW_PEOPLE[i])} alt="" />
                 </span>
               </div>
               <p className="tp-fblock__lead">{ph(f.lead)}</p>
@@ -352,7 +384,7 @@ export default function Home() {
       <section className="tp-about" id="about" aria-labelledby="tp-about-h">
         <div className="tp-about__card">
           <div className="tp-about__img">
-            <Slot id="A01" label="代表 作田 大地の写真（正方形）" tone="d" />
+            <Slot id="A01" label="代表 作田 大地の写真（正方形）" tone="d" src="/images/top/scene/a01.webp" cover posSp="50% 68%" />
           </div>
           <div className="tp-about__body">
             <p className="tp-about__en" aria-hidden="true">
@@ -387,7 +419,7 @@ export default function Home() {
       {/* 12〜14 フッター */}
       <footer className="tp-footer" id="tp-footer">
         <div className="tp-fhero">
-          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" className="tp-fhero__slot" />
+          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" cover posSp="52% 50%" className="tp-fhero__slot" />
           <Reveal as="p" className="tp-fhero__copy">
             {FOOT_COPY.map((line, li) => (
               <span key={li} className="tp-fhero__line">
