@@ -2409,6 +2409,26 @@ html.tp-revisit .tp-veil {
 .tp-fhero__slot.is-filled {
   padding-top: 0;
 }
+/* 4周目: PC は下の申込ボタンが絵の下 23% に被り、2人の顔のすぐ下で切れて「塀から首だけ」に見えた。
+   絵を下端を軸に 1.1倍にして人物を 4〜5% 持ち上げ、肩と手まで見せる（上は空だけなので削れても困らない） */
+@media (min-width: 1024px) {
+  .tp-fhero__slot.is-filled .tp-slot__img {
+    scale: 1.1;
+    transform-origin: 50% 100%;
+  }
+}
+/* 768〜1023px は枠が横長の絵に対して狭く、両端の2人の顔が半分切れていた → スマホ用の縦の絵（page.tsx の spMedia）を下揃えで敷き、枠を縦に伸ばす */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tp-fhero {
+    height: 64rem;
+  }
+  .tp-fhero__slot.is-filled .tp-slot__img {
+    object-position: 50% 100%;
+  }
+  .tp-fhero__copy {
+    top: 22%;
+  }
+}
 .tp-fhero__slot.is-filled::after {
   content: "";
   position: absolute;
@@ -2451,7 +2471,7 @@ html.tp-revisit .tp-veil {
   translate: 0 0;
 }
 .tp-footer__in {
-  margin-top: -29rem;
+  margin-top: -26rem;
   padding-top: 17rem;
   padding-bottom: 6rem;
   background: #fff;
@@ -2642,7 +2662,8 @@ html.tp-revisit .tp-veil {
 .tp-company dd {
   display: flex;
   align-items: center;
-  min-height: 3rem;
+  /* リンクの行（44px）とそうでない行で行の間がばらついていた（4周目）。全部 44px にそろえる */
+  min-height: 44px;
 }
 .tp-sitemap {
   margin-top: 5rem;

@@ -140,7 +140,7 @@ const FLOW = [
   { id: "F01", n: "01", lead: "どの作業に何時間かかっているか、一緒に書き出す", title: "仕事を洗い出す", img: "ホワイトボードに仕事を書き出す社長と代表", src: "/images/top/scene/f01.webp" },
   { id: "F02", n: "02", lead: "AIに任せる仕事と、人が残す仕事を分ける", title: "任せる所を決める", img: "付箋を「AI」「人」の2列に分けている手元", src: "/images/top/scene/f02.webp" },
   { id: "F03", n: "03", lead: "会社専用のAIエージェントや自動化を作り、今のシステムとつなぐ", title: "仕組みを作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム", src: "/images/top/scene/f03.webp" },
-  { id: "F04", n: "04", lead: "社員が自分で使えるまで教える。翌月に効き目を見て次へ", title: "根付かせる", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
+  { id: "F04", n: "04", lead: "社員が自分で使えるまで教え、翌月に効き目を見て次の仕事を決める", title: "根付かせる", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
 ];
 
 const BAND1 = ["#AMAMI", "#AI", "#KAGOSHIMA", "#ALPACA"];
@@ -410,7 +410,7 @@ export default function Home() {
               ALPACAについて
             </h2>
             <p className="tp-about__txt">
-              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。自社でも、Telegramで話しかけると動くAIの秘書に毎日仕事を頼んでいます。")}
+              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。AI顧問のほかに、業務システムとホームページも作っています。")}
             </p>
           </div>
         </div>
@@ -435,7 +435,7 @@ export default function Home() {
       {/* 12〜14 フッター */}
       <footer className="tp-footer" id="tp-footer">
         <div className="tp-fhero">
-          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" srcSp="/images/top/scene/h01-sp.webp" cover className="tp-fhero__slot" />
+          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" srcSp="/images/top/scene/h01-sp.webp" spMedia="(max-width: 1023px)" cover className="tp-fhero__slot" />
           <Reveal as="p" className="tp-fhero__copy">
             {FOOT_COPY.map((line, li) => (
               <span key={li} className="tp-fhero__line">

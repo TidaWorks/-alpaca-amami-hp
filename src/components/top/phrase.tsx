@@ -7,7 +7,8 @@ import type { ReactNode } from "react";
 export function ph(text: string): ReactNode {
   // 区切りの後ろ（、。／）」）と「（」の前で切る
   const parts = text
-    .replace(/([、。／）」]+)/g, "$1\u0000")
+    // 「）〜」の「〜」は前に付ける（スマホで行頭に「〜」が来ていた・4周目）
+    .replace(/([、。／）」]+〜?)/g, "$1\u0000")
     .replace(/（/g, "\u0000（")
     .split("\u0000")
     .filter(Boolean);

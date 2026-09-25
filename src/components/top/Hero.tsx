@@ -180,7 +180,7 @@ export default function Hero() {
               >
                 <div className="tp-hero__kb">
                   {/* 2・3枚目は切り替えが始まってから読む（最初の読み込みを 1枚目だけにする。1枚目が見えている 5秒の間に届く） */}
-                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} srcSp={s.srcSp} alt={s.alt} cover className="tp-hero__slot" eager={i === 0} />
+                  <Slot id={s.id} label={s.label} tone={s.tone} src={i === 0 || started ? s.src : undefined} srcSp={s.srcSp} spMedia="(max-width: 767px), (max-width: 1023px) and (orientation: portrait)" alt={s.alt} cover className="tp-hero__slot" eager={i === 0} />
                 </div>
               </div>
             ))}

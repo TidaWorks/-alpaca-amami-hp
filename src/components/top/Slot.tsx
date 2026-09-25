@@ -13,6 +13,8 @@ type Props = {
   src?: string;
   /** スマホ（767px 以下）だけ別の絵にする時。ヒーローとフッターは描き直しでスマホ用の絵を足す想定（IMAGE-SLOTS.md） */
   srcSp?: string;
+  /** srcSp に切り替える条件（既定はスマホ幅）。縦長のタブレットでも横長の絵だと両端の人物が切れるので、ヒーローとフッターは広げる（4周目） */
+  spMedia?: string;
   alt?: string;
   /** 黄色い地面のような下敷きを敷く（イラスト枠） */
   ground?: boolean;
@@ -25,7 +27,7 @@ type Props = {
   eager?: boolean;
 };
 
-export default function Slot({ id, label, className = "", tone = "a", src, srcSp, alt = "", ground, cover, pos, posSp, eager }: Props) {
+export default function Slot({ id, label, className = "", tone = "a", src, srcSp, spMedia = "(max-width: 767px)", alt = "", ground, cover, pos, posSp, eager }: Props) {
   const style = {
     ...(pos ? { "--tp-pos": pos } : {}),
     ...(posSp ? { "--tp-pos-sp": posSp } : {}),
@@ -45,7 +47,7 @@ export default function Slot({ id, label, className = "", tone = "a", src, srcSp
       {src ? (
         srcSp ? (
           <picture className="tp-slot__pic">
-            <source media="(max-width: 767px)" srcSet={srcSp} />
+            <source media={spMedia} srcSet={srcSp} />
             {img}
           </picture>
         ) : (
