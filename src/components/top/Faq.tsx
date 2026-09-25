@@ -19,33 +19,28 @@ export const FAQS = [
 function Item({ q, a, i }: { q: string; a: string; i: number }) {
   const [open, setOpen] = useState(false);
   const body = useRef<HTMLDivElement>(null);
+  const anim = useRef<Animation | null>(null);
   const toggle = () => {
     const el = body.current;
     const next = !open;
     setOpen(next);
     if (!el) return;
-    if (isReduced()) {
-      el.style.height = next ? "auto" : "0px";
-      el.style.opacity = next ? "1" : "0";
-      return;
-    }
-    const h = el.scrollHeight;
-    const anim = el.animate(
-      next
-        ? [
-            { height: "0px", opacity: 0 },
-            { height: `${h}px`, opacity: 1 },
-          ]
-        : [
-            { height: `${h}px`, opacity: 1 },
-            { height: "0px", opacity: 0 },
-          ],
+    // 3周目: 開く途中でもう一度押すと、開く動きの onfinish が閉じた後に height: auto を書き、aria は閉じたのに開いたままになっていた。
+    // 終わりの形を先に書いてから、今の高さ→終わりの高さを動かす。途中の動きは止めてから次を始める
+    const fromH = el.getBoundingClientRect().height;
+    const fromO = Number(getComputedStyle(el).opacity);
+    anim.current?.cancel();
+    const toH = next ? el.scrollHeight : 0;
+    el.style.height = next ? "auto" : "0px";
+    el.style.opacity = next ? "1" : "0";
+    if (isReduced()) return;
+    anim.current = el.animate(
+      [
+        { height: `${fromH}px`, opacity: fromO },
+        { height: `${toH}px`, opacity: next ? 1 : 0 },
+      ],
       { duration: 250, easing: "ease" }
     );
-    anim.onfinish = () => {
-      el.style.height = next ? "auto" : "0px";
-      el.style.opacity = next ? "1" : "0";
-    };
   };
   return (
     <li className={`tp-faq__item ${open ? "is-open" : ""}`}>

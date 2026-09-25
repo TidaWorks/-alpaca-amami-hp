@@ -34,7 +34,15 @@ export default function Reveal({ as: Tag = "div", className, children, id, style
         el.dataset.inview = "true";
       },
     });
-    return () => st.kill();
+    // キーボードで中のボタンにフォーカスが来たら、きっかけの位置より手前でも出す（3周目: 見えないボタンにフォーカスが乗っていた）
+    const onFocus = () => {
+      el.dataset.inview = "true";
+    };
+    el.addEventListener("focusin", onFocus);
+    return () => {
+      st.kill();
+      el.removeEventListener("focusin", onFocus);
+    };
   }, [start]);
   return (
     <Tag ref={ref} className={className} id={id} style={style}>
