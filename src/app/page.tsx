@@ -115,7 +115,7 @@ const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: 
     name: "ホームページ制作",
     price: "25万円〜",
     tax: true,
-    detail: ["LP・コーポレートサイト", "WordPress・EC・ブログ機能はやりません"],
+    detail: ["LP・コーポレートサイト", "WordPress、EC、ブログ機能はやりません"],
     img: "スマホとパソコンに映った会社のホームページ（横長）",
     src: "/images/top/scene/c03.webp",
     posSp: "50% 55%",
@@ -237,7 +237,7 @@ export default function Home() {
               <CalendarCheck aria-hidden="true" />
               <span>AI顧問</span>
             </p>
-            <p className="tp-what__lead">{ph("月1〜2回の打ち合わせで、AIに任せる仕事を決め、任せる仕組みを作るところまでやる顧問です。")}</p>
+            <p className="tp-what__lead">{ph("月1〜2回の打ち合わせで、AIに任せる仕事を決め、任せる仕組みまで作る顧問です。")}</p>
           </div>
           <div className="tp-what__rows">
             {WHAT_ROWS.map((r) => (
@@ -410,7 +410,7 @@ export default function Home() {
               ALPACAについて
             </h2>
             <p className="tp-about__txt">
-              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。AI顧問のほかに、業務システムとホームページも作っています。")}
+              {ph("奄美大島の有屋町にある会社です。代表は作田 大地。AI顧問のほかに、業務システムも、ホームページも作ります。")}
             </p>
           </div>
         </div>
