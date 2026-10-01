@@ -47,3 +47,7 @@ public/images/agent-bake/
 
 # 画像生成スキルのフォールバック保存先（サイト本体ではない）
 ai-images/
+
+# 作業場の依存とビルドは追加ディスクへのリンク（ルートが満杯のため）
+node_modules
+.next

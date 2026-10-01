@@ -1,34 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CalendarCheck, CircleHelp, Mail, MessageCircle, Phone, Route, Building2 } from "lucide-react";
-import "@/components/top/top.css";
-import Hero from "@/components/top/Hero";
-import Header from "@/components/top/Header";
-import SideCta from "@/components/top/SideCta";
-import Marquee from "@/components/top/Marquee";
-import PopSwap from "@/components/top/PopSwap";
-import GalleryRow from "@/components/top/GalleryRow";
-import BounceTitle from "@/components/top/BounceTitle";
-import Reveal from "@/components/top/Reveal";
-import ReasonCards from "@/components/top/ReasonCards";
-import Slot from "@/components/top/Slot";
-import { ph } from "@/components/top/phrase";
-import Faq from "@/components/top/Faq";
-import ContactForm from "@/components/top/ContactForm";
+import "@/components/award/aw.css";
+import { gothic, mincho, mono } from "@/components/award/fonts";
+import { jp } from "@/components/award/jp";
+import AwHeader from "@/components/award/AwHeader";
+import AwMotion from "@/components/award/AwMotion";
+import AwFaq from "@/components/award/AwFaq";
+import AwForm from "@/components/award/AwForm";
 import { SITE } from "@/lib/site";
 
 /**
- * ALPACA 新トップ（2026-09 作り直し）
- * お手本 e-chubu.jp の15セクションの流れと動きを ALPACA の中身に当てはめた物。
- * 対応表: docs/research/hp-renew-2026-09-25/MAPPING.md ／ 絵の枠: IMAGE-SLOTS.md
+ * ALPACA トップ（2026-10 作り直し・award-p2）
+ * 方向: 組織表の「IT担当」の空席に ALPACA の名前が入る。生成り・墨・朱の3色、明朝と罫線だけ。DIRECTION.md
+ * 文言の正: /root/agents/alpaca-notes/facts/business.md と決定済みの COPY-APPLY-0926.md
  */
 
+const DESC =
+  "社内にIT担当がいない会社の、IT担当になります。ホームページ制作（25万円から）、業務システムの開発、業務をAIに任せる仕組みを毎月一緒に作るAI顧問（月15万円から）。鹿児島県奄美市有屋町のALPACA。";
+
 export const metadata: Metadata = {
-  title: { absolute: "ALPACA | 奄美・鹿児島の会社のAI顧問" },
-  description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問 月15万円〜（税別・定例の打ち合わせ月1回）。期間の縛りなし。",
+  title: { absolute: "ALPACA | 社内にIT担当がいない会社の、IT担当になります。" },
+  description: DESC,
   openGraph: {
-    title: "ALPACA | 奄美・鹿児島の会社のAI顧問",
-    description: "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。",
+    title: "ALPACA | 社内にIT担当がいない会社の、IT担当になります。",
+    description: DESC,
     url: "https://alpaca-amami.com",
     siteName: "ALPACA",
     locale: "ja_JP",
@@ -36,546 +31,477 @@ export const metadata: Metadata = {
   },
 };
 
-// 登場人物（社長・事務の社員・現場の社員・顧問）の切り抜き。ポーズ集から1体ずつ抜いた透過 WebP
-const man = (n: string) => `/images/top/people/${n}.webp`;
-const PEOPLE_ALT: Record<string, string> = { president: "社長", staff: "事務の社員", worker: "現場の社員", advisor: "ALPACAの顧問" };
-const who = (n: string) => PEOPLE_ALT[n.split("-")[0]] ?? "";
-
-// 帯のイラスト（2か所×2枚1組）
-const BAND_PEOPLE: Record<string, [string, string][]> = {
-  B1: [
-    ["staff-carry", "advisor-laptop"],
-    ["president-talk", "worker-phone"],
-  ],
-  B2: [
-    ["staff-phone", "president-wave"],
-    ["worker-cheer", "advisor-wave"],
-  ],
-};
-// ギャラリーの上のイラスト列（4枠×3枚）
-const ILLUST_PEOPLE = [
-  ["president-think", "advisor-point", "staff-think"],
-  ["worker-phone", "staff-laptop", "president-talk"],
-  ["advisor-laptop", "worker-carry", "staff-point"],
-  ["president-cheer", "staff-wave", "worker-wave"],
-];
-// 毎月の流れの番号の横（書き出す／分ける／作る／根付かせる）
-const FLOW_PEOPLE = ["president-point", "staff-think", "advisor-laptop", "worker-cheer"];
-
-// 初回訪問の判定（7日以内に来ていたらオープニングの白い幕を出さない）。描画前に実行してちらつきを防ぐ
-// あわせてローディングの絵を開くたびに4種から選ぶ（お手本も開くたびに絵が変わる）
-const REVISIT_SCRIPT = `document.documentElement.dataset.tpLoad=String(Math.floor(Math.random()*4)+1);try{var t=+localStorage.getItem('tp-visited');if(t&&Date.now()-t<6048e5)document.documentElement.classList.add('tp-revisit')}catch(e){}`;
-
-const WORRIES = [
-  { id: "P01", q: "「AIがすごいのは知ってる。でも、うちのどの仕事に使えばいいのか分からない」", img: "腕を組んで考え込む社長（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p01.webp", pos: "50% 42%" },
-  { id: "P02", q: "「便利なアプリを入れたけど、結局だれも開いてない」", img: "ほこりをかぶったパソコンと、目をそらす社員たち（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p02.webp", pos: "50% 45%" },
-  { id: "P03", q: "「求人を出しても人が来ない。今いる人の手を少しでも空けたい」", img: "書類の山に囲まれて手が足りない事務所（フラット・横長。スマホは正方形に切り抜く）", src: "/images/top/scene/p03.webp", pos: "50% 45%" },
+// 一番上の一文。かたまりごとに折り返し、1つずつ下から出す（言い回しは決定済み・変えない）
+const HERO_LINES = [
+  ["社内に", "IT担当が", "いない会社の、"],
+  ["IT担当に", "なります。"],
 ];
 
-const WHAT_ROWS: { k: string; v: string; note?: string }[] = [
-  { k: "料金", v: "月15万円（定例の打ち合わせ月1回）〜 月25万円（月2回）", note: "税別" },
-  { k: "期間", v: "期間の縛りなし" },
-  { k: "打ち合わせ", v: "オンライン。奄美の会社は訪問も" },
+// 組織表（例）。最後の行の「空席」が消えて ALPACA が入る
+const ROSTER = [
+  { role: "社長", who: "あなた", note: "決める" },
+  { role: "経理", who: "事務の方", note: "お金と書類" },
+  { role: "現場", who: "社員の皆さん", note: "お客さんの前に立つ" },
 ];
 
-const GALLERY = [
-  { id: "G01", label: "定例の打ち合わせで、社長と仕事を書き出している手元", tone: "a" as const, src: "/images/top/scene/g01.webp" },
-  { id: "G02", label: "奄美の海が見える事務所", tone: "b" as const, src: "/images/top/scene/g02.webp" },
-  { id: "G03", label: "社員がスマホでAIに話しかけている", tone: "c" as const, src: "/images/top/scene/g03.webp" },
-  { id: "G04", label: "代表 作田 大地が画面を見ながら説明している", tone: "d" as const, src: "/images/top/scene/g04.webp" },
-  { id: "G05", label: "片付いた机と、定時に帰る社員", tone: "a" as const, src: "/images/top/scene/g05.webp" },
-  { id: "G06", label: "有屋町の街並み", tone: "b" as const, src: "/images/top/scene/g06.webp" },
-];
-
-// 飛び先はトップの中だけ（古い方針の下層 /system /web へは飛ばさない）
-const PRICES: { id: string; name: string; price: string; tax?: boolean; detail: string[]; img: string; src: string; posSp: string; href: string }[] = [
+const WORKS = [
   {
-    id: "C01",
-    name: "AI顧問",
-    price: "月15万円〜",
-    tax: true,
-    detail: ["月15万円（定例 月1回）", "月25万円（定例 月2回）", "期間の縛りなし"],
-    img: "定例の打ち合わせをしている社長と代表（横長）",
-    src: "/images/top/scene/c01.webp",
-    posSp: "50% 30%",
-    href: "#flow",
-  },
-  {
-    id: "C02",
-    name: "システム開発",
-    price: "要見積もり",
-    detail: ["業務に合わせた受託開発"],
-    img: "業務システムの画面が映ったパソコン（横長）",
-    src: "/images/top/scene/c02.webp",
-    posSp: "50% 45%",
-    href: "#contact",
-  },
-  {
-    id: "C03",
+    n: "01",
+    id: "web",
     name: "ホームページ制作",
-    price: "25万円〜",
+    lead: "会社の窓口になるページを作ります。一枚もののLPから、会社案内のサイトまで。",
+    sub: "",
+    items: ["LP", "コーポレートサイト", "Next.jsで作る、Webアプリ寄りのサイト"],
+    note: "WordPress、EC、ブログ機能は扱いません。",
+    priceLabel: "料金",
+    price: "25万円から",
     tax: true,
-    detail: ["LP・コーポレートサイト", "WordPress、EC、ブログ機能はやりません"],
-    img: "スマホとパソコンに映った会社のホームページ（横長）",
-    src: "/images/top/scene/c03.webp",
-    posSp: "50% 55%",
-    href: "#contact",
   },
-];
-
-const REASONS = [
-  { id: "R01", n: "01", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。", img: "壁のカレンダーの前で、顧問と社長が今月の予定を決めている", src: "/images/top/scene/r01-plan.webp" },
-  { id: "R02", n: "02", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。", img: "車で島の会社へ向かう代表（ほぼ正方形）", src: "/images/top/scene/r02.webp" },
   {
-    id: "R03",
+    n: "02",
+    id: "system",
+    name: "システム開発",
+    lead: "紙とExcelで続けてきた仕事を、その会社のやり方に合わせてシステムにします。",
+    sub: "",
+    items: ["顧客管理", "予約", "受発注", "在庫", "見積と請求", "勤怠", "売上の集計"],
+    note: "業種に合わせた物も作ります。",
+    priceLabel: "料金",
+    price: "内容を聞いてお見積り",
+    tax: false,
+  },
+  {
     n: "03",
-    t: "奄美にいる",
-    d: "奄美の会社なら、会って話せます。",
-    img: "スマホのTelegramでAIの秘書に話しかける画面（ほぼ正方形）",
-    src: "/images/top/scene/r03.webp",
+    id: "komon",
+    name: "AI顧問",
+    lead: "月に1〜2回、会社にうかがうか画面ごしに話して、AIに任せる仕事を1つずつ決めます。決めたら、動く仕組みまでこちらで作ります。",
+    sub: "できあがったAIには、社員がスマホから話しかけるだけ。スタッフが1人増えた感覚で使えます。",
+    items: ["会社専用のAI", "作業の自動化", "今使っているソフトとの連携", "社員への使い方の説明"],
+    note: "",
+    priceLabel: "顧問料",
+    price: "月15万円から",
+    tax: true,
   },
 ];
 
-const FLOW = [
-  { id: "F01", n: "01", lead: "どの作業に毎日何分かかっているか、一緒に書き出します", title: "書き出す", img: "ホワイトボードに仕事を書き出す社長と代表", src: "/images/top/scene/f01.webp" },
-  { id: "F02", n: "02", lead: "AIに任せる作業と、人が続ける作業を分けます。全部をAIにはしません", title: "分ける", img: "付箋を「AI」「人」の2列に分けている手元", src: "/images/top/scene/f02.webp" },
-  { id: "F03", n: "03", lead: "会社専用のAIや、今使っているソフトとつながる仕組みを作ります", title: "作る", img: "会社専用のAIエージェントの画面と、つながった今のシステム", src: "/images/top/scene/f03.webp" },
-  { id: "F04", n: "04", lead: "社員さんが自分で使えるまで付き合います。翌月、何分減ったかを見て、次の作業へ", title: "使えるようにする", img: "社員に使い方を教えている場面", src: "/images/top/scene/f04.webp" },
+// 社長の困りごと（決定済みの3行）
+// 大きな字で読ませるので、句のかたまりを手で切る（スマホで「でも、」だけの行ができていた）
+const VOICES = [
+  ["「AIがすごいのは", "知ってる。", "でも、うちの", "どの仕事に", "使えばいいのか", "分からない」"],
+  ["「便利なアプリを", "入れたけど、", "結局だれも", "開いてない」"],
+  ["「求人を出しても", "人が来ない。", "今いる人の手を", "少しでも", "空けたい」"],
 ];
 
-const BAND1 = ["#AMAMI", "#AI", "#KAGOSHIMA", "#ALPACA"];
-const BAND2 = ["#AI顧問", "#奄美大島", "#鹿児島", "#ALPACA"];
+// ALPACAに頼む理由（決定済み）
+const REASONS = [
+  { n: "01", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。" },
+  { n: "02", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。" },
+  { n: "03", t: "奄美にいる", d: "奄美の会社なら、会って話せます。" },
+];
 
-function Band({ words, id }: { words: string[]; id: string }) {
+// AI顧問の毎月の流れ（決定済み）
+const FLOW = [
+  { n: "01", t: "書き出す", d: "どの作業に毎日何分かかっているか、一緒に書き出します" },
+  { n: "02", t: "分ける", d: "AIに任せる作業と、人が続ける作業を分けます。全部をAIにはしません" },
+  { n: "03", t: "作る", d: "会社専用のAIや、今使っているソフトとつながる仕組みを作ります" },
+  { n: "04", t: "使えるようにする", d: "社員さんが自分で使えるまで付き合います。翌月、何分減ったかを見て、次の作業へ" },
+];
+
+const PRICES = [
+  { name: "AI顧問", main: "月15万円から", rows: ["月15万円　定例の打ち合わせ 月1回", "月25万円　定例の打ち合わせ 月2回"], tax: true },
+  { name: "システム開発", main: "お見積り", rows: ["内容を聞いてから金額を出します"], tax: false },
+  { name: "ホームページ制作", main: "25万円から", rows: ["LP、コーポレートサイト"], tax: true },
+];
+
+const PRICE_NOTES = [
+  "AI顧問に最低契約期間はありません。",
+  "AI顧問の保守は月額に含みます。別の保守料はかかりません。",
+  "AIの利用料が実費でかかる場合があります。",
+  "打ち合わせはオンラインが基本です。奄美の会社には訪問もします。",
+];
+
+// 答えは今のトップの文言のまま（facts/business.md と合わせた物）
+const FAQS = [
+  {
+    q: "何から始めればいい？",
+    a: "まずは30分、話を聞かせてください。相談は無料です。AI顧問が始まったら、最初の月は仕事の書き出しから入ります。",
+  },
+  { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけで受けます。" },
+  { q: "パソコンが苦手な社員でも使える？", a: "大丈夫です。社員が自分で使えるまで教えます。" },
+  { q: "途中でやめられる？", a: "やめられます。AI顧問に最低契約期間はありません。" },
+  { q: "奄美以外の会社でも頼める？", a: "頼めます。打ち合わせはオンラインです。奄美の会社には訪問もします。" },
+  { q: "顧問料のほかにかかる費用は？", a: "AIの利用料が実費でかかる場合があります。保守料は月額に含みます。" },
+];
+
+const COMPANY: [string, React.ReactNode][] = [
+  ["屋号", "ALPACA"],
+  ["代表", "作田 大地（さくだ だいち）"],
+  ["事業内容", "AI導入支援／システム開発／HP制作"],
+  ["所在地", "鹿児島県奄美市有屋町"],
+  ["電話", <a key="t" href={SITE.contact.telHref}>{SITE.contact.tel}</a>],
+  ["メール", <a key="m" href={SITE.contact.emailHref}>{SITE.contact.email}</a>],
+  [
+    "Instagram",
+    <a key="i" href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer">
+      {SITE.contact.instagramHandle}
+    </a>,
+  ],
+];
+
+function SecHead({ n, title, id }: { n: string; title: React.ReactNode; id: string }) {
   return (
-    <Marquee speedPC={60} speedSP={39} className={`tp-band tp-band--${id}`}>
-      {words.map((w, i) => (
-        <span key={w} className="tp-band__item">
-          <span className={`tp-band__word tp-band__word--${i % 3}`}>{w}</span>
-          {i % 2 === 1 && (
-            <PopSwap hold={2.4} offset={i === 3 ? 1.2 : 0} className="tp-band__illust">
-              {BAND_PEOPLE[id][i === 1 ? 0 : 1].map((n, k) => (
-                <Slot key={n} id={`${id}-${i}${k === 0 ? "a" : "b"}`} label={who(n)} src={man(n)} alt="" ground />
-              ))}
-            </PopSwap>
-          )}
-        </span>
-      ))}
-    </Marquee>
+    <header className="aw-sechead">
+      <p className="aw-sechead__n" aria-hidden="true">
+        ({n})
+      </p>
+      <h2 className="aw-sechead__t" id={id} data-rise>
+        {title}
+      </h2>
+    </header>
   );
 }
 
-function IconBtn({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+function Arrow() {
   return (
-    <a href={href} className="tp-ibtn">
-      <span className="tp-ibtn__icon" aria-hidden="true">
-        {icon}
-      </span>
-      {/* 「ALPACA」「について」の句で折る（Safari で「ALPACAについ／て」と折れていた） */}
-      <span className="tp-ibtn__txt">
-        {label.split(/(?<=^ALPACA)/).map((t) => (
-          <span key={t} className="tp-ph">
-            {t}
-          </span>
-        ))}
-      </span>
-      <ArrowRight className="tp-ibtn__arrow" aria-hidden="true" />
-    </a>
+    <svg className="aw-arrow" viewBox="0 0 20 12" aria-hidden="true">
+      <path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
   );
 }
-
-// #22 コピーを文字のかたまり（最大20）に分けて 0.025s ずつ出す
-const FOOT_COPY = [["会", "社", "の", "仕", "事", "に", "、"], ["AI", "の", "手", "を", "。"]];
 
 export default function Home() {
   return (
-    <div className="tp">
-      <script dangerouslySetInnerHTML={{ __html: REVISIT_SCRIPT }} />
-      <Header />
-      <SideCta />
+    <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable}`}>
+      {/* 動きを許す人だけ、最初の形（隠した状態）を描画前に入れる。ちらつき防止 */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var c=document.documentElement.classList;c.add('aw-anim');setTimeout(function(){if(!c.contains('aw-js-ok'))c.remove('aw-anim')},6000)}}catch(e){}`,
+        }}
+      />
+      <a href="#work" className="aw-skip">
+        本文へ
+      </a>
+      <AwHeader />
 
-      {/* 2 ヒーロー */}
-      <Hero />
-      {/* 2b 流れる帯 */}
-      <Band words={BAND1} id="B1" />
-
-      {/* 3 困りごと（お手本 Pick up） */}
-      <section className="tp-wrap tp-2col tp-worry" id="voice" aria-labelledby="tp-worry-h">
-        <div className="tp-sec-ttl">
-          <p className="tp-sec-ttl__en" aria-hidden="true">
-            Voice
+      {/* 一番上: 一文と余白、組織表 */}
+      <section className="aw-hero" aria-labelledby="aw-hero-h">
+        <div className="aw-wrap aw-hero__in">
+          <p className="aw-hero__meta" data-hero="meta">
+            <span>奄美大島　有屋町</span>
+            <span className="aw-hero__meta-r">ホームページ制作／システム開発／AI顧問</span>
           </p>
-          <h2 className="tp-sec-ttl__ja" id="tp-worry-h">
-            社長の困りごと
-          </h2>
-        </div>
-        <ul className="tp-worry__list">
-          {WORRIES.map((w) => (
-            <li key={w.id} className="tp-worry__card">
-              <div className="tp-worry__img">
-                <Slot id={w.id} label={w.img} tone="d" src={w.src} cover pos={w.pos} posSp="50% 50%" />
-              </div>
-              <p className="tp-worry__q">{ph(w.q)}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 4 AI顧問とは（お手本 News） */}
-      <section className="tp-wrap tp-2col tp-what" id="what" aria-labelledby="tp-what-h">
-        <div className="tp-sec-ttl">
-          <p className="tp-sec-ttl__en" aria-hidden="true">
-            What
-          </p>
-          <h2 className="tp-sec-ttl__ja" id="tp-what-h">
-            AI顧問とは
-          </h2>
-        </div>
-        <div>
-          <div className="tp-what__box">
-            <p className="tp-what__label">
-              <CalendarCheck aria-hidden="true" />
-              <span>AI顧問</span>
-            </p>
-            <p className="tp-what__lead">{ph("月に1〜2回、会社にうかがうか画面ごしに話して、AIに任せる仕事を1つずつ決めます。決めたら、動く仕組みまでこちらで作ります。")}</p>
-          </div>
-          <div className="tp-what__rows">
-            {WHAT_ROWS.map((r) => (
-              <a key={r.k} href="#price" className="tp-row tp-what__row">
-                <span className="tp-what__k">{r.k}</span>
-                <span className="tp-what__v">
-                  {ph(r.v)}
-                  {r.note && <small className="tp-tax">（{r.note}）</small>}
-                </span>
-              </a>
-            ))}
-          </div>
-          <p className="tp-more">
-            <a href="#price" className="tp-more__link">
-              <ArrowRight aria-hidden="true" />
-              <span>料金を見る</span>
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* 5 ギャラリー（写真の列＋イラストの列） */}
-      <section className="tp-gallery" aria-label="AI顧問の様子">
-        <GalleryRow speedPC={1} speedSP={0.5} reveal draggable className="tp-gallery__photos">
-          {GALLERY.map((g, i) => (
-            <div key={g.id} className={`tp-gallery__ph ${i % 2 === 0 ? "is-odd" : "is-even"}`}>
-              <div className="tp-gallery__in" data-reveal>
-                <Slot id={g.id} label={g.label} tone={g.tone} src={g.src} cover />
-              </div>
-            </div>
-          ))}
-        </GalleryRow>
-        <GalleryRow speedPC={1.25} speedSP={0.625} className="tp-gallery__illust">
-          {[0, 1, 2, 3].map((k) => (
-            <div key={k} className="tp-gallery__il">
-              <PopSwap hold={3} offset={k % 2 === 1 ? 2.1 : 0}>
-                {ILLUST_PEOPLE[k].map((n, j) => (
-                  <Slot key={n} id={`I${k + 1}${j + 1}`} label={who(n)} src={man(n)} alt="" ground />
-                ))}
-              </PopSwap>
-            </div>
-          ))}
-        </GalleryRow>
-      </section>
-
-      {/* 6 料金（お手本 License の白い大パネル） */}
-      <section className="tp-panel" id="price">
-        <BounceTitle en="Price" ja="料金" className="tp-panel__title" />
-        <ul className="tp-price">
-          {PRICES.map((p) => (
-            <li key={p.id}>
-              <a href={p.href} className="tp-price__card">
-                <div className="tp-price__img">
-                  <Slot id={p.id} label={p.img} tone="c" src={p.src} cover posSp={p.posSp} />
-                </div>
-                <div className="tp-price__body">
-                  <h3 className="tp-price__name">{p.name}</h3>
-                  <p className="tp-price__yen">
-                    {p.price}
-                    {p.tax && <small className="tp-tax">（税別）</small>}
-                  </p>
-                  <ul className="tp-price__detail">
-                    {p.detail.map((d) => (
-                      <li key={d}>{ph(d)}</li>
-                    ))}
-                  </ul>
-                  <span className="tp-price__go" aria-hidden="true">
-                    <ArrowRight />
-                  </span>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="tp-ibtns">
-          <IconBtn href="#flow" icon={<Route />} label="毎月の流れ" />
-          <IconBtn href="#faq" icon={<CircleHelp />} label="よくある質問" />
-          <IconBtn href="#contact" icon={<MessageCircle />} label="お問い合わせ" />
-        </div>
-      </section>
-
-      {/* 7 特設バナー2枚 */}
-      <section className="tp-special" aria-label="ご案内">
-        <a href="#contact" className="tp-bnr tp-bnr--main">
-          <span className="tp-bnr__txt">
-            <span className="tp-bnr__small">無料相談</span>
-            <span className="tp-bnr__big">{ph("まずは30分、話してみる")}</span>
-          </span>
-          <span className="tp-bnr__img">
-            <Slot id="K01" label="顧問が社長を事務所に迎え入れる場面" src="/images/top/scene/k01.webp" alt="" cover pos="50% 40%" />
-          </span>
-        </a>
-        <a href={SITE.contact.instagramUrl} className="tp-bnr tp-bnr--sub" target="_blank" rel="noopener noreferrer">
-          <span className="tp-bnr__txt">
-            <span className="tp-bnr__small">Instagram</span>
-            <span className="tp-bnr__big">{SITE.contact.instagramHandle}</span>
-          </span>
-          <span className="tp-bnr__img">
-            <Slot id="K02" label="事務の社員がスマホで奄美の海を撮る場面" src="/images/top/scene/k02.webp" alt="" cover pos="50% 50%" />
-          </span>
-        </a>
-      </section>
-
-      {/* 8 頼む理由（お手本 Reason） */}
-      <section className="tp-reason" id="reason">
-        <div className="tp-reason__bg">
-          <Slot id="R00" label="奄美の空と海、手前に有屋町の街並み（横長・背景。下端の街並みが見える）" tone="b" src="/images/top/scene/r00.webp" cover pos="50% 60%" posSp="40% 50%" />
-        </div>
-        <BounceTitle en="Reason" ja="ALPACAに頼む理由" className="tp-reason__title" />
-        <ReasonCards count={REASONS.length}>
-          {REASONS.map((r) => (
-            <article key={r.id} className="tp-rcard">
-              <div className="tp-rcard__img">
-                <Slot id={r.id} label={r.img} tone="a" src={r.src} cover />
-              </div>
-              <div className="tp-rcard__body">
-                <p className="tp-rcard__n">{r.n}</p>
-                <h3 className="tp-rcard__t">{ph(r.t)}</h3>
-                <p className="tp-rcard__d">{ph(r.d)}</p>
-              </div>
-            </article>
-          ))}
-        </ReasonCards>
-        <div className="tp-ibtns tp-reason__btns">
-          <IconBtn href="#flow" icon={<Route />} label="毎月の流れ" />
-          <IconBtn href="#price" icon={<CalendarCheck />} label="料金" />
-          <IconBtn href="#about" icon={<Building2 />} label="ALPACAについて" />
-        </div>
-      </section>
-
-      {/* 9 毎月の流れ（お手本 About の番号ブロック） */}
-      <section className="tp-flow" id="flow">
-        <BounceTitle en="Flow" ja="毎月の流れ" className="tp-flow__title" />
-        {FLOW.map((f, i) => (
-          <Reveal key={f.id} className="tp-fblock">
-            <div className="tp-fblock__ph">
-              <Slot id={f.id} label={f.img} tone={(["a", "b", "c", "d"] as const)[i]} src={f.src} cover />
-            </div>
-            <div className="tp-fblock__txt">
-              <div className="tp-fblock__num">
-                <span className="tp-fblock__n">{f.n}</span>
-                <span className="tp-fblock__il">
-                  <Slot id={`${f.id}i`} label={who(FLOW_PEOPLE[i])} src={man(FLOW_PEOPLE[i])} alt="" />
-                </span>
-              </div>
-              <p className="tp-fblock__lead">{ph(f.lead)}</p>
-              <h3 className="tp-fblock__h">{f.title}</h3>
-              {i === FLOW.length - 1 && (
-                <a href="#contact" className="tp-btn tp-fblock__btn">
-                  <span>まずは30分、話してみる</span>
-                  <span className="tp-btn__arrow" aria-hidden="true" />
-                </a>
-              )}
-            </div>
-          </Reveal>
-        ))}
-      </section>
-
-      {/* 10 ALPACAについて（お手本 採用バナー） */}
-      <section className="tp-about" id="about" aria-labelledby="tp-about-h">
-        <div className="tp-about__card">
-          <div className="tp-about__img">
-            {/* 仮の絵（顧問役の人物。実在の代表には似せていない）。大地さんの写真が届いたら差し替え（IMAGE-SLOTS.md） */}
-            <Slot id="A01" label="代表 作田 大地の写真（正方形）" tone="d" src="/images/top/scene/a01-advisor.webp" cover posSp="50% 45%" />
-          </div>
-          <div className="tp-about__body">
-            <p className="tp-about__en" aria-hidden="true">
-              About
-            </p>
-            <h2 className="tp-about__h" id="tp-about-h">
-              ALPACAについて
-            </h2>
-            <p className="tp-about__txt">
-              {ph("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページも作ります。")}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 10b よくある質問（お手本 News の一覧の形） */}
-      <section className="tp-wrap tp-2col tp-faqsec" id="faq" aria-labelledby="tp-faq-h">
-        <div className="tp-sec-ttl">
-          <p className="tp-sec-ttl__en" aria-hidden="true">
-            FAQ
-          </p>
-          <h2 className="tp-sec-ttl__ja" id="tp-faq-h">
-            よくある質問
-          </h2>
-        </div>
-        <Faq />
-      </section>
-
-      {/* 11 フッター上の帯 */}
-      <Band words={BAND2} id="B2" />
-
-      {/* 12〜14 フッター */}
-      <footer className="tp-footer" id="tp-footer">
-        <div className="tp-fhero">
-          <Slot id="H01" label="奄美の海辺と、打ち合わせを終えて笑う社長（横長）" tone="c" src="/images/top/scene/h01.webp" srcSp="/images/top/scene/h01-sp.webp" spMedia="(max-width: 1023px)" cover className="tp-fhero__slot" />
-          <Reveal as="p" className="tp-fhero__copy">
-            {FOOT_COPY.map((line, li) => (
-              <span key={li} className="tp-fhero__line">
-                {line.map((c, ci) => {
-                  const i = FOOT_COPY.slice(0, li).reduce((n, l) => n + l.length, 0) + ci;
-                  return (
-                    <span key={ci} className="tp-fhero__part" style={{ transitionDelay: `${i * 0.025}s` }}>
+          <h1 className="aw-hero__h" id="aw-hero-h">
+            {HERO_LINES.map((line, li) => (
+              <span key={li} className="aw-hero__line">
+                {line.map((c) => (
+                  <span key={c} className="aw-hero__chunk">
+                    <span className="aw-hero__chunk-in" data-hero="chunk">
                       {c}
                     </span>
-                  );
-                })}
+                  </span>
+                ))}
               </span>
             ))}
-          </Reveal>
-        </div>
+          </h1>
 
-        <div className="tp-footer__in">
-          <div className="tp-cta">
-            <a href="#contact" className="tp-cta__btn tp-cta__btn--main">
-              <span className="tp-cta__icon" aria-hidden="true">
-                <MessageCircle />
-              </span>
-              <span className="tp-cta__small">無料相談</span>
-              <span className="tp-cta__big">{ph("まずは30分、話してみる")}</span>
-            </a>
-            <a href={SITE.contact.emailHref} className="tp-cta__btn tp-cta__btn--ink">
-              <span className="tp-cta__icon" aria-hidden="true">
-                <Mail />
-              </span>
-              <span className="tp-cta__small">メール</span>
-              <span className="tp-cta__mid">
-                {/* 幅が足りない時は「@」の前で折る（768px で「gmail.c／om」と折れていた） */}
-                {SITE.contact.email.split("@")[0]}
-                <wbr />@{SITE.contact.email.split("@")[1]}
-              </span>
-            </a>
-            <a href={SITE.contact.telHref} className="tp-cta__btn tp-cta__btn--sub">
-              <span className="tp-cta__icon" aria-hidden="true">
-                <Phone />
-              </span>
-              <span className="tp-cta__small">電話</span>
-              <span className="tp-cta__mid tp-cta__tel">{SITE.contact.tel}</span>
-            </a>
-          </div>
-
-          <section className="tp-wrap tp-2col tp-contact" id="contact" aria-labelledby="tp-contact-h">
-            <div className="tp-sec-ttl">
-              <p className="tp-sec-ttl__en" aria-hidden="true">
-                Contact
+          <div className="aw-hero__foot">
+            <div className="aw-hero__lead" data-hero="lead">
+              <p className="aw-hero__txt">
+                {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
               </p>
-              <h2 className="tp-sec-ttl__ja" id="tp-contact-h">
-                お問い合わせ
-              </h2>
+              <div className="aw-hero__cta">
+                <a href="#contact" className="aw-btn">
+                  <span>まずは30分、話を聞かせてください</span>
+                  <Arrow />
+                </a>
+                <a href="#work" className="aw-link">
+                  <span>仕事を見る</span>
+                  <Arrow />
+                </a>
+              </div>
             </div>
-            <ContactForm />
-          </section>
 
-          <div className="tp-wrap tp-footer__info">
-            <div className="tp-footer__brand">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/top/logo-mark.webp" alt="" className="tp-footer__mark" />
-              <span className="tp-footer__name">ALPACA</span>
-            </div>
-            <dl className="tp-company">
-              <div>
-                <dt>屋号</dt>
-                <dd>ALPACA</dd>
-              </div>
-              <div>
-                <dt>代表</dt>
-                <dd>作田 大地（さくだ だいち）</dd>
-              </div>
-              <div>
-                <dt>事業内容</dt>
-                <dd>AI導入支援・システム開発・HP制作</dd>
-              </div>
-              <div>
-                <dt>所在地</dt>
-                <dd>鹿児島県奄美市有屋町</dd>
-              </div>
-              <div>
-                <dt>電話</dt>
-                <dd>
-                  <a href={SITE.contact.telHref}>080-2790-6757</a>
-                </dd>
-              </div>
-              <div>
-                <dt>メール</dt>
-                <dd>
-                  <a href={SITE.contact.emailHref}>alpaca.amami@gmail.com</a>
-                </dd>
-              </div>
-              <div>
-                <dt>Instagram</dt>
-                <dd>
-                  <a href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer">
-                    @alpaca_amami
-                  </a>
-                </dd>
-              </div>
+            <figure className="aw-roster" aria-label="あなたの会社の組織表（例）。IT担当の空席に ALPACA が入ります">
+              <figcaption className="aw-roster__cap" data-hero="cap">
+                <span>あなたの会社の組織表</span>
+                <span className="aw-roster__ex">例</span>
+              </figcaption>
+              <ul className="aw-roster__list">
+                {ROSTER.map((r) => (
+                  <li key={r.role} className="aw-roster__row" data-hero="row">
+                    <span className="aw-roster__role">{r.role}</span>
+                    <span className="aw-roster__who">{r.who}</span>
+                    <span className="aw-roster__note">{r.note}</span>
+                    <span className="aw-roster__rule" data-hero="rule" aria-hidden="true" />
+                  </li>
+                ))}
+                <li className="aw-roster__row aw-roster__row--it" data-hero="row">
+                  <span className="aw-roster__role">IT担当</span>
+                  <span className="aw-roster__who aw-roster__seat">
+                    <span className="aw-roster__empty">
+                      <span className="aw-roster__emptytxt" data-hero="empty">
+                        空席
+                      </span>
+                      <span className="aw-roster__strike" data-hero="strike" aria-hidden="true" />
+                    </span>
+                    <span className="aw-roster__name" data-hero="name">
+                      ALPACA
+                    </span>
+                  </span>
+                  <span className="aw-roster__note" data-hero="itnote">
+                    ホームページ、システム、AI
+                  </span>
+                  <span className="aw-roster__rule" data-hero="rule" aria-hidden="true" />
+                </li>
+              </ul>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* 仕事3つ */}
+      <section className="aw-sec aw-work" id="work" aria-labelledby="aw-work-h">
+        <div className="aw-wrap">
+          <SecHead n="01" id="aw-work-h" title="仕事は3つです" />
+          <ol className="aw-work__list">
+            {WORKS.map((w) => (
+              <li key={w.id} className="aw-work__item" id={`work-${w.id}`}>
+                <span className="aw-rule" data-line aria-hidden="true" />
+                <div className="aw-work__head" data-rise>
+                  <span className="aw-work__n">{w.n}</span>
+                  <h3 className="aw-work__name">{w.name}</h3>
+                </div>
+                <div className="aw-work__body" data-rise>
+                  <p className="aw-work__lead">{jp(w.lead)}</p>
+                  {w.sub && <p className="aw-work__sub">{jp(w.sub)}</p>}
+                  <ul className="aw-work__items" aria-label={`${w.name}で作る物`}>
+                    {w.items.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                  {w.note && <p className="aw-work__note">{w.note}</p>}
+                  <dl className="aw-work__price">
+                    <dt>{w.priceLabel}</dt>
+                    <dd>
+                      {w.price}
+                      {w.tax && <small>（税別）</small>}
+                    </dd>
+                  </dl>
+                  {w.id === "komon" && (
+                    <a href="#flow" className="aw-link">
+                      <span>毎月の流れを見る</span>
+                      <Arrow />
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* よく聞く話（社長の言葉） */}
+      <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
+        <div className="aw-wrap">
+          <SecHead n="02" id="aw-voice-h" title="社長から、よく聞く話" />
+          <ul className="aw-voice__list">
+            {VOICES.map((v, i) => (
+              <li key={i} className="aw-voice__q" data-voice>
+                {v.map((c) => (
+                  <span key={c} className="aw-ph">
+                    {c}
+                  </span>
+                ))}
+              </li>
+            ))}
+          </ul>
+          <p className="aw-voice__ans" data-rise>
+            <span className="aw-nb">どれも、社内にIT担当が</span>
+            <span className="aw-nb">いれば話が早い仕事です。</span>
+            <br />
+            <span className="aw-nb">その席に、</span>
+            <span className="aw-nb">ALPACAが座ります。</span>
+          </p>
+        </div>
+      </section>
+
+      {/* 頼む理由 */}
+      <section className="aw-sec aw-reason" id="reason" aria-labelledby="aw-reason-h">
+        <div className="aw-wrap">
+          <SecHead n="03" id="aw-reason-h" title="ALPACAに頼む理由" />
+          <ul className="aw-reason__list">
+            {REASONS.map((r) => (
+              <li key={r.n} className="aw-reason__item">
+                <span className="aw-rule" data-line aria-hidden="true" />
+                <div data-rise>
+                  <p className="aw-reason__n">{r.n}</p>
+                  <h3 className="aw-reason__t">{r.t}</h3>
+                  <p className="aw-reason__d">{jp(r.d)}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* AI顧問の毎月の流れ */}
+      <section className="aw-sec aw-flow" id="flow" aria-labelledby="aw-flow-h">
+        <div className="aw-wrap">
+          <SecHead n="04" id="aw-flow-h" title="AI顧問の、毎月の流れ" />
+          <p className="aw-flow__intro" data-rise>
+            {jp("毎月これを1周します。1周ごとに、AIに任せる仕事が1つ増えます。")}
+          </p>
+          <div className="aw-flow__track" data-flow>
+            <span className="aw-flow__base" aria-hidden="true" />
+            <span className="aw-flow__bar" data-flow-bar aria-hidden="true" />
+            <ol className="aw-flow__list">
+              {FLOW.map((f) => (
+                <li key={f.n} className="aw-flow__step" data-flow-step>
+                  <span className="aw-flow__dot" aria-hidden="true" />
+                  <p className="aw-flow__n">{f.n}</p>
+                  <h3 className="aw-flow__t">{f.t}</h3>
+                  <p className="aw-flow__d">{jp(f.d)}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <p className="aw-flow__first" data-rise>
+            <span className="aw-flow__first-k">はじめに</span>
+            <span>{jp("最初の相談は30分、無料です。今の仕事の話を聞かせてください。")}</span>
+          </p>
+        </div>
+      </section>
+
+      {/* 料金 */}
+      <section className="aw-sec aw-price" id="price" aria-labelledby="aw-price-h">
+        <div className="aw-wrap">
+          <SecHead n="05" id="aw-price-h" title="料金" />
+          <ul className="aw-price__list">
+            {PRICES.map((p) => (
+              <li key={p.name} className="aw-price__row">
+                <span className="aw-rule" data-line aria-hidden="true" />
+                <h3 className="aw-price__name" data-rise>
+                  {p.name}
+                </h3>
+                <p className="aw-price__main" data-rise>
+                  {p.main}
+                  {p.tax && <small>（税別）</small>}
+                </p>
+                <ul className="aw-price__rows" data-rise>
+                  {p.rows.map((r) => (
+                    <li key={r}>{r}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+          <ul className="aw-price__notes" data-rise>
+            {PRICE_NOTES.map((n) => (
+              <li key={n}>{jp(n)}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ALPACAについて */}
+      <section className="aw-sec aw-about" id="about" aria-labelledby="aw-about-h">
+        <div className="aw-wrap aw-about__in">
+          <div className="aw-about__markbox" aria-hidden="true">
+            <div className="aw-about__mark" data-mark />
+          </div>
+          <div className="aw-about__body">
+            <SecHead n="06" id="aw-about-h" title="ALPACAについて" />
+            <p className="aw-about__txt" data-rise>
+              {jp("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページも作ります。")}
+            </p>
+            <dl className="aw-company">
+              {COMPANY.map(([k, v]) => (
+                <div key={k} className="aw-company__row">
+                  <span className="aw-rule" data-line aria-hidden="true" />
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
             </dl>
           </div>
+        </div>
+      </section>
 
-          <nav className="tp-wrap tp-sitemap" aria-label="サイトマップ">
-            <ul>
-              <li>
-                <a href="#what">AI顧問とは</a>
-              </li>
-              <li>
-                <a href="#price">料金</a>
-              </li>
-              <li>
-                <a href="#reason">頼む理由</a>
-              </li>
-              <li>
-                <a href="#flow">毎月の流れ</a>
-              </li>
-              <li>
-                <a href="#about">ALPACAについて</a>
-              </li>
-              <li>
-                <a href="#faq">よくある質問</a>
-              </li>
-            </ul>
-            <ul className="tp-sitemap__sub">
-              <li>
-                <Link href="/privacy">プライバシーポリシー</Link>
-              </li>
-              <li>
-                <Link href="/terms">利用規約</Link>
-              </li>
-              <li>
-                <Link href="/tokushoho">特定商取引法に基づく表記</Link>
-              </li>
-            </ul>
-            <p className="tp-copyright">&copy; ALPACA</p>
-          </nav>
+      {/* よくある質問 */}
+      <section className="aw-sec aw-faqsec" id="faq" aria-labelledby="aw-faq-h">
+        <div className="aw-wrap aw-faqsec__in">
+          <SecHead n="07" id="aw-faq-h" title="よくある質問" />
+          <AwFaq items={FAQS.map((f) => ({ q: f.q, a: jp(f.a) }))} />
+        </div>
+      </section>
+
+      {/* 問い合わせ */}
+      <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">
+        <div className="aw-wrap">
+          <p className="aw-contact__n" aria-hidden="true">
+            (08)
+          </p>
+          <h2 className="aw-contact__h" id="aw-contact-h" data-rise>
+            <span className="aw-nb">まずは30分、</span>
+            <span className="aw-nb">話を聞かせて</span>
+            <span className="aw-nb">ください。</span>
+          </h2>
+          <p className="aw-contact__lead" data-rise>
+            {jp("どの仕事で困っているか、短くても大丈夫です。相談は無料です。")}
+          </p>
+          <div className="aw-contact__grid">
+            <div className="aw-contact__direct" data-rise>
+              <a href={SITE.contact.emailHref} className="aw-contact__big">
+                <span className="aw-contact__k">メール</span>
+                <span className="aw-contact__v">
+                  {SITE.contact.email.split("@")[0]}
+                  <wbr />@{SITE.contact.email.split("@")[1]}
+                </span>
+                <Arrow />
+              </a>
+              <a href={SITE.contact.telHref} className="aw-contact__big">
+                <span className="aw-contact__k">電話</span>
+                <span className="aw-contact__v">{SITE.contact.tel}</span>
+                <Arrow />
+              </a>
+            </div>
+            <AwForm />
+          </div>
+        </div>
+      </section>
+
+      <footer className="aw-foot">
+        {/* 屋号を幅いっぱいに。文字の幅は SVG の textLength で枠にぴったり合わせる */}
+        <div className="aw-wrap">
+          <div className="aw-foot__word" aria-hidden="true">
+            <svg viewBox="0 0 1000 178" data-word>
+              <text x="0" y="160" textLength="1000" lengthAdjust="spacing">
+                ALPACA
+              </text>
+            </svg>
+          </div>
+        </div>
+        <div className="aw-wrap aw-foot__in">
+          <p className="aw-foot__brand">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/top/logo-mark.webp" alt="" width={240} height={204} className="aw-foot__mark" />
+            <span>ALPACA</span>
+          </p>
+          <ul className="aw-foot__links">
+            <li>
+              <Link href="/privacy">プライバシーポリシー</Link>
+            </li>
+            <li>
+              <Link href="/terms">利用規約</Link>
+            </li>
+            <li>
+              <Link href="/tokushoho">特定商取引法に基づく表記</Link>
+            </li>
+          </ul>
+          <p className="aw-foot__c">&copy; ALPACA</p>
         </div>
       </footer>
+
+      <AwMotion />
     </div>
   );
 }
