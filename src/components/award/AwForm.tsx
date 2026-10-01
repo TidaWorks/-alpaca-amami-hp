@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SITE } from "@/lib/site";
+import { useYou, WORRIES } from "./store";
 
 type Status = "idle" | "sending" | "done" | "error";
 
@@ -10,6 +11,18 @@ export default function AwForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [err, setErr] = useState("");
+  // 一番上で入れてもらった社名と困りごとを、手で書き換えていない欄にだけ入れておく
+  const you = useYou();
+  const touched = useRef({ name: false, message: false });
+  useEffect(() => {
+    const msg = WORRIES.find((w) => w.id === you.worry)?.msg ?? "";
+    setForm((f) => ({
+      ...f,
+      name: touched.current.name ? f.name : you.name,
+      message: touched.current.message ? f.message : msg,
+    }));
+  }, [you.name, you.worry]);
+  const filled = (!touched.current.name && !!you.name) || (!touched.current.message && !!you.worry);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -50,6 +63,13 @@ export default function AwForm() {
 
   return (
     <form className="aw-form" onSubmit={onSubmit} noValidate data-rise>
+      {filled && (
+        <p className="aw-form__pre">
+          <span className="aw-nb">一番上で入れてもらった内容を</span>
+          <span className="aw-nb">入れてあります。</span>
+          <span className="aw-nb">書き直せます。</span>
+        </p>
+      )}
       <label className="aw-form__f">
         <span className="aw-form__l">お名前（会社名）</span>
         <input
@@ -58,7 +78,10 @@ export default function AwForm() {
           autoComplete="name"
           placeholder="山田 太郎（山田商店）"
           value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          onChange={(e) => {
+            touched.current.name = true;
+            setForm({ ...form, name: e.target.value });
+          }}
         />
       </label>
       <label className="aw-form__f">
@@ -80,7 +103,10 @@ export default function AwForm() {
           rows={4}
           placeholder="例：見積書づくりに毎週半日かかっている"
           value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
+          onChange={(e) => {
+            touched.current.message = true;
+            setForm({ ...form, message: e.target.value });
+          }}
         />
       </label>
       {err && (

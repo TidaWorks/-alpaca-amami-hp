@@ -1712,3 +1712,502 @@ html.aw-menu-open .aw-head__prog {
     grid-template-columns: 4em minmax(0, 1fr);
   }
 }
+
+/* ───────── 自分の会社が出てくる体験（入力・3択・書き換え・仕事の札） ───────── */
+/* 名前は途中で折らない。1行より長い名前だけ、その中で折る */
+.aw-co {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  vertical-align: baseline;
+}
+/* 書き換わった所は、朱で左から書き直されて墨に落ち着く */
+.aw-swap {
+  animation: aw-swap 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+span.aw-swap {
+  display: inline-block;
+}
+@keyframes aw-swap {
+  from {
+    clip-path: inset(0 100% 0 0);
+    color: var(--aw-shu);
+  }
+  60% {
+    color: var(--aw-shu);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.aw-first {
+  margin-left: 16px;
+  font-family: var(--aw-gothic), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--aw-shu);
+  white-space: normal;
+}
+.aw-first::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--aw-shu);
+}
+
+/* 入力 */
+.aw-ask {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 460px;
+}
+.aw-ask__lead {
+  margin-bottom: 28px;
+}
+.aw-ask__label {
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.5;
+  font-feature-settings: "palt" 1;
+}
+.aw-ask__field {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 60px;
+  border-bottom: 2px solid var(--aw-ink);
+  transition: border-color 0.3s;
+}
+.aw-ask__field:focus-within {
+  border-bottom-color: var(--aw-shu);
+}
+.aw-ask__input {
+  min-width: 0;
+  height: 60px;
+  padding: 0 12px 0 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  color: var(--aw-ink);
+  caret-color: var(--aw-shu);
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(22px, 2vw, 28px);
+  font-feature-settings: "palt" 1;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.aw-ask__input::placeholder {
+  color: var(--aw-faint);
+}
+.aw-ask__input:focus-visible {
+  outline: none;
+}
+.aw-ask__go {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  background: var(--aw-ink);
+  color: var(--aw-paper);
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.aw-ask__go:hover {
+  background: var(--aw-shu);
+}
+.aw-ask__go:hover .aw-arrow {
+  transform: translateX(4px);
+}
+.aw-ask__note {
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--aw-sub);
+}
+.aw-ask__skip,
+.aw-ask__back {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  background: linear-gradient(currentColor, currentColor) left calc(100% - 11px) / 100% 1px no-repeat;
+  border: 0;
+  color: var(--aw-sub);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.aw-ask__skip:hover,
+.aw-ask__back:hover {
+  color: var(--aw-ink);
+}
+
+/* 3択 */
+.aw-ask__q {
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(20px, 1.7vw, 25px);
+  line-height: 1.5;
+  font-feature-settings: "palt" 1;
+  animation: aw-swap 0.8s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.aw-ask__list {
+  margin-top: 14px;
+  border-top: 1px solid var(--aw-ink);
+}
+.aw-ask__pick {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 8px 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--aw-line);
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0;
+  animation: aw-pick 0.6s cubic-bezier(0.2, 0.7, 0.1, 1) forwards;
+}
+.aw-ask__list li:nth-child(2) .aw-ask__pick {
+  animation-delay: 0.08s;
+}
+.aw-ask__list li:nth-child(3) .aw-ask__pick {
+  animation-delay: 0.16s;
+}
+@keyframes aw-pick {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.aw-ask__box {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--aw-ink);
+  background: linear-gradient(var(--aw-shu), var(--aw-shu)) left / 0 100% no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.7, 0, 0.2, 1), border-color 0.3s;
+}
+.aw-ask__pick:hover .aw-ask__box {
+  border-color: var(--aw-shu);
+}
+.aw-ask__pick.is-on .aw-ask__box {
+  border-color: var(--aw-shu);
+  background-size: 100% 100%;
+}
+.aw-ask__pick.is-on {
+  font-weight: 700;
+}
+.aw-ask__foot {
+  margin-top: 12px;
+}
+.aw-ask__done {
+  min-height: 1.8em;
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 700;
+}
+.aw-ask__acts {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+}
+.aw-arrow--down {
+  transform: rotate(90deg);
+}
+.aw-link:hover .aw-arrow--down {
+  transform: rotate(90deg) translateX(4px);
+}
+
+/* 組織表: 名前を入れる前は、空席の右で朱の縦棒が待っている */
+.aw-roster__capname {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.aw-anim .aw-roster:not(.is-seated) .aw-roster__name::after {
+  opacity: 1;
+  animation: aw-caret 0.9s steps(1) infinite;
+}
+
+/* 先に頼む仕事を上へ（DOM は動かさず並びだけ） */
+.aw-work__list,
+.aw-price__list {
+  display: flex;
+  flex-direction: column;
+}
+.aw[data-worry="docs"] #work-system,
+.aw[data-worry="hp"] #work-web,
+.aw[data-worry="ai"] #work-komon,
+.aw[data-worry="docs"] #price-system,
+.aw[data-worry="hp"] #price-web,
+.aw[data-worry="ai"] #price-komon {
+  order: -1;
+}
+.aw-work__you,
+.aw-price__you {
+  margin-top: calc(-1 * clamp(20px, 3vw, 44px));
+  margin-bottom: clamp(40px, 5vw, 72px);
+  max-width: 38em;
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-weight: 500;
+  line-height: 2;
+}
+.aw-form__pre {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(241, 238, 231, 0.75);
+}
+.aw-form__pre::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--aw-shu);
+}
+
+/* IT担当の仕事の札（画面の下の帯）。済んだ仕事に朱の線 */
+.aw-slip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 46px;
+  padding: 0 var(--aw-gut);
+  background: var(--aw-paper);
+  border-top: 1px solid var(--aw-ink);
+  font-size: 13px;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1), visibility 0s 0.6s;
+}
+.aw-slip.is-on {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1), visibility 0s;
+}
+html.aw-menu-open .aw-slip {
+  visibility: hidden;
+}
+.aw-slip__h {
+  display: flex;
+  min-width: 0;
+  flex: 0 1 auto;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.aw-slip__co {
+  min-width: 0;
+  max-width: 16em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.aw-slip__co .aw-co {
+  display: inline;
+  overflow-wrap: normal;
+}
+.aw-slip__list {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+.aw-slip__list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--aw-sub);
+  transition: color 0.4s;
+}
+.aw-slip__n {
+  font-family: var(--aw-mono), monospace;
+  font-size: 11px;
+}
+.aw-slip__t {
+  position: relative;
+}
+.aw-slip__strike {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 50%;
+  height: 1.5px;
+  background: var(--aw-shu);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.aw-slip__list li.is-done .aw-slip__strike {
+  transform: scaleX(1);
+}
+.aw-slip__list li.is-now {
+  color: var(--aw-ink);
+  font-weight: 700;
+}
+.aw-slip__list li.is-now .aw-slip__n {
+  color: var(--aw-shu);
+}
+.aw-slip__count {
+  display: none;
+  font-family: var(--aw-mono), monospace;
+  font-size: 12px;
+  color: var(--aw-sub);
+}
+@media (max-width: 1099px) {
+  .aw-slip {
+    gap: 14px;
+  }
+  .aw-slip__h {
+    display: none;
+  }
+  .aw-slip__list {
+    margin-left: 0;
+    gap: 14px;
+    min-width: 0;
+  }
+  .aw-slip__list li {
+    display: none;
+  }
+  .aw-slip__list li.is-now,
+  .aw-slip__list li[data-prev] {
+    display: flex;
+  }
+  .aw-slip__count {
+    display: block;
+    margin-left: auto;
+  }
+}
+
+/* 入力まわりの並び: スマホは 組織表 → 入力 → 説明 */
+@media (max-width: 899px) {
+  .aw-ask {
+    max-width: none;
+  }
+  .aw-ask__lead {
+    order: 9;
+    margin: 28px 0 0;
+  }
+  .aw-ask__skip {
+    order: 8;
+  }
+}
+
+.aw-ask__q:focus {
+  outline: none;
+}
+/* 空席の右で待つ朱の縦棒が出るよう、名前の枠に高さを持たせる */
+.aw-roster__name {
+  min-height: 0.9em;
+  vertical-align: baseline;
+}
+
+.aw-ask__next {
+  min-height: 52px;
+  padding: 0 20px 0 24px;
+  width: auto;
+}
+.aw-btn:hover .aw-arrow--down {
+  transform: rotate(90deg) translateX(4px);
+}
+.aw-contact__left {
+  margin-top: 20px;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 500;
+  color: rgba(241, 238, 231, 0.8);
+}
+.aw-contact__left-t {
+  margin-left: 0.6em;
+  padding: 2px 10px;
+  border: 1px solid var(--aw-shu);
+  color: var(--aw-paper);
+  font-weight: 700;
+}
+
+/* 名前が入ったら、組織表の見出しの名前を墨の太字に（変わった事に気づけるように） */
+.aw[data-named] .aw-roster__capname .aw-co {
+  color: var(--aw-ink);
+  font-weight: 700;
+}
+/* 下の帯: iPhone の下の線に重ならないように */
+.aw-slip {
+  height: calc(46px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 選んだ瞬間の要約（頼む仕事・進め方・お金） */
+.aw-ask__done {
+  min-height: 0;
+}
+.aw-ask__sum {
+  margin: 4px 0 12px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.aw-ask__sum > div {
+  display: grid;
+  grid-template-columns: 5.2em minmax(0, 1fr);
+  gap: 8px;
+  padding: 5px 0;
+}
+.aw-ask__sum > div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.aw-ask__sum > div:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.aw-ask__sum dt {
+  color: var(--aw-shu);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.aw-ask__sum dd {
+  font-weight: 700;
+}
+
+.aw-ask__to {
+  margin: 0 0.5em;
+  color: var(--aw-sub);
+  font-weight: 400;
+}
+/* PC: 左の列が伸びても組織表が動かないよう、上でそろえる */
+@media (min-width: 900px) {
+  .aw-hero__foot {
+    align-items: start;
+  }
+}
+@media (min-width: 900px) {
+  .aw-ask__pick {
+    min-height: 48px;
+  }
+  .aw-ask__sum > div {
+    padding: 3px 0;
+  }
+}

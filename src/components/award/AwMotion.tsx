@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getYou, subscribeYou } from "./store";
 
 /**
  * トップの動きをまとめて付ける（DIRECTION.md の1〜5）。
@@ -28,6 +29,7 @@ export default function AwMotion() {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    const cleanups: (() => void)[] = [];
     const ctx = gsap.context(() => {
       const q = <T extends Element = HTMLElement>(s: string) => gsap.utils.toArray<T>(s);
       const ease = "expo.out";
@@ -40,26 +42,48 @@ export default function AwMotion() {
         .fromTo(q('[data-hero="lead"]'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1 }, 0.8)
         .fromTo(q('[data-hero="under"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.inOut" }, 1.5)
 ;
-      // 組織表はスマホだと一番上の画面の外にある。画面に入った時に始める（PC は最初から見えているのですぐ始まる）
-      const roster = gsap.timeline({
-        defaults: { ease },
-        paused: true,
-      });
+      // 組織表: 罫線と行は開いた時に引く。「空席に ALPACA が座る」は、名前を入れた時（aw:seat の合図）に起こす。
+      // 何も入れずに読み進める人には、スクロールし始めた所で起こす
+      const roster = gsap.timeline({ defaults: { ease }, paused: true });
       roster
         .fromTo(q('[data-hero="cap"]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0)
         .fromTo(q('[data-hero="rule"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "power3.inOut" }, 0.05)
-        .fromTo(q('[data-hero="row"]'), { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.08 }, 0.1)
-        .fromTo(q('[data-hero="strike"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.in" }, 0.95)
-        .fromTo(q('[data-hero="empty"]'), { opacity: 1 }, { opacity: 0.5, duration: 0.3 }, 1.35)
-        .call(() => document.querySelector('[data-hero="name"]')?.classList.add("is-typing"), [], 1.4)
-        .set(q('[data-hero="letter"]'), { display: "inline", stagger: 0.11 }, 1.5)
-        .call(() => document.querySelector('[data-hero="name"]')?.classList.remove("is-typing"), [], 3.2)
-        .fromTo(q('[data-hero="itnote"]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.2);
+        .fromTo(q('[data-hero="row"]'), { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.08 }, 0.1);
+      const nameEl = document.querySelector('[data-hero="name"]');
       const rosterEl = document.querySelector(".aw-roster");
+      const seat = gsap.timeline({ defaults: { ease }, paused: true });
+      seat
+        .fromTo(q('[data-hero="strike"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.in" }, 0)
+        .fromTo(q('[data-hero="empty"]'), { opacity: 1 }, { opacity: 0.5, duration: 0.3 }, 0.35)
+        .call(() => nameEl?.classList.add("is-typing"), [], 0.4)
+        .fromTo(q('[data-hero="letter"]'), { display: "none" }, { display: "inline", duration: 0.01, stagger: 0.1 }, 0.5)
+        .fromTo(q('[data-hero="itnote"]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.15)
+        .call(() => nameEl?.classList.remove("is-typing"), [], 2.0);
+      let seated = false;
+      const playSeat = () => {
+        seated = true;
+        rosterEl?.classList.add("is-seated");
+        // 行が出そろってから座る（開いてすぐ合図が来た時のため）
+        gsap.delayedCall(Math.max(0, 0.9 - roster.time()), () => seat.restart());
+      };
+      window.addEventListener("aw:seat", playSeat);
+      // 同じタブで前に入れた人: 合図はこの部品が起きる前に飛んでいるので、ここで拾う
+      if (getYou().step === 1) playSeat();
+      const onFirstScroll = () => {
+        if (seated || window.scrollY < 40) return;
+        // 入力中（スマホでキーボードが出て画面が動いた時）は起こさない
+        if ((document.activeElement as HTMLElement | null)?.classList.contains("aw-ask__input")) return;
+        playSeat();
+      };
+      window.addEventListener("scroll", onFirstScroll, { passive: true });
+      cleanups.push(() => {
+        window.removeEventListener("aw:seat", playSeat);
+        window.removeEventListener("scroll", onFirstScroll);
+      });
       if (rosterEl) {
         ScrollTrigger.create({
           trigger: rosterEl,
-          start: "top 80%",
+          start: "top 90%",
           once: true,
           onEnter: () => gsap.delayedCall(Math.max(0, 0.95 - tl.time()), () => roster.play()),
         });
@@ -160,8 +184,17 @@ export default function AwMotion() {
 
     // 字の読み込みで高さが変わったら測り直す
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    // 名前や困りごとで下の段の高さと並びが変わるので、そのたびに測り直す
+    let raf = 0;
+    cleanups.push(
+      subscribeYou(() => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => requestAnimationFrame(() => ScrollTrigger.refresh()));
+      })
+    );
 
     return () => {
+      cleanups.forEach((f) => f());
       ctx.revert();
       gsap.ticker.remove(tick);
       lenis.destroy();

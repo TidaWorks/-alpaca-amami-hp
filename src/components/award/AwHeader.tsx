@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const NAV = [
   { href: "#work", label: "仕事" },
-  { href: "#flow", label: "毎月の流れ" },
+  { href: "#flow", label: "進め方" },
   { href: "#price", label: "料金" },
   { href: "#about", label: "ALPACAについて" },
   { href: "#faq", label: "よくある質問" },
@@ -15,7 +15,7 @@ const SECTIONS: [string, string][] = [
   ["work", "仕事"],
   ["voice", "よく聞く話"],
   ["reason", "頼む理由"],
-  ["flow", "毎月の流れ"],
+  ["flow", "進め方"],
   ["price", "料金"],
   ["about", "ALPACAについて"],
   ["faq", "よくある質問"],
