@@ -304,7 +304,7 @@ export default function Home() {
                     <p className="aw-work__k">内容</p>
                     <ul className="aw-work__items">
                       {w.items.map((it) => (
-                        <li key={it}>{it}</li>
+                        <li key={it}>{jp(it)}</li>
                       ))}
                     </ul>
                     {w.note && <p className="aw-work__note">{w.note}</p>}
@@ -517,6 +517,11 @@ export default function Home() {
               <a href={SITE.contact.telHref} className="aw-contact__big">
                 <span className="aw-contact__k">電話</span>
                 <span className="aw-contact__v">{SITE.contact.tel}</span>
+                <Arrow />
+              </a>
+              <a href={SITE.contact.instagramUrl} className="aw-contact__big" target="_blank" rel="noopener noreferrer">
+                <span className="aw-contact__k">Instagram</span>
+                <span className="aw-contact__v">{SITE.contact.instagramHandle}</span>
                 <Arrow />
               </a>
             </div>

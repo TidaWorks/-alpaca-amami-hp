@@ -315,7 +315,7 @@ html.lenis body {
   margin-top: clamp(20px, 4vh, 44px);
   font-family: var(--aw-mincho), serif;
   font-weight: 800;
-  font-size: clamp(42px, 6.25vw, 100px);
+  font-size: clamp(42px, 6.4vw, 102px);
   line-height: 1.2;
   letter-spacing: -0.005em;
   font-feature-settings: "palt" 1;
@@ -400,7 +400,7 @@ html.lenis body {
   grid-template-columns: 7.5em minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-  min-height: clamp(44px, 5.6vh, 54px);
+  min-height: clamp(44px, 6.4vh, 62px);
   font-size: 17px;
 }
 .aw-roster__rule {
@@ -426,7 +426,7 @@ html.lenis body {
   text-align: right;
 }
 .aw-roster__row--it {
-  min-height: clamp(96px, 14vh, 132px);
+  min-height: clamp(96px, 16vh, 152px);
 }
 .aw-roster__row--it .aw-roster__rule {
   background: var(--aw-ink);
@@ -600,35 +600,49 @@ html.lenis body {
 .aw-work__body {
   margin-top: clamp(28px, 3.4vw, 56px);
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: 28px clamp(32px, 6vw, 120px);
+  align-items: start;
 }
 .aw-work__lead {
   font-size: clamp(17px, 1.45vw, 21px);
   line-height: 2;
   font-weight: 500;
-  max-width: 32em;
 }
 .aw-work__sub {
   margin-top: 14px;
   line-height: 2;
-  max-width: 34em;
 }
 .aw-work__k {
   font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--aw-sub);
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--aw-line);
 }
-.aw-work__items li {
-  padding: 11px 0;
-  border-bottom: 1px solid var(--aw-line);
-  font-size: 15px;
-  line-height: 1.7;
+/* 内容は斜線で区切って横に流す（縦に長い表にしない） */
+.aw-work__items {
+  padding-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 0;
+  font-family: var(--aw-mincho), serif;
+  font-weight: 600;
+  font-size: clamp(19px, 1.9vw, 27px);
+  line-height: 1.6;
+  font-feature-settings: "palt" 1;
+}
+.aw-work__items li::after {
+  content: "／";
+  margin: 0 0.45em;
+  color: var(--aw-faint);
+  font-weight: 400;
+}
+.aw-work__items li:last-child::after {
+  content: none;
 }
 .aw-work__note {
-  margin-top: 14px;
+  margin-top: 18px;
   font-size: 13px;
   color: var(--aw-sub);
 }
@@ -1039,18 +1053,21 @@ html.lenis body {
 .aw-faq__q {
   width: 100%;
   display: grid;
-  grid-template-columns: 3.4em minmax(0, 1fr) 24px;
+  grid-template-columns: 76px minmax(0, 1fr) 24px;
   align-items: center;
   gap: 12px;
-  min-height: 76px;
-  padding: 16px 0;
+  min-height: clamp(76px, 7vw, 100px);
+  padding: 18px 0;
   background: none;
   border: 0;
   color: inherit;
   text-align: left;
   font: inherit;
-  font-size: clamp(16px, 1.4vw, 19px);
-  font-weight: 700;
+  font-family: var(--aw-mincho), serif;
+  font-size: clamp(18px, 1.9vw, 26px);
+  font-weight: 800;
+  line-height: 1.5;
+  font-feature-settings: "palt" 1;
   cursor: pointer;
 }
 .aw-faq__mark {
@@ -1089,7 +1106,7 @@ html.lenis body {
   overflow: hidden;
 }
 .aw-faq__atxt {
-  padding: 0 40px 28px calc(3.4em + 12px);
+  padding: 0 40px 32px 88px;
   line-height: 2;
   color: var(--aw-ink);
 }
@@ -1114,7 +1131,7 @@ html.lenis body {
   margin-top: 24px;
   font-family: var(--aw-mincho), serif;
   font-weight: 800;
-  font-size: clamp(40px, 7vw, 112px);
+  font-size: clamp(30px, 9.2vw, 112px);
   line-height: 1.2;
   font-feature-settings: "palt" 1;
 }
@@ -1132,7 +1149,7 @@ html.lenis body {
 }
 .aw-contact__big {
   display: grid;
-  grid-template-columns: 4.5em minmax(0, 1fr) 20px;
+  grid-template-columns: 6em minmax(0, 1fr) 20px;
   align-items: center;
   gap: 16px;
   min-height: 96px;
@@ -1393,10 +1410,10 @@ html.lenis body {
     text-align: left;
   }
   .aw-faq__q {
-    grid-template-columns: 2.8em minmax(0, 1fr) 20px;
+    grid-template-columns: 44px minmax(0, 1fr) 20px;
   }
   .aw-faq__atxt {
-    padding: 0 8px 24px calc(2.8em + 12px);
+    padding: 0 8px 24px 56px;
   }
   .aw-contact__big {
     grid-template-columns: 1fr 20px;
@@ -1640,4 +1657,58 @@ html.aw-menu-open .aw-head__prog {
   margin-top: 0.3em;
   font-size: clamp(30px, 5.4vw, 84px);
   line-height: 1.3;
+}
+
+/* ボタンと「相談する」は1行で */
+.aw-head__cta {
+  white-space: nowrap;
+}
+@media (min-width: 375px) {
+  .aw-btn span {
+    white-space: nowrap;
+  }
+}
+/* 幅900〜1279: 左の列を少し広く。IT担当の添え書きは名前の下へ（名前と重なっていた） */
+@media (min-width: 900px) and (max-width: 1279px) {
+  .aw-hero__foot {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 40px clamp(32px, 4vw, 56px);
+  }
+  .aw-roster__row {
+    grid-template-columns: 6em minmax(0, 1fr) auto;
+  }
+  .aw-btn {
+    padding: 0 20px 0 22px;
+    gap: 14px;
+  }
+}
+@media (min-width: 900px) and (max-width: 1399px) {
+  .aw-roster__row--it {
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    row-gap: 8px;
+    padding: 22px 0 18px;
+    min-height: 0;
+  }
+  .aw-roster__row--it .aw-roster__note {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+@media (min-width: 900px) and (max-width: 1279px) {
+  .aw-roster__row--it {
+    grid-template-columns: 6em minmax(0, 1fr);
+  }
+}
+/* 幅320〜374: 屋号の字は引っ込め、組織表の大きな字を一回り小さく */
+@media (max-width: 374px) {
+  .aw-head__logo span {
+    display: none;
+  }
+  .aw-roster__seat {
+    font-size: 25px;
+    gap: 10px;
+  }
+  .aw-roster__row {
+    grid-template-columns: 4em minmax(0, 1fr);
+  }
 }

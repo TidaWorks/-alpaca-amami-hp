@@ -18,6 +18,11 @@ export function phrases(text: string): string[] {
     // 新しいかたまりを始めるのは「漢字・カタカナ・英数字・開きかっこ」で始まり、
     // 今のかたまりが、ひらがなか句読点で終わっている時（＝助詞や送りがなの後ろ）
     const afterStop = /[、。]$/.test(cur) && !/^[、。」）]/.test(segment);
+    // 「その」「この」などは次の語にくっつける（「その／会社の」で切れていた）
+    if (/^(その|この|あの|どの)$/.test(cur)) {
+      cur += segment;
+      continue;
+    }
     const startsNew = cur !== "" && (afterStop || (HEAD.test(segment) && !OPEN.test(cur) && /[\p{Script=Hiragana}、。」）！？／]$/u.test(cur)));
     if (startsNew) {
       out.push(cur);

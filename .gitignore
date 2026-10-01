@@ -51,3 +51,4 @@ ai-images/
 # 作業場の依存とビルドは追加ディスクへのリンク（ルートが満杯のため）
 node_modules
 .next
+shots
