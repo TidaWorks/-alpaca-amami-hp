@@ -38,6 +38,7 @@ export default function AwMotion() {
       tl.fromTo(q('[data-hero="meta"]'), { opacity: 0 }, { opacity: 1, duration: 0.8 }, 0.1)
         .fromTo(q('[data-hero="chunk"]'), { yPercent: 112, y: 0 }, { yPercent: 0, duration: 1.3, stagger: 0.09 }, 0.15)
         .fromTo(q('[data-hero="lead"]'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1 }, 0.8)
+        .fromTo(q('[data-hero="under"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.inOut" }, 1.5)
 ;
       // 組織表はスマホだと一番上の画面の外にある。画面に入った時に始める（PC は最初から見えているのですぐ始まる）
       const roster = gsap.timeline({
@@ -49,14 +50,11 @@ export default function AwMotion() {
         .fromTo(q('[data-hero="rule"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "power3.inOut" }, 0.05)
         .fromTo(q('[data-hero="row"]'), { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.08 }, 0.1)
         .fromTo(q('[data-hero="strike"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.in" }, 0.95)
-        .fromTo(q('[data-hero="empty"]'), { opacity: 1 }, { opacity: 0.4, duration: 0.3 }, 1.35)
-        .fromTo(
-          q('[data-hero="name"]'),
-          { clipPath: "inset(0 100% 0 0)" },
-          { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "steps(6)" },
-          1.45
-        )
-        .fromTo(q('[data-hero="itnote"]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.95);
+        .fromTo(q('[data-hero="empty"]'), { opacity: 1 }, { opacity: 0.5, duration: 0.3 }, 1.35)
+        .call(() => document.querySelector('[data-hero="name"]')?.classList.add("is-typing"), [], 1.4)
+        .set(q('[data-hero="letter"]'), { display: "inline", stagger: 0.11 }, 1.5)
+        .call(() => document.querySelector('[data-hero="name"]')?.classList.remove("is-typing"), [], 3.2)
+        .fromTo(q('[data-hero="itnote"]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.2);
       const rosterEl = document.querySelector(".aw-roster");
       if (rosterEl) {
         ScrollTrigger.create({
@@ -76,6 +74,15 @@ export default function AwMotion() {
           ease,
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
         });
+      });
+
+      // 2b. 仕事の大きな名前: スクロールに合わせて右から定位置へ
+      q("[data-slide]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { xPercent: 4, opacity: 0.2 },
+          { xPercent: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: el, start: "top 98%", end: "top 62%", scrub: 0.6 } }
+        );
       });
 
       // 3. 罫線: 左から引く
@@ -98,27 +105,32 @@ export default function AwMotion() {
         });
       });
 
-      // 5. 毎月の流れ: 線がスクロールに合わせて朱で伸びる。通った段の点を朱に
-      const track = document.querySelector<HTMLElement>("[data-flow]");
-      const bar = document.querySelector<HTMLElement>("[data-flow-bar]");
-      if (track && bar) {
-        const vertical = () => window.matchMedia("(max-width: 899px)").matches;
+      // 5. 毎月の流れ: 輪の朱の弧がスクロールに合わせて伸び、今の段だけ濃くする
+      const flow = document.querySelector<HTMLElement>("[data-flow]");
+      const prog = document.querySelector<SVGPathElement>("[data-flow-bar]");
+      const list = document.querySelector<HTMLElement>(".aw-flow__list");
+      if (flow && prog && list) {
+        const steps = q("[data-flow-step]");
+        const dots = q<SVGRectElement>("[data-flow-dot]");
+        const setActive = (i: number | null) => {
+          if (i === null) delete flow.dataset.active;
+          else flow.dataset.active = String(i);
+          steps.forEach((el, k) => el.classList.toggle("is-on", k === i));
+          dots.forEach((el, k) => el.classList.toggle("is-on", i !== null && k <= i));
+        };
         gsap.fromTo(
-          bar,
-          { scaleX: () => (vertical() ? 1 : 0), scaleY: () => (vertical() ? 0 : 1) },
-          {
-            scaleX: 1,
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: { trigger: track, start: "top 70%", end: "bottom 60%", scrub: 0.6, invalidateOnRefresh: true },
-          }
+          prog,
+          { strokeDashoffset: 100 },
+          { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: list, start: "top 55%", end: "bottom 55%", scrub: 0.5 } }
         );
-        q("[data-flow-step]").forEach((el) => {
+        steps.forEach((el, i) => {
           ScrollTrigger.create({
             trigger: el,
-            start: () => (vertical() ? "top 62%" : "top 70%"),
-            toggleClass: { targets: el, className: "is-on" },
-            invalidateOnRefresh: true,
+            start: "top 55%",
+            end: "bottom 55%",
+            onEnter: () => setActive(i),
+            onEnterBack: () => setActive(i),
+            onLeaveBack: () => i === 0 && setActive(null),
           });
         });
       }
@@ -134,14 +146,15 @@ export default function AwMotion() {
         });
       }
 
-      // 6. ロゴの A: ゆっくり上へずらす（奥行き）
+      // 6. ロゴの A: 下の罫線の向こうからせり上がって、線の上に立つ
       const mark = document.querySelector("[data-mark]");
       if (mark) {
-        gsap.fromTo(
-          mark,
-          { yPercent: 8 },
-          { yPercent: -8, ease: "none", scrollTrigger: { trigger: mark, start: "top bottom", end: "bottom top", scrub: true } }
-        );
+        gsap.from(mark, {
+          yPercent: 40,
+          duration: 1.8,
+          ease,
+          scrollTrigger: { trigger: mark, start: "top 80%", once: true },
+        });
       }
     });
 

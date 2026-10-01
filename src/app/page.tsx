@@ -93,9 +93,9 @@ const VOICES = [
 
 // ALPACAに頼む理由（決定済み）
 const REASONS = [
-  { n: "01", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。" },
-  { n: "02", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。" },
-  { n: "03", t: "奄美にいる", d: "奄美の会社なら、会って話せます。" },
+  { n: "一", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。" },
+  { n: "二", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。" },
+  { n: "三", t: "奄美にいる", d: "奄美の会社なら、会って話せます。" },
 ];
 
 // AI顧問の毎月の流れ（決定済み）
@@ -107,9 +107,9 @@ const FLOW = [
 ];
 
 const PRICES = [
-  { name: "AI顧問", main: "月15万円から", rows: ["月15万円　定例の打ち合わせ 月1回", "月25万円　定例の打ち合わせ 月2回"], tax: true },
-  { name: "システム開発", main: "お見積り", rows: ["内容を聞いてから金額を出します"], tax: false },
-  { name: "ホームページ制作", main: "25万円から", rows: ["LP、コーポレートサイト"], tax: true },
+  { name: "AI顧問", pre: "月", num: "15", post: "万円から", rows: ["月15万円　定例の打ち合わせ 月1回", "月25万円　定例の打ち合わせ 月2回"], tax: true },
+  { name: "システム開発", pre: "", num: "", post: "お見積り", rows: ["内容を聞いてから金額を出します"], tax: false },
+  { name: "ホームページ制作", pre: "", num: "25", post: "万円から", rows: ["LP、コーポレートサイト"], tax: true },
 ];
 
 const PRICE_NOTES = [
@@ -123,7 +123,7 @@ const PRICE_NOTES = [
 const FAQS = [
   {
     q: "何から始めればいい？",
-    a: "まずは30分、話を聞かせてください。相談は無料です。AI顧問が始まったら、最初の月は仕事の書き出しから入ります。",
+    a: "まずは話を聞かせてください。相談は無料です。AI顧問が始まったら、最初の月は仕事の書き出しから入ります。",
   },
   { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけで受けます。" },
   { q: "パソコンが苦手な社員でも使える？", a: "大丈夫です。社員が自分で使えるまで教えます。" },
@@ -195,7 +195,18 @@ export default function Home() {
                 {line.map((c) => (
                   <span key={c} className="aw-hero__chunk">
                     <span className="aw-hero__chunk-in" data-hero="chunk">
-                      {c}
+                      {/* 2回目の「IT担当」にだけ朱の線を引く（空席が埋まる所。文言は変えない） */}
+                      {c === "IT担当に" ? (
+                        <>
+                          <span className="aw-hero__mark">
+                            IT担当
+                            <span className="aw-hero__under" data-hero="under" aria-hidden="true" />
+                          </span>
+                          に
+                        </>
+                      ) : (
+                        c
+                      )}
                     </span>
                   </span>
                 ))}
@@ -204,22 +215,6 @@ export default function Home() {
           </h1>
 
           <div className="aw-hero__foot">
-            <div className="aw-hero__lead" data-hero="lead">
-              <p className="aw-hero__txt">
-                {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
-              </p>
-              <div className="aw-hero__cta">
-                <a href="#contact" className="aw-btn">
-                  <span>まずは30分、話を聞かせてください</span>
-                  <Arrow />
-                </a>
-                <a href="#work" className="aw-link">
-                  <span>仕事を見る</span>
-                  <Arrow />
-                </a>
-              </div>
-            </div>
-
             <figure className="aw-roster" aria-label="あなたの会社の組織表（例）。IT担当の空席に ALPACA が入ります">
               <figcaption className="aw-roster__cap" data-hero="cap">
                 <span>あなたの会社の組織表</span>
@@ -243,8 +238,13 @@ export default function Home() {
                       </span>
                       <span className="aw-roster__strike" data-hero="strike" aria-hidden="true" />
                     </span>
-                    <span className="aw-roster__name" data-hero="name">
-                      ALPACA
+                    {/* 1文字ずつ打ち込む。読み上げには aria-label の屋号を1回だけ渡す */}
+                    <span className="aw-roster__name" data-hero="name" role="img" aria-label="ALPACA">
+                      {"ALPACA".split("").map((ch, i) => (
+                        <span key={i} data-hero="letter" aria-hidden="true">
+                          {ch}
+                        </span>
+                      ))}
                     </span>
                   </span>
                   <span className="aw-roster__note" data-hero="itnote">
@@ -254,6 +254,22 @@ export default function Home() {
                 </li>
               </ul>
             </figure>
+
+            <div className="aw-hero__lead" data-hero="lead">
+              <p className="aw-hero__txt">
+                {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
+              </p>
+              <div className="aw-hero__cta">
+                <a href="#contact" className="aw-btn">
+                  <span>まずは話を聞かせてください</span>
+                  <Arrow />
+                </a>
+                <a href="#work" className="aw-link">
+                  <span>仕事を見る</span>
+                  <Arrow />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -266,32 +282,39 @@ export default function Home() {
             {WORKS.map((w) => (
               <li key={w.id} className="aw-work__item" id={`work-${w.id}`}>
                 <span className="aw-rule" data-line aria-hidden="true" />
-                <div className="aw-work__head" data-rise>
+                <div className="aw-work__head">
                   <span className="aw-work__n">{w.n}</span>
-                  <h3 className="aw-work__name">{w.name}</h3>
-                </div>
-                <div className="aw-work__body" data-rise>
-                  <p className="aw-work__lead">{jp(w.lead)}</p>
-                  {w.sub && <p className="aw-work__sub">{jp(w.sub)}</p>}
-                  <ul className="aw-work__items" aria-label={`${w.name}で作る物`}>
-                    {w.items.map((it) => (
-                      <li key={it}>{it}</li>
-                    ))}
-                  </ul>
-                  {w.note && <p className="aw-work__note">{w.note}</p>}
-                  <dl className="aw-work__price">
+                  <h3 className="aw-work__name" data-slide>
+                    {w.name}
+                  </h3>
+                  <dl className="aw-work__price" data-rise>
                     <dt>{w.priceLabel}</dt>
                     <dd>
                       {w.price}
                       {w.tax && <small>（税別）</small>}
                     </dd>
                   </dl>
-                  {w.id === "komon" && (
-                    <a href="#flow" className="aw-link">
-                      <span>毎月の流れを見る</span>
-                      <Arrow />
-                    </a>
-                  )}
+                </div>
+                <div className="aw-work__body" data-rise>
+                  <div className="aw-work__txt">
+                    <p className="aw-work__lead">{jp(w.lead)}</p>
+                    {w.sub && <p className="aw-work__sub">{jp(w.sub)}</p>}
+                  </div>
+                  <div className="aw-work__detail">
+                    <p className="aw-work__k">内容</p>
+                    <ul className="aw-work__items">
+                      {w.items.map((it) => (
+                        <li key={it}>{it}</li>
+                      ))}
+                    </ul>
+                    {w.note && <p className="aw-work__note">{w.note}</p>}
+                    {w.id === "komon" && (
+                      <a href="#flow" className="aw-link">
+                        <span>毎月の流れを見る</span>
+                        <Arrow />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </li>
             ))}
@@ -315,11 +338,14 @@ export default function Home() {
             ))}
           </ul>
           <p className="aw-voice__ans" data-rise>
-            <span className="aw-nb">どれも、社内にIT担当が</span>
-            <span className="aw-nb">いれば話が早い仕事です。</span>
-            <br />
-            <span className="aw-nb">その席に、</span>
-            <span className="aw-nb">ALPACAが座ります。</span>
+            <span className="aw-voice__ans-s">
+              <span className="aw-nb">どれも、社内にIT担当が</span>
+              <span className="aw-nb">いれば話が早い仕事です。</span>
+            </span>
+            <span className="aw-voice__ans-l">
+              <span className="aw-nb">その席に、</span>
+              <span className="aw-nb">ALPACAが座ります。</span>
+            </span>
           </p>
         </div>
       </section>
@@ -332,9 +358,11 @@ export default function Home() {
             {REASONS.map((r) => (
               <li key={r.n} className="aw-reason__item">
                 <span className="aw-rule" data-line aria-hidden="true" />
-                <div data-rise>
-                  <p className="aw-reason__n">{r.n}</p>
-                  <h3 className="aw-reason__t">{r.t}</h3>
+                <div className="aw-reason__in" data-rise>
+                  <p className="aw-reason__n" aria-hidden="true">
+                    {r.n}
+                  </p>
+                  <h3 className="aw-reason__t">{jp(r.t)}</h3>
                   <p className="aw-reason__d">{jp(r.d)}</p>
                 </div>
               </li>
@@ -350,13 +378,40 @@ export default function Home() {
           <p className="aw-flow__intro" data-rise>
             {jp("毎月これを1周します。1周ごとに、AIに任せる仕事が1つ増えます。")}
           </p>
-          <div className="aw-flow__track" data-flow>
-            <span className="aw-flow__base" aria-hidden="true" />
-            <span className="aw-flow__bar" data-flow-bar aria-hidden="true" />
+          <div className="aw-flow__grid" data-flow>
+            {/* 毎月の1周を輪で見せる。読み進めると朱の弧が伸び、今の段の名前が真ん中に出る */}
+            <div className="aw-flow__ringbox" aria-hidden="true">
+              <div className="aw-flow__ring">
+                <svg viewBox="0 0 400 400">
+                  <circle className="aw-flow__base" cx="200" cy="200" r="170" />
+                  {/* 12時の位置から時計回りに1周する弧 */}
+                  <path className="aw-flow__prog" data-flow-bar d="M200 30 A170 170 0 1 1 199.9 30" pathLength={100} />
+                  {[
+                    [200, 30],
+                    [370, 200],
+                    [200, 370],
+                    [30, 200],
+                  ].map(([x, y], i) => (
+                    <rect key={i} className="aw-flow__dot" data-flow-dot x={x - 7} y={y - 7} width="14" height="14" />
+                  ))}
+                </svg>
+                <div className="aw-flow__center">
+                  <p className="aw-flow__lap">
+                    <span>毎月</span>
+                    <span>1周</span>
+                  </p>
+                  {FLOW.map((f, i) => (
+                    <p key={f.n} className="aw-flow__cur" data-i={i}>
+                      <span className="aw-flow__cur-n">{f.n}</span>
+                      <span className="aw-flow__cur-t">{f.t}</span>
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
             <ol className="aw-flow__list">
               {FLOW.map((f) => (
                 <li key={f.n} className="aw-flow__step" data-flow-step>
-                  <span className="aw-flow__dot" aria-hidden="true" />
                   <p className="aw-flow__n">{f.n}</p>
                   <h3 className="aw-flow__t">{f.t}</h3>
                   <p className="aw-flow__d">{jp(f.d)}</p>
@@ -366,7 +421,7 @@ export default function Home() {
           </div>
           <p className="aw-flow__first" data-rise>
             <span className="aw-flow__first-k">はじめに</span>
-            <span>{jp("最初の相談は30分、無料です。今の仕事の話を聞かせてください。")}</span>
+            <span>{jp("最初の相談は無料です。今の仕事の話を聞かせてください。")}</span>
           </p>
         </div>
       </section>
@@ -383,7 +438,9 @@ export default function Home() {
                   {p.name}
                 </h3>
                 <p className="aw-price__main" data-rise>
-                  {p.main}
+                  {p.pre && <span className="aw-price__unit">{p.pre}</span>}
+                  {p.num && <span className="aw-price__num">{p.num}</span>}
+                  <span className={p.num ? "aw-price__unit" : "aw-price__word"}>{p.post}</span>
                   {p.tax && <small>（税別）</small>}
                 </p>
                 <ul className="aw-price__rows" data-rise>
@@ -418,7 +475,7 @@ export default function Home() {
                 <div key={k} className="aw-company__row">
                   <span className="aw-rule" data-line aria-hidden="true" />
                   <dt>{k}</dt>
-                  <dd>{v}</dd>
+                  <dd>{typeof v === "string" ? jp(v) : v}</dd>
                 </div>
               ))}
             </dl>
@@ -430,7 +487,7 @@ export default function Home() {
       <section className="aw-sec aw-faqsec" id="faq" aria-labelledby="aw-faq-h">
         <div className="aw-wrap aw-faqsec__in">
           <SecHead n="07" id="aw-faq-h" title="よくある質問" />
-          <AwFaq items={FAQS.map((f) => ({ q: f.q, a: jp(f.a) }))} />
+          <AwFaq items={FAQS.map((f) => ({ key: f.q, q: jp(f.q), a: jp(f.a) }))} />
         </div>
       </section>
 
@@ -441,9 +498,8 @@ export default function Home() {
             (08)
           </p>
           <h2 className="aw-contact__h" id="aw-contact-h" data-rise>
-            <span className="aw-nb">まずは30分、</span>
-            <span className="aw-nb">話を聞かせて</span>
-            <span className="aw-nb">ください。</span>
+            <span className="aw-nb">まずは話を</span>
+            <span className="aw-nb">聞かせてください。</span>
           </h2>
           <p className="aw-contact__lead" data-rise>
             {jp("どの仕事で困っているか、短くても大丈夫です。相談は無料です。")}

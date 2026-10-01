@@ -2,7 +2,7 @@
 
 import { useRef, useState, type ReactNode } from "react";
 
-function Item({ q, a, i }: { q: string; a: ReactNode; i: number }) {
+function Item({ q, a, i }: { q: ReactNode; a: ReactNode; i: number }) {
   const [open, setOpen] = useState(false);
   const body = useRef<HTMLDivElement>(null);
   const anim = useRef<Animation | null>(null);
@@ -43,11 +43,11 @@ function Item({ q, a, i }: { q: string; a: ReactNode; i: number }) {
 }
 
 /** 答えは文節に分けた物をサーバーから受け取る（jp.tsx） */
-export default function AwFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
+export default function AwFaq({ items }: { items: { key: string; q: ReactNode; a: ReactNode }[] }) {
   return (
     <ul className="aw-faq">
       {items.map((f, i) => (
-        <Item key={f.q} q={f.q} a={f.a} i={i} />
+        <Item key={f.key} q={f.q} a={f.a} i={i} />
       ))}
     </ul>
   );
