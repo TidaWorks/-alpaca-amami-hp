@@ -9,6 +9,7 @@ import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwAsk from "@/components/award/AwAsk";
 import AwSlip from "@/components/award/AwSlip";
+import AwDemo from "@/components/award/AwDemo";
 import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
 
@@ -178,6 +179,19 @@ function SecHead({ n, title, id }: { n: string; title: React.ReactNode; id: stri
   );
 }
 
+function Photo({ src, cap }: { src: string; cap?: string }) {
+  // 区切りの写真（AIで作った場面写真。人の顔は出さない）。スクロールで少しずれて奥行きを出す
+  return (
+    <figure className="aw-photo" aria-hidden="true">
+      <div className="aw-photo__in" data-photo>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt="" width={1920} height={1080} loading="lazy" decoding="async" />
+      </div>
+      {cap && <figcaption className="aw-photo__cap">{cap}</figcaption>}
+    </figure>
+  );
+}
+
 function Arrow() {
   return (
     <svg className="aw-arrow" viewBox="0 0 20 12" aria-hidden="true">
@@ -306,6 +320,24 @@ export default function Home() {
         </div>
       </section>
 
+      <Photo src="/images/scene/s1-sea.webp" cap="奄美大島　有屋町から" />
+
+      {/* 頼むと、こう動きます（写真の代わりに動く画面で見せる） */}
+      <section className="aw-demosec" id="demo" aria-labelledby="aw-demo-h">
+        <div className="aw-wrap aw-demosec__in">
+          <div className="aw-demosec__head">
+            <h2 className="aw-demosec__h" id="aw-demo-h" data-rise>
+              <span className="aw-nb">頼むと、</span>
+              <span className="aw-nb">こう動きます。</span>
+            </h2>
+            <p className="aw-demosec__lead" data-rise>
+              {jp("いつものチャットで頼むだけ。直したら、直したと返します。")}
+            </p>
+          </div>
+          <AwDemo />
+        </div>
+      </section>
+
       {/* 仕事3つ */}
       <section className="aw-sec aw-work" id="work" aria-labelledby="aw-work-h">
         <div className="aw-wrap">
@@ -386,6 +418,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Photo src="/images/scene/s4-meeting.webp" />
+
       {/* よく聞く話（社長の言葉） */}
       <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
         <div className="aw-wrap">
@@ -436,6 +470,8 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
+      <Photo src="/images/scene/s3-hands.webp" />
 
       {/* AI顧問の毎月の流れ */}
       <section className="aw-sec aw-flow" id="flow" aria-labelledby="aw-flow-h">
@@ -604,6 +640,8 @@ export default function Home() {
           <AwFaq items={FAQS.map((f) => ({ key: f.q, q: jp(f.q), a: jp(f.a) }))} />
         </div>
       </section>
+
+      <Photo src="/images/scene/s6-dusk.webp" />
 
       {/* 問い合わせ */}
       <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">

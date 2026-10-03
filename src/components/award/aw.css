@@ -2311,3 +2311,452 @@ html.aw-menu-open .aw-slip {
 .aw-work {
   overflow-x: clip;
 }
+
+/* ===== 頼むと、こう動きます（AwDemo） ===== */
+.aw-demosec {
+  margin-top: clamp(72px, 10vw, 140px);
+  padding: clamp(56px, 7vw, 104px) 0;
+  background: var(--aw-ink);
+  color: var(--aw-paper);
+}
+.aw-demosec__in {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 40px clamp(40px, 5vw, 96px);
+  align-items: start;
+}
+.aw-demosec__h {
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(34px, 4.4vw, 72px);
+  line-height: 1.2;
+  font-feature-settings: "palt" 1;
+}
+.aw-demosec__lead {
+  margin-top: 20px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.9;
+  color: rgba(241, 238, 231, 0.7);
+}
+.aw-demosec__head {
+  position: sticky;
+  top: calc(var(--aw-head) + 24px);
+}
+
+.aw-demo {
+  display: grid;
+  gap: 20px;
+}
+.aw-demo__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(241, 238, 231, 0.24);
+}
+.aw-demo__tab {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  color: rgba(241, 238, 231, 0.45);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  min-height: 44px;
+  transition: color 0.3s;
+}
+.aw-demo__tab.is-on,
+.aw-demo__tab:hover {
+  color: var(--aw-paper);
+}
+.aw-demo__tab-n {
+  font-family: var(--aw-mono), monospace;
+  font-size: 12px;
+  font-weight: 400;
+}
+.aw-demo__bar {
+  position: absolute;
+  left: 0;
+  right: 12px;
+  top: -1px;
+  height: 2px;
+  overflow: hidden;
+}
+.aw-demo__bar-in {
+  display: block;
+  height: 100%;
+  background: var(--aw-shu);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.aw-demo__tab.is-on .aw-demo__bar-in {
+  animation: aw-demo-bar linear both;
+}
+@keyframes aw-demo-bar {
+  to { transform: scaleX(1); }
+}
+
+.aw-demo__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 16px;
+  min-height: 420px;
+}
+/* チャット */
+.aw-demo__chat {
+  display: flex;
+  flex-direction: column;
+  background: var(--aw-paper);
+  color: var(--aw-ink);
+  padding: 18px 18px 22px;
+}
+.aw-demo__chat-h {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--aw-line);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.aw-demo__ex {
+  font-weight: 400;
+  color: var(--aw-sub);
+}
+.aw-demo__log {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 18px;
+}
+.aw-demo__msg {
+  max-width: 88%;
+  animation: aw-demo-in 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.aw-demo__msg.is-me {
+  align-self: flex-end;
+  text-align: right;
+}
+.aw-demo__who {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  color: var(--aw-sub);
+  letter-spacing: 0.06em;
+}
+.aw-demo__txt {
+  display: inline-block;
+  text-align: left;
+  padding: 11px 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  border: 1px solid var(--aw-ink);
+  background: #fff;
+}
+.aw-demo__msg.is-al .aw-demo__txt {
+  background: var(--aw-ink);
+  color: var(--aw-paper);
+}
+.aw-demo__dots {
+  display: inline-flex;
+  gap: 5px;
+  padding: 4px 2px;
+}
+.aw-demo__dots i {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  animation: aw-demo-dot 0.9s ease-in-out infinite;
+}
+.aw-demo__dots i:nth-child(2) { animation-delay: 0.15s; }
+.aw-demo__dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes aw-demo-dot {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+@keyframes aw-demo-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 直っていく画面 */
+.aw-demo__screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: var(--aw-ink);
+  overflow: hidden;
+  animation: aw-demo-in 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.aw-demo__chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--aw-faint);
+  background: var(--aw-paper);
+}
+.aw-demo__chrome span {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--aw-line);
+}
+.aw-demo__chrome em {
+  margin-left: 10px;
+  font-style: normal;
+  font-family: var(--aw-mono), monospace;
+  font-size: 11px;
+  color: var(--aw-sub);
+}
+.aw-demo__body {
+  flex: 1;
+  padding: clamp(18px, 2.2vw, 30px);
+}
+/* 直している間: 朱の線が上から下へ走る */
+.aw-demo__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--aw-shu);
+  opacity: 0;
+  pointer-events: none;
+}
+.aw-demo__screen.is-work:not(.is-done) .aw-demo__scan {
+  animation: aw-demo-scan 1.6s cubic-bezier(0.6, 0, 0.3, 1) both;
+}
+@keyframes aw-demo-scan {
+  0% { opacity: 1; transform: translateY(40px); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(420px); }
+}
+
+/* 画面の中身: 直る前は一部が無い／灰色。直ると現れる */
+.aw-sc-web__news {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin: -6px -6px 22px;
+  padding: 0 14px;
+  max-height: 0;
+  overflow: hidden;
+  background: var(--aw-shu);
+  color: #fff;
+  font-size: 13px;
+  transition: max-height 0.7s cubic-bezier(0.2, 0.7, 0.1, 1), padding 0.7s;
+}
+.aw-sc-web__news b { font-size: 11px; letter-spacing: 0.08em; }
+.is-work .aw-sc-web__news {
+  max-height: 60px;
+  padding: 10px 14px;
+}
+.aw-sc-web__logo {
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+}
+.aw-sc-web__h {
+  margin-top: 22px;
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.4;
+}
+.aw-sc-web__hours {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 20px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--aw-faint);
+  font-size: 13px;
+}
+.aw-sc-web__hours dt { color: var(--aw-sub); }
+
+.aw-sc-sys__h {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 26px);
+}
+.aw-sc-sys__h span {
+  font-family: var(--aw-mono), monospace;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--aw-sub);
+}
+.aw-sc-sys__rows {
+  margin-top: 18px;
+  border-top: 1px solid var(--aw-ink);
+}
+.aw-sc-sys__rows li {
+  display: grid;
+  grid-template-columns: 1fr 36px 80px;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--aw-faint);
+  font-size: 13px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s, transform 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.aw-sc-sys__rows li span:not(:first-child) {
+  text-align: right;
+  font-family: var(--aw-mono), monospace;
+}
+.is-work .aw-sc-sys__rows li { opacity: 1; transform: none; }
+.is-work .aw-sc-sys__rows li:nth-child(2) { transition-delay: 0.35s; }
+.is-work .aw-sc-sys__rows li:nth-child(3) { transition-delay: 0.7s; }
+.aw-sc-sys__sum {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--aw-sub);
+}
+.aw-sc-sys__sum b {
+  font-family: var(--aw-mincho), serif;
+  font-size: clamp(22px, 2.2vw, 30px);
+  color: var(--aw-ink);
+  opacity: 0.15;
+  transition: opacity 0.5s 1s;
+}
+.is-work .aw-sc-sys__sum b { opacity: 1; }
+.aw-sc-sys__btn {
+  margin-top: 18px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--aw-faint);
+  color: var(--aw-sub);
+  transition: background 0.4s, color 0.4s;
+}
+.is-done .aw-sc-sys__btn {
+  background: var(--aw-ink);
+  color: var(--aw-paper);
+}
+
+.aw-sc-ai__from {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--aw-shu);
+}
+.aw-sc-ai__h {
+  margin-top: 6px;
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 26px);
+}
+.aw-sc-ai__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 140px;
+  margin-top: 20px;
+  border-bottom: 1px solid var(--aw-ink);
+}
+.aw-sc-ai__bars span {
+  position: relative;
+  flex: 1;
+  background: var(--aw-ink);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.aw-sc-ai__bars span:last-child { background: var(--aw-shu); }
+.aw-sc-ai__bars span:nth-child(2) { transition-delay: 0.12s; }
+.aw-sc-ai__bars span:nth-child(3) { transition-delay: 0.24s; }
+.aw-sc-ai__bars span:nth-child(4) { transition-delay: 0.36s; }
+.is-work .aw-sc-ai__bars span { transform: none; }
+.aw-sc-ai__bars em {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  font-style: normal;
+  font-family: var(--aw-mono), monospace;
+  font-size: 11px;
+  color: var(--aw-sub);
+}
+.aw-sc-ai__note {
+  margin-top: 36px;
+  font-size: 13px;
+  line-height: 1.8;
+  opacity: 0;
+  transition: opacity 0.6s 0.6s;
+}
+.is-done .aw-sc-ai__note { opacity: 1; }
+
+@media (max-width: 900px) {
+  .aw-demosec__in { grid-template-columns: 1fr; }
+  .aw-demosec__head { position: static; }
+  .aw-demo__stage { grid-template-columns: 1fr; min-height: 0; }
+  .aw-demo__chat { min-height: 250px; }
+  .aw-demo__screen { min-height: 300px; }
+  .aw-demo__tab { font-size: 14px; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-demo__msg, .aw-demo__screen { animation: none; }
+}
+
+/* ===== 区切りの写真 ===== */
+.aw-photo {
+  position: relative;
+  margin-top: clamp(96px, 14vw, 200px);
+  height: clamp(260px, 52vw, 760px);
+  overflow: hidden;
+}
+.aw-photo + .aw-demosec {
+  margin-top: 0;
+}
+.aw-photo__in {
+  position: absolute;
+  inset: -12% 0;
+  will-change: transform;
+}
+.aw-photo__in img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.aw-photo__cap {
+  position: absolute;
+  left: var(--aw-gut);
+  bottom: 18px;
+  font-family: var(--aw-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+/* 直し: 見出しを列に収める・スマホは画面の高さを固定して下の画面が動かないように */
+.aw-demosec__h {
+  font-size: clamp(30px, 3.2vw, 56px);
+}
+.aw-sc-web__news b {
+  white-space: nowrap;
+}
+.aw-demo__log {
+  flex: 1;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+@media (max-width: 900px) {
+  .aw-demo__chat { height: 236px; min-height: 0; padding: 14px 14px 16px; }
+  .aw-demo__log { padding-top: 10px; gap: 10px; }
+  .aw-demo__txt { font-size: 13px; padding: 9px 12px; }
+  .aw-demo__screen { height: 300px; min-height: 0; }
+  .aw-demo__stage { gap: 10px; }
+  .aw-demosec { padding: 48px 0 56px; }
+  .aw-demosec__lead { margin-top: 12px; }
+}

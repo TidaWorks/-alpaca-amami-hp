@@ -175,6 +175,14 @@ export default function AwMotion() {
         });
       }
 
+      // 3d. 区切りの写真: 下から開き、スクロールで少しずれる
+      q(".aw-photo").forEach((fig) => {
+        const img = fig.querySelector("[data-photo]");
+        if (!img) return;
+        gsap.fromTo(fig, { clipPath: "inset(18% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", ease: "none", scrollTrigger: { trigger: fig, start: "top 100%", end: "top 45%", scrub: 0.6 } });
+        gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: fig, start: "top bottom", end: "bottom top", scrub: true } });
+      });
+
       // 4. 社長の言葉: 画面の真ん中に来た1つだけ墨にする
       q("[data-voice]").forEach((el) => {
         ScrollTrigger.create({
