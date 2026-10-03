@@ -8,7 +8,7 @@ import { cleanName, getYou, restoreYou, setYou, subscribeYou, useYou, WORRIES } 
 const SUM = {
   docs: { job: "システム開発", flow: "聞く → 決める → 作る → 使えるようにする", money: "内容を聞いてお見積り" },
   hp: { job: "ホームページ制作", flow: "聞く → 組み立てる → 作る → 公開する", money: "25万円から（税別）" },
-  ai: { job: "AI顧問", flow: "書き出す → 分ける → 作る → 使えるようにする", money: "月15万円から（税別）" },
+  ai: { job: "AI顧問", flow: "書き出す → 分ける → 作る → 使えるようにする", money: "月15万円（税別）" },
 } as const;
 
 /** 組織表の「空席に座る」動きを起こす合図（AwMotion が聞く） */
