@@ -7,7 +7,6 @@ import AwHeader from "@/components/award/AwHeader";
 import AwMotion from "@/components/award/AwMotion";
 import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
-import AwAsk from "@/components/award/AwAsk";
 import AwSlip from "@/components/award/AwSlip";
 import AwDemo from "@/components/award/AwDemo";
 import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
@@ -58,7 +57,7 @@ const WORKS = [
     name: "ホームページ制作",
     lead: "会社の窓口になるページを作ります。一枚もののLPから、会社案内のサイトまで。",
     sub: "",
-    items: ["LP", "コーポレートサイト", "Next.jsで作る本格的なサイト"],
+    items: ["LP", "コーポレートサイト"],
     note: "WordPress、EC、ブログ機能は扱いません。",
     priceLabel: "料金",
     price: "25万円から",
@@ -308,19 +307,15 @@ export default function Home() {
             </figure>
 
             <div className="aw-hero__lead" data-hero="lead">
-              <AwAsk
-                lead={
-                  <p className="aw-hero__txt">
-                    {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
-                  </p>
-                }
-              />
+              <p className="aw-hero__txt">
+                {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <Photo src="/images/scene/s1-sea.webp" cap="奄美大島　有屋町から" />
+      <Photo src="/images/scene/s1-sea.webp" />
 
       {/* 頼むと、こう動きます（写真の代わりに動く画面で見せる） */}
       <section className="aw-demosec" id="demo" aria-labelledby="aw-demo-h">
