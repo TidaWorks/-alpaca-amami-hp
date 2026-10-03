@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
 
 /**
@@ -122,7 +123,9 @@ export default function AwDemo() {
         {/* 左: チャット */}
         <div className="aw-demo__chat">
           <p className="aw-demo__chat-h">
-            <span>山田商店 × ALPACA</span>
+            <span>
+              <em>#</em> 山田商店のITのこと
+            </span>
             <span className="aw-demo__ex">例</span>
           </p>
           <div className="aw-demo__log" key={s}>
@@ -156,21 +159,32 @@ export default function AwDemo() {
   );
 }
 
+// 仕事用チャット風の1行: 丸いアイコン・名前と時刻・本文（吹き出しは無し）
+const TIMES = { me: "9:41", al: "9:43" } as const;
 function Bubble({ who, typing, children }: { who: "me" | "al"; typing?: boolean; children: React.ReactNode }) {
   return (
     <div className={`aw-demo__msg is-${who}`}>
-      <span className="aw-demo__who">{who === "me" ? "社長" : "ALPACA"}</span>
-      <p className="aw-demo__txt">
+      <span className="aw-demo__av" aria-hidden="true">
+        {who === "me" ? "山" : <img src="/images/logo/alpaca-mark.png" alt="" width={18} height={18} />}
+      </span>
+      <div className="aw-demo__mbody">
+        <p className="aw-demo__meta">
+          <b>{who === "me" ? "山田（社長）" : "ALPACA"}</b>
+          <time>{TIMES[who]}</time>
+        </p>
         {typing ? (
-          <span className="aw-demo__dots">
-            <i />
-            <i />
-            <i />
-          </span>
+          <p className="aw-demo__typing">
+            入力中
+            <span className="aw-demo__dots">
+              <i />
+              <i />
+              <i />
+            </span>
+          </p>
         ) : (
-          children
+          <p className="aw-demo__txt">{children}</p>
         )}
-      </p>
+      </div>
     </div>
   );
 }

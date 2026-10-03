@@ -99,8 +99,8 @@ const VOICES = [
 
 // ALPACAに頼む理由（決定済み）
 const REASONS = [
-  { n: "1", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。" },
-  { n: "2", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。" },
+  { n: "1", t: "うまく言えなくていい", d: "何に困っているか、まとまっていなくても大丈夫です。サーバーやドメインのような言葉も、分かる言葉に直して話します。" },
+  { n: "2", t: "今のやり方に合わせる", d: "紙やExcelで回している流れを聞いて、そのやり方に合わせて作ります。" },
   { n: "3", t: "島の外にも伺う", d: "奄美の会社には伺います。島の外の会社にも、伺います。※", note: "※ 島の外へ伺う時は、交通費をご負担いただきます。ふだんのやり取りは、チャットや画面ごしでもできます。" },
 ];
 
@@ -243,7 +243,6 @@ export default function Home() {
       <section className="aw-hero" aria-labelledby="aw-hero-h">
         <div className="aw-wrap aw-hero__in">
           <p className="aw-hero__meta" data-hero="meta">
-            <span>奄美大島　有屋町</span>
             <span className="aw-hero__meta-r">ホームページ制作／システム開発／AI顧問</span>
           </p>
           <h1 className="aw-hero__h" id="aw-hero-h">
@@ -330,7 +329,7 @@ export default function Home() {
 
             <div className="aw-hero__lead" data-hero="lead">
               <p className="aw-hero__txt">
-                {jp("ホームページ、業務のシステム、AIに任せる仕組み。IT担当がやるはずだった仕事を、社長と話しながら一つずつ片づけます。")}
+                {jp("ホームページ制作、システム開発、AI顧問。ITの窓口を、ひとつにします。")}
               </p>
             </div>
           </div>
@@ -343,12 +342,11 @@ export default function Home() {
       <section className="aw-demosec" id="demo" aria-labelledby="aw-demo-h">
         <div className="aw-wrap aw-demosec__in">
           <div className="aw-demosec__head">
-            <h2 className="aw-demosec__h" id="aw-demo-h" data-rise>
-              <span className="aw-nb">頼むと、</span>
-              <span className="aw-nb">こう動きます。</span>
+            <h2 className="aw-demosec__h" id="aw-demo-h">
+              <HandTitle text="Just ask." w={700} fid="aw-hand-w3" />
             </h2>
             <p className="aw-demosec__lead" data-rise>
-              {jp("いつものチャットで頼むだけ。直したら、直したと返します。")}
+              {jp("チャットで送るだけで、直す・作る・調べるまで進みます。")}
             </p>
           </div>
           <AwDemo />
