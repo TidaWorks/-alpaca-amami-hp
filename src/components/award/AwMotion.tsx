@@ -40,8 +40,42 @@ export default function AwMotion() {
       tl.fromTo(q('[data-hero="meta"]'), { opacity: 0 }, { opacity: 1, duration: 0.8 }, 0.1)
         .fromTo(q('[data-hero="chunk"]'), { yPercent: 112, y: 0 }, { yPercent: 0, duration: 1.3, stagger: 0.09 }, 0.15)
         .fromTo(q('[data-hero="lead"]'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1 }, 0.8)
-        .fromTo(q('[data-hero="under"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.inOut" }, 1.5)
-;
+        ;
+      // 1b. 「□になります」: ホームページ担当 → システム担当 → AI担当 → IT担当 と入れ替わり、最後に朱の線
+      const swap = document.querySelector<HTMLElement>('[data-hero="swap"]');
+      const allWords = swap ? gsap.utils.toArray<HTMLElement>(swap.querySelectorAll("[data-swap]")) : [];
+      let words = allWords;
+      let underAt = 1.5;
+      if (swap && allWords.length > 1) {
+        swap.classList.add("is-swapping");
+        // 行に収まらない言葉（スマホの「ホームページ担当」）は飛ばす。折り返して行が動くのを防ぐ
+        const h1 = swap.closest("h1");
+        const room = h1 ? h1.getBoundingClientRect().width - parseFloat(getComputedStyle(h1).fontSize) * 1.1 : 9999; // 「に」1字ぶん
+        words = allWords.filter((w, i) => i === allWords.length - 1 || w.getBoundingClientRect().width <= room);
+        allWords.forEach((w) => { if (!words.includes(w)) w.style.display = "none"; });
+        // 幅は動く直前に測る（字の読み込み前に測るとずれるため）
+        const wOf = (i: number) => () => words[i].getBoundingClientRect().width;
+        gsap.set(words, { yPercent: 110 });
+        gsap.set(words[0], { yPercent: 0 });
+        gsap.set(swap, { width: wOf(0)() });
+        const t0 = 1.3;
+        const hold = 0.95;
+        words.forEach((w, i) => {
+          if (i === 0) return;
+          const at = t0 + hold * i;
+          tl.to(words[i - 1], { yPercent: -110, duration: 0.45, ease: "power3.inOut" }, at)
+            .to(w, { yPercent: 0, duration: 0.6, ease: "expo.out" }, at + 0.12)
+            .to(swap, { width: wOf(i), duration: 0.6, ease: "expo.inOut" }, at);
+        });
+        underAt = t0 + hold * (words.length - 1) + 0.6;
+        // 終わったら CSS の最後の形（IT担当だけ・幅は字なり）に戻す
+        tl.call(() => {
+          swap.classList.remove("is-swapping");
+          gsap.set(allWords, { clearProps: "transform,display" });
+          gsap.set(swap, { clearProps: "width" });
+        }, [], underAt);
+      }
+      tl.fromTo(q('[data-hero="under"]'), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.inOut" }, underAt);
       // 組織表: 罫線と行は開いた時に引く。「空席に ALPACA が座る」は、名前を入れた時（aw:seat の合図）に起こす。
       // 何も入れずに読み進める人には、スクロールし始めた所で起こす
       const roster = gsap.timeline({ defaults: { ease }, paused: true });
@@ -118,6 +152,28 @@ export default function AwMotion() {
           scrollTrigger: { trigger: el, start: "top 92%", once: true },
         });
       });
+
+      // 3b. 仕事の行: 触れない端末は、画面の真ん中に来た行の後ろで名前が流れる
+      if (!window.matchMedia("(hover: hover)").matches) {
+        q(".aw-work__item").forEach((el) => {
+          ScrollTrigger.create({ trigger: el, start: "top 60%", end: "bottom 40%", toggleClass: { targets: el, className: "is-on" } });
+        });
+      }
+
+      // 3c. 問い合わせの一文: 散らばった字が集まる
+      const gather = q("[data-gather]");
+      if (gather.length) {
+        gsap.from(gather, {
+          x: () => gsap.utils.random(-1, 1) * Math.min(160, window.innerWidth * 0.2),
+          y: () => gsap.utils.random(-1, 1) * Math.min(120, window.innerWidth * 0.2),
+          rotation: () => gsap.utils.random(-50, 50),
+          opacity: 0,
+          duration: 1.4,
+          ease: "expo.out",
+          stagger: { each: 0.04, from: "random" },
+          scrollTrigger: { trigger: gather[0], start: "top 85%", once: true },
+        });
+      }
 
       // 4. 社長の言葉: 画面の真ん中に来た1つだけ墨にする
       q("[data-voice]").forEach((el) => {

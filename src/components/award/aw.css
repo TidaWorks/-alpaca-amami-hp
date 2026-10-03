@@ -2211,3 +2211,103 @@ html.aw-menu-open .aw-slip {
     padding: 3px 0;
   }
 }
+
+/* ===== 2026-10-03 funtech から自然に入る3つ ===== */
+.aw-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 一番上「□になります」: 言葉が縦に入れ替わる箱。動かない時は最後の「IT担当」だけが見える */
+.aw-rot {
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: top;
+  white-space: nowrap;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.aw-rot__w {
+  grid-area: 1 / 1;
+  justify-self: start;
+  display: none;
+}
+.aw-rot__w.is-last {
+  display: inline-block;
+}
+.aw-rot.is-swapping .aw-rot__w {
+  display: inline-block;
+  color: var(--aw-shu);
+  will-change: transform;
+}
+.aw-rot.is-swapping .aw-rot__w.is-last {
+  color: inherit;
+}
+
+/* 仕事の名前の後ろに流れる帯。触った行だけ、薄く大きく流れる */
+.aw-work__item {
+  position: relative;
+}
+.aw-work__head {
+  position: relative;
+}
+.aw-work__ghost {
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.aw-work__ghost-in {
+  display: inline-flex;
+  gap: 0.5em;
+  white-space: nowrap;
+  font-family: var(--aw-mincho), serif;
+  font-weight: 800;
+  font-size: clamp(80px, 16vw, 240px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--aw-shu);
+  animation: aw-ghost 22s linear infinite;
+  animation-play-state: paused;
+}
+.aw-work__item:hover .aw-work__ghost,
+.aw-work__item.is-on .aw-work__ghost {
+  opacity: 0.35;
+}
+.aw-contact {
+  overflow-x: clip;
+}
+.aw-work__item:hover .aw-work__ghost-in,
+.aw-work__item.is-on .aw-work__ghost-in {
+  animation-play-state: running;
+}
+@keyframes aw-ghost {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-work__ghost { display: none; }
+}
+
+/* 問い合わせの一文: 字が散らばった所から集まる */
+.aw-gather__c {
+  display: inline-block;
+  will-change: transform;
+}
+.aw-work__item {
+  isolation: isolate;
+}
+.aw-work {
+  overflow-x: clip;
+}

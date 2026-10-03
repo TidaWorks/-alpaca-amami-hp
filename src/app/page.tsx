@@ -40,6 +40,9 @@ const HERO_LINES = [
   ["IT担当に", "なります。"],
 ];
 
+// 一番上の「□になります」で入れ替わる言葉。IT担当 は全部をまとめた言葉なので最後に止まる
+const SWAP_WORDS = ["ホームページ担当", "システム担当", "AI担当", "IT担当"];
+
 // 組織表（例）。最後の行の「空席」が消えて ALPACA が入る
 const ROSTER = [
   { role: "社長", who: "あなた", note: "決める" },
@@ -218,7 +221,16 @@ export default function Home() {
                       {c === "IT担当に" ? (
                         <>
                           <span className="aw-hero__mark">
-                            IT担当
+                            {/* 言葉が入れ替わって最後に「IT担当」で止まる（funtech の「Creativity is □」から）。
+                                読み上げと JS が動かない時は「IT担当」だけ */}
+                            <span className="aw-rot" data-hero="swap" aria-hidden="true">
+                              {SWAP_WORDS.map((w, i) => (
+                                <span key={w} className={i === SWAP_WORDS.length - 1 ? "aw-rot__w is-last" : "aw-rot__w"} data-swap>
+                                  {w}
+                                </span>
+                              ))}
+                            </span>
+                            <span className="aw-sr">IT担当</span>
                             <span className="aw-hero__under" data-hero="under" aria-hidden="true" />
                           </span>
                           に
@@ -331,6 +343,14 @@ export default function Home() {
                   <h3 className="aw-work__name" data-slide>
                     {w.name}
                   </h3>
+                  {/* 触る（スマホは画面の真ん中に来る）と、名前が大きく横に流れる（funtech の実績一覧から） */}
+                  <span className="aw-work__ghost" aria-hidden="true">
+                    <span className="aw-work__ghost-in">
+                      {[0, 1, 2, 3, 4, 5].map((k) => (
+                        <span key={k}>{w.name}</span>
+                      ))}
+                    </span>
+                  </span>
                   <dl className="aw-work__price" data-rise>
                     <dt>{w.priceLabel}</dt>
                     <dd>
@@ -591,11 +611,19 @@ export default function Home() {
           <p className="aw-contact__n" aria-hidden="true">
             (08)
           </p>
-          <h2 className="aw-contact__h" id="aw-contact-h" data-rise>
-            <span className="aw-nb">
+          <h2 className="aw-contact__h" id="aw-contact-h">
+            <span className="aw-nb" data-rise>
               <IfNamed no="まずは話を" yes={<><Co after="の話を、" /></>} />
             </span>
-            <span className="aw-nb">聞かせてください。</span>
+            {/* 散らばった字が集まって一文になる（funtech の締めの一文から） */}
+            <span className="aw-nb aw-gather">
+              <span className="aw-sr">聞かせてください。</span>
+              {"聞かせてください。".split("").map((ch, i) => (
+                <span key={i} className="aw-gather__c" data-gather aria-hidden="true">
+                  {ch}
+                </span>
+              ))}
+            </span>
           </h2>
           <IfEngaged>
             <p className="aw-contact__left">
