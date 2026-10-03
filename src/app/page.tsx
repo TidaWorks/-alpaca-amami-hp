@@ -9,6 +9,7 @@ import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwSlip from "@/components/award/AwSlip";
 import AwDemo from "@/components/award/AwDemo";
+import AwServices, { type Service } from "@/components/award/AwServices";
 import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
 
@@ -101,7 +102,7 @@ const VOICES = [
 const REASONS = [
   { n: "1", t: "うまく言えなくていい", d: "何に困っているか、まとまっていなくても大丈夫です。サーバーやドメインのような言葉も、分かる言葉に直して話します。" },
   { n: "2", t: "今のやり方に合わせる", d: "紙やExcelで回している流れを聞いて、そのやり方に合わせて作ります。" },
-  { n: "3", t: "島の外にも伺う", d: "奄美の会社には伺います。島の外の会社にも、伺います。※", note: "※ 島の外へ伺う時は、交通費をご負担いただきます。ふだんのやり取りは、チャットや画面ごしでもできます。" },
+  { n: "3", t: "同じ島にいる", d: "奄美の会社なら、気軽に会えます。※", note: "※ 島外の会社とは、画面ごしでも進められます。島外へ伺う時は、交通費をご負担いただきます。" },
 ];
 
 // AI顧問の毎月の流れ（決定済み）。困りごとを選んだ人には、先に頼む仕事の進め方に差し替える
@@ -122,6 +123,23 @@ const FLOW_HP = [
   { t: "組み立てる", d: "載せる中身と順番を決めて、見積りを出します" },
   { t: "作る", d: "文章と見た目を作ります。途中で画面を見てもらいます" },
   { t: "公開する", d: "公開して、問い合わせが届くかを一緒に確かめます" },
+];
+
+// Our Services のタブの中身（10/4 Q8①）。進め方は紙芝居（Q7③）。AI顧問の流れは facts（会社のIT担当・月1回）に合わせた案
+const SERVICES: Service[] = [
+  { ...WORKS[0], tab: "ホームページ", flowTitle: "進め方", flow: FLOW_HP },
+  { ...WORKS[1], tab: "システム", flowTitle: "進め方", flow: FLOW_DOCS },
+  {
+    ...WORKS[2],
+    tab: "AI顧問",
+    flowTitle: "毎月の流れ",
+    flow: [
+      { t: "話す", d: "月に1回、顔を合わせて、いま困っている事を聞きます" },
+      { t: "決める", d: "その月にやる事を一緒に決めます。大きい物は何か月かに分けます" },
+      { t: "やる", d: "直す、作る、使い方を教える。チャットの相談には平日に返事します" },
+      { t: "確かめる", d: "使われているかを見て、次の月にやる事を考えます" },
+    ],
+  },
 ];
 
 const PRICES = [
@@ -369,60 +387,7 @@ export default function Home() {
             hp={<>{jp("ホームページから問い合わせが来ないなら、先に頼むのはホームページ制作です。")}<Co after="が" />{jp("何をしている所か、開いてすぐ分かるページに作り直します。")}</>}
             ai={<>{jp("AIを何に使えばいいか分からないなら、先に頼むのはAI顧問です。")}<Co after="の" />{jp("仕事を一緒に書き出して、AIに任せる作業を1つずつ決めます。")}</>}
           />
-          <ol className="aw-work__list">
-            {WORKS.map((w) => (
-              <li key={w.id} className="aw-work__item" id={`work-${w.id}`}>
-                <span className="aw-rule" data-line aria-hidden="true" />
-                <div className="aw-work__head">
-                  <span className="aw-work__n">
-                    <WorkNo id={w.id} />
-                    <FirstTag id={w.id}>
-                      <Co after="は、ここから" />
-                    </FirstTag>
-                  </span>
-                  <h3 className="aw-work__name" data-slide>
-                    {w.name}
-                  </h3>
-                  {/* 触る（スマホは画面の真ん中に来る）と、名前が大きく横に流れる（funtech の実績一覧から） */}
-                  <span className="aw-work__ghost" aria-hidden="true">
-                    <span className="aw-work__ghost-in">
-                      {[0, 1, 2, 3, 4, 5].map((k) => (
-                        <span key={k}>{w.name}</span>
-                      ))}
-                    </span>
-                  </span>
-                  <dl className="aw-work__price" data-rise>
-                    <dt>{w.priceLabel}</dt>
-                    <dd>
-                      {w.price}
-                      {w.tax && <small>（税別）</small>}
-                    </dd>
-                  </dl>
-                </div>
-                <div className="aw-work__body" data-rise>
-                  <div className="aw-work__txt">
-                    <p className="aw-work__lead">{jp(w.lead)}</p>
-                    {w.sub && <p className="aw-work__sub">{jp(w.sub)}</p>}
-                  </div>
-                  <div className="aw-work__detail">
-                    <p className="aw-work__k">内容</p>
-                    <ul className="aw-work__items">
-                      {w.items.map((it) => (
-                        <li key={it}>{jp(it)}</li>
-                      ))}
-                    </ul>
-                    {w.note && <p className="aw-work__note">{w.note}</p>}
-                    {w.id === "komon" && (
-                      <a href="#flow" className="aw-link">
-                        <span>毎月の流れを見る</span>
-                        <Arrow />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <AwServices services={SERVICES} />
         </div>
       </section>
 
@@ -470,86 +435,6 @@ export default function Home() {
 
       <Photo src="/images/scene/s3-hands.webp" />
 
-      {/* AI顧問の毎月の流れ */}
-      <section className="aw-sec aw-flow" id="flow" aria-labelledby="aw-flow-h">
-        <div className="aw-wrap">
-          <SecHead
-            n="04"
-            id="aw-flow-h"
-            title={
-              <ByWorry
-                d="AI顧問の、毎月の流れ"
-                docs={<><span className="aw-nb"><Co after="の、" /></span><span className="aw-nb">システムの</span><span className="aw-nb">進め方</span></>}
-                hp={<><span className="aw-nb"><Co after="の、" /></span><span className="aw-nb">ホームページの</span><span className="aw-nb">進め方</span></>}
-                ai={<><span className="aw-nb"><Co after="の、" /></span><span className="aw-nb">毎月の流れ</span></>}
-              />
-            }
-          />
-          <p className="aw-flow__intro" data-rise>
-            <ByWorry
-              d={jp("毎月これを1周します。1周ごとに、AIに任せる仕事が1つ増えます。")}
-              docs={<><Co after="の" />{jp("見積や書類は、この順でシステムにします。")}</>}
-              hp={<><Co after="の" />{jp("ホームページは、この順で作ります。")}</>}
-              ai={<><Co after="でも、" />{jp("毎月これを1周します。1周ごとに、AIに任せる仕事が1つ増えます。")}</>}
-            />
-          </p>
-          <div className="aw-flow__grid" data-flow>
-            {/* 毎月の1周を輪で見せる。読み進めると朱の弧が伸び、今の段の名前が真ん中に出る */}
-            <div className="aw-flow__ringbox" aria-hidden="true">
-              <div className="aw-flow__ring">
-                <svg viewBox="0 0 400 400">
-                  <circle className="aw-flow__base" cx="200" cy="200" r="170" />
-                  {/* 12時の位置から時計回りに1周する弧 */}
-                  <path className="aw-flow__prog" data-flow-bar d="M200 30 A170 170 0 1 1 199.9 30" pathLength={100} />
-                  {[
-                    [200, 30],
-                    [370, 200],
-                    [200, 370],
-                    [30, 200],
-                  ].map(([x, y], i) => (
-                    <rect key={i} className="aw-flow__dot" data-flow-dot x={x - 7} y={y - 7} width="14" height="14" />
-                  ))}
-                </svg>
-                <div className="aw-flow__center">
-                  <p className="aw-flow__lap">
-                    <span>
-                      <ByWorry d="毎月" docs="進め方" hp="進め方" ai="毎月" />
-                    </span>
-                    <span>
-                      <ByWorry d="1周" docs="4つ" hp="4つ" ai="1周" />
-                    </span>
-                  </p>
-                  {FLOW.map((f, i) => (
-                    <p key={f.n} className="aw-flow__cur" data-i={i}>
-                      <span className="aw-flow__cur-n">{f.n}</span>
-                      <span className="aw-flow__cur-t">
-                        <ByWorry d={f.t} docs={FLOW_DOCS[i].t} hp={FLOW_HP[i].t} ai={f.t} />
-                      </span>
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <ol className="aw-flow__list">
-              {FLOW.map((f, i) => (
-                <li key={f.n} className="aw-flow__step" data-flow-step>
-                  <p className="aw-flow__n">{f.n}</p>
-                  <h3 className="aw-flow__t">
-                    <ByWorry d={f.t} docs={FLOW_DOCS[i].t} hp={FLOW_HP[i].t} ai={f.t} />
-                  </h3>
-                  <p className="aw-flow__d">
-                    <ByWorry d={jp(f.d)} docs={jp(FLOW_DOCS[i].d)} hp={jp(FLOW_HP[i].d)} ai={jp(f.d)} />
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <p className="aw-flow__first" data-rise>
-            <span className="aw-flow__first-k">はじめに</span>
-            <span>{jp("最初の相談は無料です。今の仕事の話を聞かせてください。")}</span>
-          </p>
-        </div>
-      </section>
 
       {/* 料金 */}
       <section className="aw-sec aw-price" id="price" aria-labelledby="aw-price-h">
