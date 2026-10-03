@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "@/components/award/aw.css";
-import { gothic, mincho, mono } from "@/components/award/fonts";
+import { gothic, hand, mincho, mono } from "@/components/award/fonts";
 import { jp } from "@/components/award/jp";
 import AwHeader from "@/components/award/AwHeader";
 import AwMotion from "@/components/award/AwMotion";
@@ -79,9 +79,9 @@ const WORKS = [
     n: "03",
     id: "komon" as const,
     name: "AI顧問",
-    lead: "月に1〜2回、会社にうかがうか画面ごしに話して、AIに任せる仕事を1つずつ決めます。決めたら、動く仕組みまでこちらで作ります。",
-    sub: "できあがったAIには、社員がスマホから話しかけるだけ。スタッフが1人増えた感覚で使えます。",
-    items: ["会社専用のAI", "作業の自動化", "今使っているソフトとの連携", "社員への使い方の説明"],
+    lead: "社内のIT担当として、ALPACAが中に入ります。ホームページ、業務の仕組み、AIの使い方、パソコンやソフトの困りごとまで、その時に要る事をやります。",
+    sub: "月1回、顔を合わせて話します。チャットの相談はいつでも送れて、平日に返事します。",
+    items: ["ホームページのこと", "業務の仕組み", "AIの使い方", "パソコンやソフトの相談"],
     note: "",
     priceLabel: "顧問料",
     price: "月15万円",
@@ -92,16 +92,16 @@ const WORKS = [
 // 社長の困りごと（決定済みの3行）
 // 大きな字で読ませるので、句のかたまりを手で切る（スマホで「でも、」だけの行ができていた）
 const VOICES = [
-  ["「AIがすごいのは", "知ってる。", "でも、うちの", "どの仕事に", "使えばいいのか", "分からない」"],
-  ["「便利なアプリを", "入れたけど、", "結局だれも", "開いてない」"],
-  ["「求人を出しても", "人が来ない。", "今いる人の手を", "少しでも", "空けたい」"],
+  ["「ホームページ、", "何年も", "触ってない」"],
+  ["「パソコンの設定、", "毎回だれかに", "聞いてる」"],
+  ["「AI、", "気にはなってる」"],
 ];
 
 // ALPACAに頼む理由（決定済み）
 const REASONS = [
   { n: "1", t: "話を聞いて終わりにしない", d: "「こうすればいいですよ」と言うだけの顧問ではありません。仕組みはこちらで作って、置いていきます。" },
   { n: "2", t: "自分の仕事で先に試している", d: "予定表も台帳も、まず自分の仕事でシステムにして、毎日使っています。" },
-  { n: "3", t: "奄美にいる", d: "奄美の会社なら、会って話せます。" },
+  { n: "3", t: "島の外にも伺う", d: "奄美の会社には伺います。島の外の会社にも、伺います。※", note: "※ 島の外へ伺う時は、交通費をご負担いただきます。ふだんのやり取りは、チャットや画面ごしでもできます。" },
 ];
 
 // AI顧問の毎月の流れ（決定済み）。困りごとを選んだ人には、先に頼む仕事の進め方に差し替える
@@ -178,6 +178,28 @@ function SecHead({ n, title, id }: { n: string; title: React.ReactNode; id: stri
   );
 }
 
+function HandTitle({ text, w, fid }: { text: string; w: number; fid: string }) {
+  // 手書きの英語見出し。画面に入ると一筆ずつ書かれ、そのあと少しぐにゃっと揺れ続ける（AwMotion が is-in を付ける）
+  return (
+    <span className="aw-hand" data-hand>
+      <span className="aw-sr">{text}</span>
+      <svg viewBox={`0 0 ${w} 200`} aria-hidden="true" className="aw-hand__svg" style={{ maxWidth: `${(w / 1000) * 920}px` }}>
+        <defs>
+          <filter id={fid} x="-5%" y="-10%" width="110%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="3" result="n">
+              <animate attributeName="baseFrequency" dur="6s" values="0.012;0.02;0.012" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="7" />
+          </filter>
+        </defs>
+        <text x="8" y="158" className="aw-hand__t" filter={`url(#${fid})`}>
+          {text}
+        </text>
+      </svg>
+    </span>
+  );
+}
+
 function Photo({ src, cap }: { src: string; cap?: string }) {
   // 区切りの写真（AIで作った場面写真。人の顔は出さない）。スクロールで少しずれて奥行きを出す
   return (
@@ -201,7 +223,7 @@ function Arrow() {
 
 export default function Home() {
   return (
-    <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable}`}>
+    <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable} ${hand.variable}`}>
       {/* 動きを許す人だけ、最初の形（隠した状態）を描画前に入れる。ちらつき防止 */}
       <script
         dangerouslySetInnerHTML={{
@@ -339,14 +361,7 @@ export default function Home() {
           <SecHead
             n="01"
             id="aw-work-h"
-            title={
-              <ByWorry
-                d="仕事は3つです"
-                docs={<><span className="aw-nb"><Co after="なら、" /></span><span className="aw-nb">システム</span><span className="aw-nb">開発から。</span></>}
-                hp={<><span className="aw-nb"><Co after="なら、" /></span><span className="aw-nb">ホームページ</span><span className="aw-nb">制作から。</span></>}
-                ai={<><span className="aw-nb"><Co after="なら、" /></span><span className="aw-nb">AI顧問から。</span></>}
-              />
-            }
+            title={<HandTitle text="Our Services" w={1000} fid="aw-hand-w1" />}
           />
           <ByWorry
             as="p"
@@ -418,7 +433,7 @@ export default function Home() {
       {/* よく聞く話（社長の言葉） */}
       <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
         <div className="aw-wrap">
-          <SecHead n="02" id="aw-voice-h" title="社長から、よく聞く話" />
+          <SecHead n="02" id="aw-voice-h" title={<HandTitle text="Sound familiar?" w={1180} fid="aw-hand-w2" />} />
           <ul className="aw-voice__list">
             {VOICES.map((v, i) => (
               <li key={i} className="aw-voice__q" data-voice>
@@ -430,18 +445,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <p className="aw-voice__ans" data-rise>
-            <span className="aw-voice__ans-s">
-              <span className="aw-nb">どれも、社内にIT担当が</span>
-              <span className="aw-nb">いれば話が早い仕事です。</span>
-            </span>
-            <span className="aw-voice__ans-l">
-              <span className="aw-nb">
-                <IfNamed no="その席に、" yes={<><Co after="のその席に、" /></>} />
-              </span>
-              <span className="aw-nb">ALPACAが座ります。</span>
-            </span>
-          </p>
         </div>
       </section>
 
@@ -459,6 +462,7 @@ export default function Home() {
                   </p>
                   <h3 className="aw-reason__t">{jp(r.t)}</h3>
                   <p className="aw-reason__d">{jp(r.d)}</p>
+                  {"note" in r && r.note && <p className="aw-reason__note">{jp(r.note)}</p>}
                 </div>
               </li>
             ))}

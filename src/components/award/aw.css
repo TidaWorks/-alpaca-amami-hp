@@ -2760,3 +2760,63 @@ html.aw-menu-open .aw-slip {
   .aw-demosec { padding: 48px 0 56px; }
   .aw-demosec__lead { margin-top: 12px; }
 }
+
+/* ===== 手書きの英語見出し（Our Services） ===== */
+.aw-hand {
+  display: block;
+  width: 100%;
+}
+.aw-hand__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.aw-hand__t {
+  font-family: var(--aw-hand), cursive;
+  font-size: 150px;
+  fill: var(--aw-ink);
+  stroke: var(--aw-ink);
+  stroke-width: 2.2px;
+  stroke-linejoin: round;
+}
+/* 動く人だけ: 最初は線だけで隠し、画面に入ったら一筆ずつ書いて塗る */
+html.aw-js-ok .aw-hand__t {
+  fill-opacity: 0;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+}
+html.aw-js-ok .aw-hand.is-in .aw-hand__t {
+  animation: aw-hand-draw 2.2s cubic-bezier(0.5, 0, 0.2, 1) forwards, aw-hand-fill 0.9s ease 1.5s forwards;
+}
+@keyframes aw-hand-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes aw-hand-fill {
+  to { fill-opacity: 1; }
+}
+.aw-hand.is-in .aw-hand__svg {
+  animation: aw-hand-sway 5s ease-in-out 2.4s infinite;
+  transform-origin: 30% 60%;
+}
+@keyframes aw-hand-sway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(0.8deg) translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-hand__t { filter: none; }
+}
+.aw-reason__note {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--aw-sub);
+}
+@media (min-width: 901px) {
+  .aw-reason__note { grid-column: 3; margin-top: -8px; }
+}
+/* 黒地の区画（困りごと）では手書きの見出しを生成り色に */
+.aw-voice .aw-hand__t {
+  fill: var(--aw-paper);
+  stroke: var(--aw-paper);
+}

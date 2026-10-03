@@ -1,4 +1,4 @@
-import { IBM_Plex_Mono, Shippori_Mincho_B1, Zen_Kaku_Gothic_New } from "next/font/google";
+import { IBM_Plex_Mono, Permanent_Marker, Shippori_Mincho_B1, Zen_Kaku_Gothic_New } from "next/font/google";
 
 // 見出し: しっぽり明朝 B1（太字だけ）。日本語は分割ファイルが多いので先読みしない
 export const mincho = Shippori_Mincho_B1({
@@ -24,4 +24,12 @@ export const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--aw-mono",
+});
+
+// 英語の手書きの見出し（Our Services など）: Permanent Marker
+export const hand = Permanent_Marker({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--aw-hand",
 });

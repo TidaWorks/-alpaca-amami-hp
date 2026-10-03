@@ -13,7 +13,7 @@ const NAV = [
 // 今読んでいる節の名前（ロゴの横に出す）
 const SECTIONS: [string, string][] = [
   ["work", "仕事"],
-  ["voice", "よく聞く話"],
+  ["voice", "困りごと"],
   ["reason", "頼む理由"],
   ["flow", "進め方"],
   ["price", "料金"],

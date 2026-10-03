@@ -175,6 +175,11 @@ export default function AwMotion() {
         });
       }
 
+      // 3e. 手書きの英語見出し: 画面に入ったら書き始める
+      q("[data-hand]").forEach((el) => {
+        ScrollTrigger.create({ trigger: el, start: "top 85%", once: true, onEnter: () => el.classList.add("is-in") });
+      });
+
       // 3d. 区切りの写真: 下から開き、スクロールで少しずれる
       q(".aw-photo").forEach((fig) => {
         const img = fig.querySelector("[data-photo]");
