@@ -3470,3 +3470,6 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-dk__note.is-s3 { --tx: calc(var(--c) * 29vw); --ty: calc(120px + var(--row) * 58px); --s: 0.7; }
   .aw-dk__stamp { width: 36px; height: 36px; font-size: 16px; right: -16px; top: -16px; }
 }
+@media (max-width: 380px) {
+  .aw-dk__note.is-s3 { --tx: calc(var(--c) * 30vw); --s: 0.6; }
+}
