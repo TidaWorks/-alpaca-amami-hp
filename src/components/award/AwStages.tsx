@@ -291,7 +291,7 @@ function BuildPage() {
           </span>
           <small>/{GUIDES.length}</small>
         </p>
-        <p className="aw-gl__now" aria-hidden="true">
+        <p className="aw-gl__now" aria-hidden="true" data-n={pad2(cur + 1)}>
           <span key={cur} className="aw-stg__flip">
             {GUIDES[cur].k}
           </span>

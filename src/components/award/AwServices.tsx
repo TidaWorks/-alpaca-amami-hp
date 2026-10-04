@@ -80,6 +80,8 @@ export default function AwServices({ services }: { services: Service[] }) {
             </dd>
           </dl>
         </div>
+        {/* 10/5 大地さん「見本までが遠い」→ 見本・図解をタイトルと料金のすぐ下に。説明はその後ろ */}
+        <AwStage id={s.id} />
         <div className="aw-svc__body">
           <div className="aw-svc__txt">
             <p className="aw-svc__lead">{jp(s.lead)}</p>
@@ -105,7 +107,6 @@ export default function AwServices({ services }: { services: Service[] }) {
             {s.note && <p className="aw-svc__note">{s.note}</p>}
           </div>
         </div>
-        <AwStage id={s.id} />
         {/* 10/5 大地さん「1」: 筆の数字が1つずつ切り替わる紙芝居をやめる。AI顧問とシステムは上の図解（ひと月の流れ／進め方の表）と重なるので出さず、
             ホームページだけ同じ4つの箱で見せる */}
         {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}

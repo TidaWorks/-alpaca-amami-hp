@@ -2964,13 +2964,16 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   scroll-margin-top: calc(var(--aw-head) + 12px);
   /* 区画を読んでいる間は画面の上に付いてくる。ヘッダーが隠れている時は一番上まで */
   position: sticky;
-  top: var(--aw-head);
+  top: 0;
   z-index: 40;
   background: var(--aw-paper);
   border-bottom: 1px solid var(--aw-line);
-  transition: top 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* ガタつき防止: top を動かさず、ヘッダーと同じ速さ・同じ曲線で transform だけ動かす */
+  transform: translateY(var(--aw-head));
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+  will-change: transform;
 }
-html:has(.aw-head.is-hidden) .aw-svc__tabs { top: 0; }
+html:has(.aw-head.is-hidden) .aw-svc__tabs { transform: translateY(0); }
 .aw-svc__tab {
   position: relative;
   display: grid;
@@ -3699,3 +3702,18 @@ html:has(.aw-head.is-hidden) .aw-svc__tabs { top: 0; }
   .fvimg__cta { left: 6.9%; width: 86.1%; top: calc(var(--aw-head) + (100vw * 1672 / 941) * 0.885); height: calc((100vw * 1672 / 941) * 0.07); }
 }
 .bx--tight { margin-top: clamp(48px, 5vw, 80px); }
+
+/* 見本・図解をタイトルのすぐ下に置いた時の間隔（10/5） */
+.aw-svc__head + .aw-stg, .aw-svc__head + .bx { margin-top: clamp(28px, 3vw, 48px); }
+.aw-svc__head + .aw-stg { border-top: 0; padding-top: 0; }
+.aw-stg + .aw-svc__body, .bx + .aw-svc__body { margin-top: clamp(40px, 4vw, 72px); }
+@media (max-width: 900px) {
+  /* スマホ: 大きな数字と説明をやめ、「03 工務店」と矢印を絵の上に1行で */
+  .aw-stg--web .aw-stg__rail { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .aw-stg--web .aw-stg__k, .aw-stg--web .aw-stg__big, .aw-stg--web .aw-stg__note { display: none; }
+  .aw-stg--web .aw-gl__now { display: block; font-size: 18px; padding: 0; border: 0; }
+  .aw-stg--web .aw-gl__now::before { content: attr(data-n) "  "; font-family: var(--aw-mono), monospace; font-size: 12px; color: var(--aw-shu); font-weight: 400; }
+  .aw-stg--web .aw-gl__fine { order: 3; flex-basis: 100%; margin: 0; }
+  .aw-stg--web .aw-stg__rail { flex-wrap: wrap; }
+  .aw-stg--web .aw-gl__nav button { width: 40px; height: 40px; font-size: 16px; }
+}
