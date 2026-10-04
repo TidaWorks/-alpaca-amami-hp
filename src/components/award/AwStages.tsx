@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Our Services の各タブに置く仕掛け（10/4 大地さん 10001・10003・10005）。
  * ホームページ＝スクロールでページが組み上がる／システム＝入れると勝手に計算される／AI顧問＝困りごとが窓口に集まる。
+ * 左の細い列（レール）に今の状態を大きな字で出し、右に見本の画面を置く。スマホではレールが上に来る。
+ * 色は生成り・墨・朱の3つだけ。影と角丸は使わない（10/4 10009 賞の水準まで）。
  * 動きを減らす設定の人には、できあがった姿だけを見せる。
  */
 
@@ -38,6 +40,7 @@ export default function AwStage({ id }: { id: "web" | "system" | "komon" }) {
 const WEB_STEPS = ["骨組み", "写真と見出し", "文章", "ボタン"];
 
 function BuildPage() {
+  // 進み具合は見本の画面の位置で測る（スマホではレールが上に乗るので、図全体だと早く進みすぎる）
   const box = useRef<HTMLDivElement>(null);
   const reduced = useReduced();
   const [step, setStep] = useState(0);
@@ -52,9 +55,9 @@ function BuildPage() {
       if (!el) return;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // 枠の頭が画面の下85%に来た所から、上25%に来るまでで4段を進める
-      const p = (vh * 0.85 - r.top) / (vh * 0.6);
-      setStep(Math.max(0, Math.min(4, Math.floor(p * 4))));
+      // 画面の頭が下80%に来た所から、上25%に来るまでで4段を進める（最初の段＝骨組みは入った時から）
+      const p = (vh * 0.8 - r.top) / (vh * 0.55);
+      setStep(Math.max(0, Math.min(4, 1 + Math.floor(p * 3.3))));
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -65,9 +68,33 @@ function BuildPage() {
     };
   }, [reduced]);
 
+  const shownStep = Math.max(1, step);
+
   return (
-    <figure className="aw-stg aw-stg--web" ref={box} data-step={step}>
-      <div className="aw-bp" aria-hidden="true">
+    <figure className="aw-stg aw-stg--web" data-step={step}>
+      <div className="aw-stg__rail">
+        <p className="aw-stg__k">見本　ページができるまで</p>
+        <p className="aw-stg__big aw-stg__big--num" aria-hidden="true">
+          <span key={shownStep} className="aw-stg__flip">
+            0{shownStep}
+          </span>
+          <small>/04</small>
+        </p>
+        <p className="aw-stg__now" aria-hidden="true">{WEB_STEPS[shownStep - 1]}</p>
+        <ol className="aw-bp__steps">
+          {WEB_STEPS.map((t, k) => (
+            <li key={t} className={k < shownStep ? "is-on" : ""} aria-current={k === shownStep - 1 ? "step" : undefined}>
+              <span>0{k + 1}</span>
+              {t}
+            </li>
+          ))}
+        </ol>
+        <p className={`aw-stg__done ${step >= 4 ? "is-on" : ""}`} aria-hidden="true">
+          Done!
+        </p>
+      </div>
+
+      <div className="aw-stg__main aw-bp" aria-hidden="true" ref={box}>
         <div className="aw-bp__bar">
           <i />
           <i />
@@ -77,12 +104,12 @@ function BuildPage() {
         <div className="aw-bp__page">
           <div className="aw-bp__nav">
             <span className="aw-bp__logo">
-              <b>山田工務店</b>
+              <b>宿 あおば</b>
             </span>
             <span className="aw-bp__links">
-              <i>会社案内</i>
-              <i>施工例</i>
-              <i>お問い合わせ</i>
+              <i>お部屋</i>
+              <i>過ごし方</i>
+              <i>ご予約</i>
             </span>
           </div>
           <div className="aw-bp__hero">
@@ -91,22 +118,22 @@ function BuildPage() {
             </div>
             <div className="aw-bp__copy">
               <p className="aw-bp__h">
-                <b>暮らしに合わせた、</b>
-                <b>家づくり。</b>
+                <b>海が見える部屋で、</b>
+                <b>何もしない休日を。</b>
               </p>
               <p className="aw-bp__t">
-                <b>建てた後の修繕まで、同じ大工が見ます。</b>
+                <b>一日三組まで。朝ごはんは、島の野菜で。</b>
               </p>
               <span className="aw-bp__btn">
-                <b>相談してみる</b>
+                <b>空いている日を見る</b>
               </span>
             </div>
           </div>
           <div className="aw-bp__cards">
             {[
-              ["新築", "s4-meeting"],
-              ["リフォーム", "s3-hands"],
-              ["修繕", "s2-desk"],
+              ["海まで歩いて3分", "s1-sea"],
+              ["夕方は縁側で", "s6-dusk"],
+              ["仕事もできる机", "s2-desk"],
             ].map(([c, img]) => (
               <div className="aw-bp__card" key={c}>
                 <span className="aw-bp__cimg">
@@ -118,16 +145,6 @@ function BuildPage() {
           </div>
         </div>
       </div>
-      <figcaption className="aw-stg__cap">
-        <ol className="aw-bp__steps">
-          {WEB_STEPS.map((t, k) => (
-            <li key={t} className={k < step ? "is-on" : ""}>
-              {t}
-            </li>
-          ))}
-        </ol>
-        <span className={`aw-stg__done ${step >= 4 ? "is-on" : ""}`}>Done!</span>
-      </figcaption>
     </figure>
   );
 }
@@ -182,7 +199,7 @@ function AutoCalc() {
           setTyping(0);
           await wait(900);
         }
-        await wait(2600);
+        await wait(2800);
       }
     })();
     return () => {
@@ -218,12 +235,29 @@ function AutoCalc() {
 
   return (
     <figure className="aw-stg aw-stg--calc" ref={box}>
-      <div className="aw-ac" aria-hidden="true">
-        <div className="aw-ac__bar">
-          <span>売上の記録</span>
+      <div className="aw-stg__rail">
+        <p className="aw-stg__k">見本　10月の売上</p>
+        <p className="aw-stg__big aw-stg__big--yen" aria-hidden="true">
+          <small>¥</small>
+          {yen(shown)}
+        </p>
+        <p className="aw-stg__meta">
+          <span>{n}件</span>
           <span className="aw-ac__live">
             <i />
             自動で集計
+          </span>
+        </p>
+        <p className="aw-stg__note">金額を入れると、合計とグラフがその場で変わります。</p>
+      </div>
+
+      <div className="aw-stg__main aw-ac" aria-hidden="true">
+        <div className="aw-ac__bar">
+          <span>売上の記録</span>
+          <span className="aw-ac__tabs">
+            <i className="is-on">一覧</i>
+            <i>グラフ</i>
+            <i>請求</i>
           </span>
         </div>
         <div className="aw-ac__body">
@@ -250,18 +284,19 @@ function AutoCalc() {
                 </div>
               );
             })}
+            <div className="aw-ac__row aw-ac__row--sum">
+              <span>合計</span>
+              <span />
+              <span />
+              <span className="aw-ac__yen">{yen(total)}</span>
+            </div>
           </div>
           <div className="aw-ac__side">
-            <p className="aw-ac__k">10月の売上</p>
-            <p className="aw-ac__total">
-              <small>¥</small>
-              {yen(shown)}
-            </p>
-            <p className="aw-ac__sub">{n}件</p>
+            <p className="aw-ac__k">月ごとの売上</p>
             <div className="aw-ac__chart">
               {months.map((m, i) => (
                 <div key={m.m} className={`aw-ac__col ${i === months.length - 1 ? "is-now" : ""}`}>
-                  <span className="aw-ac__barv" style={{ height: `${Math.max(2, (m.yen / max) * 100)}%` }} />
+                  <span className="aw-ac__barv" style={{ height: `${Math.max(1, (m.yen / max) * 100)}%` }} />
                   <span className="aw-ac__m">{m.m}</span>
                 </div>
               ))}
@@ -269,9 +304,6 @@ function AutoCalc() {
           </div>
         </div>
       </div>
-      <figcaption className="aw-stg__cap">
-        <span>金額を入れると、合計とグラフがその場で変わります</span>
-      </figcaption>
     </figure>
   );
 }
@@ -321,7 +353,7 @@ function Desk() {
           set(i, 3);
           await wait(550);
         }
-        await wait(2600);
+        await wait(2800);
       }
     })();
     return () => {
@@ -334,14 +366,21 @@ function Desk() {
 
   return (
     <figure className="aw-stg aw-stg--desk" ref={box}>
-      <div className="aw-dk" aria-hidden="true">
+      <div className="aw-stg__rail">
+        <p className="aw-stg__k">見本　ある月の困りごと</p>
+        <p className="aw-stg__big aw-stg__big--num" aria-hidden="true">
+          <span key={doneCount} className="aw-stg__flip">
+            {doneCount}
+          </span>
+          <small>/{NOTES.length} 済</small>
+        </p>
+        <p className="aw-stg__note">どこに頼めばいいか分からない事も、ALPACAがまとめて受けます。</p>
+      </div>
+
+      <div className="aw-stg__main aw-dk" aria-hidden="true">
         <div className="aw-dk__hub">
           <span className="aw-dk__role">IT担当</span>
           <b className="aw-dk__name">ALPACA</b>
-          <span className="aw-dk__count">
-            済 <b>{doneCount}</b>
-            <small> / {NOTES.length}</small>
-          </span>
         </div>
         {NOTES.map((nt, i) => {
           const s = st[i];
@@ -357,15 +396,13 @@ function Desk() {
           } as React.CSSProperties;
           return (
             <div key={nt.t} className={`aw-dk__note is-s${s}`} style={style}>
+              <small>#{String(i + 1).padStart(2, "0")}</small>
               <span>{nt.t}</span>
               <i className="aw-dk__stamp">済</i>
             </div>
           );
         })}
       </div>
-      <figcaption className="aw-stg__cap">
-        <span>どこに頼めばいいか分からない事も、ALPACAがまとめて受けます</span>
-      </figcaption>
     </figure>
   );
 }

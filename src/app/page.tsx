@@ -127,11 +127,12 @@ const FLOW_HP = [
 
 // Our Services のタブの中身（10/4 Q8①）。進め方は紙芝居（Q7③）。AI顧問の流れは facts（会社のIT担当・月1回）に合わせた案
 const SERVICES: Service[] = [
-  { ...WORKS[0], tab: "ホームページ", flowTitle: "進め方", flow: FLOW_HP },
-  { ...WORKS[1], tab: "システム", flowTitle: "進め方", flow: FLOW_DOCS },
+  { ...WORKS[0], tab: "ホームページ", en: "Websites", flowTitle: "進め方", flow: FLOW_HP },
+  { ...WORKS[1], tab: "システム", en: "Systems", flowTitle: "進め方", flow: FLOW_DOCS },
   {
     ...WORKS[2],
     tab: "AI顧問",
+    en: "Your IT team",
     flowTitle: "毎月の流れ",
     flow: [
       { t: "話す", d: "月に1回、顔を合わせて、いま困っている事を聞きます" },

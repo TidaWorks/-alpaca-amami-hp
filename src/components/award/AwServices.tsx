@@ -12,6 +12,8 @@ import AwStage from "./AwStages";
 export type Service = {
   id: "web" | "system" | "komon";
   tab: string;
+  /** 名前の上に置く手書きの英語 */
+  en?: string;
   name: string;
   lead: string;
   sub?: string;
@@ -60,7 +62,14 @@ export default function AwServices({ services }: { services: Service[] }) {
 
       <div className="aw-svc__panel" role="tabpanel" id={`svc-panel-${s.id}`} aria-labelledby={`svc-tab-${s.id}`} key={s.id}>
         <div className="aw-svc__head">
-          <h3 className="aw-svc__name">{s.name}</h3>
+          <div className="aw-svc__title">
+            {s.en && (
+              <p className="aw-svc__en" aria-hidden="true">
+                {s.en}
+              </p>
+            )}
+            <h3 className="aw-svc__name">{s.name}</h3>
+          </div>
           <dl className="aw-svc__price">
             <dt>{s.priceLabel}</dt>
             <dd>
