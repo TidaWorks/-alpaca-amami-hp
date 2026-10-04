@@ -1488,7 +1488,7 @@ export default function PatisseriePage() {
           <span className="sol-header-brand">Soleil</span>
           <nav className="sol-desktop-nav" style={{ display: "flex" }}>
             <ul className="sol-header-nav">
-              <li><a href="/web#gallery">ギャラリーに戻る</a></li>
+              <li><a href="/">ギャラリーに戻る</a></li>
               <li><a href="#showcase">ショーケース</a></li>
               <li><a href="#atelier">アトリエ</a></li>
               <li><a href="#contact">お問い合わせ</a></li>
@@ -1539,7 +1539,7 @@ export default function PatisseriePage() {
             }}
           >
             {[
-              { href: "/web#gallery", label: "ギャラリーに戻る" },
+              { href: "/", label: "ギャラリーに戻る" },
               { href: "#showcase", label: "ショーケース" },
               { href: "#atelier", label: "アトリエ" },
               { href: "#contact", label: "お問い合わせ" },
@@ -1979,7 +1979,7 @@ export default function PatisseriePage() {
           </p>
           <p className="sol-footer-copy">&copy; 2026 Patisserie Soleil. All rights reserved.</p>
           <p className="sol-footer-tida">
-            Designed by <a href="/web#gallery">ALPACA</a>
+            Designed by <a href="/">ALPACA</a>
           </p>
         </footer>
       </div>

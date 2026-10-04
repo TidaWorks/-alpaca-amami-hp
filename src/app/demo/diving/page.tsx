@@ -1218,7 +1218,7 @@ export default function BluAmamiDivingPage() {
       <div className="min-h-screen bg-[#0a1628] text-white overflow-x-hidden">
         {/* ─── Back to Gallery ─── */}
         <a
-          href="/web#gallery"
+          href="/"
           className="hidden md:flex fixed top-4 left-4 z-50 items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300 text-sm"
         >
           <ArrowLeftIcon className="w-4 h-4" />
@@ -2130,7 +2130,7 @@ export default function BluAmamiDivingPage() {
             <div className="text-center mt-8 pt-6 border-t border-white/10">
               <p className="text-xs opacity-30">
                 &copy; 2026 デモサイト — Designed by{" "}
-                <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
+                <a href="/" className="hover:opacity-60 transition-opacity">ALPACA</a>
               </p>
             </div>
           </div>

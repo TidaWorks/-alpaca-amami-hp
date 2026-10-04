@@ -38,7 +38,7 @@ function NavBar() {
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Left: back link */}
         <a
-          href="/web#gallery"
+          href="/"
           className="hidden md:flex items-center gap-2 text-sm transition-all duration-300 hover:gap-3"
           style={{ color: "#D4A373" }}
         >
@@ -1736,7 +1736,7 @@ export default function BistroAdanPage() {
         <div className="text-center mt-8 pt-6 border-t border-white/10">
           <p className="text-xs opacity-30">
             デモサイト — Designed by{" "}
-            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
+            <a href="/" className="hover:opacity-60 transition-opacity">ALPACA</a>
           </p>
         </div>
       </footer>

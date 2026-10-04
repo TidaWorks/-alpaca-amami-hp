@@ -22,7 +22,7 @@ export function DemoStickyNotice() {
           </p>
         </div>
         <a
-          href="/web"
+          href="/"
           className="flex-shrink-0 inline-flex items-center gap-1 bg-white text-[#0DA87E] rounded-full px-3 py-1.5 md:px-4 md:py-2 text-[11px] md:text-xs font-bold hover:bg-gray-50 active:scale-95 transition-all"
         >
           他のデモを見る

@@ -425,7 +425,7 @@ export default function OsteopathicPage() {
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <a
-            href="/web#gallery"
+            href="/"
             className="text-sm text-[#2E86AB] hover:text-[#1A2B3C] transition-colors hidden md:flex items-center gap-1"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1529,7 +1529,7 @@ export default function OsteopathicPage() {
             <p>&copy; 2026 島つむぎ整骨院 All Rights Reserved.</p>
             <p>
               このサイトは{" "}
-              <a href="/web#gallery" className="text-[#2E86AB] hover:text-[#48B89C] transition-colors">ALPACA</a>
+              <a href="/" className="text-[#2E86AB] hover:text-[#48B89C] transition-colors">ALPACA</a>
               {" "}によるデモサイトです
             </p>
           </div>

@@ -893,7 +893,7 @@ export default function FarmDemoPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
             {/* Back link */}
             <a
-              href="/web#gallery"
+              href="/"
               className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-60"
               style={{ color: "#8B5E34" }}
             >
@@ -2544,7 +2544,7 @@ export default function FarmDemoPage() {
               </p>
               <p className="text-xs" style={{ color: "rgba(255,253,247,0.25)" }}>
                 デモサイト — Designed by{" "}
-                <a href="/web#gallery" className="hover:opacity-60 transition-opacity" style={{ color: "rgba(255,253,247,0.4)" }}>
+                <a href="/" className="hover:opacity-60 transition-opacity" style={{ color: "rgba(255,253,247,0.4)" }}>
                   ALPACA
                 </a>
               </p>

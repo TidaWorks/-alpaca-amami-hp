@@ -1269,7 +1269,7 @@ export default function GuesthousePage() {
                 予約相談
               </a>
               <a
-                href="/web#gallery"
+                href="/"
                 className={`back-link ${scrolled ? "back-link-dark" : ""} hidden md:inline-flex`}
                 style={{ color: scrolled ? "#1A2332" : "white", borderLeft: `1px solid ${scrolled ? "#CCC" : "rgba(255,255,255,0.3)"}`, paddingLeft: 16, marginLeft: 4, opacity: 0.7, fontSize: "0.72rem" }}
               >
@@ -1337,7 +1337,7 @@ export default function GuesthousePage() {
               </a>
             ))}
             <a
-              href="/web#gallery"
+              href="/"
               style={{
                 display: "block",
                 paddingTop: 16,
@@ -3383,7 +3383,7 @@ export default function GuesthousePage() {
               &copy; 2026 珊瑚の宿 いそかぜ. All rights reserved.
             </p>
             <a
-              href="/web#gallery"
+              href="/"
               style={{
                 fontSize: "0.72rem",
                 color: "rgba(255,255,255,0.3)",

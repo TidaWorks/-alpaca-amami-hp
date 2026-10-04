@@ -832,7 +832,7 @@ export default function SalonPage() {
         style={{ backgroundColor: "rgba(245, 240, 232, 0.6)", transition: "background-color 0.3s ease, box-shadow 0.3s ease" }}
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="/web#gallery" className="text-sm text-[#8B6914] hover:text-[#3D2E0A] transition-colors hidden md:flex items-center gap-1">
+          <a href="/" className="text-sm text-[#8B6914] hover:text-[#3D2E0A] transition-colors hidden md:flex items-center gap-1">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
@@ -910,7 +910,7 @@ export default function SalonPage() {
               </a>
             ))}
             <a
-              href="/web#gallery"
+              href="/"
               style={{
                 display: "block",
                 paddingTop: 16,
@@ -1783,7 +1783,7 @@ export default function SalonPage() {
         <div className="text-center mt-8 pt-6 border-t border-current/10">
           <p className="text-xs opacity-30">
             デモサイト — Designed by{" "}
-            <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
+            <a href="/" className="hover:opacity-60 transition-opacity">ALPACA</a>
           </p>
         </div>
       </footer>

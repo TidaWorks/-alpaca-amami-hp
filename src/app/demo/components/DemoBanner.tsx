@@ -97,7 +97,7 @@ export function DemoBanner({ tone = "brand", className, style }: DemoBannerProps
           奄美大島のWeb制作・業務システム開発なら、お気軽にご相談ください。
         </p>
         <a
-          href="/web"
+          href="/"
           style={{
             display: "inline-flex",
             alignItems: "center",

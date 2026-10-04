@@ -713,7 +713,7 @@ export default function ConstructionDemoPage() {
               </a>
             ))}
             <a
-              href="/web#gallery"
+              href="/"
               className="text-slate-400 hover:text-[#3B82F6] transition py-1 border-t border-slate-700 pt-3 flex items-center gap-1 text-xs"
               onClick={() => setMenuOpen(false)}
             >
@@ -726,7 +726,7 @@ export default function ConstructionDemoPage() {
       {/* Back to Gallery */}
       <div className="hidden md:block fixed top-[52px] left-0 right-0 z-50 bg-slate-100 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 py-1.5">
-          <a href="/web#gallery" className="text-sm text-[#3B82F6] hover:text-blue-700 transition flex items-center gap-1">
+          <a href="/" className="text-sm text-[#3B82F6] hover:text-blue-700 transition flex items-center gap-1">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5" />
               <path d="M12 19l-7-7 7-7" />
@@ -1357,7 +1357,7 @@ export default function ConstructionDemoPage() {
           <div className="text-center mt-8 pt-6 border-t border-current/10">
             <p className="text-xs opacity-30">
               デモサイト — Designed by{" "}
-              <a href="/web#gallery" className="hover:opacity-60 transition-opacity">ALPACA</a>
+              <a href="/" className="hover:opacity-60 transition-opacity">ALPACA</a>
             </p>
           </div>
         </div>
