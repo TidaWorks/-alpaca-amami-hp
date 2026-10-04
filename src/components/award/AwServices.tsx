@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { jp } from "./jp";
+import AwStage from "./AwStages";
 
 /**
  * Our Services: 3つの仕事をタブで切り替える（10/4 Q8①）。
@@ -93,6 +94,7 @@ export default function AwServices({ services }: { services: Service[] }) {
             {s.note && <p className="aw-svc__note">{s.note}</p>}
           </div>
         </div>
+        <AwStage id={s.id} />
         <Kamishibai title={s.flowTitle} steps={s.flow} />
       </div>
     </div>
