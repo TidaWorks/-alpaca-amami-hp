@@ -297,7 +297,7 @@ function BuildPage() {
           </span>
         </p>
         <p className="aw-stg__note">色・文字・画面まで、お店ごとに一式そろえて作ります。押すと大きく見られます。</p>
-        <p className="aw-gl__fine">※ どれも架空のお店の見本です</p>
+        <p className="aw-gl__fine">※ どれも架空のお店の見本です。押すと大きく見られます</p>
         <div className="aw-gl__nav">
           <button type="button" onClick={() => go(cur - 1)} aria-label="前の見本">
             ←

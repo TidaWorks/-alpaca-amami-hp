@@ -2983,7 +2983,7 @@ html:has(.aw-head.is-hidden) .aw-svc__tabs { transform: translateY(0); }
   background: none;
   border: 0;
   cursor: pointer;
-  color: rgba(18, 18, 18, 0.38);
+  color: rgba(18, 18, 18, 0.62);  /* 10/5 3号の検品: 薄すぎて押せないボタンに見える→濃く */
   min-height: 44px;
   transition: color 0.3s;
 }

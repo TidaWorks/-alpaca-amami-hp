@@ -154,19 +154,19 @@ const PRICE_NOTES = [
   "AI顧問に最低契約期間はありません。",
   "AI顧問の保守は月額に含みます。別の保守料はかかりません。",
   "AIの利用料が実費でかかる場合があります。",
-  "打ち合わせはオンラインが基本です。奄美の会社には訪問もします。",
+  "月1回の打ち合わせは、奄美の会社には伺います。島の外の会社とは画面ごしで進め、伺う時は交通費をご負担いただきます。",
 ];
 
 // 答えは今のトップの文言のまま（facts/business.md と合わせた物）
 const FAQS = [
   {
     q: "何から始めればいい？",
-    a: "まずは話を聞かせてください。相談は無料です。AI顧問が始まったら、最初の月は仕事の書き出しから入ります。",
+    a: "まずは話を聞かせてください。最初の相談は無料で、1時間くらいです。",
   },
   { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけで受けます。" },
   { q: "パソコンが苦手な社員でも使える？", a: "大丈夫です。社員が自分で使えるまで教えます。" },
   { q: "途中でやめられる？", a: "やめられます。AI顧問に最低契約期間はありません。" },
-  { q: "奄美以外の会社でも頼める？", a: "頼めます。打ち合わせはオンラインです。奄美の会社には訪問もします。" },
+  { q: "奄美以外の会社でも頼める？", a: "頼めます。ふだんは画面ごしで進めます。伺う時は交通費をご負担いただきます。" },
   { q: "顧問料のほかにかかる費用は？", a: "AIの利用料が実費でかかる場合があります。保守料は月額に含みます。" },
 ];
 
@@ -344,7 +344,7 @@ export default function Home() {
       <section className="aw-sec aw-price" id="price" aria-labelledby="aw-price-h">
         <div className="aw-wrap">
           <SecHead
-            n="05"
+            n="04"
             id="aw-price-h"
             title={
               <ByWorry
@@ -402,7 +402,7 @@ export default function Home() {
             <div className="aw-about__mark" data-mark />
           </div>
           <div className="aw-about__body">
-            <SecHead n="06" id="aw-about-h" title="ALPACAについて" />
+            <SecHead n="05" id="aw-about-h" title="ALPACAについて" />
             <p className="aw-about__txt" data-rise>
               {jp("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページも作ります。")}
             </p>
@@ -422,7 +422,7 @@ export default function Home() {
       {/* よくある質問 */}
       <section className="aw-sec aw-faqsec" id="faq" aria-labelledby="aw-faq-h">
         <div className="aw-wrap aw-faqsec__in">
-          <SecHead n="07" id="aw-faq-h" title="よくある質問" />
+          <SecHead n="06" id="aw-faq-h" title="よくある質問" />
           <AwFaq items={FAQS.map((f) => ({ key: f.q, q: jp(f.q), a: jp(f.a) }))} />
         </div>
       </section>
@@ -432,7 +432,7 @@ export default function Home() {
       <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">
         <div className="aw-wrap">
           <p className="aw-contact__n" aria-hidden="true">
-            (08)
+            (07)
           </p>
           <h2 className="aw-contact__h" id="aw-contact-h">
             <span className="aw-nb" data-rise>
