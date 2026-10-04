@@ -8,7 +8,6 @@ import AwMotion from "@/components/award/AwMotion";
 import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwSlip from "@/components/award/AwSlip";
-import AwDemo from "@/components/award/AwDemo";
 import AwServices, { type Service } from "@/components/award/AwServices";
 import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
@@ -356,21 +355,6 @@ export default function Home() {
       </section>
 
       <Photo src="/images/scene/s1-sea.webp" />
-
-      {/* 頼むと、こう動きます（写真の代わりに動く画面で見せる） */}
-      <section className="aw-demosec" id="demo" aria-labelledby="aw-demo-h">
-        <div className="aw-wrap aw-demosec__in">
-          <div className="aw-demosec__head">
-            <h2 className="aw-demosec__h" id="aw-demo-h">
-              <HandTitle text="Just ask." w={700} fid="aw-hand-w3" />
-            </h2>
-            <p className="aw-demosec__lead" data-rise>
-              {jp("チャットで送るだけで、直す・作る・調べるまで進みます。")}
-            </p>
-          </div>
-          <AwDemo />
-        </div>
-      </section>
 
       {/* 仕事3つ */}
       <section className="aw-sec aw-work" id="work" aria-labelledby="aw-work-h">
