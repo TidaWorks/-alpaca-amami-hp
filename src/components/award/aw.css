@@ -3473,3 +3473,59 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 @media (max-width: 380px) {
   .aw-dk__note.is-s3 { --tx: calc(var(--c) * 30vw); --s: 0.6; }
 }
+
+/* --- ホームページ：業種ごとのデザインの例（横に流れるギャラリー・10/4） --- */
+.aw-gl__now { font-family: var(--aw-mincho), serif; font-weight: 700; font-size: clamp(22px, 2vw, 30px); line-height: 1.3; padding-bottom: 14px; border-bottom: 1px solid var(--aw-line); }
+.aw-gl__fine { font-size: 12px; color: var(--aw-sub); margin-top: -8px; }
+.aw-gl__nav { display: flex; gap: 8px; }
+.aw-gl__nav button {
+  width: 48px; height: 48px; display: grid; place-items: center;
+  background: var(--aw-ink); color: var(--aw-paper); font-size: 18px; border: 0; cursor: pointer;
+  transition: background-color 0.2s;
+}
+.aw-gl__nav button:hover { background: var(--aw-shu); }
+.aw-gl { position: relative; }
+.aw-gl__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: clamp(260px, 28vw, 380px); column-gap: 20px;
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  padding-bottom: 18px; scrollbar-width: thin; scrollbar-color: var(--aw-ink) transparent;
+}
+.aw-gl__track::-webkit-scrollbar { height: 2px; }
+.aw-gl__track::-webkit-scrollbar-thumb { background: var(--aw-ink); }
+.aw-gl__card {
+  scroll-snap-align: start; display: grid; gap: 10px; padding: 0; border: 0; background: none; text-align: left; cursor: zoom-in;
+  color: inherit; font: inherit;
+}
+.aw-gl__card img {
+  width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block;
+  border: 1px solid var(--aw-line); background: #fff;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.aw-gl__card:hover img { transform: translateY(-6px); border-color: var(--aw-ink); }
+.aw-gl__card:focus-visible { outline: 2px solid var(--aw-shu); outline-offset: 4px; }
+.aw-gl__cap { display: flex; gap: 12px; align-items: baseline; font-size: 14px; font-weight: 700; padding-top: 8px; border-top: 1px solid var(--aw-line); }
+.aw-gl__cap span { font-family: var(--aw-mono), monospace; font-weight: 400; font-size: 12px; color: var(--aw-sub); }
+.aw-gl__card.is-cur .aw-gl__cap { border-top-color: var(--aw-shu); }
+.aw-gl__card.is-cur .aw-gl__cap span { color: var(--aw-shu); }
+/* 大きく見る */
+.aw-gl__lb {
+  position: fixed; inset: 0; z-index: 200; background: rgba(18, 18, 18, 0.88);
+  display: grid; place-items: center; padding: 16px; animation: aw-gl-in 0.25s ease both; cursor: zoom-out;
+}
+@keyframes aw-gl-in { from { opacity: 0; } to { opacity: 1; } }
+.aw-gl__lbin { max-width: min(92vw, 1100px); max-height: 92vh; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--aw-paper); cursor: default; }
+.aw-gl__lbin img { width: 100%; height: 100%; max-height: calc(92vh - 56px); object-fit: contain; background: #fff; }
+.aw-gl__lbbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; font-size: 13px; border-top: 1px solid var(--aw-ink); }
+.aw-gl__lbbtns { display: flex; gap: 6px; }
+.aw-gl__lbbtns button { width: 40px; height: 40px; border: 0; background: var(--aw-ink); color: var(--aw-paper); font-size: 16px; cursor: pointer; }
+.aw-gl__lbbtns button:hover { background: var(--aw-shu); }
+@media (max-width: 900px) {
+  .aw-stg--web .aw-gl__now { grid-column: 2; align-self: end; border-bottom: 0; padding-bottom: 12px; }
+  .aw-stg--web .aw-gl__fine, .aw-stg--web .aw-gl__nav { grid-column: 1 / -1; }
+  .aw-gl__track { grid-auto-columns: 74vw; column-gap: 14px; margin-right: calc(-1 * var(--aw-gut)); padding-right: var(--aw-gut); }
+  .aw-gl__nav button { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-gl__card img { transition: none; }
+  .aw-gl__lb { animation: none; }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * Our Services の各タブに置く仕掛け（10/4 大地さん 10001・10003・10005）。
@@ -35,116 +36,158 @@ export default function AwStage({ id }: { id: "web" | "system" | "komon" }) {
   return <Desk />;
 }
 
-/* ───────── ホームページ：組み上がるページ ───────── */
+/* ───────── ホームページ：業種ごとのデザインの例（横に流れるギャラリー） ─────────
+   10/4 大地さん「こういう画像を沢山生成して並べたらいい」→ 1枚に PC・スマホ・色・文字・部品までまとめた
+   ブランドガイドの絵を業種ごとに並べる。どれも架空のお店（画像生成）。押すと大きく見られる。 */
 
-const WEB_STEPS = ["骨組み", "写真と見出し", "文章", "ボタン"];
+const GUIDES = [
+  { f: "g1-yado", k: "宿" },
+  { f: "g2-salon", k: "美容室" },
+  { f: "g3-koumuten", k: "工務店" },
+  { f: "g4-bistro", k: "飲食店" },
+  { f: "g5-hoikuen", k: "保育園" },
+  { f: "g6-seikotsu", k: "整骨院" },
+  { f: "g7-diving", k: "ダイビング" },
+  { f: "g8-farm", k: "農園" },
+  { f: "g9-bakery", k: "パン屋" },
+  { f: "g10-zeirishi", k: "税理士事務所" },
+];
+const pad2 = (n: number) => String(n).padStart(2, "0");
 
 function BuildPage() {
-  // 進み具合は見本の画面の位置で測る（スマホではレールが上に乗るので、図全体だと早く進みすぎる）
-  const box = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const box = useRef<HTMLElement>(null);
+  const inView = useInView(box);
   const reduced = useReduced();
-  const [step, setStep] = useState(0);
+  const [cur, setCur] = useState(0);
+  const [open, setOpen] = useState<number | null>(null);
+  const [held, setHeld] = useState(false); // 触っている間は自動で流さない
 
+  // 今どれが一番左にあるかを、横の位置から測る
   useEffect(() => {
-    if (reduced) {
-      setStep(4);
-      return;
-    }
+    const el = track.current;
+    if (!el) return;
     const onScroll = () => {
-      const el = box.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // 画面の頭が下80%に来た所から、上25%に来るまでで4段を進める（最初の段＝骨組みは入った時から）
-      const p = (vh * 0.8 - r.top) / (vh * 0.55);
-      setStep(Math.max(0, Math.min(4, 1 + Math.floor(p * 3.3))));
+      const card = el.querySelector<HTMLElement>(".aw-gl__card");
+      if (!card) return;
+      const step = card.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0");
+      setCur(Math.max(0, Math.min(GUIDES.length - 1, Math.round(el.scrollLeft / step))));
     };
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [reduced]);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const shownStep = Math.max(1, step);
+  const go = (i: number) => {
+    const el = track.current;
+    if (!el) return;
+    const n = (i + GUIDES.length) % GUIDES.length;
+    const card = el.querySelectorAll<HTMLElement>(".aw-gl__card")[n];
+    if (card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: reduced ? "auto" : "smooth" });
+  };
+
+  // 画面に入っている間、3.6秒ごとに1枚ずつ流す（触っている間と、動きを減らす設定では止める）
+  useEffect(() => {
+    if (reduced || !inView || held || open !== null) return;
+    const t = window.setInterval(() => go(cur + 1), 3600);
+    return () => window.clearInterval(t);
+  });
+
+  // 大きく見ている時は Esc と左右キーで操作
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+      if (e.key === "ArrowRight") setOpen((o) => (o === null ? o : (o + 1) % GUIDES.length));
+      if (e.key === "ArrowLeft") setOpen((o) => (o === null ? o : (o - 1 + GUIDES.length) % GUIDES.length));
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   return (
-    <figure className="aw-stg aw-stg--web" data-step={step}>
+    <figure className="aw-stg aw-stg--web" ref={box}>
       <div className="aw-stg__rail">
-        <p className="aw-stg__k">見本　ページができるまで</p>
+        <p className="aw-stg__k">見本　業種ごとのデザイン</p>
         <p className="aw-stg__big aw-stg__big--num" aria-hidden="true">
-          <span key={shownStep} className="aw-stg__flip">
-            0{shownStep}
+          <span key={cur} className="aw-stg__flip">
+            {pad2(cur + 1)}
           </span>
-          <small>/04</small>
+          <small>/{GUIDES.length}</small>
         </p>
-        <p className="aw-stg__now" aria-hidden="true">{WEB_STEPS[shownStep - 1]}</p>
-        <ol className="aw-bp__steps">
-          {WEB_STEPS.map((t, k) => (
-            <li key={t} className={k < shownStep ? "is-on" : ""} aria-current={k === shownStep - 1 ? "step" : undefined}>
-              <span>0{k + 1}</span>
-              {t}
-            </li>
-          ))}
-        </ol>
-        <p className={`aw-stg__done ${step >= 4 ? "is-on" : ""}`} aria-hidden="true">
-          Done!
+        <p className="aw-gl__now" aria-hidden="true">
+          <span key={cur} className="aw-stg__flip">
+            {GUIDES[cur].k}
+          </span>
         </p>
+        <p className="aw-stg__note">色・文字・画面まで、お店ごとに一式そろえて作ります。押すと大きく見られます。</p>
+        <p className="aw-gl__fine">※ どれも架空のお店の見本です</p>
+        <div className="aw-gl__nav">
+          <button type="button" onClick={() => go(cur - 1)} aria-label="前の見本">
+            ←
+          </button>
+          <button type="button" onClick={() => go(cur + 1)} aria-label="次の見本">
+            →
+          </button>
+        </div>
       </div>
 
-      <div className="aw-stg__main aw-bp" aria-hidden="true" ref={box}>
-        <div className="aw-bp__bar">
-          <i />
-          <i />
-          <i />
-          <span className="aw-bp__url">your-company.jp</span>
+      <div
+        className="aw-stg__main aw-gl"
+        onPointerEnter={() => setHeld(true)}
+        onPointerLeave={() => setHeld(false)}
+        onTouchStart={() => setHeld(true)}
+        onTouchEnd={() => window.setTimeout(() => setHeld(false), 4000)}
+      >
+        <div className="aw-gl__track" ref={track}>
+          {GUIDES.map((g, i) => (
+            <button
+              type="button"
+              key={g.f}
+              className={`aw-gl__card ${i === cur ? "is-cur" : ""}`}
+              onClick={() => setOpen(i)}
+              aria-label={`${g.k}の見本を大きく見る`}
+            >
+              <img src={`/images/guides/${g.f}-s.webp`} alt={`${g.k}の架空のお店のデザイン見本`} loading="lazy" width={560} height={700} />
+              <span className="aw-gl__cap">
+                <span>{pad2(i + 1)}</span>
+                {g.k}
+              </span>
+            </button>
+          ))}
         </div>
-        <div className="aw-bp__page">
-          <div className="aw-bp__nav">
-            <span className="aw-bp__logo">
-              <b>宿 あおば</b>
-            </span>
-            <span className="aw-bp__links">
-              <i>お部屋</i>
-              <i>過ごし方</i>
-              <i>ご予約</i>
-            </span>
-          </div>
-          <div className="aw-bp__hero">
-            <div className="aw-bp__img">
-              <img src="/images/scene/s5-window.webp" alt="" loading="lazy" />
-            </div>
-            <div className="aw-bp__copy">
-              <p className="aw-bp__h">
-                <b>海が見える部屋で、</b>
-                <b>何もしない休日を。</b>
-              </p>
-              <p className="aw-bp__t">
-                <b>一日三組まで。朝ごはんは、島の野菜で。</b>
-              </p>
-              <span className="aw-bp__btn">
-                <b>空いている日を見る</b>
+      </div>
+
+      {open !== null &&
+        createPortal(
+        <div className="aw-gl__lb" role="dialog" aria-modal="true" aria-label={`${GUIDES[open].k}の見本`} onClick={() => setOpen(null)}>
+          <div className="aw-gl__lbin" onClick={(e) => e.stopPropagation()}>
+            <img src={`/images/guides/${GUIDES[open].f}.webp`} alt={`${GUIDES[open].k}の架空のお店のデザイン見本`} />
+            <div className="aw-gl__lbbar">
+              <span>
+                {pad2(open + 1)} / {GUIDES.length}　{GUIDES[open].k}（架空のお店）
+              </span>
+              <span className="aw-gl__lbbtns">
+                <button type="button" onClick={() => setOpen((open - 1 + GUIDES.length) % GUIDES.length)} aria-label="前の見本">
+                  ←
+                </button>
+                <button type="button" onClick={() => setOpen((open + 1) % GUIDES.length)} aria-label="次の見本">
+                  →
+                </button>
+                <button type="button" onClick={() => setOpen(null)} aria-label="閉じる">
+                  ×
+                </button>
               </span>
             </div>
           </div>
-          <div className="aw-bp__cards">
-            {[
-              ["海まで歩いて3分", "s1-sea"],
-              ["夕方は縁側で", "s6-dusk"],
-              ["仕事もできる机", "s2-desk"],
-            ].map(([c, img]) => (
-              <div className="aw-bp__card" key={c}>
-                <span className="aw-bp__cimg">
-                  <img src={`/images/scene/${img}.webp`} alt="" loading="lazy" />
-                </span>
-                <b>{c}</b>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        </div>,
+          document.body,
+        )}
     </figure>
   );
 }
