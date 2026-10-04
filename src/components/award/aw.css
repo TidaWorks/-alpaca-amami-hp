@@ -3664,3 +3664,15 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .fv__cta { justify-content: space-between; }
 }
 @media (prefers-reduced-motion: reduce) { .fv__cta { transition: none; } }
+
+/* ===== 一番上：決定版の画像をそのまま（10/4 大地さん「画像生成そのまま使う」） =====
+   画像の全体が切れないよう幅いっぱいに置き、黄色のボタンの位置に押せる領域を重ねる */
+.fvimg { position: relative; padding-top: var(--aw-head); background: #f7f6f2; }
+.fvimg__pic img { display: block; width: 100%; height: auto; }
+/* PC画像（1672×941）の黄色ボタン: x 1158〜1614, y 728〜808 */
+.fvimg__cta { position: absolute; left: 69.2%; width: 27.4%; top: calc(var(--aw-head) + (100vw * 941 / 1672) * 0.772); height: calc((100vw * 941 / 1672) * 0.088); border-radius: 999px; }
+.fvimg__cta:focus-visible { outline: 3px solid #1f55e0; outline-offset: 3px; }
+@media (max-width: 900px) and (orientation: portrait) {
+  /* スマホ画像（941×1672）の黄色ボタン: x 115〜826, y 1490〜1602 */
+  .fvimg__cta { left: 12.2%; width: 75.6%; top: calc(var(--aw-head) + (100vw * 1672 / 941) * 0.891); height: calc((100vw * 1672 / 941) * 0.067); }
+}

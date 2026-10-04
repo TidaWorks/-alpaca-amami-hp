@@ -258,44 +258,20 @@ export default function Home() {
       </a>
       <AwHeader />
 
-      {/* 一番上（10/4 大地さん決定のファーストビュー A）: 歩く人物の写真の左右に大見出し。写真は文字なしで、文字はここで組む */}
-      <section className="fv" aria-labelledby="fv-h">
-        <picture className="fv__bg">
-          <source media="(max-width: 900px)" srcSet="/images/fv-sp.webp" />
-          <img src="/images/fv-pc.webp" alt="ノートパソコンを抱えて歩く女性" fetchPriority="high" />
+      {/* 一番上（10/4 大地さん決定のファーストビュー A）: 画像生成の決定版をそのまま使う（大地さん「やっぱ画像生成そのまま使うわ」）。
+          文字は画像に入っているので、検索・読み上げ用の同じ文を見えない形で置き、黄色のボタンの所に押せるリンクを重ねる */}
+      <section className="fvimg" aria-labelledby="fv-h">
+        <h1 className="aw-sr" id="fv-h">
+          あなたの仕事の、ベストパートナー。
+        </h1>
+        <p className="aw-sr">ホームページも、システムも、AIの相談も、窓口はひとつ。</p>
+        <picture className="fvimg__pic">
+          <source media="(max-width: 900px) and (orientation: portrait)" srcSet="/images/fv-sp.webp" width={941} height={1672} />
+          <img src="/images/fv-pc.webp" width={1672} height={941} alt="ノートパソコンを抱えて歩く女性と、「あなたの仕事の、ベストパートナー。」の文字" fetchPriority="high" />
         </picture>
-        <div className="fv__in">
-          <h1 className="fv__h" id="fv-h" aria-label="あなたの仕事の、ベストパートナー。">
-            {/* PC: 見本どおり、左右の塊ごとに行の幅をそろえる（字の大きさと字間を行ごとに変える） */}
-            <span className="fv__col fv__col--l" aria-hidden="true">
-              <span className="fv__l1">あなたの</span>
-              <span className="fv__l2 fv__accent">ベスト</span>
-            </span>
-            <span className="fv__col fv__col--r" aria-hidden="true">
-              <span className="fv__r1">仕事の、</span>
-              <span className="fv__r2">パートナー。</span>
-            </span>
-            {/* スマホは人物が下に来るので、上に2行で */}
-            <span className="fv__sp" aria-hidden="true">
-              <span>あなたの仕事の、</span>
-              <span>
-                <span className="fv__accent">ベスト</span>パートナー。
-              </span>
-            </span>
-          </h1>
-          <div className="fv__foot">
-            <div className="fv__sub">
-              <p className="fv__jp">{jp("ホームページも、システムも、AIの相談も、窓口はひとつ。")}</p>
-              <p className="fv__en" lang="en">
-                Your IT team, around the corner.
-              </p>
-            </div>
-            <a href="#contact" className="fv__cta">
-              まずは無料で相談する
-              <span aria-hidden="true">›</span>
-            </a>
-          </div>
-        </div>
+        <a href="#contact" className="fvimg__cta">
+          <span className="aw-sr">まずは無料で相談する</span>
+        </a>
       </section>
 
       <Photo src="/images/scene/s1-sea.webp" />
