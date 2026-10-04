@@ -3551,3 +3551,77 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 @media (prefers-reduced-motion: reduce) {
   .aw-km__img img { transform: none; transition: none; }
 }
+
+/* ===== AI顧問・システム：BoostX 風の図解（10/4） =====
+   白と淡い朱の箱・太い墨の罫線・黒枠の札・太い黒線のイラスト。差し色は朱だけ */
+.bx { --bx-pale: #f7e7e0; margin-top: clamp(56px, 6vw, 104px); display: grid; gap: clamp(40px, 4vw, 64px); }
+.bx-h { display: grid; gap: 14px; }
+.bx-h__k { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--aw-shu); }
+.bx-h__k i { width: 12px; height: 12px; border-radius: 50%; background: var(--aw-shu); box-shadow: 0 0 0 3px var(--aw-paper), 0 0 0 4px var(--aw-shu); }
+.bx-h__t { font-family: var(--aw-gothic), sans-serif; font-weight: 900; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.5; padding-bottom: 18px; border-bottom: 2px solid var(--aw-ink); }
+.bx-tag { display: inline-flex; align-items: center; justify-self: start; padding: 4px 12px; font-size: 13px; font-weight: 700; border: 2px solid var(--aw-ink); background: #fff; }
+.bx-tag--fill { background: var(--aw-shu); border-color: var(--aw-shu); color: #fff; }
+.bx-tag--sm { padding: 2px 8px; font-size: 11px; border-width: 1.5px; }
+/* 今 → ALPACAが入ると */
+.bx-ba { display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); align-items: stretch; gap: 0; }
+.bx-ba__box { display: grid; align-content: start; gap: 16px; padding: clamp(18px, 2vw, 28px); background: #fff; border: 2px solid var(--aw-ink); }
+.bx-ba__box--to { background: var(--bx-pale); border-color: var(--aw-shu); }
+.bx-ba__box img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; }
+.bx-ba__t { font-weight: 900; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.5; }
+.bx-ba__list { display: grid; }
+.bx-ba__list li { position: relative; padding: 12px 0 12px 28px; border-top: 1px solid var(--aw-line); font-size: 15px; line-height: 1.6; }
+.bx-ba__list li::before { content: ""; position: absolute; left: 2px; top: 1.05em; width: 12px; height: 12px; border: 2px solid var(--aw-ink); border-radius: 50%; }
+.bx-ba__list--to li::before { background: var(--aw-shu); border-color: var(--aw-shu); }
+.bx-ba__arrow { align-self: center; justify-self: center; width: 30px; height: 30px; background: var(--aw-ink); clip-path: polygon(0 28%, 55% 28%, 55% 0, 100% 50%, 55% 100%, 55% 72%, 0 72%); }
+/* ひと月の流れ */
+.bx-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 2px solid var(--aw-ink); background: #fff; }
+.bx-flow li { position: relative; display: grid; align-content: start; gap: 8px; padding: 22px 20px 24px; border-left: 1px solid var(--aw-line); }
+.bx-flow li:first-child { border-left: 0; }
+.bx-flow li:not(:last-child)::after { content: ""; position: absolute; right: -9px; top: 30px; width: 16px; height: 16px; background: #fff; border-top: 2px solid var(--aw-ink); border-right: 2px solid var(--aw-ink); transform: rotate(45deg); z-index: 1; }
+.bx-flow__n { font-family: var(--aw-mono), monospace; font-size: 13px; color: var(--aw-shu); }
+.bx-flow b { font-size: 20px; font-weight: 900; }
+.bx-flow__d { font-size: 14px; line-height: 1.8; color: var(--aw-sub); }
+.bx-fine { font-size: 13px; color: var(--aw-sub); margin-top: -36px; }
+/* 手元に残るもの */
+.bx-keep { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); border-top: 2px solid var(--aw-ink); }
+.bx-keep li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--aw-line); }
+.bx-keep b { font-size: 17px; font-weight: 900; }
+.bx-keep p { font-size: 14px; line-height: 1.8; color: var(--aw-sub); margin: 4px 0 10px; }
+.bx-ico { position: relative; width: 36px; height: 44px; border: 2px solid var(--aw-ink); border-radius: 4px; background: #fff; display: grid; align-content: center; gap: 5px; padding: 0 7px; box-shadow: 4px 4px 0 var(--bx-pale); }
+.bx-ico i { display: block; height: 2px; background: var(--aw-ink); }
+.bx-ico i:last-child { width: 60%; }
+.bx-ico.is-fill { background: var(--aw-shu); border-color: var(--aw-ink); }
+.bx-ico.is-fill i { background: #fff; }
+/* 進め方の表 */
+.bx-table { border-top: 2px solid var(--aw-ink); border-bottom: 2px solid var(--aw-ink); background: #fff; }
+.bx-table__row { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--aw-line); }
+.bx-table__row:first-child { border-top: 0; }
+.bx-table__row > span { padding: 16px 18px; font-size: 14px; line-height: 1.7; }
+.bx-table__row > span:first-child { font-weight: 900; }
+.bx-table__row--h > span { background: var(--aw-ink); color: #fff; font-size: 13px; font-weight: 700; padding: 12px 18px; }
+.bx-table__us { color: var(--aw-shu); font-weight: 700; }
+/* 例えばこんな仕組み */
+.bx-ex { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.bx-ex li { display: grid; gap: 6px; align-content: start; padding: 20px; background: #fff; border: 2px solid var(--aw-ink); box-shadow: 6px 6px 0 var(--bx-pale); }
+.bx-ex__n { font-family: var(--aw-mono), monospace; font-size: 12px; color: var(--aw-shu); }
+.bx-ex b { font-size: 18px; font-weight: 900; }
+.bx-ex p { font-size: 14px; line-height: 1.7; color: var(--aw-sub); }
+@media (max-width: 900px) {
+  .bx-ba { grid-template-columns: 1fr; }
+  .bx-ba__arrow { transform: rotate(90deg); margin: 10px 0; }
+  .bx-flow { grid-template-columns: 1fr; }
+  .bx-flow li { border-left: 0; border-top: 1px solid var(--aw-line); grid-template-columns: 2.4em auto; column-gap: 10px; }
+  .bx-flow li:first-child { border-top: 0; }
+  .bx-flow__d { grid-column: 1 / -1; }
+  .bx-flow li:not(:last-child)::after { right: auto; left: 24px; top: auto; bottom: -9px; transform: rotate(135deg); }
+  .bx-fine { margin-top: -20px; }
+  .bx-keep { grid-template-columns: 1fr; }
+  .bx-table__row--h { display: none; }
+  .bx-table__row { grid-template-columns: 1fr; padding: 6px 0; }
+  .bx-table__row > span { padding: 6px 14px; }
+  .bx-table__us::before { content: "ALPACA："; color: var(--aw-sub); font-weight: 400; }
+  .bx-table__row > span:last-child::before { content: "お願い："; color: var(--aw-sub); }
+  .bx-ex { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bx-ex li { padding: 14px; }
+  .bx-ex b { font-size: 16px; }
+}

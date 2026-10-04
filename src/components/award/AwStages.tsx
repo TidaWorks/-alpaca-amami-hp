@@ -32,8 +32,179 @@ function useInView<T extends Element>(ref: React.RefObject<T | null>, margin = "
 
 export default function AwStage({ id }: { id: "web" | "system" | "komon" }) {
   if (id === "web") return <BuildPage />;
-  if (id === "system") return <AutoCalc />;
-  return <Desk />;
+  if (id === "system") return <BxSystem />;
+  return <BxKomon />;
+}
+
+/* ───────── AI顧問・システム：BoostX 風の図解（10/4 大地さん「ブーストXのデザインの感じ好き」→「2」＝この2タブだけ） ─────────
+   現状→理想の2つの箱（太い黒線のイラスト）＋具体的な一覧。色はページに合わせて生成り・墨・朱、箱は白と淡い朱。 */
+
+function BxBefore({ now, ideal }: { now: { img: string; title: string; items: string[] }; ideal: { img: string; title: string; items: string[] } }) {
+  return (
+    <div className="bx-ba">
+      <div className="bx-ba__box">
+        <span className="bx-tag">今</span>
+        <img src={now.img} alt="" loading="lazy" />
+        <p className="bx-ba__t">{now.title}</p>
+        <ul className="bx-ba__list">
+          {now.items.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+      </div>
+      <span className="bx-ba__arrow" aria-hidden="true" />
+      <div className="bx-ba__box bx-ba__box--to">
+        <span className="bx-tag bx-tag--fill">ALPACAが入ると</span>
+        <img src={ideal.img} alt="" loading="lazy" />
+        <p className="bx-ba__t">{ideal.title}</p>
+        <ul className="bx-ba__list bx-ba__list--to">
+          {ideal.items.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function BxHead({ k, t }: { k: string; t: string }) {
+  return (
+    <div className="bx-h">
+      <p className="bx-h__k">
+        <i />
+        {k}
+      </p>
+      <h4 className="bx-h__t">{t}</h4>
+    </div>
+  );
+}
+
+const KOMON_MONTH = [
+  { n: "01", t: "話す", d: "月に1回、顔を合わせて、いま困っている事を聞きます" },
+  { n: "02", t: "決める", d: "その月にやる事を決めます。急ぎの物から先に" },
+  { n: "03", t: "作る・直す", d: "ホームページ、仕組み、パソコンの設定など、決めた事をこちらで進めます" },
+  { n: "04", t: "渡す", d: "使い方まで伝えて、社内で使える形にして渡します" },
+];
+const KOMON_KEEP = [
+  { t: "直したホームページ", d: "文字・写真・お知らせの更新から、作り直しまで", tag: "必要な時に" },
+  { t: "作った仕組み", d: "見積・予約・顧客の管理など、紙やExcelの代わりになる画面", tag: "決めた月に" },
+  { t: "使い方の手順", d: "社員がひとりで使えるよう、手順をまとめて渡します", tag: "作るたびに" },
+  { t: "ITまわりの一覧", d: "パソコン・アカウント・契約中のサービスを一つにまとめた表", tag: "最初に作り、更新" },
+  { t: "AIの使い方", d: "その会社の仕事で使える、AIへの頼み方", tag: "必要な時に" },
+  { t: "チャットのやりとり", d: "いつ何を相談して、どう片づいたかが残ります", tag: "いつでも（返事は平日）" },
+];
+
+function BxKomon() {
+  return (
+    <div className="bx">
+      <BxHead k="AI顧問　どう変わるか" t="ITのことを、社長と事務の人が抱えなくてよくなります。" />
+      <BxBefore
+        now={{
+          img: "/images/bx/komon-now.webp",
+          title: "ITのことが、社長や事務の人に回ってくる",
+          items: ["ホームページを何年も触っていない", "パソコンの設定を、毎回だれかに聞いている", "AIは気になるけれど、手が出ない"],
+        }}
+        ideal={{
+          img: "/images/bx/komon-ideal.webp",
+          title: "ALPACAが、会社のIT担当として中に入る",
+          items: ["困ったら、チャットで一言送るだけ", "月に1回、顔を合わせて次にやる事を決める", "ホームページも仕組みもAIも、同じ窓口で"],
+        }}
+      />
+
+      <BxHead k="ひと月の流れ" t="毎月、この順で進めます。" />
+      <ol className="bx-flow">
+        {KOMON_MONTH.map((m) => (
+          <li key={m.n}>
+            <span className="bx-flow__n">{m.n}</span>
+            <b>{m.t}</b>
+            <span className="bx-flow__d">{m.d}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="bx-fine">チャットの相談は、流れとは別にいつでも送れます。返事は平日です。</p>
+
+      <BxHead k="手元に残るもの（例）" t="終わったあとも、会社の手元に残ります。" />
+      <ul className="bx-keep">
+        {KOMON_KEEP.map((x, i) => (
+          <li key={x.t}>
+            <span className={`bx-ico ${i % 3 === 0 ? "is-fill" : ""}`} aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <div>
+              <b>{x.t}</b>
+              <p>{x.d}</p>
+              <span className="bx-tag bx-tag--sm">{x.tag}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const SYS_SPLIT = [
+  { t: "今の仕事の流れを聞く", us: "紙やExcelの中身と、誰がいつ使うかを聞きます", you: "今使っている紙やファイルを見せてください" },
+  { t: "画面の形を決める", us: "画面の見本を作って、一緒に直します", you: "見本を触って、使いにくい所を教えてください" },
+  { t: "作る", us: "決めた形で作ります", you: "—" },
+  { t: "試しに使う", us: "使ってみて出た直しを入れます", you: "実際の仕事で試してください" },
+  { t: "使い始める", us: "使い方を教えて、社内に定着するまで見ます", you: "社員への声かけをお願いします" },
+];
+const SYS_EX = [
+  { t: "予約の管理", d: "電話とノートの予約を、1つの画面に" },
+  { t: "見積と請求", d: "見積から請求書まで、同じ数字で" },
+  { t: "在庫", d: "入った・出たを入れると、残りが分かる" },
+  { t: "顧客の管理", d: "お客さんごとの履歴を、すぐ引ける" },
+  { t: "勤怠", d: "スマホで出勤・退勤、月末の集計まで" },
+  { t: "売上の集計", d: "日・月・担当ごとの売上が、自動で" },
+];
+
+function BxSystem() {
+  return (
+    <div className="bx">
+      <BxHead k="システム開発　どう変わるか" t="紙とExcelで続けてきた仕事を、その会社のやり方のまま画面にします。" />
+      <BxBefore
+        now={{
+          img: "/images/bx/sys-now.webp",
+          title: "紙とExcelで、同じ数字を何度も書き写す",
+          items: ["手書きの台帳とExcelが二重になっている", "月末の集計に、毎回何時間もかかる", "担当の人しか、どこに何があるか分からない"],
+        }}
+        ideal={{
+          img: "/images/bx/sys-ideal.webp",
+          title: "1回入れれば、集計と書類までつながる",
+          items: ["入れた数字が、そのまま一覧と書類になる", "集計はボタンひとつ", "スマホからでも、誰でも同じ画面を見られる"],
+        }}
+      />
+
+      <BxHead k="進め方" t="こちらでやる事と、お願いする事を分けて進めます。" />
+      <div className="bx-table" role="table">
+        <div className="bx-table__row bx-table__row--h" role="row">
+          <span role="columnheader">段階</span>
+          <span role="columnheader">ALPACAがやる事</span>
+          <span role="columnheader">お願いする事</span>
+        </div>
+        {SYS_SPLIT.map((r) => (
+          <div className="bx-table__row" role="row" key={r.t}>
+            <span role="cell">{r.t}</span>
+            <span role="cell" className="bx-table__us">{r.us}</span>
+            <span role="cell">{r.you}</span>
+          </div>
+        ))}
+      </div>
+
+      <BxHead k="例えばこんな仕組み" t="業種に合わせて、必要な物だけ作ります。" />
+      <ul className="bx-ex">
+        {SYS_EX.map((x, i) => (
+          <li key={x.t}>
+            <span className="bx-ex__n">{pad2(i + 1)}</span>
+            <b>{x.t}</b>
+            <p>{x.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 /* ───────── ホームページ：業種ごとのデザインの例（横に流れるギャラリー） ─────────
@@ -188,236 +359,6 @@ function BuildPage() {
         </div>,
           document.body,
         )}
-    </figure>
-  );
-}
-
-/* ───────── システム：入れると勝手に計算される ───────── */
-
-// 見せる用のダミー。合計とグラフは下の計算で出す（手で書かない）
-const CALC_ROWS = [
-  { d: "10/1", who: "山田様", what: "外壁の補修", yen: 48000 },
-  { d: "10/2", who: "佐藤様", what: "キッチンの交換", yen: 126500 },
-  { d: "10/3", who: "鈴木様", what: "網戸の張り替え", yen: 12000 },
-  { d: "10/4", who: "田中様", what: "屋根の点検", yen: 33000 },
-];
-const PAST_MONTHS = [
-  { m: "7月", yen: 182000 },
-  { m: "8月", yen: 236000 },
-  { m: "9月", yen: 158000 },
-];
-const yen = (n: number) => n.toLocaleString("ja-JP");
-
-function AutoCalc() {
-  const box = useRef<HTMLDivElement>(null);
-  const inView = useInView(box);
-  const reduced = useReduced();
-  // n = 入力が済んだ行の数。typing = 今打っている桁数
-  const [n, setN] = useState(0);
-  const [typing, setTyping] = useState(0);
-  const [shown, setShown] = useState(0);
-
-  useEffect(() => {
-    if (reduced) {
-      setN(CALC_ROWS.length);
-      return;
-    }
-    if (!inView) return;
-    let alive = true;
-    const timers: number[] = [];
-    const wait = (ms: number) => new Promise<void>((ok) => timers.push(window.setTimeout(ok, ms)));
-    (async () => {
-      while (alive) {
-        setN(0);
-        setTyping(0);
-        await wait(700);
-        for (let i = 0; i < CALC_ROWS.length && alive; i++) {
-          const digits = String(CALC_ROWS[i].yen).length;
-          for (let k = 1; k <= digits && alive; k++) {
-            setTyping(k);
-            await wait(90);
-          }
-          await wait(260);
-          setN(i + 1);
-          setTyping(0);
-          await wait(900);
-        }
-        await wait(2800);
-      }
-    })();
-    return () => {
-      alive = false;
-      timers.forEach(clearTimeout);
-    };
-  }, [inView, reduced]);
-
-  const total = CALC_ROWS.slice(0, n).reduce((a, r) => a + r.yen, 0);
-
-  // 合計の数字は、目標の値へ少しずつ寄せて数え上がって見せる
-  useEffect(() => {
-    // 頭に戻った時は数え下げずに 0 から
-    if (reduced || total === 0) {
-      setShown(total);
-      return;
-    }
-    let raf = 0;
-    const tick = () => {
-      setShown((v) => {
-        const d = total - v;
-        if (Math.abs(d) < 50) return total;
-        return Math.round(v + d * 0.18);
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [total, reduced]);
-
-  const months = [...PAST_MONTHS, { m: "10月", yen: total }];
-  const max = 260000;
-
-  return (
-    <figure className="aw-stg aw-stg--calc" ref={box}>
-      <div className="aw-stg__rail">
-        <p className="aw-stg__k">見本　10月の売上</p>
-        <p className="aw-stg__big aw-stg__big--yen" aria-hidden="true">
-          <small>¥</small>
-          {yen(shown)}
-        </p>
-        <p className="aw-stg__meta">
-          <span>{n}件</span>
-          <span className="aw-ac__live">
-            <i />
-            自動で集計
-          </span>
-        </p>
-        <p className="aw-stg__note">金額を入れると、合計とグラフがその場で変わります。</p>
-      </div>
-
-      <div className="aw-stg__main aw-ac" aria-hidden="true">
-        <div className="aw-ac__bar">
-          <span>売上の記録</span>
-          <span className="aw-ac__tabs">
-            <i className="is-on">一覧</i>
-            <i>グラフ</i>
-            <i>請求</i>
-          </span>
-        </div>
-        <div className="aw-ac__body">
-          <div className="aw-ac__table">
-            <div className="aw-ac__row aw-ac__row--h">
-              <span>日付</span>
-              <span>お客様</span>
-              <span>内容</span>
-              <span>金額</span>
-            </div>
-            {CALC_ROWS.map((r, i) => {
-              const done = i < n;
-              const now = i === n && typing > 0;
-              const s = String(r.yen);
-              return (
-                <div key={r.d} className={`aw-ac__row ${done ? "is-done" : ""} ${now ? "is-now" : ""}`}>
-                  <span>{done || now ? r.d : ""}</span>
-                  <span>{done || now ? r.who : ""}</span>
-                  <span>{done || now ? r.what : ""}</span>
-                  <span className="aw-ac__yen">
-                    {done ? yen(r.yen) : now ? s.slice(0, typing) : ""}
-                    {now && <i className="aw-ac__caret" />}
-                  </span>
-                </div>
-              );
-            })}
-            <div className="aw-ac__row aw-ac__row--sum">
-              <span>合計</span>
-              <span />
-              <span />
-              <span className="aw-ac__yen">{yen(total)}</span>
-            </div>
-          </div>
-          <div className="aw-ac__side">
-            <p className="aw-ac__k">月ごとの売上</p>
-            <div className="aw-ac__chart">
-              {months.map((m, i) => (
-                <div key={m.m} className={`aw-ac__col ${i === months.length - 1 ? "is-now" : ""}`}>
-                  <span className="aw-ac__barv" style={{ height: `${Math.max(1, (m.yen / max) * 100)}%` }} />
-                  <span className="aw-ac__m">{m.m}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </figure>
-  );
-}
-
-/* ───────── AI顧問：IT担当がやること（線の絵 8枚） ─────────
-   10/4 大地さん「AI顧問2」＝ミニマルな線の絵（白地・黒い線・差し色1色＝朱）。画像生成で同じ2人を8場面。
-   左のレールは、画面の真ん中にある絵の番号と中身を大きく出す。 */
-
-const KOMON = [
-  "ホームページの文字や写真を直す",
-  "パソコンやソフトの「これ、どうやるの？」に答える",
-  "AIの使い方を、一緒に試す",
-  "紙の見積書や台帳を、システムにする",
-  "月に1回、顔を合わせて話す",
-  "チャットで相談を受ける（返事は平日）",
-  "メールが届かない、などの困りごとを片づける",
-  "新しく入った人のパソコンを用意する",
-];
-
-function Desk() {
-  const box = useRef<HTMLDivElement>(null);
-  const [cur, setCur] = useState(0);
-
-  // 画面の真ん中あたりにある絵を「今」とする
-  useEffect(() => {
-    const root = box.current;
-    if (!root) return;
-    const items = Array.from(root.querySelectorAll<HTMLElement>(".aw-km__item"));
-    const io = new IntersectionObserver(
-      (es) => {
-        es.forEach((e) => {
-          if (e.isIntersecting) setCur(Number((e.target as HTMLElement).dataset.i));
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    items.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <figure className="aw-stg aw-stg--desk">
-      <div className="aw-stg__rail">
-        <p className="aw-stg__k">見本　IT担当がやること</p>
-        <p className="aw-stg__big aw-stg__big--num" aria-hidden="true">
-          <span key={cur} className="aw-stg__flip">
-            {pad2(cur + 1)}
-          </span>
-          <small>/{pad2(KOMON.length)}</small>
-        </p>
-        <p className="aw-km__now" aria-hidden="true">
-          <span key={cur} className="aw-stg__flip">
-            {KOMON[cur]}
-          </span>
-        </p>
-        <p className="aw-stg__note">数や種類は決めずに、その時の会社に要ることをやります。</p>
-      </div>
-
-      <div className="aw-stg__main aw-km" ref={box}>
-        {KOMON.map((t, i) => (
-          <div key={t} className={`aw-km__item ${i === cur ? "is-cur" : ""}`} data-i={i}>
-            <span className="aw-km__img">
-              <img src={`/images/komon/k${i + 1}.webp`} alt={t} loading="lazy" width={720} height={720} />
-            </span>
-            <p className="aw-km__cap">
-              <span>{pad2(i + 1)}</span>
-              {t}
-            </p>
-          </div>
-        ))}
-      </div>
     </figure>
   );
 }
