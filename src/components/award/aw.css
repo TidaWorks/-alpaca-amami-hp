@@ -1,7 +1,7 @@
 /* ALPACA トップ（award-p2）。色は 地・墨・朱 の3つだけ。区切りは1pxの罫線と余白 */
 
 :root {
-  --aw-paper: #f1eee7;
+  --aw-paper: #faf9f6;  /* 10/5 大地さん「1」: 一番上の画像の壁に合わせたほぼ白（元 #f1eee7） */
   --aw-ink: #121212;
   --aw-shu: #d8431c;
   --aw-sub: rgba(18, 18, 18, 0.62);
@@ -679,7 +679,7 @@ html.lenis body {
   color: var(--aw-ink);
 }
 .aw-anim .aw-voice__q {
-  color: rgba(241, 238, 231, 0.2);
+  color: rgba(250, 249, 246, 0.2);
 }
 .aw-anim .aw-voice__q.is-on {
   color: var(--aw-paper);
@@ -687,7 +687,7 @@ html.lenis body {
 .aw-voice__ans {
   margin-top: clamp(56px, 7vw, 104px);
   padding-top: 28px;
-  border-top: 1px solid rgba(241, 238, 231, 0.4);
+  border-top: 1px solid rgba(250, 249, 246, 0.4);
   font-family: var(--aw-mincho), serif;
   font-weight: 800;
   font-size: clamp(22px, 2.3vw, 34px);
@@ -1138,7 +1138,7 @@ html.lenis body {
 .aw-contact__lead {
   margin-top: 28px;
   font-size: clamp(16px, 1.4vw, 19px);
-  color: rgba(241, 238, 231, 0.72);
+  color: rgba(250, 249, 246, 0.72);
 }
 .aw-contact__grid {
   margin-top: clamp(56px, 7vw, 104px);
@@ -1153,11 +1153,11 @@ html.lenis body {
   align-items: center;
   gap: 16px;
   min-height: 96px;
-  border-top: 1px solid rgba(241, 238, 231, 0.3);
+  border-top: 1px solid rgba(250, 249, 246, 0.3);
   transition: color 0.3s;
 }
 .aw-contact__big:last-child {
-  border-bottom: 1px solid rgba(241, 238, 231, 0.3);
+  border-bottom: 1px solid rgba(250, 249, 246, 0.3);
 }
 .aw-contact__big:hover {
   color: #fff;
@@ -1168,7 +1168,7 @@ html.lenis body {
 .aw-contact__k {
   font-size: 13px;
   letter-spacing: 0.1em;
-  color: rgba(241, 238, 231, 0.6);
+  color: rgba(250, 249, 246, 0.6);
 }
 .aw-contact__v {
   font-family: var(--aw-mincho), serif;
@@ -1190,7 +1190,7 @@ html.lenis body {
 .aw-form__l {
   font-size: 13px;
   letter-spacing: 0.1em;
-  color: rgba(241, 238, 231, 0.7);
+  color: rgba(250, 249, 246, 0.7);
 }
 .aw-form__i {
   width: 100%;
@@ -1198,7 +1198,7 @@ html.lenis body {
   padding: 10px 0;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(241, 238, 231, 0.4);
+  border-bottom: 1px solid rgba(250, 249, 246, 0.4);
   border-radius: 0;
   color: var(--aw-paper);
   font: inherit;
@@ -1207,7 +1207,7 @@ html.lenis body {
   transition: border-color 0.3s;
 }
 .aw-form__i::placeholder {
-  color: rgba(241, 238, 231, 0.35);
+  color: rgba(250, 249, 246, 0.35);
 }
 .aw-form__i:focus {
   border-bottom-color: var(--aw-paper);
@@ -1227,13 +1227,13 @@ html.lenis body {
 .aw-form__done {
   font-size: 18px;
   padding: 24px 0;
-  border-top: 1px solid rgba(241, 238, 231, 0.3);
+  border-top: 1px solid rgba(250, 249, 246, 0.3);
 }
 
 /* フッター */
 .aw-foot {
   background: var(--aw-ink);
-  color: rgba(241, 238, 231, 0.7);
+  color: rgba(250, 249, 246, 0.7);
   padding: 0 0 40px;
   font-size: 13px;
 }
@@ -1243,7 +1243,7 @@ html.lenis body {
   align-items: center;
   gap: 16px 40px;
   padding-top: 32px;
-  border-top: 1px solid rgba(241, 238, 231, 0.2);
+  border-top: 1px solid rgba(250, 249, 246, 0.2);
 }
 .aw-foot__brand {
   display: inline-flex;
@@ -1571,7 +1571,7 @@ html.lenis body {
   padding-bottom: 40px;
 }
 .aw-menu li {
-  border-bottom: 1px solid rgba(241, 238, 231, 0.22);
+  border-bottom: 1px solid rgba(250, 249, 246, 0.22);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s, transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1);
@@ -1606,7 +1606,7 @@ html.aw-menu-open {
 html.aw-menu-open .aw-head {
   background: var(--aw-ink);
   color: var(--aw-paper);
-  border-bottom-color: rgba(241, 238, 231, 0.22);
+  border-bottom-color: rgba(250, 249, 246, 0.22);
 }
 html.aw-menu-open .aw-head__logo img {
   filter: invert(1);
@@ -1650,7 +1650,7 @@ html.aw-menu-open .aw-head__prog {
   display: block;
   font-size: clamp(17px, 1.5vw, 22px);
   font-weight: 600;
-  color: rgba(241, 238, 231, 0.75);
+  color: rgba(250, 249, 246, 0.75);
 }
 .aw-voice__ans .aw-voice__ans-l {
   display: block;
@@ -1976,7 +1976,7 @@ span.aw-swap {
 .aw-form__pre {
   font-size: 13px;
   line-height: 1.7;
-  color: rgba(241, 238, 231, 0.75);
+  color: rgba(250, 249, 246, 0.75);
 }
 .aw-form__pre::before {
   content: "";
@@ -2140,7 +2140,7 @@ html.aw-menu-open .aw-slip {
   margin-top: 20px;
   font-size: clamp(15px, 1.3vw, 18px);
   font-weight: 500;
-  color: rgba(241, 238, 231, 0.8);
+  color: rgba(250, 249, 246, 0.8);
 }
 .aw-contact__left-t {
   margin-left: 0.6em;
@@ -2336,7 +2336,7 @@ html.aw-menu-open .aw-slip {
   margin-top: 20px;
   font-size: clamp(15px, 1.2vw, 17px);
   line-height: 1.9;
-  color: rgba(241, 238, 231, 0.7);
+  color: rgba(250, 249, 246, 0.7);
 }
 .aw-demosec__head {
   position: sticky;
@@ -2350,7 +2350,7 @@ html.aw-menu-open .aw-slip {
 .aw-demo__tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid rgba(241, 238, 231, 0.24);
+  border-top: 1px solid rgba(250, 249, 246, 0.24);
 }
 .aw-demo__tab {
   position: relative;
@@ -2361,7 +2361,7 @@ html.aw-menu-open .aw-slip {
   font-size: 15px;
   font-weight: 700;
   text-align: left;
-  color: rgba(241, 238, 231, 0.45);
+  color: rgba(250, 249, 246, 0.45);
   background: none;
   border: 0;
   cursor: pointer;
@@ -3676,7 +3676,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 
 /* ===== 一番上：決定版の画像をそのまま（10/4 大地さん「画像生成そのまま使う」） =====
    画像の全体が切れないよう幅いっぱいに置き、黄色のボタンの位置に押せる領域を重ねる */
-.fvimg { position: relative; padding-top: var(--aw-head); background: #f7f6f2; }
+.fvimg { position: relative; padding-top: var(--aw-head); background: var(--aw-paper); }
 .fvimg__pic img { display: block; width: 100%; height: auto; }
 /* PC画像（1672×941）の黄色ボタン: x 1158〜1614, y 728〜808 */
 .fvimg__cta { position: absolute; left: 69.2%; width: 27.4%; top: calc(var(--aw-head) + (100vw * 941 / 1672) * 0.772); height: calc((100vw * 941 / 1672) * 0.088); border-radius: 999px; }
