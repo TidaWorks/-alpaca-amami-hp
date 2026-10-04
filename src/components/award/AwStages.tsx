@@ -351,100 +351,72 @@ function AutoCalc() {
   );
 }
 
-/* ───────── AI顧問：困りごとが窓口に集まる ───────── */
+/* ───────── AI顧問：IT担当がやること（線の絵 8枚） ─────────
+   10/4 大地さん「AI顧問2」＝ミニマルな線の絵（白地・黒い線・差し色1色＝朱）。画像生成で同じ2人を8場面。
+   左のレールは、画面の真ん中にある絵の番号と中身を大きく出す。 */
 
-// 付箋の文と、散らばる位置（窓口から見た向き）。済んだ物は窓口の下に横一列で並ぶ
-const NOTES = [
-  { t: "HPの文字を直したい", x: -1, y: -0.75 },
-  { t: "パソコンが重い", x: 1, y: -0.6 },
-  { t: "AIって使える？", x: -1, y: 0.7 },
-  { t: "メールが届かない", x: 1, y: 0.9 },
-  { t: "見積書の型を作りたい", x: 0.45, y: -1.15 },
+const KOMON = [
+  "ホームページの文字や写真を直す",
+  "パソコンやソフトの「これ、どうやるの？」に答える",
+  "AIの使い方を、一緒に試す",
+  "紙の見積書や台帳を、システムにする",
+  "月に1回、顔を合わせて話す",
+  "チャットで相談を受ける（返事は平日）",
+  "メールが届かない、などの困りごとを片づける",
+  "新しく入った人のパソコンを用意する",
 ];
 
 function Desk() {
   const box = useRef<HTMLDivElement>(null);
-  const inView = useInView(box);
-  const reduced = useReduced();
-  // 各付箋の状態: 0=外 1=散らばって浮いている 2=窓口に重なった 3=済（下の列へ）
-  const [st, setSt] = useState<number[]>(NOTES.map(() => 0));
+  const [cur, setCur] = useState(0);
 
+  // 画面の真ん中あたりにある絵を「今」とする
   useEffect(() => {
-    if (reduced) {
-      setSt(NOTES.map(() => 3));
-      return;
-    }
-    if (!inView) return;
-    let alive = true;
-    const timers: number[] = [];
-    const wait = (ms: number) => new Promise<void>((ok) => timers.push(window.setTimeout(ok, ms)));
-    const set = (i: number, v: number) => setSt((a) => a.map((x, k) => (k === i ? v : x)));
-    (async () => {
-      while (alive) {
-        setSt(NOTES.map(() => 0));
-        await wait(500);
-        // まず全部が散らばって現れる
-        for (let i = 0; i < NOTES.length && alive; i++) {
-          set(i, 1);
-          await wait(220);
-        }
-        await wait(900);
-        // 1枚ずつ窓口に集まり、判が押される
-        for (let i = 0; i < NOTES.length && alive; i++) {
-          set(i, 2);
-          await wait(650);
-          set(i, 3);
-          await wait(550);
-        }
-        await wait(2800);
-      }
-    })();
-    return () => {
-      alive = false;
-      timers.forEach(clearTimeout);
-    };
-  }, [inView, reduced]);
-
-  const doneCount = st.filter((v) => v === 3).length;
+    const root = box.current;
+    if (!root) return;
+    const items = Array.from(root.querySelectorAll<HTMLElement>(".aw-km__item"));
+    const io = new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          if (e.isIntersecting) setCur(Number((e.target as HTMLElement).dataset.i));
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <figure className="aw-stg aw-stg--desk" ref={box}>
+    <figure className="aw-stg aw-stg--desk">
       <div className="aw-stg__rail">
-        <p className="aw-stg__k">見本　ある月の困りごと</p>
+        <p className="aw-stg__k">見本　IT担当がやること</p>
         <p className="aw-stg__big aw-stg__big--num" aria-hidden="true">
-          <span key={doneCount} className="aw-stg__flip">
-            {doneCount}
+          <span key={cur} className="aw-stg__flip">
+            {pad2(cur + 1)}
           </span>
-          <small>/{NOTES.length} 済</small>
+          <small>/{pad2(KOMON.length)}</small>
         </p>
-        <p className="aw-stg__note">どこに頼めばいいか分からない事も、ALPACAがまとめて受けます。</p>
+        <p className="aw-km__now" aria-hidden="true">
+          <span key={cur} className="aw-stg__flip">
+            {KOMON[cur]}
+          </span>
+        </p>
+        <p className="aw-stg__note">数や種類は決めずに、その時の会社に要ることをやります。</p>
       </div>
 
-      <div className="aw-stg__main aw-dk" aria-hidden="true">
-        <div className="aw-dk__hub">
-          <span className="aw-dk__role">IT担当</span>
-          <b className="aw-dk__name">ALPACA</b>
-        </div>
-        {NOTES.map((nt, i) => {
-          const s = st[i];
-          const style = {
-            "--fx": `${nt.x}`,
-            "--fy": `${nt.y}`,
-            "--i": `${i - 2}`,
-            // スマホでは済んだ物を3枚・2枚の2段に並べる
-            "--c": `${i < 3 ? i - 1 : i - 3.5}`,
-            "--row": `${i < 3 ? 0 : 1}`,
-            "--rot": `${((i * 37) % 11) - 5}deg`,
-            zIndex: s >= 2 ? 10 + i : 1,
-          } as React.CSSProperties;
-          return (
-            <div key={nt.t} className={`aw-dk__note is-s${s}`} style={style}>
-              <small>#{String(i + 1).padStart(2, "0")}</small>
-              <span>{nt.t}</span>
-              <i className="aw-dk__stamp">済</i>
-            </div>
-          );
-        })}
+      <div className="aw-stg__main aw-km" ref={box}>
+        {KOMON.map((t, i) => (
+          <div key={t} className={`aw-km__item ${i === cur ? "is-cur" : ""}`} data-i={i}>
+            <span className="aw-km__img">
+              <img src={`/images/komon/k${i + 1}.webp`} alt={t} loading="lazy" width={720} height={720} />
+            </span>
+            <p className="aw-km__cap">
+              <span>{pad2(i + 1)}</span>
+              {t}
+            </p>
+          </div>
+        ))}
       </div>
     </figure>
   );

@@ -3529,3 +3529,25 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-gl__card img { transition: none; }
   .aw-gl__lb { animation: none; }
 }
+
+/* --- AI顧問：IT担当がやること（線の絵 8枚・10/4） --- */
+.aw-km__now { font-family: var(--aw-mincho), serif; font-weight: 700; font-size: clamp(20px, 1.7vw, 26px); line-height: 1.5; padding-bottom: 14px; border-bottom: 1px solid var(--aw-line); min-height: 3em; }
+.aw-km { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3vw, 48px) clamp(20px, 2.4vw, 36px); }
+.aw-km__item { display: grid; gap: 12px; }
+.aw-km__img { display: block; background: #fff; border: 1px solid var(--aw-line); overflow: hidden; transition: border-color 0.3s; }
+.aw-km__img img { width: 100%; height: auto; display: block; aspect-ratio: 1; transform: scale(1.04); transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.aw-km__item.is-cur .aw-km__img { border-color: var(--aw-ink); }
+.aw-km__item.is-cur .aw-km__img img { transform: none; }
+.aw-km__cap { display: flex; gap: 12px; align-items: baseline; font-size: 15px; font-weight: 700; line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--aw-line); }
+.aw-km__cap span { font-family: var(--aw-mono), monospace; font-weight: 400; font-size: 12px; color: var(--aw-sub); flex: none; }
+.aw-km__item.is-cur .aw-km__cap { border-top-color: var(--aw-shu); }
+.aw-km__item.is-cur .aw-km__cap span { color: var(--aw-shu); }
+@media (max-width: 900px) {
+  .aw-stg--desk .aw-km__now, .aw-stg--desk .aw-stg__big { display: none; }
+  .aw-stg--desk .aw-stg__note { grid-column: 1 / -1; padding-bottom: 0; }
+  .aw-km { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+  .aw-km__cap { font-size: 13px; gap: 6px; flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-km__img img { transform: none; transition: none; }
+}
