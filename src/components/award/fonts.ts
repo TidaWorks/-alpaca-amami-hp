@@ -1,4 +1,4 @@
-import { IBM_Plex_Mono, Permanent_Marker, Shippori_Mincho_B1, Zen_Kaku_Gothic_New } from "next/font/google";
+import { IBM_Plex_Mono, Permanent_Marker, Shippori_Mincho_B1, Zen_Kaku_Gothic_New, Zen_Maru_Gothic } from "next/font/google";
 
 // 見出し: しっぽり明朝 B1（太字だけ）。日本語は分割ファイルが多いので先読みしない
 export const mincho = Shippori_Mincho_B1({
@@ -32,4 +32,13 @@ export const hand = Permanent_Marker({
   subsets: ["latin"],
   display: "swap",
   variable: "--aw-hand",
+});
+
+// 一番上の大見出し（10/4 決定のファーストビュー「あなたの仕事の、ベストパートナー。」）: Zen丸ゴシック 極太
+export const maru = Zen_Maru_Gothic({
+  weight: ["700", "900"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--aw-maru",
+  preload: false,
 });

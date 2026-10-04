@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "@/components/award/aw.css";
-import { gothic, hand, mincho, mono } from "@/components/award/fonts";
+import { gothic, hand, maru, mincho, mono } from "@/components/award/fonts";
 import { jp } from "@/components/award/jp";
 import AwHeader from "@/components/award/AwHeader";
 import AwMotion from "@/components/award/AwMotion";
@@ -242,7 +242,7 @@ function Arrow() {
 
 export default function Home() {
   return (
-    <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable} ${hand.variable}`}>
+    <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable} ${hand.variable} ${maru.variable}`}>
       {/* 動きを許す人だけ、最初の形（隠した状態）を描画前に入れる。ちらつき防止 */}
       <script
         dangerouslySetInnerHTML={{
@@ -258,99 +258,41 @@ export default function Home() {
       </a>
       <AwHeader />
 
-      {/* 一番上: 一文と余白、組織表 */}
-      <section className="aw-hero" aria-labelledby="aw-hero-h">
-        <div className="aw-wrap aw-hero__in">
-          <p className="aw-hero__meta" data-hero="meta">
-            <span className="aw-hero__meta-r">ホームページ制作／システム開発／AI顧問</span>
-          </p>
-          <h1 className="aw-hero__h" id="aw-hero-h">
-            {HERO_LINES.map((line, li) => (
-              <span key={li} className="aw-hero__line">
-                {line.map((c) => (
-                  <span key={c} className="aw-hero__chunk">
-                    <span className="aw-hero__chunk-in" data-hero="chunk">
-                      {/* 2回目の「IT担当」にだけ朱の線を引く（空席が埋まる所。文言は変えない） */}
-                      {c === "IT担当に" ? (
-                        <>
-                          <span className="aw-hero__mark">
-                            {/* 言葉が入れ替わって最後に「IT担当」で止まる（funtech の「Creativity is □」から）。
-                                読み上げと JS が動かない時は「IT担当」だけ */}
-                            <span className="aw-rot" data-hero="swap" aria-hidden="true">
-                              {SWAP_WORDS.map((w, i) => (
-                                <span key={w} className={i === SWAP_WORDS.length - 1 ? "aw-rot__w is-last" : "aw-rot__w"} data-swap>
-                                  {w}
-                                </span>
-                              ))}
-                            </span>
-                            <span className="aw-sr">IT担当</span>
-                            <span className="aw-hero__under" data-hero="under" aria-hidden="true" />
-                          </span>
-                          に
-                        </>
-                      ) : (
-                        c
-                      )}
-                    </span>
-                  </span>
-                ))}
+      {/* 一番上（10/4 大地さん決定のファーストビュー A）: 歩く人物の写真の左右に大見出し。写真は文字なしで、文字はここで組む */}
+      <section className="fv" aria-labelledby="fv-h">
+        <picture className="fv__bg">
+          <source media="(max-width: 900px)" srcSet="/images/fv-sp.webp" />
+          <img src="/images/fv-pc.webp" alt="ノートパソコンを抱えて歩く女性" fetchPriority="high" />
+        </picture>
+        <div className="fv__in">
+          <h1 className="fv__h" id="fv-h" aria-label="あなたの仕事の、ベストパートナー。">
+            <span className="fv__col fv__col--l" aria-hidden="true">
+              <span>あなたの</span>
+              <span className="fv__accent">ベスト</span>
+            </span>
+            <span className="fv__col fv__col--r" aria-hidden="true">
+              <span>仕事の、</span>
+              <span>パートナー。</span>
+            </span>
+            {/* スマホは人物が下に来るので、上に2行で */}
+            <span className="fv__sp" aria-hidden="true">
+              <span>あなたの仕事の、</span>
+              <span>
+                <span className="fv__accent">ベスト</span>パートナー。
               </span>
-            ))}
+            </span>
           </h1>
-
-          <div className="aw-hero__foot">
-            <figure className="aw-roster" aria-label="会社の組織表（例）。IT担当の空席に ALPACA が入ります">
-              <figcaption className="aw-roster__cap" data-hero="cap">
-                <span className="aw-roster__capname">
-                  <Co after="の組織表" />
-                </span>
-                <span className="aw-roster__ex">例</span>
-              </figcaption>
-              <ul className="aw-roster__list">
-                {ROSTER.map((r) => (
-                  <li key={r.role} className="aw-roster__row" data-hero="row">
-                    <span className="aw-roster__role">{r.role}</span>
-                    <span className="aw-roster__who">{r.who}</span>
-                    <span className="aw-roster__note">{r.note}</span>
-                    <span className="aw-roster__rule" data-hero="rule" aria-hidden="true" />
-                  </li>
-                ))}
-                <li className="aw-roster__row aw-roster__row--it" data-hero="row">
-                  <span className="aw-roster__role">IT担当</span>
-                  <span className="aw-roster__who aw-roster__seat">
-                    <span className="aw-roster__empty">
-                      <span className="aw-roster__emptytxt" data-hero="empty">
-                        空席
-                      </span>
-                      <span className="aw-roster__strike" data-hero="strike" aria-hidden="true" />
-                    </span>
-                    {/* 1文字ずつ打ち込む。読み上げには aria-label の屋号を1回だけ渡す */}
-                    <span className="aw-roster__name" data-hero="name" role="img" aria-label="ALPACA">
-                      {"ALPACA".split("").map((ch, i) => (
-                        <span key={i} data-hero="letter" aria-hidden="true">
-                          {ch}
-                        </span>
-                      ))}
-                    </span>
-                  </span>
-                  <span className="aw-roster__note" data-hero="itnote">
-                    <ByWorry
-                      d="ホームページ、システム、AI"
-                      docs="最初の仕事は、システム開発"
-                      hp="最初の仕事は、ホームページ制作"
-                      ai="最初の仕事は、AI顧問"
-                    />
-                  </span>
-                  <span className="aw-roster__rule" data-hero="rule" aria-hidden="true" />
-                </li>
-              </ul>
-            </figure>
-
-            <div className="aw-hero__lead" data-hero="lead">
-              <p className="aw-hero__txt">
-                {jp("ホームページ制作、システム開発、AI顧問。ITの窓口を、ひとつにします。")}
+          <div className="fv__foot">
+            <div className="fv__sub">
+              <p className="fv__jp">{jp("ホームページも、システムも、AIの相談も、窓口はひとつ。")}</p>
+              <p className="fv__en" lang="en">
+                Your IT team, around the corner.
               </p>
             </div>
+            <a href="#contact" className="fv__cta">
+              まずは無料で相談する
+              <span aria-hidden="true">›</span>
+            </a>
           </div>
         </div>
       </section>
