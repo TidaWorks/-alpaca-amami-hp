@@ -48,11 +48,12 @@ const zenKurenaido = Zen_Kurenaido({
 });
 
 const siteName = "ALPACA";
-const siteUrl = "https://alpaca-amami.com";
-const siteTitle = "ALPACA | 奄美・鹿児島の会社のAI顧問";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alpaca-amami.com";  // プレビューの時だけ書き出し時に差し替える
+const siteTitle = "ALPACA | あなたの仕事の、ベストパートナー。";
 const siteDescription =
-  "奄美・鹿児島の会社と一緒に、AIに任せられる仕事を毎月ひとつずつ増やしていく顧問です。AI顧問（月15万円〜・税別）、業務システムの開発、ホームページ制作。鹿児島県奄美市有屋町のALPACA。";
-const ogImage = `${siteUrl}/opengraph-image`;
+  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市有屋町のALPACA。";
+// 共有リンクの画像＝一番上の決定版の画像（10/5 大地さん「共有リンクのここダサい」）
+const ogImage = `${siteUrl}/og.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: "ALPACA - 奄美・鹿児島の会社のAI顧問",
+        alt: "あなたの仕事の、ベストパートナー。ALPACA",
       },
     ],
   },

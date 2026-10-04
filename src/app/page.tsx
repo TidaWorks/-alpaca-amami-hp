@@ -19,18 +19,19 @@ import { SITE } from "@/lib/site";
  */
 
 const DESC =
-  "社内にIT担当がいない会社の、IT担当になります。ホームページ制作（25万円から）、業務システムの開発、業務をAIに任せる仕組みを毎月一緒に作るAI顧問（月15万円）。鹿児島県奄美市有屋町のALPACA。";
+  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市有屋町のALPACA。";
 
 export const metadata: Metadata = {
-  title: { absolute: "ALPACA | 社内にIT担当がいない会社の、IT担当になります。" },
+  title: { absolute: "ALPACA | あなたの仕事の、ベストパートナー。" },
   description: DESC,
   openGraph: {
-    title: "ALPACA | 社内にIT担当がいない会社の、IT担当になります。",
+    title: "ALPACA | あなたの仕事の、ベストパートナー。",
     description: DESC,
     url: "https://alpaca-amami.com",
     siteName: "ALPACA",
     locale: "ja_JP",
     type: "website",
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "あなたの仕事の、ベストパートナー。ALPACA" }],
   },
 };
 
