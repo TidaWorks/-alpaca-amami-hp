@@ -274,7 +274,6 @@ export default function Home() {
         </a>
       </section>
 
-      <Photo src="/images/scene/s1-sea.webp" />
 
       {/* 仕事3つ */}
       <section className="aw-sec aw-work" id="work" aria-labelledby="aw-work-h">
@@ -338,7 +337,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Photo src="/images/scene/s3-hands.webp" />
 
 
       {/* 料金 */}
@@ -428,7 +426,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Photo src="/images/scene/s6-dusk.webp" />
 
       {/* 問い合わせ */}
       <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">
