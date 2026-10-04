@@ -14,6 +14,8 @@ export type Service = {
   name: string;
   lead: string;
   sub?: string;
+  /** こんな時に（頼む場面）。無い仕事は出さない */
+  scenes?: string[];
   items: string[];
   note?: string;
   priceLabel: string;
@@ -70,6 +72,16 @@ export default function AwServices({ services }: { services: Service[] }) {
           <div className="aw-svc__txt">
             <p className="aw-svc__lead">{jp(s.lead)}</p>
             {s.sub && <p className="aw-svc__sub">{jp(s.sub)}</p>}
+            {s.scenes && s.scenes.length > 0 && (
+              <div className="aw-svc__scenes">
+                <p className="aw-svc__k">こんな時に</p>
+                <ul>
+                  {s.scenes.map((x) => (
+                    <li key={x}>{jp(x)}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="aw-svc__detail">
             <p className="aw-svc__k">内容</p>

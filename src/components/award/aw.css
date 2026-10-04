@@ -3028,6 +3028,10 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 }
 .aw-svc__lead { font-size: clamp(17px, 1.45vw, 21px); line-height: 2; font-weight: 500; }
 .aw-svc__sub { margin-top: 14px; line-height: 2; }
+.aw-svc__scenes { margin-top: 28px; }
+.aw-svc__scenes ul { padding-top: 14px; display: grid; gap: 8px; line-height: 1.8; }
+.aw-svc__scenes li { position: relative; padding-left: 1.1em; }
+.aw-svc__scenes li::before { content: ""; position: absolute; left: 0; top: 0.85em; width: 0.45em; height: 1px; background: currentColor; }
 .aw-svc__k { font-size: 12px; color: var(--aw-sub); letter-spacing: 0.08em; padding-bottom: 12px; border-bottom: 1px solid var(--aw-line); }
 .aw-svc__items {
   padding-top: 18px;
