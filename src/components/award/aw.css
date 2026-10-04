@@ -3685,3 +3685,4 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   /* スマホ画像（941×1672・A6）の黄色ボタン: x 65〜875, y 1480〜1597 */
   .fvimg__cta { left: 6.9%; width: 86.1%; top: calc(var(--aw-head) + (100vw * 1672 / 941) * 0.885); height: calc((100vw * 1672 / 941) * 0.07); }
 }
+.bx--tight { margin-top: clamp(48px, 5vw, 80px); }

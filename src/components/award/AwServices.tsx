@@ -104,8 +104,34 @@ export default function AwServices({ services }: { services: Service[] }) {
           </div>
         </div>
         <AwStage id={s.id} />
-        <Kamishibai title={s.flowTitle} steps={s.flow} />
+        {/* 10/5 大地さん「1」: 筆の数字が1つずつ切り替わる紙芝居をやめる。AI顧問とシステムは上の図解（ひと月の流れ／進め方の表）と重なるので出さず、
+            ホームページだけ同じ4つの箱で見せる */}
+        {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
       </div>
+    </div>
+  );
+}
+
+/** 進め方を4つの箱で1画面に並べる（BoostX 風の図解とそろえる） */
+function FlowBoxes({ title, steps }: { title: string; steps: { t: string; d: string }[] }) {
+  return (
+    <div className="bx bx--tight">
+      <div className="bx-h">
+        <p className="bx-h__k">
+          <i />
+          {title}
+        </p>
+        <h4 className="bx-h__t">頼んでから公開まで、この順で進めます。</h4>
+      </div>
+      <ol className="bx-flow">
+        {steps.map((m, i) => (
+          <li key={m.t}>
+            <span className="bx-flow__n">{String(i + 1).padStart(2, "0")}</span>
+            <b>{m.t}</b>
+            <span className="bx-flow__d">{m.d}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
