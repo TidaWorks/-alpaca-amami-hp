@@ -3630,9 +3630,16 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
    写真は文字なし。人物が真ん中を歩き、左右に極太の丸ゴシック。差し色はこの区画だけコバルトと黄色（決定版の画像どおり） */
 .fv { position: relative; min-height: min(100svh, 980px); padding-top: var(--aw-head); overflow: hidden; background: #f6f5f1; }
 .fv__bg { position: absolute; inset: 0; }
-.fv__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 47% 60%; }
+.fv__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
 .fv__in { position: relative; z-index: 1; min-height: calc(min(100svh, 980px) - var(--aw-head)); display: grid; grid-template-rows: 1fr auto; padding: 0 var(--aw-gut) clamp(28px, 5vh, 56px); }
-.fv__h { align-self: center; display: grid; grid-template-columns: minmax(0, 1fr) clamp(200px, 19vw, 360px) minmax(0, 1fr); font-family: var(--aw-maru), var(--aw-gothic), sans-serif; font-weight: 900; font-size: clamp(44px, 5.8vw, 120px); line-height: 1.15; white-space: nowrap; letter-spacing: -0.02em; color: #111; }
+.fv__h { align-self: center; position: relative; height: 22vw; font-family: var(--aw-maru), var(--aw-gothic), sans-serif; font-weight: 900; line-height: 1; letter-spacing: 0; color: #111; white-space: nowrap; margin-top: -3vw; }
+.fv__col { position: absolute; top: 0; display: grid; row-gap: 1.6vw; }
+.fv__col--l { left: 0; justify-items: start; }
+.fv__col--r { right: 0; justify-items: end; }
+.fv__l1 { font-size: 9.4vw; letter-spacing: -0.03em; }
+.fv__l2 { font-size: 9.6vw; letter-spacing: 0.1em; }
+.fv__r1 { font-size: 9.4vw; letter-spacing: -0.03em; }
+.fv__r2 { font-size: 6.9vw; letter-spacing: -0.06em; }
 .fv__col { display: grid; }
 .fv__col--l { grid-column: 1; justify-items: start; }
 .fv__col--r { grid-column: 3; justify-items: end; }
@@ -3649,7 +3656,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .fv { min-height: 100svh; }
   .fv__bg img { object-position: 60% 100%; }
   .fv__in { min-height: calc(100svh - var(--aw-head)); grid-template-rows: auto 1fr auto; }
-  .fv__h { display: block; align-self: start; margin-top: 2.5vh; font-size: min(9.2vw, 56px); line-height: 1.25; }
+  .fv__h { display: block; height: auto; align-self: start; margin-top: 2.5vh; font-size: min(9.6vw, 58px); line-height: 1.2; letter-spacing: -0.03em; }
   .fv__col { display: none; }
   .fv__sp { display: grid; }
   .fv__foot { grid-row: 3; flex-direction: column; align-items: stretch; gap: 14px; }

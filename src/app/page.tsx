@@ -266,13 +266,14 @@ export default function Home() {
         </picture>
         <div className="fv__in">
           <h1 className="fv__h" id="fv-h" aria-label="あなたの仕事の、ベストパートナー。">
+            {/* PC: 見本どおり、左右の塊ごとに行の幅をそろえる（字の大きさと字間を行ごとに変える） */}
             <span className="fv__col fv__col--l" aria-hidden="true">
-              <span>あなたの</span>
-              <span className="fv__accent">ベスト</span>
+              <span className="fv__l1">あなたの</span>
+              <span className="fv__l2 fv__accent">ベスト</span>
             </span>
             <span className="fv__col fv__col--r" aria-hidden="true">
-              <span>仕事の、</span>
-              <span>パートナー。</span>
+              <span className="fv__r1">仕事の、</span>
+              <span className="fv__r2">パートナー。</span>
             </span>
             {/* スマホは人物が下に来るので、上に2行で */}
             <span className="fv__sp" aria-hidden="true">
