@@ -2718,6 +2718,15 @@ html.aw-menu-open .aw-slip {
 .aw-photo + .aw-demosec {
   margin-top: 0;
 }
+/* 一番上の画像のすぐ下は隙間を空けない（10/5 大地さん「この隙間いらない」） */
+.fvimg + .aw-photo {
+  margin-top: 0;
+}
+/* スクロールでずらす動きのせいで上に細い地色が見えるので、この写真だけ動きを止めて隙間なく敷く */
+.fvimg + .aw-photo .aw-photo__in {
+  inset: 0 !important;
+  transform: none !important;
+}
 .aw-photo__in {
   position: absolute;
   inset: -12% 0;
