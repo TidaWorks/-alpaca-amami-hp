@@ -1522,16 +1522,20 @@ html.lenis body {
 }
 .aw-head__menu-bars {
   position: relative;
-  width: 22px;
-  height: 9px;
+  width: 24px;
+  height: 16px;
+  /* 真ん中の線 */
+  background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat;
+  transition: background-size 0.3s;
 }
+.aw-head__menu.is-open .aw-head__menu-bars { background-size: 0 2px; }
 .aw-head__menu-bars::before,
 .aw-head__menu-bars::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  height: 1.5px;
+  height: 2px;
   background: currentColor;
   transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.1, 1), top 0.45s cubic-bezier(0.2, 0.7, 0.1, 1);
 }
@@ -1539,22 +1543,22 @@ html.lenis body {
   top: 0;
 }
 .aw-head__menu-bars::after {
-  top: 7.5px;
+  top: 14px;
 }
 .aw-head__menu.is-open .aw-head__menu-bars::before {
-  top: 3.75px;
-  transform: rotate(20deg);
+  top: 7px;
+  transform: rotate(45deg);
 }
 .aw-head__menu.is-open .aw-head__menu-bars::after {
-  top: 3.75px;
-  transform: rotate(-20deg);
+  top: 7px;
+  transform: rotate(-45deg);
 }
 .aw-menu {
   position: fixed;
   inset: 0;
   z-index: 45;
-  background: var(--aw-ink);
-  color: var(--aw-paper);
+  background: var(--aw-paper);
+  color: var(--aw-ink);
   padding-top: var(--aw-head);
   clip-path: inset(0 0 100% 0);
   visibility: hidden;
@@ -1570,8 +1574,9 @@ html.lenis body {
   padding-top: 20px;
   padding-bottom: 40px;
 }
+.aw-menu ol { border-top: 2px solid var(--aw-ink); }
 .aw-menu li {
-  border-bottom: 1px solid rgba(250, 249, 246, 0.22);
+  border-bottom: 1px solid var(--aw-line);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s, transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1);
@@ -1593,27 +1598,20 @@ html.lenis body {
   color: var(--aw-shu);
 }
 .aw-menu__t {
-  font-family: var(--aw-mincho), serif;
-  font-weight: 800;
-  font-size: clamp(26px, 7.4vw, 40px);
+  font-family: var(--aw-gothic), sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 6.6vw, 36px);
   line-height: 1.3;
   font-feature-settings: "palt" 1;
 }
+.aw-menu a { position: relative; }
+.aw-menu a::after { content: "→"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--aw-shu); }
 html.aw-menu-open {
   overflow: hidden;
 }
-/* 目次を開いている間は、ヘッダーも墨の地に */
+/* 目次を開いている間もヘッダーは白地のまま（10/5） */
 html.aw-menu-open .aw-head {
-  background: var(--aw-ink);
-  color: var(--aw-paper);
-  border-bottom-color: rgba(250, 249, 246, 0.22);
-}
-html.aw-menu-open .aw-head__logo img {
-  filter: invert(1);
-}
-html.aw-menu-open .aw-head__cta {
-  background: var(--aw-paper);
-  color: var(--aw-ink) !important;
+  border-bottom-color: var(--aw-line);
 }
 html.aw-menu-open .aw-head__now,
 html.aw-menu-open .aw-head__prog {
@@ -1634,6 +1632,13 @@ html.aw-menu-open .aw-head__prog {
   .aw-head__in {
     gap: 10px;
   }
+}
+.aw-head__menu-txt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
 }
 @media (max-width: 374px) {
   .aw-head__menu-txt {
@@ -2951,13 +2956,21 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 }
 
 /* ===== Our Services のタブ（10/4 Q8①） ===== */
-.aw-svc { margin-top: clamp(32px, 4vw, 64px); }
+.aw-svc { margin-top: clamp(32px, 4vw, 64px); scroll-margin-top: var(--aw-head); }
 .aw-svc__tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--aw-ink);
   scroll-margin-top: calc(var(--aw-head) + 12px);
+  /* 区画を読んでいる間は画面の上に付いてくる。ヘッダーが隠れている時は一番上まで */
+  position: sticky;
+  top: var(--aw-head);
+  z-index: 40;
+  background: var(--aw-paper);
+  border-bottom: 1px solid var(--aw-line);
+  transition: top 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
 }
+html:has(.aw-head.is-hidden) .aw-svc__tabs { top: 0; }
 .aw-svc__tab {
   position: relative;
   display: grid;

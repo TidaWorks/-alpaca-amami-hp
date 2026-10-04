@@ -98,6 +98,7 @@ export default function AwHeader() {
           className={`aw-head__menu ${menu ? "is-open" : ""}`}
           aria-expanded={menu}
           aria-controls="aw-menu"
+          aria-label={menu ? "メニューを閉じる" : "メニューを開く"}
           onClick={() => setMenu(!menu)}
         >
           <span className="aw-head__menu-txt">{menu ? "閉じる" : "目次"}</span>
@@ -107,7 +108,7 @@ export default function AwHeader() {
       <span className="aw-head__prog" ref={prog} aria-hidden="true" />
     </header>
 
-    {/* 目次（スマホ・タブレット）。墨の地に大きな明朝で節の名前を並べる */}
+    {/* 目次（スマホ・タブレット）。10/5 白地に太いゴシックで節の名前を並べる（BoostX 風にそろえる） */}
     <div className={`aw-menu ${menu ? "is-open" : ""}`} id="aw-menu" aria-hidden={!menu}>
       <nav className="aw-wrap aw-menu__in" aria-label="目次">
         <ol>

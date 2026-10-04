@@ -31,17 +31,19 @@ export type Service = {
 export default function AwServices({ services }: { services: Service[] }) {
   const [cur, setCur] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const s = services[cur];
 
   const pick = (i: number) => {
     setCur(i);
-    // タブを押したら、タブの頭が画面の上に来るように戻す（下まで読んでから切り替えた時）
-    const el = tabsRef.current;
+    // タブは画面の上に付いてくる（10/5 大地さん「見本を見た後に上まで戻るのが遠い」）。
+    // 下の方で切り替えた時は、新しい中身の頭から読めるように区画の頭まで戻す
+    const el = wrapRef.current;
     if (el && el.getBoundingClientRect().top < 0) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <div className="aw-svc">
+    <div className="aw-svc" ref={wrapRef}>
       <div className="aw-svc__tabs" role="tablist" aria-label="仕事を選ぶ" ref={tabsRef}>
         {services.map((x, i) => (
           <button
