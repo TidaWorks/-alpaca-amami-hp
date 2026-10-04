@@ -123,7 +123,7 @@ function BxKomon() {
       </ol>
       <p className="bx-fine">チャットの相談は、流れとは別にいつでも送れます。返事は平日です。</p>
 
-      <BxHead k="手元に残るもの（例）" t="終わったあとも、会社の手元に残ります。" />
+      <BxHead k="会社に残るもの（例）" t="作った物と決めた事は、全部ALPACAから会社へ渡します。" />
       <ul className="bx-keep">
         {KOMON_KEEP.map((x, i) => (
           <li key={x.t}>
