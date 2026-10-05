@@ -3711,7 +3711,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-stg--web .aw-gl__nav button { width: 40px; height: 40px; font-size: 16px; }
 }
 
-/* ===== 「詳しく見る」（10/6 大地さん①） ===== */
+/* ===== 「詳しく見る」（10/6 大地さん①→②: 目立たないので黒い大きなボタンに） ===== */
 .aw-svc__more { margin-top: clamp(28px, 3.5vw, 48px); }
 .aw-svc__more-btn {
   display: flex;
@@ -3719,41 +3719,48 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  min-height: 56px;
-  padding: 14px 4px;
-  background: none;
-  border: 0;
-  border-top: 1px solid var(--aw-ink);
-  border-bottom: 1px solid var(--aw-ink);
+  min-height: 72px;
+  padding: 18px clamp(20px, 2.4vw, 32px);
+  background: var(--aw-ink);
+  border: 1px solid var(--aw-ink);
+  border-radius: 0;
   font-family: var(--aw-gothic), sans-serif;
   font-weight: 700;
-  font-size: clamp(14px, 1.3vw, 17px);
-  letter-spacing: 0.04em;
-  color: var(--aw-ink);
+  font-size: clamp(16px, 1.5vw, 20px);
+  letter-spacing: 0.06em;
+  color: var(--aw-paper);
   text-align: left;
   cursor: pointer;
+  transition: background 0.25s, color 0.25s;
 }
 .aw-svc__more-btn i {
   position: relative;
   flex: none;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 .aw-svc__more-btn i::before,
 .aw-svc__more-btn i::after {
   content: "";
   position: absolute;
   left: 0;
-  top: 8px;
-  width: 18px;
+  top: 10px;
+  width: 22px;
   height: 2px;
   background: var(--aw-shu);
   transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
 }
 .aw-svc__more-btn i::after { transform: rotate(90deg); }
+.aw-svc__more-btn:hover { background: var(--aw-shu); }
+.aw-svc__more-btn:hover i::before,
+.aw-svc__more-btn:hover i::after { background: var(--aw-paper); }
+/* 開いた後の「閉じる」は白地に黒い枠（主役のボタンと区別する） */
+.aw-svc__more-btn.is-open,
+.aw-svc__more-btn--end { background: transparent; color: var(--aw-ink); min-height: 56px; }
+.aw-svc__more-btn.is-open:hover,
+.aw-svc__more-btn--end:hover { background: var(--aw-ink); color: var(--aw-paper); }
 .aw-svc__more-btn.is-open i::after,
 .aw-svc__more-btn--end i::after { transform: rotate(0deg); }
-.aw-svc__more-btn:hover span { color: var(--aw-shu); }
 .aw-svc__more-btn--end { margin-top: clamp(28px, 3.5vw, 48px); }
 .aw-svc__more-box.is-open { animation: aw-svc-in 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
 /* 開いた中の最初の図解は、ボタンの線と二重にならないよう上の線と余白を詰める */

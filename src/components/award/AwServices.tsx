@@ -29,9 +29,9 @@ export type Service = {
 };
 
 const MORE_LABEL: Record<Service["id"], string> = {
-  web: "詳しく見る（業種ごとの見本10件・進め方）",
-  system: "詳しく見る（どう変わるか・進め方）",
-  komon: "詳しく見る（どう変わるか・ひと月の流れ）",
+  web: "見本10件と進め方を見る",
+  system: "どう変わるか・進め方を見る",
+  komon: "どう変わるか・流れを見る",
 };
 
 export default function AwServices({ services }: { services: Service[] }) {
