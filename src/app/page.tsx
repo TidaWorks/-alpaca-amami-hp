@@ -145,7 +145,7 @@ const SERVICES: Service[] = [
 ];
 
 const PRICES = [
-  { id: "komon" as const, name: "AI顧問", pre: "月", num: "15", post: "万円", rows: ["定期的に顔を合わせて話します", "お受けするのは3社までです"], tax: true },
+  { id: "komon" as const, name: "AI顧問", pre: "月", num: "15", post: "万円", rows: ["定期的に顔を合わせて話します"], tax: true },
   { id: "system" as const, name: "システム開発", pre: "", num: "", post: "お見積り", rows: ["内容を聞いてから金額を出します"], tax: false },
   { id: "web" as const, name: "ホームページ制作", pre: "", num: "25", post: "万円から", rows: ["LP、コーポレートサイト"], tax: true },
 ];
@@ -162,8 +162,8 @@ const FAQS = [
     q: "何から始めればいい？",
     a: "まずは話を聞かせてください。最初の相談は無料で、1時間くらいです。",
   },
-  { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけで受けます。" },
-  { q: "パソコンが苦手な社員でも使える？", a: "大丈夫です。社員が自分で使えるまで教えます。" },
+  { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけでもお受けします。" },
+  { q: "パソコンが苦手な社員さんでも使える？", a: "大丈夫です。社員さんが自分で使えるまで教えます。" },
   { q: "途中でやめられる？", a: "やめられます。AI顧問に最低契約期間はありません。" },
   { q: "奄美以外の会社でも頼める？", a: "頼めます。ふだんは画面ごしで進めます。" },
   { q: "顧問料のほかにかかる費用は？", a: "AIの利用料が実費でかかる場合があります。" },
@@ -403,7 +403,7 @@ export default function Home() {
           <div className="aw-about__body">
             <SecHead n="05" id="aw-about-h" title="ALPACAについて" />
             <p className="aw-about__txt" data-rise>
-              {jp("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページも作ります。")}
+              {jp("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページの制作もしています。")}
             </p>
             <dl className="aw-company">
               {COMPANY.map(([k, v]) => (
@@ -457,7 +457,7 @@ export default function Home() {
             </p>
           </IfEngaged>
           <p className="aw-contact__lead" data-rise>
-            {jp("どの仕事で困っているか、短くても大丈夫です。相談は無料です。")}
+            {jp("どの仕事で困っているか、短く書いてもらえれば大丈夫です。相談は無料です。")}
           </p>
           <div className="aw-contact__grid">
             <div className="aw-contact__direct" data-rise>
