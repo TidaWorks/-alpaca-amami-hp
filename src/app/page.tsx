@@ -8,7 +8,6 @@ import AwMotion from "@/components/award/AwMotion";
 import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwSlip from "@/components/award/AwSlip";
-import AwHand from "@/components/award/AwHand";
 import AwServices, { type Service } from "@/components/award/AwServices";
 import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
@@ -198,6 +197,28 @@ function SecHead({ n, title, id }: { n: string; title: React.ReactNode; id: stri
   );
 }
 
+function HandTitle({ text, w, fid }: { text: string; w: number; fid: string }) {
+  // 手書きの英語見出し。画面に入ると一筆ずつ書かれ、そのあと少しぐにゃっと揺れ続ける（AwMotion が is-in を付ける）
+  return (
+    <span className="aw-hand" data-hand>
+      <span className="aw-sr">{text}</span>
+      <svg viewBox={`0 0 ${w} 200`} aria-hidden="true" className="aw-hand__svg" style={{ maxWidth: `${(w / 1000) * 920}px` }}>
+        <defs>
+          <filter id={fid} x="-5%" y="-10%" width="110%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="3" result="n">
+              <animate attributeName="baseFrequency" dur="6s" values="0.012;0.02;0.012" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="7" />
+          </filter>
+        </defs>
+        <text x="8" y="158" className="aw-hand__t" filter={`url(#${fid})`}>
+          {text}
+        </text>
+      </svg>
+    </span>
+  );
+}
+
 function Photo({ src, cap }: { src: string; cap?: string }) {
   // 区切りの写真（AIで作った場面写真。人の顔は出さない）。スクロールで少しずれて奥行きを出す
   return (
@@ -260,7 +281,7 @@ export default function Home() {
           <SecHead
             n="01"
             id="aw-work-h"
-            title={<AwHand text="Our Services" w={1000} fid="aw-hand-w1" />}
+            title={<HandTitle text="Our Services" w={1000} fid="aw-hand-w1" />}
           />
           <ByWorry
             as="p"
@@ -279,7 +300,7 @@ export default function Home() {
       {/* よく聞く話（社長の言葉） */}
       <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
         <div className="aw-wrap">
-          <SecHead n="02" id="aw-voice-h" title={<AwHand text="Sound familiar?" w={1180} fid="aw-hand-w2" />} />
+          <SecHead n="02" id="aw-voice-h" title={<HandTitle text="Sound familiar?" w={1180} fid="aw-hand-w2" />} />
           <ul className="aw-voice__list">
             {VOICES.map((v, i) => (
               <li key={i} className="aw-voice__q" data-voice>

@@ -2794,31 +2794,23 @@ html.aw-menu-open .aw-slip {
   stroke-width: 2.2px;
   stroke-linejoin: round;
 }
-/* 10/5 Q2「1と4」: 書く・にじむ は AwHand.tsx が動かす。JSが準備できるまでは白紙にしておく（ちらつき防止） */
-html.aw-anim .aw-hand:not(.is-ready) .aw-hand__txt,
-html.aw-anim .aw-hand:not(.is-ready) .aw-hand__line { opacity: 0; }
-.aw-hand__line {
-  fill: none;
-  stroke: var(--aw-shu);
-  stroke-width: 7px;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
+/* 動く人だけ: 最初は線だけで隠し、画面に入ったら一筆ずつ書いて塗る */
+html.aw-js-ok .aw-hand__t {
+  fill-opacity: 0;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
 }
-.aw-hand__pen { pointer-events: none; }
-.aw-hand__pen-body {
-  stroke: var(--aw-ink);
-  stroke-width: 9px;
-  stroke-linecap: round;
+html.aw-js-ok .aw-hand.is-in .aw-hand__t {
+  animation: aw-hand-draw 2.2s cubic-bezier(0.5, 0, 0.2, 1) forwards, aw-hand-fill 0.9s ease 1.5s forwards;
 }
-.aw-hand__pen-tip { fill: var(--aw-shu); }
-.aw-voice .aw-hand__pen-body,
-.aw-demosec .aw-hand__pen-body { stroke: var(--aw-paper); }
-.aw-hand__blot { pointer-events: none; mix-blend-mode: multiply; opacity: 0; }
-.aw-voice .aw-hand__blot,
-.aw-demosec .aw-hand__blot { mix-blend-mode: screen; }
+@keyframes aw-hand-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes aw-hand-fill {
+  to { fill-opacity: 1; }
+}
 .aw-hand.is-in .aw-hand__svg {
-  animation: aw-hand-sway 5s ease-in-out 3s infinite;
+  animation: aw-hand-sway 5s ease-in-out 2.4s infinite;
   transform-origin: 30% 60%;
 }
 @keyframes aw-hand-sway {
@@ -3725,52 +3717,3 @@ html:has(.aw-head.is-hidden) .aw-svc__tabs { transform: translateY(0); }
   .aw-stg--web .aw-stg__rail { flex-wrap: wrap; }
   .aw-stg--web .aw-gl__nav button { width: 40px; height: 40px; font-size: 16px; }
 }
-
-/* ===== めくれる紙（10/5 大地さん Q1④）: タブを替えた時、前の中身が左端を軸にめくれて退く ===== */
-/* 角度と時間を同じ区切りで書く（50%でちょうど真横＝90度。そこで紙の裏に切り替える） */
-.aw-flip {
-  position: fixed;
-  z-index: 35;
-  pointer-events: none;
-  overflow: hidden;
-  transform-origin: left center;
-  background: var(--aw-paper);
-  animation: aw-flip 1.05s linear forwards;
-}
-.aw-flip__in .aw-svc__panel { animation: none; }
-.aw-flip__shade,
-.aw-flip__back {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-/* 表: めくれるほど右端に影が落ちる */
-.aw-flip__shade {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.28) 100%);
-  animation: aw-flip-shade 1.05s linear forwards;
-}
-/* 裏: 白い紙の裏側。中身が鏡写しに見えないよう、真横を過ぎたら紙の色でふさぐ */
-.aw-flip__back {
-  background: linear-gradient(270deg, #e9e6df 0%, var(--aw-paper) 45%, #f3f1ec 100%);
-  animation: aw-flip-back 1.05s linear forwards;
-}
-@keyframes aw-flip {
-  0% { transform: perspective(1500px) rotateY(0deg); box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
-  18% { transform: perspective(1500px) rotateY(-14deg); box-shadow: 14px 0 30px rgba(0, 0, 0, 0.1); }
-  35% { transform: perspective(1500px) rotateY(-48deg); box-shadow: 30px 0 50px rgba(0, 0, 0, 0.16); }
-  50% { transform: perspective(1500px) rotateY(-90deg); box-shadow: 40px 0 60px rgba(0, 0, 0, 0.18); }
-  70% { transform: perspective(1500px) rotateY(-142deg); box-shadow: -30px 0 50px rgba(0, 0, 0, 0.12); }
-  88% { transform: perspective(1500px) rotateY(-170deg); opacity: 1; }
-  100% { transform: perspective(1500px) rotateY(-180deg); box-shadow: 0 0 0 rgba(0, 0, 0, 0); opacity: 0; }
-}
-@keyframes aw-flip-shade {
-  0% { opacity: 0; }
-  49.9% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-@keyframes aw-flip-back {
-  0%, 49.9% { opacity: 0; }
-  50%, 100% { opacity: 1; }
-}
-/* 下から出てくる新しい中身は、めくれる間は動かさない（紙の下にもう置いてある感じ） */
-.aw-svc:has(.aw-flip) > .aw-svc__panel { animation: none; }
