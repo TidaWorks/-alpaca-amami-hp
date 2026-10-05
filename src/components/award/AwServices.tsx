@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { jp } from "./jp";
 import AwStage from "./AwStages";
 
@@ -33,8 +33,36 @@ export default function AwServices({ services }: { services: Service[] }) {
   const tabsRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const s = services[cur];
+  const [flip, setFlip] = useState<null | { k: number; top: number; left: number; width: number; height: number; shift: number }>(null);
+  const flipIn = useRef<HTMLDivElement>(null);
+  const flipPage = useRef<HTMLElement | null>(null);
+
+  // めくれる紙の中身は、切り替える直前の画面そのもの（動きの途中の状態も含めて写す）
+  useLayoutEffect(() => {
+    const box = flipIn.current;
+    if (!flip || !box || !flipPage.current) return;
+    box.replaceChildren(flipPage.current);
+    flipPage.current = null;
+  }, [flip]);
 
   const pick = (i: number) => {
+    if (i === cur) return;
+    // めくれる紙: 今見えている所だけを切り取った紙を画面に固定して重ね、その下で中身を替える
+    const panel = wrapRef.current?.querySelector<HTMLElement>(".aw-svc > .aw-svc__panel");
+    const tabs = tabsRef.current;
+    if (panel && tabs && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const pr = panel.getBoundingClientRect();
+      const top = Math.max(pr.top, tabs.getBoundingClientRect().bottom);
+      const height = Math.min(pr.bottom, window.innerHeight) - top;
+      if (height > 40) {
+        const page = panel.cloneNode(true) as HTMLElement;
+        page.removeAttribute("id");
+        page.removeAttribute("role");
+        page.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+        flipPage.current = page;
+        setFlip({ k: Date.now(), top, left: pr.left, width: pr.width, height, shift: pr.top - top });
+      }
+    }
     setCur(i);
     // タブは画面の上に付いてくる（10/5 大地さん「見本を見た後に上まで戻るのが遠い」）。
     // 下の方で切り替えた時は、新しい中身の頭から読めるように区画の頭まで戻す
@@ -62,56 +90,80 @@ export default function AwServices({ services }: { services: Service[] }) {
         ))}
       </div>
 
-      <div className="aw-svc__panel" role="tabpanel" id={`svc-panel-${s.id}`} aria-labelledby={`svc-tab-${s.id}`} key={s.id}>
-        <div className="aw-svc__head">
-          <div className="aw-svc__title">
-            {s.en && (
-              <p className="aw-svc__en" aria-hidden="true">
-                {s.en}
-              </p>
-            )}
-            <h3 className="aw-svc__name">{s.name}</h3>
-          </div>
-          <dl className="aw-svc__price">
-            <dt>{s.priceLabel}</dt>
-            <dd>
-              {s.price}
-              {s.tax && <small>（税別）</small>}
-            </dd>
-          </dl>
+      <Panel s={s} key={s.id} />
+
+      {/* 10/5 大地さん Q1④「めくれる紙」: 切り替えた時、前の中身を画面の上に紙として残し、左端を軸にめくって退ける */}
+      {flip && (
+        <div
+          className="aw-flip"
+          aria-hidden="true"
+          key={flip.k}
+          style={{ top: flip.top, left: flip.left, width: flip.width, height: flip.height }}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setFlip(null);
+          }}
+        >
+          <div className="aw-flip__in" ref={flipIn} style={{ transform: `translateY(${flip.shift}px)` }} />
+          <i className="aw-flip__shade" />
+          <i className="aw-flip__back" />
         </div>
-        {/* 10/5 大地さん「見本までが遠い」→ 見本・図解をタイトルと料金のすぐ下に。説明はその後ろ */}
-        <AwStage id={s.id} />
-        <div className="aw-svc__body">
-          <div className="aw-svc__txt">
-            <p className="aw-svc__lead">{jp(s.lead)}</p>
-            {s.sub && <p className="aw-svc__sub">{jp(s.sub)}</p>}
-            {s.scenes && s.scenes.length > 0 && (
-              <div className="aw-svc__scenes">
-                <p className="aw-svc__k">こんな時に</p>
-                <ul>
-                  {s.scenes.map((x) => (
-                    <li key={x}>{jp(x)}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-          <div className="aw-svc__detail">
-            <p className="aw-svc__k">内容</p>
-            <ul className="aw-svc__items">
-              {s.items.map((it) => (
-                <li key={it}>{jp(it)}</li>
+      )}
+    </div>
+  );
+}
+
+/** 1つの仕事の中身 */
+function Panel({ s }: { s: Service }) {
+  return (
+  <div className="aw-svc__panel" role="tabpanel" id={`svc-panel-${s.id}`} aria-labelledby={`svc-tab-${s.id}`}>
+    <div className="aw-svc__head">
+      <div className="aw-svc__title">
+        {s.en && (
+          <p className="aw-svc__en" aria-hidden="true">
+            {s.en}
+          </p>
+        )}
+        <h3 className="aw-svc__name">{s.name}</h3>
+      </div>
+      <dl className="aw-svc__price">
+        <dt>{s.priceLabel}</dt>
+        <dd>
+          {s.price}
+          {s.tax && <small>（税別）</small>}
+        </dd>
+      </dl>
+    </div>
+    {/* 10/5 大地さん「見本までが遠い」→ 見本・図解をタイトルと料金のすぐ下に。説明はその後ろ */}
+    <AwStage id={s.id} />
+    <div className="aw-svc__body">
+      <div className="aw-svc__txt">
+        <p className="aw-svc__lead">{jp(s.lead)}</p>
+        {s.sub && <p className="aw-svc__sub">{jp(s.sub)}</p>}
+        {s.scenes && s.scenes.length > 0 && (
+          <div className="aw-svc__scenes">
+            <p className="aw-svc__k">こんな時に</p>
+            <ul>
+              {s.scenes.map((x) => (
+                <li key={x}>{jp(x)}</li>
               ))}
             </ul>
-            {s.note && <p className="aw-svc__note">{s.note}</p>}
           </div>
-        </div>
-        {/* 10/5 大地さん「1」: 筆の数字が1つずつ切り替わる紙芝居をやめる。AI顧問とシステムは上の図解（ひと月の流れ／進め方の表）と重なるので出さず、
-            ホームページだけ同じ4つの箱で見せる */}
-        {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
+        )}
+      </div>
+      <div className="aw-svc__detail">
+        <p className="aw-svc__k">内容</p>
+        <ul className="aw-svc__items">
+          {s.items.map((it) => (
+            <li key={it}>{jp(it)}</li>
+          ))}
+        </ul>
+        {s.note && <p className="aw-svc__note">{s.note}</p>}
       </div>
     </div>
+    {/* 10/5 大地さん「1」: 筆の数字が1つずつ切り替わる紙芝居をやめる。AI顧問とシステムは上の図解（ひと月の流れ／進め方の表）と重なるので出さず、
+        ホームページだけ同じ4つの箱で見せる */}
+    {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
+  </div>
   );
 }
 
