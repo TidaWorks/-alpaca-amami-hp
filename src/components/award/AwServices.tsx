@@ -28,14 +28,29 @@ export type Service = {
   flow: { t: string; d: string }[];
 };
 
+const MORE_LABEL: Record<Service["id"], string> = {
+  web: "詳しく見る（業種ごとの見本10件・進め方）",
+  system: "詳しく見る（どう変わるか・進め方）",
+  komon: "詳しく見る（どう変わるか・ひと月の流れ）",
+};
+
 export default function AwServices({ services }: { services: Service[] }) {
   const [cur, setCur] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const s = services[cur];
+  const [open, setOpen] = useState(false);
+
+  // 「詳しく見る」の開け閉め。下の閉じるボタンで閉じた時は、仕事の頭まで戻す
+  const toggle = (fromEnd = false) => {
+    setOpen((v) => !v);
+    const el = wrapRef.current;
+    if (fromEnd && el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const pick = (i: number) => {
     setCur(i);
+    setOpen(false);
     // タブは画面の上に付いてくる（10/5 大地さん「見本を見た後に上まで戻るのが遠い」）。
     // 下の方で切り替えた時は、新しい中身の頭から読めるように区画の頭まで戻す
     const el = wrapRef.current;
@@ -80,8 +95,6 @@ export default function AwServices({ services }: { services: Service[] }) {
             </dd>
           </dl>
         </div>
-        {/* 10/5 大地さん「見本までが遠い」→ 見本・図解をタイトルと料金のすぐ下に。説明はその後ろ */}
-        <AwStage id={s.id} />
         <div className="aw-svc__body">
           <div className="aw-svc__txt">
             <p className="aw-svc__lead">{jp(s.lead)}</p>
@@ -107,9 +120,32 @@ export default function AwServices({ services }: { services: Service[] }) {
             {s.note && <p className="aw-svc__note">{s.note}</p>}
           </div>
         </div>
-        {/* 10/5 大地さん「1」: 筆の数字が1つずつ切り替わる紙芝居をやめる。AI顧問とシステムは上の図解（ひと月の流れ／進め方の表）と重なるので出さず、
-            ホームページだけ同じ4つの箱で見せる */}
-        {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
+        {/* 10/6 大地さん①: 中身は画面1枚ちょっとに収め、見本・図解・進め方は「詳しく見る」で開く（タブは追いかけてこない） */}
+        <div className="aw-svc__more">
+          <button
+            type="button"
+            className={`aw-svc__more-btn ${open ? "is-open" : ""}`}
+            aria-expanded={open}
+            aria-controls={`svc-more-${s.id}`}
+            onClick={() => toggle()}
+          >
+            <span>{open ? "閉じる" : MORE_LABEL[s.id]}</span>
+            <i aria-hidden="true" />
+          </button>
+          <div className={`aw-svc__more-box ${open ? "is-open" : ""}`} id={`svc-more-${s.id}`} hidden={!open}>
+            {open && (
+              <>
+                <AwStage id={s.id} />
+                {/* AI顧問とシステムは図解（ひと月の流れ／進め方の表）と重なるので、4つの箱はホームページだけ */}
+                {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
+                <button type="button" className="aw-svc__more-btn aw-svc__more-btn--end" onClick={() => toggle(true)}>
+                  <span>閉じる</span>
+                  <i aria-hidden="true" />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
