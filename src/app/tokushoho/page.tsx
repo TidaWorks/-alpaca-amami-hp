@@ -60,7 +60,7 @@ export default function TokushohoPage() {
             {/* 2026-09-25 新しい方針に合わせて書き換え。料金は税別。10/5 月25万のプランは10/1になくしたので消す（facts/business.md） */}
             <Row label="販売価格">
               <ul className="space-y-1.5">
-                <li>AI顧問：月額¥150,000（税別・打ち合わせ 月1回）</li>
+                <li>AI顧問：月額¥150,000（税別）</li>
                 <li>システム開発：要見積もり（税別）</li>
                 <li>ホームページ制作：¥250,000〜（税別）</li>
               </ul>
