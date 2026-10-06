@@ -27,7 +27,7 @@ function Sidebar() {
   return (
     <div className="w-[180px] bg-[#0D9488] text-white flex flex-col flex-shrink-0 min-h-screen">
       <div className="px-5 py-5 flex items-center gap-2.5">
-        <img src="/images/alpaca-logo.svg" alt="" className="w-8 h-8 brightness-0 invert" />
+        <img src="/images/logo/alpaca-mark-trace.svg" alt="" className="w-8 h-8 object-contain brightness-0 invert" />
         <span className="font-black text-lg tracking-wide">ALPACA</span>
       </div>
       <nav className="flex-1 px-3 py-2">
