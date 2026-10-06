@@ -688,7 +688,7 @@ html.lenis body {
   color: var(--aw-ink);
 }
 .aw-anim .aw-voice__q {
-  color: rgba(250, 249, 246, 0.2);
+  color: rgba(250, 249, 246, 0.55);
 }
 .aw-anim .aw-voice__q.is-on {
   color: var(--aw-paper);
@@ -978,6 +978,7 @@ html.lenis body {
   align-items: start;
 }
 .aw-about__markbox {
+  width: 50%;
   position: sticky;
   top: calc(var(--aw-head) + 40px);
   aspect-ratio: 1 / 1.02;
@@ -1371,7 +1372,8 @@ html.lenis body {
     top: 0;
   }
   .aw-about__markbox {
-    width: min(100%, 420px);
+    width: 88px;
+    border: 0;
   }
   .aw-voice__q:nth-child(2) {
     margin-right: 0;
@@ -1501,8 +1503,8 @@ html.lenis body {
   overflow: visible;
 }
 .aw-foot__word text {
-  font-family: var(--aw-mincho), serif;
-  font-weight: 800;
+  font-family: var(--aw-mono), monospace;
+  font-weight: 500;
   font-size: 200px;
   fill: var(--aw-paper);
 }

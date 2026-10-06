@@ -167,16 +167,8 @@ const ABOUT_VOICES = [
 const COMPANY: [string, React.ReactNode][] = [
   ["屋号", "ALPACA"],
   ["代表", "作田 大地（さくだ だいち）"],
-  ["事業内容", "AI導入支援／システム開発／HP制作"],
+  ["事業内容", "AI顧問／システム開発／ホームページ制作"],
   ["所在地", "鹿児島県奄美市"],
-  ["電話", <a key="t" href={SITE.contact.telHref}>{SITE.contact.tel}</a>],
-  ["メール", <a key="m" href={SITE.contact.emailHref}>{SITE.contact.email}</a>],
-  [
-    "Instagram",
-    <a key="i" href={SITE.contact.instagramUrl} target="_blank" rel="noopener noreferrer">
-      {SITE.contact.instagramHandle}
-    </a>,
-  ],
 ];
 
 function SecHead({ n, title, id }: { n: string; title: React.ReactNode; id: string }) {
@@ -211,19 +203,6 @@ function HandTitle({ text, w, fid }: { text: string; w: number; fid: string }) {
         </text>
       </svg>
     </span>
-  );
-}
-
-function Photo({ src, cap }: { src: string; cap?: string }) {
-  // 区切りの写真（AIで作った場面写真。人の顔は出さない）。スクロールで少しずれて奥行きを出す
-  return (
-    <figure className="aw-photo" aria-hidden="true">
-      <div className="aw-photo__in" data-photo>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" width={1920} height={1080} loading="lazy" decoding="async" />
-      </div>
-      {cap && <figcaption className="aw-photo__cap">{cap}</figcaption>}
-    </figure>
   );
 }
 
@@ -292,8 +271,6 @@ export default function Home() {
           <AwServices services={SERVICES} />
         </div>
       </section>
-
-      <Photo src="/images/scene/s4-meeting.webp" />
 
       {/* よく聞く話（社長の言葉） */}
       <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
@@ -388,18 +365,10 @@ export default function Home() {
             (06)
           </p>
           <h2 className="aw-contact__h" id="aw-contact-h">
-            <span className="aw-nb" data-rise>
+            <span className="aw-nb">
               <IfNamed no="まずは話を" yes={<><Co after="の話を、" /></>} />
             </span>
-            {/* 散らばった字が集まって一文になる（funtech の締めの一文から） */}
-            <span className="aw-nb aw-gather">
-              <span className="aw-sr">聞かせてください。</span>
-              {"聞かせてください。".split("").map((ch, i) => (
-                <span key={i} className="aw-gather__c" data-gather aria-hidden="true">
-                  {ch}
-                </span>
-              ))}
-            </span>
+            <span className="aw-nb">聞かせてください。</span>
           </h2>
           <IfEngaged>
             <p className="aw-contact__left">

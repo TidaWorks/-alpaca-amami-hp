@@ -160,20 +160,7 @@ export default function AwMotion() {
         });
       }
 
-      // 3c. 問い合わせの一文: 散らばった字が集まる
-      const gather = q("[data-gather]");
-      if (gather.length) {
-        gsap.from(gather, {
-          x: () => gsap.utils.random(-1, 1) * Math.min(160, window.innerWidth * 0.2),
-          y: () => gsap.utils.random(-1, 1) * Math.min(120, window.innerWidth * 0.2),
-          rotation: () => gsap.utils.random(-50, 50),
-          opacity: 0,
-          duration: 1.4,
-          ease: "expo.out",
-          stagger: { each: 0.04, from: "random" },
-          scrollTrigger: { trigger: gather[0], start: "top 85%", once: true },
-        });
-      }
+      // 3c. 問い合わせの一文は動かさない（10/7 大地さん「散って集まる動きは素人くさい」→ Q1③）
 
       // 3e. 手書きの英語見出し: 画面に入ったら書き始める
       q("[data-hand]").forEach((el) => {
