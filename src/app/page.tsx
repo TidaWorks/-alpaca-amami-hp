@@ -9,7 +9,7 @@ import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwSlip from "@/components/award/AwSlip";
 import AwServices, { type Service } from "@/components/award/AwServices";
-import { ByWorry, Co, FirstTag, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
+import { ByWorry, Co, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
 
 /**
@@ -144,27 +144,15 @@ const SERVICES: Service[] = [
   },
 ];
 
-const PRICES = [
-  { id: "komon" as const, name: "AI顧問", pre: "月", num: "15", post: "万円", rows: ["定期的に顔を合わせて話します"], tax: true },
-  { id: "system" as const, name: "システム開発", pre: "", num: "", post: "お見積り", rows: ["内容を聞いてから金額を出します"], tax: false },
-  { id: "web" as const, name: "ホームページ制作", pre: "", num: "25", post: "万円から", rows: ["LP、コーポレートサイト"], tax: true },
-];
-
-const PRICE_NOTES = [
-  "AI顧問に最低契約期間はありません。",
-  "AIの利用料が実費でかかる場合があります。",
-  "ALPACAは奄美大島が拠点のため、遠方へ伺う時は交通費をいただきます。",
-];
-
 // 答えは今のトップの文言のまま（facts/business.md と合わせた物）
 const FAQS = [
   {
     q: "何から始めればいい？",
-    a: "まずは話を聞かせてください。最初の相談は無料で、1時間くらいです。",
+    a: "まずは話を聞かせてください。最初の相談は無料です。",
   },
   { q: "ホームページやシステムだけでも頼める？", a: "頼めます。AI顧問の契約がなくても、ホームページ制作やシステム開発だけでもお受けします。" },
   { q: "パソコンが苦手な社員さんでも使える？", a: "大丈夫です。社員さんが自分で使えるまで教えます。" },
-  { q: "途中でやめられる？", a: "やめられます。AI顧問に最低契約期間はありません。" },
+  { q: "途中でやめられる？", a: "やめられます。AI顧問に最低契約期間はありません。ただ、3カ月以上続けることをおすすめしています。" },
   { q: "奄美以外の会社でも頼める？", a: "頼めます。ふだんは画面ごしで進めます。" },
   { q: "顧問料のほかにかかる費用は？", a: "AIの利用料が実費でかかる場合があります。" },
 ];
@@ -346,61 +334,6 @@ export default function Home() {
 
 
 
-      {/* 料金 */}
-      <section className="aw-sec aw-price" id="price" aria-labelledby="aw-price-h">
-        <div className="aw-wrap">
-          <SecHead
-            n="04"
-            id="aw-price-h"
-            title={
-              <ByWorry
-                d="料金"
-                docs={<><span className="aw-nb"><Co after="に、" /></span><span className="aw-nb">かかるお金</span></>}
-                hp={<><span className="aw-nb"><Co after="に、" /></span><span className="aw-nb">かかるお金</span></>}
-                ai={<><span className="aw-nb"><Co after="に、" /></span><span className="aw-nb">かかるお金</span></>}
-              />
-            }
-          />
-          <ByWorry
-            as="p"
-            className="aw-price__you"
-            d={null}
-            docs={jp("システム開発は、内容を聞いてから金額を出します。")}
-            hp={jp("ホームページ制作は、25万円から（税別）です。")}
-            ai={jp("AI顧問は、月15万円（税別）です。最低契約期間はありません。")}
-          />
-          <ul className="aw-price__list">
-            {PRICES.map((p) => (
-              <li key={p.name} className="aw-price__row" id={`price-${p.id}`}>
-                <span className="aw-rule" data-line aria-hidden="true" />
-                <h3 className="aw-price__name" data-rise>
-                  {p.name}
-                  <FirstTag id={p.id}>
-                    <Co after="は、まずここ" />
-                  </FirstTag>
-                </h3>
-                <p className="aw-price__main" data-rise>
-                  {p.pre && <span className="aw-price__unit">{p.pre}</span>}
-                  {p.num && <span className="aw-price__num">{p.num}</span>}
-                  <span className={p.num ? "aw-price__unit" : "aw-price__word"}>{p.post}</span>
-                  {p.tax && <small>（税別）</small>}
-                </p>
-                <ul className="aw-price__rows" data-rise>
-                  {p.rows.map((r) => (
-                    <li key={r}>{r}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-          <ul className="aw-price__notes" data-rise>
-            {PRICE_NOTES.map((n) => (
-              <li key={n}>{jp(n)}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* ALPACAについて */}
       <section className="aw-sec aw-about" id="about" aria-labelledby="aw-about-h">
         <div className="aw-wrap aw-about__in">
@@ -408,7 +341,7 @@ export default function Home() {
             <div className="aw-about__mark" data-mark />
           </div>
           <div className="aw-about__body">
-            <SecHead n="05" id="aw-about-h" title="ALPACAについて" />
+            <SecHead n="04" id="aw-about-h" title="ALPACAについて" />
             <h3 className="aw-about__q" data-rise>
               {jp("これ、だれに聞けばいい？")}
             </h3>
@@ -439,7 +372,7 @@ export default function Home() {
       {/* よくある質問 */}
       <section className="aw-sec aw-faqsec" id="faq" aria-labelledby="aw-faq-h">
         <div className="aw-wrap aw-faqsec__in">
-          <SecHead n="06" id="aw-faq-h" title="よくある質問" />
+          <SecHead n="05" id="aw-faq-h" title="よくある質問" />
           <AwFaq items={FAQS.map((f) => ({ key: f.q, q: jp(f.q), a: jp(f.a) }))} />
         </div>
       </section>
@@ -449,7 +382,7 @@ export default function Home() {
       <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">
         <div className="aw-wrap">
           <p className="aw-contact__n" aria-hidden="true">
-            (07)
+            (06)
           </p>
           <h2 className="aw-contact__h" id="aw-contact-h">
             <span className="aw-nb" data-rise>

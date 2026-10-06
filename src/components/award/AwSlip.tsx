@@ -22,7 +22,7 @@ export default function AwSlip() {
       const line = vh * 0.5;
       let n = worry || top("work") <= line ? 1 : 0;
       if (n === 1 && top("voice") <= line) n = 2;
-      if (n === 2 && top("price") <= line) n = 3;
+      if (n === 2 && top("reason") <= line) n = 3;
       if (n === 3 && top("about") <= line) n = 4;
       setDone(n);
       setShow(step === 1 && top("work") <= vh * 0.85 && top("contact") > vh * 0.7);
