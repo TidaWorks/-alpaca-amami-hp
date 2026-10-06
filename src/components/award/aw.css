@@ -1,3 +1,10 @@
+/* 日本語の3書体（fonts.ts の JP_FONTS_HREF で読む） */
+.aw-jpf {
+  --aw-mincho: "Shippori Mincho B1";
+  --aw-gothic: "Zen Kaku Gothic New";
+  --aw-maru: "M PLUS Rounded 1c";
+}
+
 /* ALPACA トップ（award-p2）。色は 地・墨・朱 の3つだけ。区切りは1pxの罫線と余白 */
 
 :root {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "@/components/award/aw.css";
-import { gothic, hand, maru, mincho, mono } from "@/components/award/fonts";
+import { JP_FONTS_HREF, gothic, hand, maru, mincho, mono } from "@/components/award/fonts";
 import { jp } from "@/components/award/jp";
 import AwHeader from "@/components/award/AwHeader";
 import AwMotion from "@/components/award/AwMotion";
@@ -238,6 +238,9 @@ function Arrow() {
 export default function Home() {
   return (
     <div className={`aw ${mincho.variable} ${gothic.variable} ${mono.variable} ${hand.variable} ${maru.variable}`}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link rel="stylesheet" href={JP_FONTS_HREF} precedence="default" />
       {/* 動きを許す人だけ、最初の形（隠した状態）を描画前に入れる。ちらつき防止 */}
       <script
         dangerouslySetInnerHTML={{
