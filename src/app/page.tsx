@@ -19,7 +19,7 @@ import { SITE } from "@/lib/site";
  */
 
 const DESC =
-  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市有屋町のALPACA。";
+  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市のALPACA。";
 
 export const metadata: Metadata = {
   title: { absolute: "ALPACA | あなたの仕事の、ベストパートナー。" },
@@ -169,11 +169,18 @@ const FAQS = [
   { q: "顧問料のほかにかかる費用は？", a: "AIの利用料が実費でかかる場合があります。" },
 ];
 
+// ALPACAについて: 社長の声（10/6 大地さん「2の方向性」→①）
+const ABOUT_VOICES = [
+  "ホームページの営業時間、だれが直せるの？",
+  "この紙の見積、どうにかならない？",
+  "AIって、うちでも使える？",
+];
+
 const COMPANY: [string, React.ReactNode][] = [
   ["屋号", "ALPACA"],
   ["代表", "作田 大地（さくだ だいち）"],
   ["事業内容", "AI導入支援／システム開発／HP制作"],
-  ["所在地", "鹿児島県奄美市有屋町"],
+  ["所在地", "鹿児島県奄美市"],
   ["電話", <a key="t" href={SITE.contact.telHref}>{SITE.contact.tel}</a>],
   ["メール", <a key="m" href={SITE.contact.emailHref}>{SITE.contact.email}</a>],
   [
@@ -402,8 +409,19 @@ export default function Home() {
           </div>
           <div className="aw-about__body">
             <SecHead n="05" id="aw-about-h" title="ALPACAについて" />
+            <h3 className="aw-about__q" data-rise>
+              {jp("これ、だれに聞けばいい？")}
+            </h3>
+            <ul className="aw-about__voices" data-rise>
+              {ABOUT_VOICES.map((v) => (
+                <li key={v}>{jp(`${v}」`)}</li>
+              ))}
+            </ul>
             <p className="aw-about__txt" data-rise>
-              {jp("奄美大島の有屋町を拠点にしています。代表は作田 大地。AI顧問のほか、業務システムやホームページの制作もしています。")}
+              {jp("ALPACAは、奄美の会社のIT担当として、奄美大島で始めました。ホームページも、業務のシステムも、AIの使い方も、ここで引き受けます。")}
+            </p>
+            <p className="aw-about__txt aw-about__txt--end" data-rise>
+              {jp("迷ったら、まずALPACAに聞いてください。")}
             </p>
             <dl className="aw-company">
               {COMPANY.map(([k, v]) => (

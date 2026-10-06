@@ -990,6 +990,35 @@ html.lenis body {
   margin-top: -24px;
   max-width: 30em;
 }
+.aw-about__q {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: -16px;
+}
+.aw-about__voices {
+  list-style: none;
+  margin: 28px 0 32px;
+  padding: 0 0 0 1.6em;
+  border-left: 1px solid var(--aw-ink);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 2;
+}
+.aw-about__voices li {
+  position: relative;
+}
+/* 「を外にぶら下げ、折り返した行は本文の頭にそろえる（text-indent は文節の inline-block に継がれて字が重なる） */
+.aw-about__voices li::before {
+  content: "「";
+  position: absolute;
+  right: 100%;
+}
+.aw-about__q + .aw-about__voices + .aw-about__txt {
+  margin-top: 0;
+}
+.aw-about__txt--end {
+  margin-top: 16px;
+}
 .aw-company {
   margin-top: 48px;
 }

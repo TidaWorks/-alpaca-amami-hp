@@ -51,7 +51,7 @@ const siteName = "ALPACA";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alpaca-amami.com";  // プレビューの時だけ書き出し時に差し替える
 const siteTitle = "ALPACA | あなたの仕事の、ベストパートナー。";
 const siteDescription =
-  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市有屋町のALPACA。";
+  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市のALPACA。";
 // 共有リンクの画像＝一番上の決定版の画像（10/5 大地さん「共有リンクのここダサい」）
 const ogImage = `${siteUrl}/og.jpg`;
 
@@ -123,7 +123,7 @@ const jsonLd = {
   address: {
     "@type": "PostalAddress",
     addressRegion: "鹿児島県",
-    addressLocality: "奄美市有屋町",
+    addressLocality: "奄美市",
     addressCountry: "JP",
   },
   areaServed: [
