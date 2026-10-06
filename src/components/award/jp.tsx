@@ -17,7 +17,7 @@ export function phrases(text: string): string[] {
   for (const { segment } of seg.segment(text)) {
     // 新しいかたまりを始めるのは「漢字・カタカナ・英数字・開きかっこ」で始まり、
     // 今のかたまりが、ひらがなか句読点で終わっている時（＝助詞や送りがなの後ろ）
-    const afterStop = /[、。]$/.test(cur) && !/^[、。」）]/.test(segment);
+    const afterStop = /[、。]$/.test(cur) && !/^[、。」）※]/.test(segment);
     // 「その」「この」などは次の語にくっつける（「その／会社の」で切れていた）
     if (/^(その|この|あの|どの)$/.test(cur)) {
       cur += segment;
