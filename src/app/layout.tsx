@@ -1,51 +1,14 @@
 import type { Metadata } from "next";
-import { Outfit, Shippori_Antique_B1, Shippori_Mincho, Klee_One, Zen_Kurenaido } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import { SITE } from "@/lib/site";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  display: "swap",
-  variable: "--font-outfit",
-  preload: false,
-});
-
-const shipporiGothic = Shippori_Antique_B1({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  variable: "--font-shippori-gothic",
-  preload: false,
-});
-
-const shipporiMincho = Shippori_Mincho({
-  subsets: ["latin"],
-  weight: ["400", "700", "800"],
-  display: "swap",
-  variable: "--font-shippori-mincho",
-  // 日本語は字の範囲ごとに百近いファイルに分かれる。先読みすると全部（約6.6MB）を取りに行き、load が 40秒を超えていた
-  preload: false,
-});
-
-const kleeOne = Klee_One({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  display: "swap",
-  variable: "--font-klee",
-  preload: false,
-});
-
-const zenKurenaido = Zen_Kurenaido({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  variable: "--font-zen-kurenaido",
-  preload: false,
-});
+// 書体はブラウザが Google Fonts から読む（next/font だとビルドの時に取りに行き、Vercel で時間切れが続いて本番の書き出しが落ちた・2026-10-06）。
+// 変数名（--font-outfit など）は globals.css の :root で入れている
+const ROOT_FONTS_HREF =
+  "https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Shippori+Antique+B1&family=Shippori+Mincho:wght@400;700;800&family=Klee+One:wght@400;600&family=Zen+Kurenaido&display=swap";
 
 const siteName = "ALPACA";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alpaca-amami.com";  // プレビューの時だけ書き出し時に差し替える
@@ -201,13 +164,16 @@ export default function RootLayout({
     <html lang="ja" suppressHydrationWarning>
       <head>
         <meta name="format-detection" content="telephone=no, email=no, address=no" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="stylesheet" href={ROOT_FONTS_HREF} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body
-        className={`${outfit.variable} ${shipporiGothic.variable} ${shipporiMincho.variable} ${kleeOne.variable} ${zenKurenaido.variable} font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
+        className={`font-sans antialiased text-[var(--color-dark-base)] bg-[var(--color-white)] overflow-x-hidden`}
       >
         <SmoothScroll>
           <ScrollProgress />

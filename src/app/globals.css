@@ -29,6 +29,23 @@
   --font-brush: var(--font-zen-kurenaido), "Zen Kurenaido", "Yu Mincho", serif;
 }
 
+/* 書体の名前（読むのは layout.tsx と demo/layout.tsx の Google Fonts の link。next/font はやめた・2026-10-06） */
+:root {
+  --font-outfit: "Outfit";
+  --font-shippori-gothic: "Shippori Antique B1";
+  --font-shippori-mincho: "Shippori Mincho";
+  --font-klee: "Klee One";
+  --font-zen-kurenaido: "Zen Kurenaido";
+}
+.gf-demo {
+  --font-noto-sans-jp: "Noto Sans JP";
+  --font-noto-serif-jp: "Noto Serif JP";
+  --font-cormorant: "Cormorant Garamond";
+  --font-jost: "Jost";
+  --font-caveat: "Caveat";
+  --font-mplus-rounded: "M PLUS Rounded 1c";
+}
+
 /* 本文デフォルトを Medium (500) に。Givee 同等の太さ。
    Tailwind の font-bold / font-semibold / font-light 等は通常通り上書きされる。 */
 body {
