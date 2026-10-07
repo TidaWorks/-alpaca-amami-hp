@@ -144,13 +144,6 @@ function BxKomon() {
   );
 }
 
-const SYS_SPLIT = [
-  { t: "今の仕事の流れを聞く", us: "紙やExcelの中身と、誰がいつ使うかを聞きます", you: "今使っている紙やファイルを見せてください" },
-  { t: "画面の形を決める", us: "画面の見本を作って、一緒に直します", you: "見本を触って、使いにくい所を教えてください" },
-  { t: "作る", us: "決めた形で作ります", you: "—" },
-  { t: "試しに使う", us: "使ってみて出た直しを入れます", you: "実際の仕事で試してください" },
-  { t: "使い始める", us: "使い方を教えて、社内に定着するまで見ます", you: "社員への声かけをお願いします" },
-];
 const SYS_EX = [
   { t: "予約の管理", d: "電話とノートの予約を、1つの画面に" },
   { t: "見積と請求", d: "見積から請求書まで、同じ数字で" },
@@ -176,22 +169,6 @@ function BxSystem() {
           items: ["入れた数字が、そのまま一覧と書類になる", "集計はボタンひとつ", "スマホからでも、誰でも同じ画面を見られる"],
         }}
       />
-
-      <BxHead k="進め方" t="こちらでやる事と、お願いする事を分けて進めます。" />
-      <div className="bx-table" role="table">
-        <div className="bx-table__row bx-table__row--h" role="row">
-          <span role="columnheader">段階</span>
-          <span role="columnheader">ALPACAがやる事</span>
-          <span role="columnheader">お願いする事</span>
-        </div>
-        {SYS_SPLIT.map((r) => (
-          <div className="bx-table__row" role="row" key={r.t}>
-            <span role="cell">{r.t}</span>
-            <span role="cell" className="bx-table__us">{r.us}</span>
-            <span role="cell">{r.you}</span>
-          </div>
-        ))}
-      </div>
 
       <BxHead k="例えばこんな仕組み" t="業種に合わせて、必要な物だけ作ります。" />
       <ul className="bx-ex">

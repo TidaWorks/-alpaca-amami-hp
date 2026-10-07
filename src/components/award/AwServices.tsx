@@ -30,7 +30,7 @@ export type Service = {
 
 const MORE_LABEL: Record<Service["id"], string> = {
   web: "見本10件と進め方を見る",
-  system: "どう変わるか・進め方を見る",
+  system: "どう変わるか・作れる物の例を見る",
   komon: "どう変わるか・流れを見る",
 };
 
@@ -136,7 +136,7 @@ export default function AwServices({ services }: { services: Service[] }) {
             {open && (
               <>
                 <AwStage id={s.id} />
-                {/* AI顧問とシステムは図解（ひと月の流れ／進め方の表）と重なるので、4つの箱はホームページだけ */}
+                {/* AI顧問は図解（ひと月の流れ）と重なるので、4つの箱はホームページだけ。システムの進め方の表は 10/7 大地さん「いらない」で外した */}
                 {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
                 <button type="button" className="aw-svc__more-btn aw-svc__more-btn--end" onClick={() => toggle(true)}>
                   <span>閉じる</span>
