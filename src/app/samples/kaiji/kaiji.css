@@ -181,7 +181,7 @@
 .kj-hero {
   position: relative;
   z-index: 1;
-  margin: -44px var(--side) 0;
+  margin: 28px var(--side) 0;
 }
 .kj-hero__img {
   overflow: hidden;
