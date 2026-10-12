@@ -48,7 +48,7 @@ export default function AwSamples() {
           </li>
         ))}
       </ul>
-      <p className="aw-smp__fine">※ お店の名前・写真・文章はすべて架空です。写真は画像生成で作りました。</p>
+      <p className="aw-smp__fine">※ お店の名前と文章は架空で、写真は AI で作りました。実際の制作では、お店で用意していただいた写真を整えて使います。</p>
     </>
   );
 }
