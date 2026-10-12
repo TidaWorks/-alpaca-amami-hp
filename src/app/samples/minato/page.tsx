@@ -332,7 +332,7 @@ export default function MinatoPage() {
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram：@minato_tax（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
             </dl>
           </div>

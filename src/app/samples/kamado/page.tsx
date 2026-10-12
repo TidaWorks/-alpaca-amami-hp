@@ -315,7 +315,7 @@ export default function KamadoPage() {
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram：@kamado_amami（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
             </dl>
             <p className="km-foot__note" data-rv>

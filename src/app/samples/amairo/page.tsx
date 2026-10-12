@@ -379,7 +379,7 @@ export default function AmairoPage() {
                 </div>
                 <div>
                   <dt>Instagram</dt>
-                  <dd>@amairo_dorozome（見本）</dd>
+                  <dd>（見本）</dd>
                 </div>
               </dl>
               <div className="am-guide__btns" data-rv>

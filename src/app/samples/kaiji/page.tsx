@@ -378,7 +378,7 @@ export default function KaijiPage() {
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram @kaiji_dive（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
               <div>
                 <dt>持ち物</dt>

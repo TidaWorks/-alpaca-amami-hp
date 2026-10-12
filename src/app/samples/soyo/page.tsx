@@ -6,14 +6,14 @@ import NagiMenu from "./NagiMenu";
 
 // 見本サイト：奄美市名瀬の路地にある三席の美容室（架空）。お手本は longleage（地の色・小さな文字・余白の物差しだけ。写真と文は全部こちらで作った）
 export const metadata: Metadata = {
-  title: "hair room nagi（見本）",
+  title: "hair room soyo（見本）",
   description: "ALPACA が作ったホームページの見本。奄美大島にある架空の美容室のサイトです。",
 };
 
 const FONTS =
   "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap";
 
-const IMG = "/samples/nagi";
+const IMG = "/samples/soyo";
 
 function Img({ src, alt, className = "", eager = false }: { src: string; alt: string; className?: string; eager?: boolean }) {
   return (
@@ -42,8 +42,8 @@ function Pill({ href, children, dark = false }: { href: string; children: React.
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <a href="#top" className={`ng-logo ${className}`} aria-label="hair room nagi 一番上に戻る">
-      hair room <b>nagi</b>
+    <a href="#top" className={`ng-logo ${className}`} aria-label="hair room soyo 一番上に戻る">
+      hair room <b>soyo</b>
     </a>
   );
 }
@@ -144,10 +144,10 @@ export default function NagiPage() {
 
       <main>
         {/* 一番上：大きな写真と短い一文 */}
-        <section className="ng-hero" aria-label="hair room nagi">
+        <section className="ng-hero" aria-label="hair room soyo">
           <Img src="hero" alt="窓辺の椅子に座る長い髪の人の後ろ姿。朝の光が麻のカーテン越しに入る" className="ng-hero__img" eager />
           <div className="ng-hero__txt" data-rv>
-            <p className="ng-hero__en">hair room nagi — Naze, Amami</p>
+            <p className="ng-hero__en">hair room soyo — Naze, Amami</p>
             <h1 className="ng-hero__ja">
               一人ずつ、
               <br />
@@ -187,7 +187,7 @@ export default function NagiPage() {
             <div className="ng-con__t1">
               <Label id="ng-con-h">Concept</Label>
               <div className="ng-txt" data-rv>
-                <p>nagi は、奄美市名瀬の路地にある、席が三つだけの美容室です。</p>
+                <p>soyo は、奄美市名瀬の路地にある、席が三つだけの美容室です。</p>
                 <p>ご予約は、同じ時間にお一人だけ。</p>
                 <p>となりの席を気にせずに、髪のことをゆっくり話せます。</p>
               </div>
@@ -404,7 +404,7 @@ export default function NagiPage() {
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram：@hairroom_nagi（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
             </dl>
           </div>
@@ -425,7 +425,7 @@ export default function NagiPage() {
         </div>
         <div className="ng-foot__bot">
           <a href="#top">Privacy Policy</a>
-          <p>(c) 2026 hair room nagi — sample site by ALPACA</p>
+          <p>(c) 2026 hair room soyo — sample site by ALPACA</p>
         </div>
       </footer>
       <Reveal />

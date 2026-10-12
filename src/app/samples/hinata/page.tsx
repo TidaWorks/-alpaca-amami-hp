@@ -422,7 +422,7 @@ export default function HinataPage() {
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram @hinata_tankan（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
             </dl>
           </div>

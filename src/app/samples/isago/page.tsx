@@ -189,7 +189,7 @@ export default function IsagoPage() {
             <dl>
               <div>
                 <dt>isago</dt>
-                <dd>Instagram：@isago_amami（見本）</dd>
+                <dd>Instagram（見本）</dd>
               </div>
             </dl>
             <p>
