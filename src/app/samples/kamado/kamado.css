@@ -1,0 +1,1092 @@
+/* 見本サイト かまど（奄美・島料理の食堂）。生成りの地に、古い明朝と細いローマン体 */
+.km {
+  --paper: #f3f1eb;
+  --paper-2: #e8e4da;
+  --ink: #36332c;
+  --ink-2: #6e695d;
+  --olive: #4c4a3a;
+  --dark: #2a2822;
+  --r: 44px;
+  --mincho: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --roman: "Cormorant Garamond", "Times New Roman", serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mincho);
+  min-height: 100vh;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+.km *,
+.km *::before,
+.km *::after {
+  box-sizing: border-box;
+}
+.km a {
+  color: inherit;
+}
+:where(.km) figure {
+  margin: 0;
+}
+.km-sp {
+  display: none;
+}
+
+/* 写真（入る時にふわっと・ゆっくり寄る） */
+.km-pic {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+  translate: 0 var(--drift, 0px);
+}
+/* 写真の色をそろえる（フィルム調：彩度を落とし、黒を浮かせ、細かい粒を重ねる） */
+.km-pic::after,
+.km-hero__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+}
+.km-pic img,
+.km-hero__frame img {
+  filter: saturate(0.78) contrast(0.9) brightness(1.03) sepia(0.08);
+}
+.km-pic img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.6s ease, transform 2.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.km-pic.is-in img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 文字の入り */
+.km-title,
+.km-concept__lead,
+.km-concept__body,
+.km-list,
+.km-shochu__body,
+.km-room__head > p,
+.km-news ul,
+.km-foot dl,
+.km-foot__note,
+.km-dish p {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.4s ease, transform 1.6s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.km .is-in.km-title,
+.km .is-in.km-concept__lead,
+.km .is-in.km-concept__body,
+.km .is-in.km-list,
+.km .is-in.km-shochu__body,
+.km-room__head > p.is-in,
+.km-news ul.is-in,
+.km-foot dl.is-in,
+.km-foot__note.is-in,
+.km-dish p.is-in {
+  opacity: 1;
+  transform: none;
+}
+.km-concept__lead {
+  transition-delay: 0.15s;
+}
+.km-concept__body {
+  transition-delay: 0.3s;
+}
+
+/* 見出し：ローマン体の大きな語と、小さな日本語 */
+.km-title {
+  margin: 0 0 48px;
+}
+.km-title__en {
+  margin: 0;
+  font-family: var(--roman);
+  font-weight: 400;
+  font-size: clamp(36px, 3.4vw, 48px);
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+}
+.km-title__ja {
+  margin: 10px 0 0;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--ink-2);
+}
+.km-title--light,
+.km-title--light .km-title__ja {
+  color: #f4f1ea;
+}
+
+/* ボタン */
+.km-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  min-height: 44px;
+  padding: 10px 28px;
+  background: rgba(247, 245, 240, 0.94);
+  color: var(--olive) !important;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-decoration: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.km-btn:hover {
+  background: var(--olive);
+  color: #f4f1ea !important;
+}
+.km-btn--line {
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink) !important;
+}
+.km-btn--line:hover {
+  background: var(--ink);
+}
+
+/* ロゴ */
+.km-logo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  line-height: 1;
+}
+.km-logo small {
+  font-size: 13px;
+  letter-spacing: 0.6em;
+  margin: 0 0 16px 0.6em;
+}
+.km-logo span {
+  font-size: clamp(54px, 5.6vw, 80px);
+  letter-spacing: 0.32em;
+  margin-left: 0.32em;
+}
+
+/* 一番上 */
+.km-hero {
+  position: relative;
+  color: #fbfaf6;
+  padding-bottom: 0;
+}
+.km-hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.km-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(7px) saturate(0.72) brightness(0.8) sepia(0.1);
+  transform: scale(1.08);
+  animation: km-breathe 18s ease-in-out infinite alternate;
+}
+@keyframes km-breathe {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+.km-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 36px 40px 0 58px;
+}
+.km-head__nav {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 46px;
+  row-gap: 0;
+}
+.km-head__nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--roman);
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.km-head__nav a:hover {
+  opacity: 0.7;
+}
+.km-hero__in {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -80px;
+  text-shadow: 0 0 24px rgba(30, 30, 20, 0.25);
+}
+.km-hero__copy {
+  margin: 28px 0 0;
+  font-size: 15px;
+  letter-spacing: 0.4em;
+}
+.km-hero__frame {
+  width: min(34vw, 500px);
+  aspect-ratio: 4 / 5;
+  margin: 56px 0 -1px;
+  border-radius: var(--r) var(--r) 0 0;
+  overflow: hidden;
+  position: relative;
+  top: 120px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.35);
+}
+.km-hero__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 50%;
+  animation: km-in 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) both 0.2s;
+}
+.km-logo,
+.km-hero__copy {
+  animation: km-fade 1.8s ease both;
+}
+.km-hero__copy {
+  animation-delay: 0.4s;
+}
+@keyframes km-in {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes km-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 右上の menu（一番上を過ぎたら出る） */
+.km-mbtn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 24px;
+  border: 1px solid rgba(54, 51, 44, 0.16);
+  background: rgba(243, 241, 235, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink);
+  font-family: var(--roman);
+  font-size: 17px;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.km-mbtn.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.km-mbtn i {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 22px;
+}
+.km-mbtn b {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.4s ease;
+}
+.km-mbtn.is-open b:nth-child(1) {
+  transform: translateY(3.5px) rotate(20deg);
+}
+.km-mbtn.is-open b:nth-child(2) {
+  transform: translateY(-3.5px) rotate(-20deg);
+}
+.km-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  overflow-y: auto;
+  padding: 80px 24px 40px;
+}
+.km-menu.is-open {
+  opacity: 1;
+}
+.km-menu nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.km-menu__logo {
+  margin: 0 0 40px;
+  font-size: 30px;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+.km-menu__logo small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  margin-bottom: 10px;
+}
+.km-menu ul {
+  list-style: none;
+  margin: 0 0 40px;
+  padding: 0;
+}
+.km-menu li a {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  min-height: 52px;
+  padding-top: 10px;
+  text-decoration: none;
+}
+.km-menu__en {
+  font-family: var(--roman);
+  font-size: 26px;
+  letter-spacing: 0.1em;
+  min-width: 5.2em;
+}
+.km-menu__ja {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--ink-2);
+}
+
+/* 店の考え */
+.km-concept {
+  position: relative;
+  color: #f6f3ec;
+  background: #5b5345;
+  padding: 0 0 520px;
+}
+.km-concept__bg {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+.km-concept__bg img {
+  position: sticky;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: min(100vh, 1100px);
+  object-fit: cover;
+  filter: blur(18px) saturate(0.8) brightness(0.62);
+  transform: scale(1.15);
+}
+.km-concept__in {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 360px 24px 0;
+  text-align: center;
+}
+.km-concept .km-title {
+  margin-bottom: 60px;
+}
+.km-concept__lead {
+  margin: 0 0 76px;
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: 0.3em;
+  line-height: 1.8;
+}
+.km-concept__body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 2.8;
+  letter-spacing: 0.22em;
+}
+.km-concept__body p + p {
+  margin-top: 96px;
+}
+.km-scat {
+  position: absolute;
+  z-index: 1;
+}
+.km-scat--1 {
+  width: 11vw;
+  aspect-ratio: 3 / 4;
+  left: 17vw;
+  top: 120px;
+}
+.km-scat--2 {
+  width: 16vw;
+  aspect-ratio: 1;
+  right: 6vw;
+  top: 640px;
+}
+.km-scat--3 {
+  width: 23vw;
+  aspect-ratio: 4 / 5;
+  left: 0;
+  bottom: 300px;
+}
+.km-scat--4 {
+  width: 12vw;
+  aspect-ratio: 3 / 4;
+  right: 22vw;
+  bottom: 200px;
+}
+
+/* 品書き */
+.km-menu-sec {
+  position: relative;
+  padding: 220px 0 200px;
+  background:
+    radial-gradient(1200px 600px at 85% 10%, rgba(214, 205, 182, 0.22), transparent 70%),
+    radial-gradient(900px 600px at 5% 70%, rgba(214, 205, 182, 0.2), transparent 70%), var(--paper);
+}
+.km-lunch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46fr 54fr;
+  align-items: start;
+  padding: 0 6.5vw 0 3.2vw;
+}
+.km-lunch__pic {
+  aspect-ratio: 5 / 6;
+  border-radius: 0 var(--r) 0 0;
+}
+.km-lunch__pic img {
+  object-position: 50% 50%;
+}
+.km-lunch__sub {
+  position: absolute;
+  right: 6.5vw;
+  top: 0;
+  width: 12vw;
+  aspect-ratio: 1;
+  border-radius: 0 0 var(--r) 0;
+}
+.km-lunch__txt {
+  padding: 150px 0 0 9vw;
+  max-width: 640px;
+}
+.km-list__h {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(54, 51, 44, 0.5);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+}
+.km-list__h span {
+  font-family: var(--roman);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.km-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.km-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px dotted rgba(54, 51, 44, 0.3);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+}
+.km-list__name small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+}
+.km-list__price {
+  flex: none;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+.km-list__note {
+  margin: 22px 0 0;
+  font-size: 13px;
+  line-height: 2;
+  letter-spacing: 0.16em;
+  color: var(--ink-2);
+}
+.km-dinner {
+  display: grid;
+  grid-template-columns: 38fr 62fr;
+  gap: 7vw;
+  align-items: start;
+  padding: 220px 3.2vw 0 10.5vw;
+}
+.km-dinner .km-list {
+  padding-top: 40px;
+}
+.km-dishes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3vw;
+  row-gap: 0;
+}
+.km-dish .km-pic {
+  aspect-ratio: 1;
+}
+.km-dish--1 .km-pic {
+  border-radius: var(--r) 0 0 0;
+}
+.km-dish--2 {
+  margin-top: 140px;
+}
+.km-dish--2 .km-pic {
+  border-radius: 0 var(--r) 0 0;
+}
+.km-dish--3 {
+  margin-top: -60px;
+  width: 78%;
+  justify-self: end;
+}
+.km-dish--3 .km-pic {
+  border-radius: 0 0 0 var(--r);
+}
+.km-dish--4 {
+  margin-top: 80px;
+  width: 78%;
+}
+.km-dish--4 .km-pic {
+  border-radius: 0 0 var(--r) 0;
+}
+.km-dish p {
+  margin: 16px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  color: var(--ink-2);
+}
+
+/* 黒糖焼酎 */
+.km-shochu {
+  position: relative;
+  color: #f4f1ea;
+  background: var(--dark);
+}
+.km-shochu__bg {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+.km-shochu__bg img {
+  position: sticky;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: min(100vh, 1100px);
+  object-fit: cover;
+  filter: blur(26px) saturate(0.7) brightness(0.45);
+  transform: scale(1.2);
+}
+.km-shochu__in {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: center;
+  padding: 200px 10.5vw 200px;
+  min-height: min(100vh, 1100px);
+}
+.km-shochu__lead {
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.9 !important;
+  letter-spacing: 0.24em !important;
+  margin-bottom: 40px !important;
+}
+.km-shochu__body p {
+  margin: 0 0 24px;
+  max-width: 30em;
+  font-size: 14px;
+  line-height: 2.4;
+  letter-spacing: 0.18em;
+}
+.km-shochu__price {
+  margin-top: 36px !important;
+  font-size: 13px !important;
+  opacity: 0.8;
+}
+.km-shochu__pic {
+  justify-self: end;
+  width: min(100%, 420px);
+  aspect-ratio: 2 / 3;
+  border-radius: var(--r) var(--r) 0 0;
+  background: #3a372f;
+}
+
+/* お店の様子 */
+.km-room {
+  padding: 220px 0 160px;
+}
+.km-room__head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  padding: 0 10.5vw 80px;
+}
+.km-room__head .km-title {
+  margin: 0;
+}
+.km-room__head > p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 2.4;
+  letter-spacing: 0.2em;
+}
+.km-room__strip {
+  display: grid;
+  grid-template-columns: 33fr 22fr 18fr 22fr;
+  gap: 12px;
+  align-items: end;
+}
+.km-room__a {
+  aspect-ratio: 4 / 3;
+  border-radius: 0 var(--r) 0 0;
+}
+.km-room__b {
+  aspect-ratio: 2 / 3;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.km-room__c {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--r) 0 0 0;
+}
+.km-room__d {
+  aspect-ratio: 3 / 5;
+  border-radius: var(--r) 0 0 0;
+}
+.km-room__strip .km-pic:nth-child(2) img {
+  transition-delay: 0.15s;
+}
+.km-room__strip .km-pic:nth-child(3) img {
+  transition-delay: 0.3s;
+}
+.km-room__strip .km-pic:nth-child(4) img {
+  transition-delay: 0.45s;
+}
+
+/* お知らせ */
+.km-news {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  padding: 120px 10.5vw 200px;
+  align-items: start;
+}
+.km-news ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(54, 51, 44, 0.3);
+}
+.km-news li {
+  display: flex;
+  gap: 40px;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(54, 51, 44, 0.3);
+}
+.km-news time {
+  flex: none;
+  font-family: var(--roman);
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.km-news a {
+  display: block;
+  flex: 1;
+  padding: 22px 0;
+  min-height: 44px;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  line-height: 1.9;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+.km-news a:hover {
+  opacity: 0.6;
+}
+
+/* ご案内・足元 */
+.km-foot {
+  background: var(--paper-2);
+  padding: 180px 0 0;
+}
+.km-foot__grid {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: 8vw;
+  align-items: start;
+  padding: 0 10.5vw 0 0;
+}
+.km-foot__pic {
+  aspect-ratio: 4 / 5;
+  border-radius: 0 var(--r) 0 0;
+}
+.km-foot__info {
+  padding-top: 40px;
+}
+.km-foot dl {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  line-height: 1.9;
+}
+.km-foot dl > div {
+  display: grid;
+  grid-template-columns: 6em 1fr;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(54, 51, 44, 0.18);
+}
+.km-foot dt {
+  color: var(--ink-2);
+}
+.km-foot dd {
+  margin: 0;
+}
+.km-foot dd a {
+  display: inline-block;
+  min-height: 44px;
+  line-height: 44px;
+  margin: -12px 0;
+}
+.km-foot__note {
+  margin: 36px 0 24px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+.km-foot__end {
+  display: grid;
+  justify-items: center;
+  padding: 160px 24px 40px;
+}
+.km-logo--foot span {
+  font-size: clamp(40px, 4vw, 56px);
+}
+.km-foot__top {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 40px;
+  font-family: var(--roman);
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+}
+.km-foot__c {
+  margin: 30px 0 0;
+  font-family: var(--roman);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--ink-2);
+}
+
+/* スマホ */
+@media (max-width: 860px) {
+  .km {
+    --r: 28px;
+  }
+  .km-sp {
+    display: inline;
+  }
+  .km-mbtn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    top: 12px;
+    right: 12px;
+    transition: opacity 0.5s ease, top 0.4s ease;
+  }
+  /* 一番上では「見本です」の帯の下に置く */
+  .km-mbtn.is-top {
+    top: 66px;
+  }
+  .km-scat {
+    translate: none;
+  }
+  .km-head {
+    padding: 16px 20px 0;
+  }
+  .km-head__nav {
+    display: none;
+  }
+  .km-head .km-btn {
+    min-width: 0;
+    padding: 10px 18px;
+    letter-spacing: 0.2em;
+  }
+  .km-hero__in {
+    margin-top: 60px;
+  }
+  .km-logo small {
+    font-size: 11px;
+  }
+  .km-logo span {
+    font-size: 46px;
+  }
+  .km-hero__copy {
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    margin-top: 22px;
+  }
+  .km-hero__frame {
+    width: 74vw;
+    margin-top: 44px;
+    top: 80px;
+  }
+  .km-concept {
+    padding-bottom: 120px;
+  }
+  .km-concept__in {
+    padding: 220px 20px 0;
+  }
+  .km-concept__lead {
+    font-size: 19px;
+    letter-spacing: 0.18em;
+    margin-bottom: 56px;
+  }
+  .km-concept__body p {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    line-height: 2.5;
+  }
+  .km-concept__body p + p {
+    margin-top: 44px;
+  }
+  .km-scat {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+  .km-concept {
+    display: flow-root;
+  }
+  .km-scat--1 {
+    position: absolute;
+    width: 22vw;
+    left: 6vw;
+    top: 110px;
+  }
+  .km-scat--2 {
+    position: absolute;
+    width: 26vw;
+    right: 0;
+    top: 150px;
+    display: none;
+  }
+  .km .km-scat--3 {
+    width: 52vw;
+    margin: 90px 0 0;
+  }
+  .km .km-scat--4 {
+    width: 30vw;
+    margin: -60px 8vw 0 auto;
+  }
+  .km-menu-sec {
+    padding: 140px 0 120px;
+  }
+  .km-lunch {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+  .km-lunch__pic {
+    width: 82%;
+  }
+  .km-lunch__sub {
+    width: 28vw;
+    right: 20px;
+    top: auto;
+    bottom: auto;
+    margin-top: -70px;
+    position: relative;
+    justify-self: end;
+  }
+  .km-lunch__txt {
+    padding: 50px 20px 0;
+  }
+  .km-dinner {
+    grid-template-columns: 1fr;
+    gap: 70px;
+    padding: 130px 20px 0;
+  }
+  .km-dinner .km-list {
+    padding-top: 0;
+  }
+  .km-dish--2 {
+    margin-top: 70px;
+  }
+  .km-dish--3 {
+    margin-top: -30px;
+  }
+  .km-dish--4 {
+    margin-top: 40px;
+  }
+  .km-list li {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+  .km-list__h {
+    font-size: 16px;
+    letter-spacing: 0.16em;
+  }
+  .km-shochu__in {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 130px 20px 120px;
+  }
+  .km-shochu__body p {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+  .km-shochu__lead {
+    font-size: 19px;
+    letter-spacing: 0.14em !important;
+  }
+  .km-shochu__pic {
+    width: 76%;
+  }
+  .km-room {
+    padding: 130px 0 80px;
+  }
+  .km-room__head {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 20px 48px;
+  }
+  .km-room__head > p {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+  .km-room__strip {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  .km-room__a {
+    grid-column: 1 / -1;
+    width: 88%;
+  }
+  .km-room__c {
+    margin-top: 50px;
+  }
+  .km-room__d {
+    display: none;
+  }
+  .km-news {
+    grid-template-columns: 1fr;
+    padding: 80px 20px 120px;
+  }
+  .km-news li {
+    flex-direction: column;
+    gap: 0;
+    padding-top: 18px;
+  }
+  .km-news a {
+    padding: 4px 0 18px;
+    font-size: 13px;
+  }
+  .km-foot {
+    padding-top: 120px;
+  }
+  .km-foot__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0;
+  }
+  .km-foot__pic {
+    width: 78%;
+  }
+  .km-foot__info {
+    padding: 20px 20px 0;
+  }
+  .km-foot dl {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+  .km-foot dl > div {
+    grid-template-columns: 5em 1fr;
+  }
+  .km-foot__end {
+    padding-top: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .km *,
+  .km *::before,
+  .km *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .km-pic img,
+  .km-title,
+  .km-concept__lead,
+  .km-concept__body,
+  .km-list,
+  .km-shochu__body,
+  .km-room__head > p,
+  .km-news ul,
+  .km-foot dl,
+  .km-foot__note,
+  .km-dish p {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .km-pic {
+    translate: none !important;
+  }
+}

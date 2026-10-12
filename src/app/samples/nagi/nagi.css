@@ -1,0 +1,1218 @@
+/* 見本サイト hair room nagi（奄美市名瀬・三席の美容室）。生成りの地に、小さく字間の広い文字 */
+.ng {
+  --bg: #eeebe5;
+  --bg-2: #e6e1d9;
+  --ink: #3b3733;
+  --ink-2: #77706a;
+  --line: #c4bdb3;
+  --skin: #e9ddd0;
+  --pad: clamp(16px, 5.8vw, 84px);
+  --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --en: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+.ng *,
+.ng *::before,
+.ng *::after {
+  box-sizing: border-box;
+}
+.ng a {
+  color: inherit;
+}
+.ng :where(p, h1, h2, h3, ul, ol, dl, dd) {
+  margin: 0;
+  padding: 0;
+}
+.ng :where(ul, ol) {
+  list-style: none;
+}
+
+/* ---------- 上の帯 ---------- */
+.ng-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  height: 64px;
+  padding-left: 40px;
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.ng-bar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ng-bar__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  font-family: var(--en);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.ng-bar__nav a:hover {
+  color: var(--ink-2);
+}
+.ng-logo {
+  align-self: center;
+  font-family: var(--en);
+  font-weight: 300;
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.ng-logo b {
+  font-weight: 500;
+  margin-left: 0.3em;
+}
+.ng-bar__r {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+.ng-bar__ig,
+.ng-bar__rsv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-left: 1px solid var(--line);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  transition: background 0.35s;
+}
+.ng-bar__ig {
+  width: 64px;
+}
+.ng-bar__rsv {
+  width: 176px;
+}
+.ng-bar__ig:hover,
+.ng-bar__rsv:hover {
+  background: var(--bg-2);
+}
+.ng-bar svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+}
+.ng-bar .ng-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* スマホの menu */
+.ng-mbtn {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  min-width: 64px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  font-family: var(--en);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.ng-mbtn i {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 7px;
+}
+.ng-mbtn b {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.35s ease, top 0.35s ease;
+}
+.ng-mbtn b:first-child {
+  top: 0;
+}
+.ng-mbtn b:last-child {
+  top: 6px;
+}
+.ng-mbtn i.is-x b:first-child {
+  top: 3px;
+  transform: rotate(20deg);
+}
+.ng-mbtn i.is-x b:last-child {
+  top: 3px;
+  transform: rotate(-20deg);
+}
+.ng-menu {
+  position: fixed;
+  inset: 64px 0 0;
+  z-index: 49;
+  background: var(--bg);
+  padding: 32px 24px 48px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.ng-menu.is-open {
+  opacity: 1;
+}
+.ng-menu ul {
+  border-top: 1px solid var(--line);
+}
+.ng-menu li a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 18px 2px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+.ng-menu__en {
+  font-family: var(--en);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+.ng-menu__ja {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+}
+.ng-menu .ng-pill {
+  margin-top: 32px;
+  width: 100%;
+}
+
+/* ---------- 共通の部品 ---------- */
+.ng-label {
+  font-family: var(--en);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.ng-label span {
+  font-weight: 300;
+}
+.ng-txt {
+  font-size: 13px;
+  line-height: 2.3;
+  letter-spacing: 0.14em;
+  margin-top: 40px;
+}
+.ng-txt--sm p + p {
+  margin-top: 1.4em;
+}
+.ng-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  min-width: 180px;
+  padding: 0 28px;
+  border: 1px solid var(--ink-2);
+  border-radius: 999px;
+  font-family: var(--en);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: background 0.35s, color 0.35s, border-color 0.35s;
+}
+.ng-pill span {
+  transition: transform 0.35s ease;
+}
+.ng-pill:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.ng-pill:hover span {
+  transform: translateX(3px);
+}
+.ng-pill--dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg) !important;
+}
+.ng-pill--dark:hover {
+  background: #57514b;
+}
+.ng-sec-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0 var(--pad) 28px;
+  border-bottom: 1px solid var(--line);
+}
+.ng-sec-h__note {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+}
+
+/* 写真：入る時ゆっくり拡大から戻る */
+.ng-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.ng-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.72) contrast(0.9) brightness(1.05) sepia(0.06);
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.4s ease, transform 2.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.ng-img.is-in img {
+  opacity: 1;
+  transform: scale(1);
+}
+.ng [data-rv]:not(.ng-img) {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.ng [data-rv].is-in:not(.ng-img) {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 一番上 ---------- */
+.ng-hero {
+  position: relative;
+  height: min(calc(100svh - 64px - 36px), 820px);
+  min-height: 520px;
+}
+.ng-hero__img {
+  position: absolute;
+  inset: 0;
+}
+.ng-hero__img img {
+  object-position: 70% 50%;
+  transform: scale(1.08);
+  transition: opacity 1.8s ease, transform 6s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+.ng-hero__txt {
+  position: absolute;
+  left: var(--pad);
+  bottom: 13%;
+  max-width: 420px;
+}
+.ng .ng-hero__txt[data-rv] {
+  transition-delay: 0.6s;
+}
+.ng-hero__en {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ink-2);
+}
+.ng-hero__ja {
+  margin-top: 26px;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.75;
+  letter-spacing: 0.22em;
+}
+.ng-hero__sub {
+  margin-top: 26px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  line-height: 2;
+}
+
+/* 今月のおすすめの帯 */
+.ng-strip {
+  border-bottom: 1px solid var(--line);
+}
+.ng-strip__in {
+  display: grid;
+  grid-template-columns: 250px 1fr 120px;
+  align-items: center;
+  max-width: 920px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  padding: 22px 56px;
+  gap: 0 48px;
+}
+.ng-strip__h {
+  border-right: 1px solid var(--line);
+  padding: 8px 0;
+}
+.ng-strip__en {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.ng-strip__en--b {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.ng-strip__ja {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.ng-strip__b {
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.12em;
+}
+.ng-strip__b a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 11px;
+  text-underline-offset: 4px;
+}
+.ng-strip__thumb {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.ng-strip__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- コンセプト ---------- */
+.ng-con {
+  padding: 200px 0 140px;
+}
+.ng-con__a {
+  display: grid;
+  grid-template-columns: 37% 1fr;
+  align-items: center;
+  gap: 0 6%;
+}
+.ng-con__p1 {
+  aspect-ratio: 1.1 / 1;
+}
+.ng-con__b {
+  display: grid;
+  grid-template-columns: var(--pad) 290px 1fr 21%;
+  grid-template-areas: ". p2 t p3";
+  align-items: center;
+  gap: 0 60px;
+  margin-top: 170px;
+}
+.ng-con__p2 {
+  grid-area: p2;
+  aspect-ratio: 1.3 / 1;
+  align-self: center;
+}
+.ng-con__t2 {
+  grid-area: t;
+  margin-top: 0;
+}
+.ng-con__p3 {
+  grid-area: p3;
+  aspect-ratio: 0.62 / 1;
+}
+/* 写真いっぱいの帯 */
+.ng-band {
+  position: relative;
+  height: min(860px, 62vw);
+  margin-top: 40px;
+}
+.ng-band__img {
+  position: absolute;
+  inset: 0;
+}
+.ng-band__img img {
+  object-position: 50% 40%;
+}
+.ng-band__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(74, 58, 44, 0.5) 0%, rgba(74, 58, 44, 0.28) 34%, rgba(74, 58, 44, 0) 58%);
+  pointer-events: none;
+}
+.ng-band__t {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--pad) + 20px);
+  width: 380px;
+  translate: 0 -50%;
+  text-align: center;
+  color: #fbf8f3;
+  text-shadow: 0 0 18px rgba(80, 64, 48, 0.35);
+}
+.ng-band__en {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+}
+.ng-band__h {
+  margin-top: 14px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.9;
+  letter-spacing: 0.2em;
+}
+.ng-band__lines {
+  position: relative;
+  display: block;
+  height: 80px;
+  margin: 18px auto 0;
+  width: 190px;
+}
+.ng-band__lines i {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 120px;
+  background: currentColor;
+  opacity: 0.7;
+  transform-origin: top;
+}
+.ng-band__lines i:first-child {
+  transform: rotate(48deg);
+}
+.ng-band__lines i:last-child {
+  transform: rotate(-48deg);
+}
+.ng-band__pts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.ng-band__pts li {
+  width: 50%;
+  font-size: 13px;
+  line-height: 1.9;
+  letter-spacing: 0.12em;
+}
+.ng-band__pts span {
+  display: block;
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+.ng-band__pts span::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ng-band .ng-pill {
+  margin-top: 40px;
+  border-color: rgba(251, 248, 243, 0.8);
+  text-shadow: none;
+}
+.ng-band .ng-pill:hover {
+  background: #fbf8f3;
+  color: var(--ink);
+}
+
+/* ---------- 店 ---------- */
+.ng-salon {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.ng-salon__t {
+  padding: 96px var(--pad) 96px;
+}
+.ng-salon__lead {
+  margin-top: 56px;
+  font-size: 19px;
+  line-height: 2;
+  letter-spacing: 0.18em;
+}
+.ng-salon__img {
+  min-height: 640px;
+}
+
+/* ---------- メニュー ---------- */
+.ng-menu-sec {
+  padding-top: 180px;
+}
+.ng-mrow {
+  display: grid;
+  grid-template-columns: var(--pad) 1fr 1.25fr 36% var(--pad);
+  grid-template-areas: ". h b img .";
+  gap: 0 40px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ng-mrow > * {
+  min-width: 0;
+}
+.ng-mrow__h {
+  grid-area: h;
+}
+.ng-mrow__h h3 {
+  font-family: var(--en);
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+.ng-mrow__h p {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+}
+.ng-mrow__b {
+  grid-area: b;
+}
+.ng-mrow__note {
+  font-size: 12px;
+  line-height: 2.1;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.ng-mrow dl {
+  margin-top: 22px;
+}
+.ng-mrow dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-top: 1px dotted var(--line);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.ng-mrow dd {
+  font-family: var(--en);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.ng-mrow__img {
+  grid-area: img;
+  aspect-ratio: 2.4 / 1;
+}
+
+/* ---------- 店の人 ---------- */
+.ng-st {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 180px;
+  border-top: 1px solid var(--line);
+}
+.ng-st__t {
+  padding: 96px var(--pad) 72px;
+  border-right: 1px solid var(--line);
+}
+.ng-st__t .ng-txt {
+  max-width: 470px;
+}
+.ng-st__small {
+  margin-top: 64px;
+  width: 46%;
+  aspect-ratio: 0.8 / 1;
+}
+.ng-st__img {
+  margin: 28px 9% 0 28px;
+  aspect-ratio: 0.72 / 1;
+}
+.ng-st-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.ng-st-strip__in {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  margin: 0 var(--pad);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+.ng-st-strip__name {
+  padding: 30px 40px;
+  border-right: 1px solid var(--line);
+  font-size: 15px;
+  letter-spacing: 0.3em;
+}
+.ng-st-strip__name span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.ng-st-strip__txt {
+  align-self: center;
+  padding: 24px 48px;
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- 予約の流れ ---------- */
+.ng-flow {
+  padding-top: 180px;
+}
+.ng-flow__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 var(--pad);
+  border-left: 1px solid var(--line);
+}
+.ng-flow__list li {
+  padding: 40px 32px 48px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.ng-flow__n {
+  font-family: var(--en);
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.ng-flow__list h3 {
+  margin-top: 26px;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+}
+.ng-flow__list p {
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 2.1;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.ng-flow__cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  margin: 56px var(--pad) 0;
+}
+.ng-flow__cta p {
+  font-size: 12px;
+  line-height: 2.1;
+  letter-spacing: 0.1em;
+}
+.ng-flow__btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- お知らせ ---------- */
+.ng-news {
+  margin: 180px var(--pad) 0;
+}
+.ng-news__list {
+  margin-top: 48px;
+}
+.ng-news__list li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 72px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.ng-news__list time {
+  font-family: var(--en);
+  font-size: 11px;
+  width: 84px;
+  flex: none;
+}
+.ng-tag {
+  flex: none;
+  min-width: 78px;
+  padding: 2px 12px;
+  border: 1px solid var(--ink-2);
+  border-radius: 999px;
+  font-size: 10px;
+  text-align: center;
+}
+.ng-news__list a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+.ng-news__list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- 店の案内 ---------- */
+.ng-info {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  align-items: center;
+  gap: 0 7%;
+  padding: 160px var(--pad) 180px 0;
+}
+.ng-info__img {
+  aspect-ratio: 1.3 / 1;
+}
+.ng-info__dl {
+  margin-top: 44px;
+  border-top: 1px solid var(--line);
+}
+.ng-info__dl div {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+.ng-info__dl dt {
+  color: var(--ink-2);
+}
+.ng-info__dl small {
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.ng-info__dl a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: -12px 0;
+  text-underline-offset: 4px;
+}
+
+/* ---------- 足もと ---------- */
+.ng-foot {
+  background: var(--bg-2);
+  padding: 110px var(--pad) 40px;
+}
+.ng-foot__in {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+.ng-logo--lg {
+  font-size: 30px;
+}
+.ng-foot__nav {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 0 72px;
+}
+.ng-foot__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--en);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+.ng-foot__bot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+  margin-top: 110px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.ng-foot__bot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- タブレット ---------- */
+@media (max-width: 1080px) {
+  .ng-bar__nav {
+    display: none;
+  }
+  .ng-bar {
+    grid-template-columns: auto 1fr;
+    padding-left: 20px;
+  }
+  .ng-bar .ng-logo {
+    order: -1;
+  }
+  .ng-bar__rsv {
+    width: 132px;
+  }
+  .ng-mbtn {
+    display: inline-flex;
+  }
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 760px) {
+  .ng {
+    --pad: 20px;
+  }
+  .ng-bar {
+    height: 56px;
+    padding-left: 16px;
+  }
+  .ng-menu {
+    inset: 56px 0 0;
+  }
+  .ng-logo {
+    font-size: 16px;
+  }
+  .ng-bar__ig {
+    display: none;
+  }
+  .ng-bar__rsv {
+    width: auto;
+    padding: 0 14px;
+    font-size: 11px;
+  }
+  .ng-bar__rsv svg {
+    display: none;
+  }
+  .ng-mbtn {
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .ng-hero {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ng-hero__img {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 0.82 / 1;
+  }
+  .ng-hero__img img {
+    object-position: 74% 50%;
+  }
+  .ng-hero__txt {
+    position: static;
+    padding: 44px var(--pad) 56px;
+  }
+  .ng-hero__ja {
+    font-size: 25px;
+  }
+
+  .ng-strip__in {
+    grid-template-columns: 1fr 88px;
+    grid-template-areas: "h h" "b t";
+    border: 0;
+    padding: 22px var(--pad);
+    gap: 16px 20px;
+    margin: 0;
+  }
+  .ng-strip__h {
+    grid-area: h;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 16px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 12px;
+  }
+  .ng-strip__en:first-child {
+    width: 100%;
+  }
+  .ng-strip__ja {
+    margin: 0 0 0 auto;
+  }
+  .ng-strip__b {
+    grid-area: b;
+  }
+  .ng-strip__thumb {
+    grid-area: t;
+  }
+
+  .ng-con {
+    padding: 96px 0 72px;
+  }
+  .ng-con__a {
+    grid-template-columns: 1fr;
+  }
+  .ng-con__p1 {
+    width: 88%;
+  }
+  .ng-con__t1 {
+    padding: 48px var(--pad) 0;
+  }
+  .ng-txt {
+    margin-top: 28px;
+    line-height: 2.2;
+    letter-spacing: 0.1em;
+  }
+  .ng-con__b {
+    grid-template-columns: 54% 1fr;
+    grid-template-areas: "p2 ." ". p3" "t t";
+    gap: 0;
+    margin-top: 88px;
+  }
+  .ng-con__p2 {
+    align-self: start;
+  }
+  .ng-con__p3 {
+    margin-top: -20px;
+    margin-left: 22%;
+  }
+  .ng-con__t2 {
+    padding: 48px var(--pad) 0;
+  }
+  .ng-band {
+    height: auto;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    background: #9d8b7a;
+  }
+  .ng-band__img {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 1.15 / 1;
+  }
+  .ng-band__img img {
+    object-position: 55% 40%;
+  }
+  .ng-band__img::after {
+    display: none;
+  }
+  .ng-band__t {
+    position: static;
+    width: auto;
+    padding: 56px var(--pad) 64px;
+    translate: none;
+    text-shadow: none;
+  }
+  .ng .ng-band__t.is-in {
+    transform: none;
+  }
+  .ng-band__pts {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ng-band__h {
+    font-size: 19px;
+  }
+  .ng-band__lines {
+    height: 56px;
+    width: 150px;
+  }
+  .ng-band__lines i {
+    height: 92px;
+  }
+  .ng-band__lines i:first-child {
+    transform: rotate(53deg);
+  }
+  .ng-band__lines i:last-child {
+    transform: rotate(-53deg);
+  }
+  .ng-band .ng-pill {
+    margin-top: 24px;
+  }
+
+  .ng-salon {
+    grid-template-columns: 1fr;
+  }
+  .ng-salon__t {
+    padding: 72px var(--pad) 56px;
+  }
+  .ng-salon__lead {
+    margin-top: 36px;
+    font-size: 17px;
+  }
+  .ng-salon__img {
+    min-height: 0;
+    aspect-ratio: 1.25 / 1;
+  }
+
+  .ng-menu-sec,
+  .ng-flow {
+    padding-top: 110px;
+  }
+  .ng-sec-h {
+    padding-bottom: 20px;
+  }
+  .ng-mrow {
+    grid-template-columns: 1fr;
+    grid-template-areas: "h" "img" "b";
+    padding: 32px var(--pad) 36px;
+    gap: 20px;
+  }
+  .ng-mrow__img {
+    aspect-ratio: 2.1 / 1;
+  }
+
+  .ng-st {
+    grid-template-columns: 1fr;
+    margin-top: 110px;
+  }
+  .ng-st__t {
+    border-right: 0;
+    padding: 72px var(--pad) 0;
+  }
+  .ng-st__small {
+    display: none;
+  }
+  .ng-st__img {
+    margin: 48px var(--pad) 40px;
+  }
+  .ng-st-strip__in {
+    grid-template-columns: 1fr;
+    margin: 0;
+    border: 0;
+  }
+  .ng-st-strip__name {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 22px var(--pad);
+  }
+  .ng-st-strip__txt {
+    padding: 20px var(--pad) 24px;
+  }
+
+  .ng-flow__list {
+    grid-template-columns: 1fr;
+    margin: 0 var(--pad);
+    border-left: 0;
+  }
+  .ng-flow__list li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    padding: 26px 0;
+    border-right: 0;
+  }
+  .ng-flow__list h3 {
+    margin-top: 0;
+    font-size: 14px;
+  }
+  .ng-flow__list p {
+    grid-column: 2;
+    margin-top: 10px;
+  }
+  .ng-flow__cta {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 36px;
+  }
+  .ng-flow__btns {
+    flex-direction: column;
+  }
+  .ng-flow__btns .ng-pill {
+    width: 100%;
+  }
+
+  .ng-news {
+    margin-top: 110px;
+  }
+  .ng-news__list {
+    margin-top: 28px;
+  }
+  .ng-news__list li {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    padding: 16px 0 8px;
+  }
+  .ng-news__list a {
+    width: 100%;
+    line-height: 1.9;
+  }
+
+  .ng-info {
+    grid-template-columns: 1fr;
+    padding: 96px 0 110px;
+  }
+  .ng-info__img {
+    width: 88%;
+  }
+  .ng-info__t {
+    padding: 48px var(--pad) 0;
+  }
+  .ng-info__dl {
+    margin-top: 28px;
+  }
+  .ng-info__dl div {
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+  }
+
+  .ng-foot {
+    padding: 72px var(--pad) 28px;
+  }
+  .ng-foot__in {
+    flex-direction: column;
+    gap: 36px;
+  }
+  .ng-logo--lg {
+    font-size: 24px;
+  }
+  .ng-foot__nav {
+    gap: 0 48px;
+  }
+  .ng-foot__bot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-img img,
+  .ng [data-rv],
+  .ng-menu,
+  .ng-pill,
+  .ng-pill span,
+  .ng-mbtn b {
+    transition: none !important;
+  }
+  .ng-img img {
+    opacity: 1;
+    transform: none;
+  }
+  .ng [data-rv]:not(.ng-img) {
+    opacity: 1;
+    transform: none;
+  }
+}

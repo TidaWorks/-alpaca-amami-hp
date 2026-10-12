@@ -26,7 +26,7 @@ export default function SampleNote({
       }}
     >
       これは ALPACA が作ったホームページの見本です。お店・写真・文章はすべて架空です。
-      <Link href="/#work" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3, marginLeft: 8, whiteSpace: "nowrap" }}>
+      <Link href="/#work" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3, marginLeft: 8, whiteSpace: "nowrap", display: "inline-block", padding: "13px 4px", margin: "-13px 0 -13px 4px" }}>
         ALPACA に戻る
       </Link>
     </div>

@@ -1,0 +1,1167 @@
+/* 見本サイト：みなと税理士事務所。深い海の青1色の面＋生成りの地＋大きな欧文セリフ */
+.mn {
+  --sea: #1c4253;
+  --sea-2: #2a5568;
+  --cream: #f4efe6;
+  --light: #efe8dc;
+  --ink: #15242c;
+  --ink-2: #3b4a52;
+  --serif: "EB Garamond", "Times New Roman", serif;
+  --sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
+  --col: 20vw;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+.mn *,
+.mn *::before,
+.mn *::after {
+  box-sizing: border-box;
+}
+.mn a {
+  color: inherit;
+  text-decoration: none;
+}
+.mn :where(h1, h2, h3, p, ul, ol, dl, dd) {
+  margin: 0;
+  padding: 0;
+}
+.mn :where(ul, ol) {
+  list-style: none;
+}
+.mn-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 出てくる動き：少し下から、ふわっと。写真はゆっくり寄りから戻る */
+.mn [data-rv] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.mn [data-rv].is-in {
+  opacity: 1;
+  transform: none;
+}
+.mn-pic {
+  overflow: hidden;
+  background: #d9d3c8;
+}
+.mn-pic img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  transition: transform 2.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mn-pic.is-in img {
+  transform: scale(1);
+}
+
+/* 大きな欧文の見出し */
+.mn-big {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(76px, 12.4vw, 186px);
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  color: var(--sea);
+}
+.mn-big--light {
+  color: var(--light);
+}
+.mn-no {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1;
+  padding-top: 7px;
+}
+
+/* 上の帯（写真の上に重ねる） */
+.mn-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 65;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 4.6vw;
+}
+.mn-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--ink);
+}
+.mn-mark i {
+  position: absolute;
+  top: 6px;
+  right: -12px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--sea);
+}
+.mn-bar__nav {
+  display: flex;
+  gap: 6px;
+}
+.mn-bar__nav a {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  padding: 12px 14px;
+  min-height: 44px;
+  color: var(--ink);
+  position: relative;
+}
+.mn-bar__nav a::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 10px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.mn-bar__nav a:hover::after,
+.mn-bar__nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+.mn-burger {
+  display: none;
+}
+
+/* 一番上 */
+.mn-hero {
+  position: relative;
+  background: var(--sea);
+}
+.mn-hero__img {
+  position: relative;
+  height: clamp(600px, calc(100svh - 34px), 980px);
+  overflow: hidden;
+}
+.mn-hero__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
+  display: block;
+  animation: mn-zoom 9s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+@keyframes mn-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.mn-hero__name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  pointer-events: none;
+}
+.mn-hero__en {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 30vw;
+  line-height: 0.74;
+  letter-spacing: -0.03em;
+  color: var(--sea);
+  transform: translateY(0.035em);
+  animation: mn-rise 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+@keyframes mn-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.18em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0.035em);
+  }
+}
+.mn-hero__sub {
+  position: absolute;
+  left: 4.6vw;
+  top: 128px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  animation: mn-fade 1.4s ease 0.6s both;
+}
+@keyframes mn-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.mn-hero__sub span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+/* Story（青の面・写真が下へはみ出す） */
+.mn-story {
+  position: relative;
+  background: linear-gradient(to bottom, var(--sea) calc(100% - 140px), var(--cream) calc(100% - 140px));
+  color: var(--light);
+  padding: 220px 0 0;
+}
+.mn-story__in {
+  margin-left: var(--col);
+  max-width: 600px;
+}
+.mn-story__h {
+  margin-top: 120px;
+  font-size: clamp(26px, 2.8vw, 40px);
+  font-weight: 700;
+  line-height: 1.75;
+  letter-spacing: 0.06em;
+}
+.mn-story__body {
+  margin-top: 64px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 2.3;
+  letter-spacing: 0.06em;
+}
+.mn-story__body p + p {
+  margin-top: 1.2em;
+}
+.mn-story__pic {
+  margin: 72px 0 0 50vw;
+  width: 39vw;
+  aspect-ratio: 2 / 3;
+}
+
+/* 決めごと */
+.mn-policy {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  column-gap: 7vw;
+  padding: 200px 14vw 180px;
+}
+.mn-policy__big {
+  grid-column: 2;
+  grid-row: 1;
+  margin-left: -5vw;
+}
+.mn-policy__pic {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  margin-top: 150px;
+  width: min(100%, 300px);
+  justify-self: end;
+  aspect-ratio: 1;
+}
+.mn-policy__list {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 110px;
+  display: grid;
+  gap: 88px;
+}
+.mn-policy__list li,
+.mn-service__list li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+}
+.mn-policy__list h3,
+.mn-service__list h3 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+.mn-policy__list p,
+.mn-service__list p {
+  margin-top: 26px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.15;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  max-width: 480px;
+}
+
+/* できること */
+.mn-service {
+  padding: 40px 0 200px;
+}
+.mn-service__head {
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+  padding-left: 9vw;
+}
+.mn-service__ja,
+.mn-flow__ja {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--sea);
+}
+.mn-service__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 7vw;
+  padding: 90px 14vw 0 0;
+}
+.mn-service__pics {
+  position: relative;
+  align-self: start;
+}
+.mn-service__p1 {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+.mn-service__p2 {
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 1;
+  right: -4vw;
+  bottom: -80px;
+  border: 10px solid var(--cream);
+}
+.mn-service__list {
+  display: grid;
+  align-content: start;
+}
+.mn-service__list li {
+  padding: 40px 0;
+  border-top: 1px solid rgba(28, 66, 83, 0.22);
+}
+.mn-service__list li:last-child {
+  border-bottom: 1px solid rgba(28, 66, 83, 0.22);
+}
+.mn-service__list h3 {
+  font-size: 20px;
+}
+.mn-service__list p {
+  margin-top: 14px;
+}
+
+/* 料金の目安（青の面） */
+.mn-fee {
+  position: relative;
+  background: linear-gradient(to bottom, var(--cream) 160px, var(--sea) 160px, var(--sea) calc(100% - 0px));
+  color: var(--light);
+  padding: 0 0 180px;
+}
+.mn-fee__pic {
+  position: absolute;
+  top: 0;
+  left: 9vw;
+  width: 24vw;
+  aspect-ratio: 1;
+}
+.mn-fee__in {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  column-gap: 6vw;
+  padding: 0 14vw 0 9vw;
+}
+.mn-fee__in > .mn-big {
+  grid-column: 1;
+  margin-top: calc(160px + 24vw + 60px);
+  align-self: start;
+}
+.mn-fee__body {
+  grid-column: 2;
+  padding-top: 280px;
+}
+.mn-fee__h {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.mn-fee__lead {
+  margin-top: 28px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 2.2;
+  letter-spacing: 0.05em;
+}
+.mn-fee__list {
+  margin-top: 56px;
+  border-top: 1px solid rgba(239, 232, 220, 0.3);
+}
+.mn-fee__list > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid rgba(239, 232, 220, 0.3);
+}
+.mn-fee__list dt {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.mn-fee__list dt span {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+}
+.mn-fee__list dd {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.mn-fee__note {
+  margin-top: 24px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+
+/* 相談の流れ */
+.mn-flow {
+  padding: 200px 9vw 0;
+}
+.mn-flow__head {
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+}
+.mn-flow__list {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 3.4vw;
+  counter-reset: none;
+}
+.mn-flow__list li {
+  border-top: 2px solid var(--sea);
+  padding-top: 26px;
+}
+.mn-flow__list li:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.mn-flow__list li:nth-child(3) {
+  transition-delay: 0.24s;
+}
+.mn-flow__list li:nth-child(4) {
+  transition-delay: 0.36s;
+}
+.mn-flow__no {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--sea);
+}
+.mn-flow__list h3 {
+  margin-top: 26px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.mn-flow__list p {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.1;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+}
+.mn-flow__pic {
+  margin: 140px -9vw 0 auto;
+  width: 62vw;
+  aspect-ratio: 3 / 2;
+}
+
+/* 事務所の様子 */
+.mn-office {
+  padding: 200px 0 0;
+}
+.mn-office__big {
+  position: relative;
+  z-index: 2;
+  padding-left: 9vw;
+  margin-bottom: -0.36em;
+}
+.mn-office__wide {
+  position: relative;
+}
+.mn-office__wide .mn-pic {
+  height: min(92vh, 860px);
+}
+.mn-office__wide::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0 0;
+  background: linear-gradient(to bottom, rgba(16, 36, 46, 0), rgba(16, 36, 46, 0.55));
+  pointer-events: none;
+}
+.mn-office__over {
+  position: absolute;
+  z-index: 2;
+  right: 9vw;
+  bottom: 80px;
+  max-width: 420px;
+  color: #fbf8f2;
+}
+.mn-office__over h2 {
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
+}
+.mn-office__over p {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.1;
+  letter-spacing: 0.05em;
+}
+.mn-office__row {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.8fr;
+  gap: 5vw;
+  align-items: start;
+  padding: 140px 9vw 0;
+}
+.mn-office__a {
+  aspect-ratio: 2 / 3;
+}
+.mn-office__b {
+  aspect-ratio: 2 / 3;
+  margin-top: 220px;
+}
+.mn-office__text {
+  padding-top: 120px;
+}
+.mn-office__text h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.mn-office__text p {
+  margin-top: 26px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2.2;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+}
+.mn-office__desk {
+  width: 52vw;
+  aspect-ratio: 3 / 2;
+  margin: 100px 0 0 14vw;
+}
+
+/* お知らせ */
+.mn-news {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 6vw;
+  padding: 200px 14vw 0 9vw;
+}
+.mn-news__list li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(28, 66, 83, 0.22);
+}
+.mn-news__list li:first-child {
+  border-top: 1px solid rgba(28, 66, 83, 0.22);
+}
+.mn-news__list time {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--sea);
+}
+.mn-news__list p {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+}
+.mn-news__head {
+  padding-top: 8px;
+}
+
+/* 案内 */
+.mn-access {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 6vw;
+  align-items: end;
+  padding: 200px 14vw 200px 0;
+}
+.mn-access__pic {
+  aspect-ratio: 16 / 10;
+}
+.mn-access__info h2 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--sea);
+}
+.mn-access__info dl {
+  margin-top: 30px;
+  display: grid;
+  gap: 16px;
+}
+.mn-access__info dl > div {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+}
+.mn-access__info dt {
+  font-weight: 700;
+}
+
+/* 下：半円の青い面 */
+.mn-foot {
+  background: var(--cream);
+  color: var(--light);
+}
+.mn-arch {
+  background: var(--sea);
+  border-radius: 50vw 50vw 0 0;
+  padding: 24vw 6vw 120px;
+  text-align: center;
+}
+.mn-arch__big {
+  font-size: clamp(84px, 15vw, 220px);
+}
+.mn-arch__lead {
+  margin-top: 46px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+.mn-arch__links {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 64px;
+}
+.mn-arch__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(24px, 2.5vw, 36px);
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.mn-arch__links a:hover {
+  border-color: currentColor;
+}
+.mn-foot__bottom {
+  background: var(--sea);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 4.6vw 40px;
+  row-gap: 80px;
+}
+.mn-foot__logo {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(64px, 6.6vw, 96px);
+  line-height: 0.9;
+}
+.mn-foot__nav {
+  display: grid;
+  gap: 4px;
+}
+.mn-foot__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 28px;
+}
+.mn-foot__end {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+}
+.mn-foot__end a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+/* スマホ用メニュー */
+.mn-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--sea);
+  color: var(--light);
+  padding: 110px 28px 40px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.mn-menu.is-open {
+  opacity: 1;
+}
+.mn-menu li a {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 38px;
+}
+.mn-menu__tel {
+  margin-top: 40px;
+}
+.mn-menu__tel a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+}
+
+/* 中くらいの幅 */
+@media (max-width: 1100px) {
+  .mn {
+    --col: 12vw;
+  }
+  .mn-policy {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+  .mn-service__grid {
+    padding-right: 8vw;
+  }
+  .mn-fee__in {
+    padding-right: 8vw;
+  }
+  .mn-news {
+    padding-right: 8vw;
+  }
+  .mn-access {
+    padding-right: 8vw;
+  }
+}
+
+/* スマホ */
+@media (max-width: 760px) {
+  .mn-bar {
+    padding: 14px 84px 14px 20px;
+  }
+  .mn-mark {
+    font-size: 40px;
+  }
+  .mn-bar__nav {
+    display: none;
+  }
+  .mn-burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    position: fixed;
+    top: 64px;
+    right: 16px;
+    z-index: 80;
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--sea);
+    box-shadow: 0 0 0 1px rgba(239, 232, 220, 0.35);
+    cursor: pointer;
+  }
+  .mn-burger b {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--light);
+    transition: transform 0.35s ease;
+  }
+  .mn-burger.is-x b:first-child {
+    transform: translateY(4.25px) rotate(45deg);
+  }
+  .mn-burger.is-x b:last-child {
+    transform: translateY(-4.25px) rotate(-45deg);
+  }
+  .mn-burger.is-x {
+    background: var(--sea-2);
+  }
+
+  .mn-big {
+    font-size: 23vw;
+  }
+  .mn-hero__img {
+    height: min(172vw, 720px);
+  }
+  .mn-hero__img img {
+    object-position: 46% 60%;
+  }
+  .mn-hero__en {
+    font-size: 28vw;
+  }
+  .mn-hero__sub {
+    top: 92px;
+    left: 20px;
+    font-size: 13px;
+  }
+
+  .mn-story {
+    padding-top: 120px;
+    background: linear-gradient(to bottom, var(--sea) calc(100% - 90px), var(--cream) calc(100% - 90px));
+  }
+  .mn-story__in {
+    margin: 0 24px;
+  }
+  .mn-story__h {
+    margin-top: 64px;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+  }
+  .mn-story__body {
+    margin-top: 40px;
+    font-size: 14px;
+    line-height: 2.2;
+    letter-spacing: 0.04em;
+  }
+  .mn-story__pic {
+    margin: 56px 24px 0 auto;
+    width: 64vw;
+  }
+
+  .mn-policy {
+    grid-template-columns: 1fr;
+    padding: 120px 24px 110px;
+  }
+  .mn-policy__big {
+    grid-column: 1;
+    margin-left: 0;
+    text-align: right;
+  }
+  .mn-policy__pic {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    margin-top: 32px;
+    width: 56vw;
+  }
+  .mn-policy__list {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 64px;
+    gap: 56px;
+  }
+  .mn-policy__list li,
+  .mn-service__list li {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .mn-policy__list h3 {
+    font-size: 19px;
+  }
+  .mn-policy__list p,
+  .mn-service__list p {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 2.1;
+  }
+
+  .mn-service {
+    padding: 0 0 120px;
+  }
+  .mn-service__head,
+  .mn-flow__head {
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 24px;
+  }
+  .mn-flow__head {
+    padding-left: 0;
+  }
+  .mn-service__grid {
+    grid-template-columns: 1fr;
+    padding: 48px 24px 0;
+  }
+  .mn-service__pics {
+    margin: 0 -24px 0 0;
+    padding-bottom: 60px;
+  }
+  .mn-service__p1 {
+    position: relative;
+    top: 0;
+    width: 78%;
+    margin-left: auto;
+  }
+  .mn-service__p2 {
+    right: auto;
+    left: 0;
+    bottom: 0;
+    width: 44%;
+    border-width: 8px;
+  }
+  .mn-service__list {
+    margin-top: 48px;
+  }
+  .mn-service__list li {
+    padding: 32px 0;
+  }
+  .mn-service__list h3 {
+    font-size: 18px;
+  }
+
+  .mn-fee {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, var(--cream) 110px, var(--sea) 110px);
+    padding-bottom: 110px;
+  }
+  .mn-fee__pic {
+    order: -1;
+    position: relative;
+    left: auto;
+    margin-left: 24px;
+    width: 56vw;
+  }
+  .mn-fee__in {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+  }
+  .mn-fee__in > .mn-big {
+    margin-top: 64px;
+  }
+  .mn-fee__body {
+    grid-column: 1;
+    padding-top: 48px;
+  }
+  .mn-fee__h {
+    font-size: 22px;
+  }
+  .mn-fee__lead {
+    font-size: 14px;
+  }
+  .mn-fee__list {
+    margin-top: 36px;
+  }
+  .mn-fee__list > div {
+    padding: 20px 0;
+    gap: 12px;
+  }
+  .mn-fee__list dt {
+    font-size: 15px;
+  }
+  .mn-fee__list dd {
+    font-size: 19px;
+  }
+
+  .mn-flow {
+    padding: 120px 24px 0;
+  }
+  .mn-flow__list {
+    margin-top: 56px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .mn-flow__list li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    column-gap: 8px;
+    padding-top: 22px;
+  }
+  .mn-flow__no {
+    grid-row: 1 / span 2;
+    font-size: 44px;
+  }
+  .mn-flow__list h3 {
+    margin-top: 2px;
+    font-size: 17px;
+  }
+  .mn-flow__list p {
+    margin-top: 10px;
+  }
+  .mn-flow__list li:nth-child(n) {
+    transition-delay: 0s;
+  }
+  .mn-flow__pic {
+    margin: 72px -24px 0 auto;
+    width: 84vw;
+  }
+
+  .mn-office {
+    padding-top: 120px;
+  }
+  .mn-office__big {
+    padding-left: 24px;
+  }
+  .mn-office__wide .mn-pic {
+    height: 128vw;
+  }
+  .mn-office__over {
+    left: 24px;
+    right: 24px;
+    bottom: 36px;
+  }
+  .mn-office__over h2 {
+    font-size: 20px;
+  }
+  .mn-office__row {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 72px 24px 0;
+  }
+  .mn-office__text {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: 0;
+  }
+  .mn-office__text h3 {
+    font-size: 18px;
+  }
+  .mn-office__b {
+    margin-top: 72px;
+  }
+  .mn-office__desk {
+    width: auto;
+    margin: 48px 24px 0;
+  }
+
+  .mn-news {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 120px 24px 0;
+  }
+  .mn-news__list li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 22px 0;
+  }
+  .mn-news__list p {
+    font-size: 14px;
+  }
+
+  .mn-access {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 120px 0 120px;
+  }
+  .mn-access__pic {
+    margin-right: 24px;
+  }
+  .mn-access__info {
+    padding: 0 24px;
+  }
+  .mn-access__info dl > div {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .mn-arch {
+    padding: 40vw 20px 80px;
+  }
+  .mn-arch__big {
+    font-size: 21vw;
+  }
+  .mn-arch__lead {
+    margin-top: 28px;
+    font-size: 14px;
+  }
+  .mn-arch__links {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .mn-arch__links a {
+    font-size: 22px;
+  }
+  .mn-foot__bottom {
+    grid-template-columns: 1fr;
+    padding: 40px 24px 28px;
+    row-gap: 40px;
+  }
+  .mn-foot__nav a {
+    font-size: 26px;
+  }
+  .mn-foot__end {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mn [data-rv],
+  .mn-pic img,
+  .mn-hero__img img,
+  .mn-hero__sub,
+  .mn-hero__en {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .mn-hero__en {
+    transform: translateY(0.035em) !important;
+  }
+}
