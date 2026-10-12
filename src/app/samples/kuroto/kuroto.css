@@ -62,12 +62,12 @@
   font-family: var(--maru);
 }
 .kt-bar__logo span {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.2em;
 }
 .kt-bar__logo b {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 900;
   letter-spacing: 0.3em;
 }
@@ -95,19 +95,19 @@
   grid-template-columns: 1.15fr 1fr 0.9fr;
   align-items: end;
   gap: 2vw;
-  padding: 40px 6vw 0;
-  min-height: min(78vh, 760px);
+  padding: 24px 6vw 0;
+  min-height: min(72vh, 700px);
 }
 .kt-hero__item {
   position: relative;
-  padding-bottom: 6.5vw;
+  padding-bottom: 5.2vw;
 }
 .kt-hero__item--a {
   align-self: center;
 }
 .kt-hero__item--b {
-  align-self: start;
-  margin-top: 4vw;
+  align-self: center;
+  margin-top: -2vw;
 }
 .kt-hero__item--c {
   align-self: end;
@@ -139,12 +139,11 @@
   transform: rotate(-6deg);
 }
 .kt-hero__item--b .kt-hero__ch {
-  left: auto;
-  right: 10%;
+  left: 12%;
   transform: rotate(5deg);
 }
 .kt-hero__item--c .kt-hero__ch {
-  left: 40%;
+  left: 10%;
   transform: rotate(-3deg);
 }
 

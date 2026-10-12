@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const FONTS =
-  "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap";
+  "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=DM+Serif+Display&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap";
 
 const IMG = "/samples/isago";
 
