@@ -12,6 +12,7 @@ export default function SampleNote({
 }) {
   return (
     <div
+      className="smp-note"
       style={{
         background: bg,
         color: fg,
@@ -25,13 +26,13 @@ export default function SampleNote({
         zIndex: 60,
       }}
     >
-      <style>{`.smp-note__sp{display:none}@media (max-width:640px){.smp-note__pc{display:none}.smp-note__sp{display:inline}}`}</style>
+      <style>{`.smp-note{text-wrap:balance}.smp-note__sp{display:none}@media (max-width:640px){.smp-note{text-wrap:wrap;font-size:11px!important;letter-spacing:0.02em!important;padding:7px 12px!important}.smp-note__pc{display:none}.smp-note__sp{display:inline}}`}</style>
       <span className="smp-note__pc">
-        これは ALPACA が作ったホームページの見本です。お店と文章は架空で、写真は AI で作りました。実際の制作では、お店で用意していただいた写真を整えて使います。
+        本サイトは ALPACA が制作したホームページのデザイン見本です。掲載している店舗名・文章はすべて架空のもので、写真は AI により生成しています。実際の制作では、お客様にご用意いただいたお写真を加工・調整して使用いたします。
       </span>
-      <span className="smp-note__sp">ALPACA の見本です。店と文章は架空、写真は AI。実際はお店の写真を整えて使います。</span>
+      <span className="smp-note__sp">ALPACA 制作の見本です。店舗・文章は架空、写真は AI 生成（実際はお客様のお写真を使用）。</span>
       <Link href="/#work" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3, marginLeft: 8, whiteSpace: "nowrap", display: "inline-block", padding: "13px 4px", margin: "-13px 0 -13px 4px" }}>
-        ALPACA に戻る
+        ALPACA トップへ
       </Link>
     </div>
   );
