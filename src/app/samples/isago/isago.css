@@ -1,0 +1,684 @@
+/* 見本サイト① isago（奄美・浜の宿）。砂の色の地に、明朝と細いローマン体 */
+.ig {
+  --sand: #f1ece2;
+  --sand-2: #e9e2d5;
+  --ink: #3b3631;
+  --ink-2: #6f675d;
+  --line: #8a8175;
+  --pad: 20px;
+  --mincho: "Shippori Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --roman: "Cormorant Garamond", "Times New Roman", serif;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--mincho);
+  font-feature-settings: "palt" 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.ig *,
+.ig *::before,
+.ig *::after {
+  box-sizing: border-box;
+}
+.ig a {
+  color: inherit;
+}
+.ig-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 上の帯 */
+.ig-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px calc(var(--pad) + 16px);
+  background: color-mix(in srgb, var(--sand) 88%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.ig-bar__r {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.ig-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  text-decoration: none;
+  line-height: 1;
+}
+.ig-logo__en {
+  font-family: var(--roman);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 34px;
+  letter-spacing: 0.06em;
+}
+.ig-logo__ja {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--ink-2);
+}
+.ig-logo--lg .ig-logo__en {
+  font-size: clamp(56px, 7vw, 96px);
+}
+.ig-logo--lg .ig-logo__ja {
+  font-size: 13px;
+}
+
+.ig-reserve {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 180px;
+  min-height: 44px;
+  padding: 10px 20px 8px;
+  border: 1px solid var(--ink);
+  font-family: var(--roman);
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.ig-reserve svg {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -7px;
+  width: calc(100% + 2px);
+  height: 14px;
+  overflow: visible;
+}
+.ig-reserve path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.ig-reserve:hover {
+  background: var(--ink);
+  color: var(--sand);
+}
+
+.ig-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--roman);
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  position: relative;
+  z-index: 70;
+}
+.ig-menu-btn i {
+  display: inline-flex;
+  gap: 5px;
+  height: 16px;
+}
+.ig-menu-btn b {
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: currentColor;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+.ig-menu-btn i.is-x b:nth-child(1) {
+  transform: translateX(6px) rotate(45deg);
+}
+.ig-menu-btn i.is-x b:nth-child(2) {
+  opacity: 0;
+}
+.ig-menu-btn i.is-x b:nth-child(3) {
+  transform: translateX(-6px) rotate(-45deg);
+}
+
+.ig-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: grid;
+  place-items: center;
+  background: var(--sand);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.ig-menu.is-open {
+  opacity: 1;
+}
+.ig-menu ul {
+  list-style: none;
+  margin: 0 0 48px;
+  padding: 0;
+}
+.ig-menu li + li {
+  margin-top: 22px;
+}
+.ig-menu li a {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  text-decoration: none;
+  min-height: 44px;
+}
+.ig-menu__ja {
+  font-size: 22px;
+  letter-spacing: 0.2em;
+  min-width: 6.5em;
+}
+.ig-menu__en {
+  font-family: var(--roman);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink-2);
+}
+.ig-reserve--menu {
+  width: 100%;
+}
+
+/* 写真 */
+.ig-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--sand-2);
+}
+.ig-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  opacity: 0;
+  transition: transform 2.4s cubic-bezier(0.2, 0.6, 0.2, 1), opacity 1.6s ease;
+}
+.ig-img.is-in img {
+  transform: scale(1);
+  opacity: 1;
+}
+.ig-sq {
+  aspect-ratio: 1 / 1;
+}
+.ig-wide {
+  aspect-ratio: 3 / 2;
+}
+
+/* 一番上の4枚 */
+.ig-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 40px;
+  padding: 24px var(--pad) 0;
+}
+.ig-hero .ig-img:nth-child(2) img {
+  transition-delay: 0.25s;
+}
+.ig-stack {
+  position: relative;
+}
+.ig-stack > .ig-img {
+  position: absolute;
+  inset: 0;
+}
+.ig-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(65%, 460px);
+  transform: translate(-50%, calc(-50% + 24px));
+  opacity: 0;
+  padding: 36px 36px 32px;
+  background: var(--sand);
+  font-size: 15px;
+  line-height: 2.2;
+  letter-spacing: 0.12em;
+  transition: opacity 1.2s ease 0.4s, transform 1.4s cubic-bezier(0.2, 0.6, 0.2, 1) 0.4s;
+}
+.ig-card.is-in {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+.ig-card p {
+  margin: 0;
+  text-indent: 1em;
+}
+.ig-card p + p {
+  margin-top: 1.2em;
+}
+.ig-card--tall {
+  width: min(65%, 460px);
+}
+
+/* 縦書きの品書き */
+.ig-tate {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: 18px;
+  writing-mode: horizontal-tb;
+}
+.ig-tate li {
+  writing-mode: vertical-rl;
+  font-size: 19px;
+  letter-spacing: 0.24em;
+  line-height: 1;
+}
+.ig-tate__gap {
+  width: 20px;
+}
+
+/* お知らせ */
+.ig-news {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 140px calc(var(--pad) + 100px) 120px;
+  align-items: start;
+}
+.ig-news__h {
+  margin: 0;
+  font-family: var(--roman);
+  font-weight: 400;
+  font-size: 40px;
+  letter-spacing: 0.02em;
+}
+.ig-news ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ig-news li {
+  display: grid;
+  gap: 6px;
+  padding: 0 0 18px;
+}
+.ig-news li + li {
+  padding-top: 18px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 30%, transparent);
+}
+.ig-news time {
+  font-size: 13px;
+  color: var(--ink-2);
+  letter-spacing: 0.06em;
+}
+.ig-news a {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  padding-right: 64px;
+  position: relative;
+  display: block;
+  min-height: 24px;
+}
+.ig-news a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: var(--ink);
+  transition: width 0.4s ease;
+}
+.ig-news a:hover::after {
+  width: 56px;
+}
+
+/* 写真と文の段 */
+.ig-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  padding: 0 var(--pad);
+  margin-bottom: 170px;
+}
+.ig-text {
+  padding: 0 calc(100px + 0px) 0 120px;
+}
+.ig-row--rev .ig-text {
+  padding: 0 120px 0 120px;
+}
+.ig-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  margin-bottom: 0;
+}
+.ig-head__ja {
+  margin: 0;
+  writing-mode: vertical-rl;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: 0.18em;
+  line-height: 1.3;
+}
+.ig-head__en {
+  margin: -6px 0 0;
+  text-align: right;
+  font-family: var(--roman);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+.ig-head__line {
+  grid-column: 1 / -1;
+  justify-self: end;
+  position: relative;
+  width: 138px;
+  height: 10px;
+  margin: 110px 0 44px;
+}
+.ig-head__line::before,
+.ig-head__line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  background: var(--ink);
+  height: 1px;
+  transform-origin: right center;
+  transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1) 0.2s;
+}
+.ig-head__line::before {
+  bottom: 0;
+  width: 100%;
+  transform: scaleX(0);
+}
+.ig-head__line::after {
+  bottom: 0;
+  width: 40px;
+  transform: rotate(14deg) scaleX(0);
+}
+.ig-head.is-in .ig-head__line::before {
+  transform: scaleX(1);
+}
+.ig-head.is-in .ig-head__line::after {
+  transform: rotate(14deg) scaleX(1);
+  transition-delay: 0.9s;
+}
+.ig-head__ja,
+.ig-head__en {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.ig-head.is-in .ig-head__ja,
+.ig-head.is-in .ig-head__en {
+  opacity: 1;
+  transform: none;
+}
+.ig-head.is-in .ig-head__en {
+  transition-delay: 0.15s;
+}
+.ig-body {
+  font-size: 15px;
+  line-height: 2.25;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.2s ease 0.3s, transform 1.4s cubic-bezier(0.2, 0.6, 0.2, 1) 0.3s;
+}
+.ig-body.is-in {
+  opacity: 1;
+  transform: none;
+}
+.ig-body p {
+  margin: 0;
+  text-indent: 1em;
+}
+.ig-body p + p {
+  margin-top: 1.5em;
+}
+
+.ig-row--tsumugi {
+  align-items: center;
+}
+.ig-sq--sm {
+  width: 72%;
+  justify-self: end;
+}
+
+/* 2枚並び（ごはん） */
+.ig-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 var(--pad);
+  margin-bottom: 170px;
+}
+
+/* 下 */
+.ig-foot {
+  padding: 0 var(--pad) 32px;
+}
+.ig-foot__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px 56px;
+}
+.ig-foot__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.ig-foot__info {
+  padding: 0 0 0 160px;
+  font-size: 14px;
+  line-height: 2.1;
+  letter-spacing: 0.08em;
+}
+.ig-foot__info dl {
+  margin: 0 0 1.8em;
+}
+.ig-foot__info dl div {
+  display: grid;
+  grid-template-columns: 7em 1fr;
+}
+.ig-foot__info dt {
+  font-family: var(--roman);
+  font-size: 16px;
+}
+.ig-foot__info dd {
+  margin: 0;
+}
+.ig-foot__info p {
+  margin: 0 0 1.6em;
+}
+.ig-foot__links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 36px;
+  margin: 48px 0 0;
+  padding: 0;
+  color: var(--ink-2);
+}
+.ig-foot__links a {
+  display: inline-block;
+  padding: 10px 0;
+  text-underline-offset: 4px;
+}
+.ig-foot__c {
+  margin-top: 64px !important;
+  font-family: var(--roman);
+  font-size: 14px;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+/* スマホ */
+@media (max-width: 860px) {
+  .ig {
+    --pad: 16px;
+  }
+  .ig-bar {
+    padding: 12px 16px;
+  }
+  .ig-bar__r {
+    gap: 14px;
+  }
+  .ig-logo__en {
+    font-size: 28px;
+  }
+  .ig-logo__ja {
+    display: none;
+  }
+  .ig-bar .ig-reserve {
+    min-width: 0;
+    padding: 8px 14px 6px;
+    font-size: 16px;
+  }
+  .ig-menu-btn {
+    font-size: 17px;
+  }
+  .ig-hero,
+  .ig-pair {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+    padding-top: 8px;
+  }
+  .ig-hero > :nth-child(2) {
+    margin-bottom: 20px;
+  }
+  .ig-stack {
+    aspect-ratio: auto;
+    display: grid;
+  }
+  .ig-stack > .ig-img {
+    position: relative;
+    inset: auto;
+    aspect-ratio: auto;
+    min-height: calc(100vw - 32px);
+    height: 100%;
+    grid-area: 1 / 1;
+  }
+  .ig-card,
+  .ig-card--tall {
+    grid-area: 1 / 1;
+    position: relative;
+    left: auto;
+    top: auto;
+    align-self: center;
+    justify-self: center;
+    width: calc(100% - 48px);
+    transform: translateY(20px);
+    padding: 26px 22px 22px;
+    font-size: 14px;
+    line-height: 2.05;
+    letter-spacing: 0.08em;
+    margin: 64px 0;
+  }
+  .ig-card.is-in {
+    transform: none;
+  }
+  .ig-tate {
+    margin-top: 26px;
+  }
+  .ig-tate li {
+    font-size: 17px;
+  }
+  .ig-news {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 72px 20px 64px;
+  }
+  .ig-news__h {
+    font-size: 32px;
+  }
+  .ig-news a {
+    font-size: 14px;
+  }
+  .ig-row {
+    grid-template-columns: 1fr;
+    margin-bottom: 88px;
+  }
+  .ig-row--rev > .ig-img,
+  .ig-row--rev > .ig-sq {
+    order: 2;
+  }
+  .ig-text,
+  .ig-row--rev .ig-text {
+    padding: 0 4px;
+    margin: 0 0 32px;
+  }
+  .ig-row:not(.ig-row--rev) .ig-text {
+    margin: 32px 0 0;
+  }
+  .ig-head__ja {
+    font-size: 24px;
+  }
+  .ig-head__en {
+    font-size: 30px;
+  }
+  .ig-head__line {
+    width: 100px;
+    margin: 36px 0 30px;
+  }
+  .ig-body {
+    font-size: 14px;
+    line-height: 2.15;
+    letter-spacing: 0.08em;
+  }
+  .ig-sq--sm {
+    width: 100%;
+  }
+  .ig-pair {
+    margin-bottom: 88px;
+  }
+  .ig-foot__bar {
+    padding: 0 4px 28px;
+  }
+  .ig-foot__bar .ig-reserve {
+    min-width: 0;
+    font-size: 16px;
+    padding: 8px 14px 6px;
+  }
+  .ig-logo--lg .ig-logo__en {
+    font-size: 48px;
+  }
+  .ig-foot__grid {
+    grid-template-columns: 1fr;
+  }
+  .ig-foot__info {
+    padding: 36px 4px 0;
+    font-size: 13px;
+  }
+  .ig-foot__links {
+    gap: 4px 24px;
+    margin-top: 28px;
+  }
+  .ig-foot__c {
+    text-align: left;
+    margin-top: 36px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-img img,
+  .ig-card,
+  .ig-body,
+  .ig-head__ja,
+  .ig-head__en,
+  .ig-head__line::before,
+  .ig-head__line::after {
+    transition: none !important;
+  }
+}

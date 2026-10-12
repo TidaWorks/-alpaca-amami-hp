@@ -9,6 +9,7 @@ import AwFaq from "@/components/award/AwFaq";
 import AwForm from "@/components/award/AwForm";
 import AwSlip from "@/components/award/AwSlip";
 import AwServices, { type Service } from "@/components/award/AwServices";
+import AwSamples from "@/components/award/AwSamples";
 import { ByWorry, Co, IfEngaged, IfNamed, WorkNo } from "@/components/award/AwYou";
 import { SITE } from "@/lib/site";
 
@@ -272,10 +273,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 制作の見本（架空のお店3つ・10/13 大地さん） */}
+      <section className="aw-sec aw-samples" id="samples" aria-labelledby="aw-samples-h">
+        <div className="aw-wrap">
+          <SecHead n="02" id="aw-samples-h" title={<HandTitle text="Sample Sites" w={1060} fid="aw-hand-w5" />} />
+          <AwSamples />
+        </div>
+      </section>
+
       {/* よく聞く話（社長の言葉） */}
       <section className="aw-sec aw-voice" id="voice" aria-labelledby="aw-voice-h">
         <div className="aw-wrap">
-          <SecHead n="02" id="aw-voice-h" title={<HandTitle text="Sound familiar?" w={1180} fid="aw-hand-w2" />} />
+          <SecHead n="03" id="aw-voice-h" title={<HandTitle text="Sound familiar?" w={1180} fid="aw-hand-w2" />} />
           <ul className="aw-voice__list">
             {VOICES.map((v, i) => (
               <li key={i} className="aw-voice__q" data-voice>
@@ -293,7 +302,7 @@ export default function Home() {
       {/* 頼む理由 */}
       <section className="aw-sec aw-reason" id="reason" aria-labelledby="aw-reason-h">
         <div className="aw-wrap">
-          <SecHead n="03" id="aw-reason-h" title="ALPACAに頼む理由" />
+          <SecHead n="04" id="aw-reason-h" title="ALPACAに頼む理由" />
           <ul className="aw-reason__list">
             {REASONS.map((r) => (
               <li key={r.n} className="aw-reason__item">
@@ -321,7 +330,7 @@ export default function Home() {
             <div className="aw-about__mark" data-mark />
           </div>
           <div className="aw-about__body">
-            <SecHead n="04" id="aw-about-h" title="ALPACAについて" />
+            <SecHead n="05" id="aw-about-h" title="ALPACAについて" />
             <h3 className="aw-about__q" data-rise>
               {jp("これ、だれに聞けばいい？")}
             </h3>
@@ -352,7 +361,7 @@ export default function Home() {
       {/* よくある質問 */}
       <section className="aw-sec aw-faqsec" id="faq" aria-labelledby="aw-faq-h">
         <div className="aw-wrap aw-faqsec__in">
-          <SecHead n="05" id="aw-faq-h" title="よくある質問" />
+          <SecHead n="06" id="aw-faq-h" title="よくある質問" />
           <AwFaq items={FAQS.map((f) => ({ key: f.q, q: jp(f.q), a: jp(f.a) }))} />
         </div>
       </section>
@@ -362,7 +371,7 @@ export default function Home() {
       <section className="aw-contact" id="contact" aria-labelledby="aw-contact-h">
         <div className="aw-wrap">
           <p className="aw-contact__n" aria-hidden="true">
-            (06)
+            (07)
           </p>
           <h2 className="aw-contact__h" id="aw-contact-h">
             <span className="aw-nb">

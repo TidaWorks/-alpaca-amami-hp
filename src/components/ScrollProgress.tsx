@@ -17,7 +17,8 @@ export default function ScrollProgress() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname === "/") return null;
+  // 見本サイト（/samples）は別のお店の見た目なので出さない
+  if (pathname === "/" || pathname.startsWith("/samples")) return null;
 
   return (
     <div

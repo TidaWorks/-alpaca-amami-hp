@@ -3805,3 +3805,108 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 .aw-svc__more-box.is-open { animation: aw-svc-in 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
 /* 開いた中の最初の図解は、ボタンの線と二重にならないよう上の線と余白を詰める */
 .aw-svc__more-box > .aw-stg:first-child { margin-top: 0; border-top: 0; padding-top: clamp(24px, 3vw, 40px); }
+
+/* 制作の見本（架空のお店3つ・10/13） */
+.aw-smp__lead {
+  max-width: 40em;
+  margin-bottom: clamp(32px, 4vw, 56px) !important;
+  font-size: 15px;
+  color: var(--aw-sub);
+}
+.aw-smp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.4vw, 40px);
+}
+.aw-smp__a {
+  display: grid;
+  gap: 10px;
+}
+.aw-smp__shots {
+  position: relative;
+  display: block;
+  padding: 0 0 18px;
+}
+.aw-smp__pc {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--aw-line);
+  background: #fff;
+}
+.aw-smp__pc img,
+.aw-smp__sp img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.aw-smp__sp {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  width: 24%;
+  aspect-ratio: 1 / 2;
+  overflow: hidden;
+  border: 1px solid var(--aw-ink);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.aw-smp__a:hover .aw-smp__pc img {
+  transform: scale(1.03);
+}
+.aw-smp__a:hover .aw-smp__sp {
+  transform: translateY(-8px) rotate(-2deg);
+}
+.aw-smp__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--aw-mono), monospace;
+  font-size: 12px;
+  color: var(--aw-sub);
+}
+.aw-smp__k {
+  font-family: var(--aw-gothic), sans-serif;
+  color: var(--aw-shu);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.aw-smp__name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--aw-mincho), serif;
+  font-size: clamp(19px, 1.6vw, 24px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.aw-smp__open {
+  font-family: var(--aw-mono), monospace;
+  font-size: 15px;
+  transition: transform 0.4s ease;
+}
+.aw-smp__a:hover .aw-smp__open {
+  transform: translate(3px, -3px);
+}
+.aw-smp__d {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--aw-sub);
+}
+.aw-smp__fine {
+  margin-top: 28px !important;
+  font-size: 12px;
+  color: var(--aw-sub);
+}
+@media (max-width: 900px) {
+  .aw-smp {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
