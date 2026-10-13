@@ -35,6 +35,15 @@ export default function AwShowcase({ head }: { head?: React.ReactNode }) {
 
   useEffect(() => {
     setStill(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    // 見本から「ALPACA トップへ」で戻った時は、見ていた見本を出しておく（10/13 総チェック）
+    try {
+      const last = sessionStorage.getItem("aw-sc-last");
+      const i = SAMPLES.findIndex((x) => x.slug === last);
+      if (i >= 0) {
+        setCur(i);
+        setAuto(false);
+      }
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -85,7 +94,14 @@ export default function AwShowcase({ head }: { head?: React.ReactNode }) {
   return (
     <div ref={root} className={`aw-sc ${seen ? "is-in" : ""}`} onPointerEnter={() => setHeld(true)} onPointerLeave={() => setHeld(false)}>
       {/* 画面そのものを押すと、その見本サイトに入る（10/13 大地さん「タップしたら中に入る感じに」） */}
-      <a className="aw-sc__stage" href={`/samples/${s.slug}`} aria-label={`${s.k}の見本「${s.name}」に入る`}>
+      <a
+        className="aw-sc__stage"
+        href={`/samples/${s.slug}`}
+        onClick={() => {
+          try {
+            sessionStorage.setItem("aw-sc-last", s.slug);
+          } catch {}
+        }} aria-label={`${s.k}の見本「${s.name}」に入る`}>
         <div className="aw-sc__pc" aria-hidden="true">
           <span className="aw-sc__bar">
             <i />
