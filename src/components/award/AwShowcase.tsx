@@ -114,7 +114,7 @@ export default function AwShowcase({ head }: { head?: React.ReactNode }) {
             />
           </span>
         </div>
-        {/* 押せると分かる丸い札（10/13 大地さん「タップして開くとか入れた方がいい」・PCとスマホの枠の間） */}
+        {/* 押せると分かる薄い字。画面の真ん中でゆっくり点滅（10/13 大地さん） */}
         <span className="aw-sc__tap" aria-hidden="true">
           <span className="aw-sc__tap-touch">タップして<br />開く</span>
           <span className="aw-sc__tap-mouse">クリックして<br />開く</span>

@@ -3933,51 +3933,56 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   outline: 2px solid var(--aw-shu);
   outline-offset: 6px;
 }
-/* 押せると分かる丸い札。スマホ枠の左の縁に重ねる */
+/* 押せると分かる薄い字（10/13 大地さん「PC版の中央らへんにゆるーく点滅・薄い字で」）。PC画面の真ん中 */
 .aw-sc__tap {
   position: absolute;
   z-index: 3;
-  right: calc(23% - 54px);
-  bottom: 42%;
+  left: 46.5%;
+  top: 47%;
+  transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
-  background: var(--aw-ink);
-  color: var(--aw-paper);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.45;
-  letter-spacing: 0.06em;
-  text-align: center;
-  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.6);
-  transition:
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.6s ease 0.6s;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.32);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: aw-sc-tap 2.8s ease-in-out infinite;
 }
-.aw-sc__tap::after {
-  content: "";
-  position: absolute;
-  inset: -7px;
-  border: 1px solid var(--aw-shu);
-  border-radius: 50%;
+.aw-sc__tap br {
+  display: none;
 }
 .aw-sc__tap i {
   font-style: normal;
-  font-size: 15px;
-  line-height: 1;
-  color: var(--aw-shu);
 }
 .aw-sc__tap-mouse {
   display: none;
 }
+@keyframes aw-sc-tap {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 .aw-sc:not(.is-in) .aw-sc__tap {
+  animation: none;
   opacity: 0;
-  transform: scale(0.6);
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-sc__tap {
+    animation: none;
+    opacity: 0.7;
+  }
 }
 @media (hover: hover) and (pointer: fine) {
   .aw-sc__tap-touch {
@@ -3985,9 +3990,6 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   }
   .aw-sc__tap-mouse {
     display: block;
-  }
-  .aw-sc.is-in .aw-sc__stage:hover .aw-sc__tap {
-    transform: scale(1.08) rotate(-6deg);
   }
 }
 /* PCは乗せると枠が少し浮く */
@@ -4273,19 +4275,11 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
     border-radius: 11px;
   }
   .aw-sc__tap {
-    right: calc(30% - 39px);
-    bottom: 46%;
-    width: 78px;
-    height: 78px;
-    gap: 2px;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-  }
-  .aw-sc__tap::after {
-    inset: -5px;
-  }
-  .aw-sc__tap i {
-    font-size: 12px;
+    left: 45.5%;
+    top: 42%;
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
   }
   .aw-sc__bar b {
     display: none;
