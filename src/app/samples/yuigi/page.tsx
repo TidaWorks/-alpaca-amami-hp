@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./yuigi.css";
 import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
+import YuigiMotion from "./YuigiMotion";
 
 // 見本サイト③：奄美の工務店（架空）。お手本は はだしの家（並べ方と余白の物差しだけ・写真と文は全部こちらで作った）
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ function Label({ en, ja }: { en: string; ja?: string }) {
   );
 }
 
-function More({ href = "#contact", children = "View more" }: { href?: string; children?: React.ReactNode }) {
+function More({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a className="yg-more" href={href}>
       {children}
@@ -75,8 +76,22 @@ export default function YuigiPage() {
       <SampleNote bg="#2f2b27" fg="#efe9df" font="'Zen Kaku Gothic New', sans-serif" />
 
       {/* 背景を横切る細い線 */}
+      {/* スクロールに合わせて、左から風の線が引かれていく（幅は YuigiMotion が伸ばす） */}
       <svg className="yg-curve" viewBox="0 0 1440 4200" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M-40 900 C 380 760, 760 1080, 1480 820 M-40 2350 C 420 2140, 900 2620, 1480 2300 M-40 3500 C 500 3380, 980 3700, 1480 3460" />
+        <defs>
+          <clipPath id="yg-c1" clipPathUnits="userSpaceOnUse">
+            <rect className="yg-curve__clip" x="-60" y="600" width="0" height="600" />
+          </clipPath>
+          <clipPath id="yg-c2" clipPathUnits="userSpaceOnUse">
+            <rect className="yg-curve__clip" x="-60" y="2000" width="0" height="760" />
+          </clipPath>
+          <clipPath id="yg-c3" clipPathUnits="userSpaceOnUse">
+            <rect className="yg-curve__clip" x="-60" y="3250" width="0" height="560" />
+          </clipPath>
+        </defs>
+        <path clipPath="url(#yg-c1)" d="M-40 900 C 380 760, 760 1080, 1480 820" />
+        <path clipPath="url(#yg-c2)" d="M-40 2350 C 420 2140, 900 2620, 1480 2300" />
+        <path clipPath="url(#yg-c3)" d="M-40 3500 C 500 3380, 980 3700, 1480 3460" />
       </svg>
 
       <header className="yg-bar">
@@ -121,7 +136,7 @@ export default function YuigiPage() {
             <p>
               結木工務店は、奄美大島で木の家を建てている小さな工務店です。大工が三人、設計が一人。夏の湿気と秋の台風を知っている者どうしで、一棟ずつ図面を描き、自分たちの手で建てています。
             </p>
-            <More />
+            <More href="#case">施工例を見る</More>
           </div>
         </section>
 
@@ -147,7 +162,6 @@ export default function YuigiPage() {
 
         <section className="yg-brand" aria-labelledby="yg-brand-h">
           <div className="yg-brand__head" data-rv>
-            <p className="yg-brand__n">01</p>
             <p className="yg-brand__en">HIRAYA</p>
             <h2 id="yg-brand-h" className="yg-brand__ja">
               島の平屋
@@ -159,9 +173,17 @@ export default function YuigiPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`${IMG}/living.webp`} alt="庭に向けて引き戸を開けはなした居間" loading="lazy" />
               <p>
-                屋根を低く、軒を深く。強い日ざしと雨をよけながら、引き戸を開ければ庭までひと続きになる平屋です。三十坪前後から、暮らし方に合わせて間取りをご提案します。
+                屋根を低く、軒を深く。強い日ざしと雨をよけながら、引き戸を開ければ庭まで
+                <span className="yg-nw" data-nowrap>
+                  ひと続きになる
+                </span>
+                平屋です。三十坪前後から、
+                <span className="yg-nw" data-nowrap>
+                  暮らし方に
+                </span>
+                合わせて間取りをご提案します。
               </p>
-              <More />
+              <More href="#contact">平屋の相談をする</More>
             </div>
             <Ph src="hero" alt="" className="yg-brand__side yg-brand__side--r" />
           </div>
@@ -179,7 +201,7 @@ export default function YuigiPage() {
           <ul className="yg-case__grid">
             {CASES.map((c) => (
               <li key={c.src} data-rv>
-                <a href="#case" className="yg-case__a">
+                <div className="yg-case__a">
                   <span className="yg-case__img">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={`${IMG}/${c.src}.webp`} alt="" loading="lazy" />
@@ -189,13 +211,11 @@ export default function YuigiPage() {
                     <span>新築</span>
                   </span>
                   <span className="yg-case__t">{c.t}</span>
-                </a>
+                </div>
               </li>
             ))}
           </ul>
-          <div className="yg-case__more">
-            <More href="#case" />
-          </div>
+          <p className="yg-case__more">ほかの施工例は、見学会や打ち合わせの時に写真でお見せしています。</p>
         </section>
 
         <div className="yg-wide" aria-hidden="true">
@@ -212,35 +232,39 @@ export default function YuigiPage() {
           </div>
           <ul>
             <li data-rv>
-              <a href="#news">
+              <div className="yg-news__row">
                 <span>龍郷町「軒の深い平屋」の施工例を載せました</span>
                 <time dateTime="2026-10-02">2026.10.02</time>
-              </a>
+              </div>
             </li>
             <li data-rv>
-              <a href="#news">
+              <div className="yg-news__row">
                 <span>台風のあとの無料点検を受け付けています</span>
                 <time dateTime="2026-09-18">2026.09.18</time>
-              </a>
+              </div>
             </li>
             <li data-rv>
-              <a href="#news">
+              <div className="yg-news__row">
                 <span>11月の土日に、完成見学会をひらきます</span>
                 <time dateTime="2026-09-05">2026.09.05</time>
-              </a>
+              </div>
             </li>
           </ul>
         </section>
 
         <section className="yg-contact" id="contact" aria-labelledby="yg-contact-h">
-          <p className="yg-contact__small">Go to Contact Form</p>
-          <a href="#contact" className="yg-contact__big" id="yg-contact-h">
+          <p className="yg-contact__small">Call us</p>
+          <a href="tel:0997000000" className="yg-contact__big" id="yg-contact-h">
             Get in Touch
             <span aria-hidden="true" className="yg-contact__ring">
-              ↗
+              <span className="yg-contact__arrow">↗</span>
             </span>
           </a>
-          <p className="yg-contact__ja">家づくりのご相談、見学会のお申し込みはこちら</p>
+          <p className="yg-contact__ja">家づくりのご相談、見学会のお申し込みは、お電話で承ります。</p>
+          <a href="tel:0997000000" className="yg-contact__tel">
+            <small>tel</small>0997-00-0000
+          </a>
+          <p className="yg-contact__hours">受付 8:00〜17:00（日曜休み）</p>
         </section>
       </main>
 
@@ -253,7 +277,16 @@ export default function YuigiPage() {
           <p>
             鹿児島県奄美市（見本のため住所は架空です）
             <br />
-            tel 0997-00-0000 ／ 8:00〜17:00（日曜休み）
+            <a
+              className="yg-foot__map"
+              href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%B8%82"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              地図を開く（見本）
+            </a>
+            <br />
+            <a href="tel:0997000000" className="yg-foot__tel">tel 0997-00-0000</a> ／ 8:00〜17:00（日曜休み）
           </p>
         </div>
         <ul className="yg-foot__nav">
@@ -276,6 +309,7 @@ export default function YuigiPage() {
         <p className="yg-foot__c">© 2026 Yuigi Komuten — sample site by ALPACA</p>
       </footer>
       <Reveal />
+      <YuigiMotion />
     </div>
   );
 }

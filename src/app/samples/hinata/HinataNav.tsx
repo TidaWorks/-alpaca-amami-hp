@@ -55,6 +55,12 @@ export default function HinataNav() {
         <a className="hn-nav__order" href="#order" onClick={() => setOpen(false)}>
           ご注文
         </a>
+        {/* スマホ・タブレットだけ：押すとそのまま電話 */}
+        <a className="hn-nav__tel" href="tel:0997000000" aria-label="電話で注文する 0997-00-0000">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
+          </svg>
+        </a>
       </div>
       <ul id="hn-nav-sheet" className={`hn-nav__sheet ${open ? "is-open" : ""}`} hidden={!open}>
         {LINKS.map((l) => (

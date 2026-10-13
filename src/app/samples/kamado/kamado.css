@@ -70,7 +70,7 @@
 /* 文字の入り */
 .km-title,
 .km-concept__lead,
-.km-concept__body,
+.km-concept__body p,
 .km-list,
 .km-shochu__body,
 .km-room__head > p,
@@ -84,7 +84,7 @@
 }
 .km .is-in.km-title,
 .km .is-in.km-concept__lead,
-.km .is-in.km-concept__body,
+.km-concept__body p.is-in,
 .km .is-in.km-list,
 .km .is-in.km-shochu__body,
 .km-room__head > p.is-in,
@@ -98,8 +98,19 @@
 .km-concept__lead {
   transition-delay: 0.15s;
 }
-.km-concept__body {
-  transition-delay: 0.3s;
+.km-concept__body p {
+  transition-delay: 0.2s;
+}
+/* 品書きの行は、表が出たあと1行ずつ遅らせて出す */
+.km-list li {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s ease, transform 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: calc(0.35s + var(--i, 0) * 0.08s);
+}
+.km-list.is-in li {
+  opacity: 1;
+  transform: none;
 }
 
 /* 見出し：ローマン体の大きな語と、小さな日本語 */
@@ -116,7 +127,7 @@
 }
 .km-title__ja {
   margin: 10px 0 0;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.3em;
   color: var(--ink-2);
@@ -345,12 +356,19 @@
   place-items: center;
   background: var(--paper);
   opacity: 0;
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
   overflow-y: auto;
   padding: 80px 24px 40px;
 }
 .km-menu.is-open {
   opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease;
+}
+/* スマホで付いてくる電話ボタン（PC では出さない） */
+.km-telfab {
+  display: none;
 }
 .km-menu nav {
   display: flex;
@@ -365,7 +383,7 @@
 }
 .km-menu__logo small {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.5em;
   margin-bottom: 10px;
 }
@@ -389,7 +407,7 @@
   min-width: 5.2em;
 }
 .km-menu__ja {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.24em;
   color: var(--ink-2);
 }
@@ -399,7 +417,7 @@
   position: relative;
   color: #f6f3ec;
   background: #5b5345;
-  padding: 0 0 520px;
+  padding: 0 0 380px; /* 下端の空きを詰める（10/13 総チェック 7） */
 }
 .km-concept__bg {
   position: absolute;
@@ -462,19 +480,19 @@
   width: 23vw;
   aspect-ratio: 4 / 5;
   left: 0;
-  bottom: 300px;
+  bottom: 180px;
 }
 .km-scat--4 {
   width: 12vw;
   aspect-ratio: 3 / 4;
   right: 22vw;
-  bottom: 200px;
+  bottom: 110px;
 }
 
 /* 品書き */
 .km-menu-sec {
   position: relative;
-  padding: 220px 0 200px;
+  padding: 220px 0 100px;
   background:
     radial-gradient(1200px 600px at 85% 10%, rgba(214, 205, 182, 0.22), transparent 70%),
     radial-gradient(900px 600px at 5% 70%, rgba(214, 205, 182, 0.2), transparent 70%), var(--paper);
@@ -853,8 +871,36 @@
   .km-mbtn.is-top {
     top: 66px;
   }
-  .km-scat {
+  .km-scat,
+  .km-dish .km-pic,
+  .km-shochu__pic {
     translate: none;
+  }
+  .km-telfab {
+    position: fixed;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 62;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 24px;
+    background: var(--olive);
+    color: #f4f1ea !important;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(30, 28, 20, 0.25);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .km-telfab.is-shown {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
   .km-head {
     padding: 16px 20px 0;
@@ -871,13 +917,17 @@
     margin-top: 60px;
   }
   .km-logo small {
-    font-size: 11px;
+    font-size: 12px;
+  }
+  .km-list__note,
+  .km-foot__note {
+    font-size: 14px;
   }
   .km-logo span {
     font-size: 46px;
   }
   .km-hero__copy {
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.26em;
     margin-top: 22px;
   }
@@ -898,7 +948,7 @@
     margin-bottom: 56px;
   }
   .km-concept__body p {
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.12em;
     line-height: 2.5;
   }
@@ -989,7 +1039,7 @@
     padding: 130px 20px 120px;
   }
   .km-shochu__body p {
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.12em;
   }
   .km-shochu__lead {
@@ -1008,7 +1058,7 @@
     padding: 0 20px 48px;
   }
   .km-room__head > p {
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.14em;
   }
   .km-room__strip {
@@ -1037,7 +1087,7 @@
   }
   .km-news a {
     padding: 4px 0 18px;
-    font-size: 13px;
+    font-size: 14px;
   }
   .km-foot {
     padding-top: 120px;
@@ -1054,7 +1104,7 @@
     padding: 20px 20px 0;
   }
   .km-foot dl {
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.08em;
   }
   .km-foot dl > div {
@@ -1075,7 +1125,8 @@
   .km-pic img,
   .km-title,
   .km-concept__lead,
-  .km-concept__body,
+  .km-concept__body p,
+  .km-list li,
   .km-list,
   .km-shochu__body,
   .km-room__head > p,

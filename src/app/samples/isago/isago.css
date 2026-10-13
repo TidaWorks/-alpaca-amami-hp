@@ -41,6 +41,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px calc(var(--pad) + 16px);
+}
+/* ぼかしは疑似要素に置く（帯そのものに backdrop-filter を付けると、中の全画面メニューが帯の高さに閉じこめられる） */
+.ig-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--sand) 88%, transparent);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -54,6 +61,8 @@
   display: inline-flex;
   align-items: baseline;
   gap: 12px;
+  min-height: 44px;
+  padding-top: 8px;
   text-decoration: none;
   line-height: 1;
 }
@@ -66,7 +75,7 @@
   margin-right: -0.34em;
 }
 .ig-logo__ja {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.4em;
   color: var(--ink-2);
 }
@@ -107,6 +116,17 @@
   stroke: var(--ink);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ig-draw 2.2s cubic-bezier(0.5, 0, 0.3, 1) 0.6s forwards;
+}
+@keyframes ig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.ig-reserve:hover path {
+  stroke: var(--ink);
 }
 .ig-reserve:hover {
   background: var(--ink);
@@ -159,10 +179,17 @@
   place-items: center;
   background: var(--sand);
   opacity: 0;
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
 .ig-menu.is-open {
   opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0s;
+}
+.ig-menu .ig-reserve path {
+  animation: none;
+  stroke-dashoffset: 0;
 }
 .ig-menu ul {
   list-style: none;
@@ -222,6 +249,17 @@
 }
 
 /* 一番上の4枚 */
+.ig-drift.is-in img {
+  animation: ig-drift 14s cubic-bezier(0.3, 0, 0.4, 1) 2.4s forwards;
+}
+@keyframes ig-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
 .ig-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -269,26 +307,31 @@
 
 /* 縦書きの品書き */
 .ig-tate {
-  list-style: none;
-  margin: 40px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-  gap: 18px;
-  writing-mode: horizontal-tb;
-}
-.ig-tate li {
+  margin: 32px 0 0 auto;
+  width: fit-content;
   writing-mode: vertical-rl;
-  font-size: 19px;
+  font-weight: 500;
+  font-size: 22px;
   letter-spacing: 0.24em;
   line-height: 1;
 }
-.ig-tate__gap {
-  width: 20px;
-}
 
-/* お知らせ */
+/* お知らせ：見出しと2行を下から順に出す */
+.ig-news [data-rv] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.1s ease, transform 1.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.ig-news [data-rv].is-in {
+  opacity: 1;
+  transform: none;
+}
+.ig-news li:nth-child(1) {
+  transition-delay: 0.15s;
+}
+.ig-news li:nth-child(2) {
+  transition-delay: 0.3s;
+}
 .ig-news {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -492,11 +535,52 @@
 }
 .ig-foot__info dl div {
   display: grid;
-  grid-template-columns: 7em 1fr;
+  grid-template-columns: 7.5em 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 30%, transparent);
 }
 .ig-foot__info dt {
+  color: var(--ink-2);
+}
+.ig-tel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 2px 18px;
+  min-height: 64px;
+  padding: 14px 22px;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.ig-tel:hover {
+  background: var(--ink);
+  color: var(--sand);
+}
+.ig-tel__l {
+  font-size: 15px;
+  letter-spacing: 0.14em;
+}
+.ig-tel__n {
   font-family: var(--roman);
-  font-size: 16px;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  justify-self: end;
+}
+.ig-tel__h {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.ig-tel:hover .ig-tel__h {
+  color: inherit;
+}
+.ig-nowrap {
+  white-space: nowrap;
+}
+.ig-nobr {
+  display: inline-block;
 }
 .ig-foot__info dd {
   margin: 0;
@@ -513,10 +597,8 @@
   padding: 0;
   color: var(--ink-2);
 }
-.ig-foot__links a {
-  display: inline-block;
+.ig-foot__links li {
   padding: 10px 0;
-  text-underline-offset: 4px;
 }
 .ig-foot__c {
   margin-top: 64px !important;
@@ -551,51 +633,56 @@
   .ig-menu-btn {
     font-size: 17px;
   }
-  .ig-hero,
+  /* 一番上：写真4枚を2列に並べ、すき間をそろえる。文の札は写真の下 */
+  .ig-hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding-top: 8px;
+  }
+  .ig-stack--hero {
+    display: contents;
+  }
+  .ig-stack--hero > .ig-img {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 1 / 1;
+  }
   .ig-pair {
     grid-template-columns: 1fr;
     row-gap: 0;
     padding-top: 8px;
   }
-  .ig-hero > :nth-child(2) {
-    margin-bottom: 20px;
+  .ig-pair > .ig-img {
+    margin-bottom: 6px;
   }
-  .ig-stack {
+  .ig-stack--table {
     aspect-ratio: auto;
-    display: grid;
   }
-  .ig-stack > .ig-img {
+  .ig-stack--table > .ig-img {
     position: relative;
     inset: auto;
-    aspect-ratio: auto;
-    min-height: calc(100vw - 32px);
-    height: 100%;
-    grid-area: 1 / 1;
+    aspect-ratio: 1 / 1;
   }
   .ig-card,
   .ig-card--tall {
-    grid-area: 1 / 1;
+    grid-column: 1 / -1;
     position: relative;
     left: auto;
     top: auto;
-    align-self: center;
-    justify-self: center;
-    width: calc(100% - 48px);
+    width: auto;
     transform: translateY(20px);
-    padding: 26px 22px 22px;
+    padding: 36px 8px 0;
     font-size: 14px;
     line-height: 2.05;
     letter-spacing: 0.08em;
-    margin: 64px 0;
+    background: none;
   }
   .ig-card.is-in {
     transform: none;
   }
   .ig-tate {
-    margin-top: 26px;
-  }
-  .ig-tate li {
-    font-size: 17px;
+    margin-top: 24px;
+    font-size: 19px;
   }
   .ig-news {
     grid-template-columns: 1fr;
@@ -661,7 +748,16 @@
   }
   .ig-foot__info {
     padding: 36px 4px 0;
-    font-size: 13px;
+    font-size: 14px;
+  }
+  .ig-foot__info dl div {
+    grid-template-columns: 6em 1fr;
+  }
+  .ig-tel {
+    grid-template-columns: 1fr;
+  }
+  .ig-tel__n {
+    justify-self: start;
   }
   .ig-foot__links {
     gap: 4px 24px;
@@ -674,6 +770,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ig-reserve path,
+  .ig-drift.is-in img {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  .ig-menu,
+  .ig-news [data-rv],
   .ig-img img,
   .ig-card,
   .ig-body,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import "./kamado.css";
 import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
@@ -88,11 +89,12 @@ export default function KamadoPage() {
           </div>
           <header className="km-head">
             <nav className="km-head__nav" aria-label="ページ内の案内">
+              {/* ページの順にそろえる（10/13 総チェック） */}
               <a href="#concept">Concept</a>
-              <a href="#news">News</a>
               <a href="#menu">Menu</a>
-              <a href="#room">Room</a>
               <a href="#shochu">Shochu</a>
+              <a href="#room">Room</a>
+              <a href="#news">News</a>
               <a href="#access">Access</a>
             </nav>
             <a className="km-btn" href="tel:0997000000">
@@ -127,8 +129,9 @@ export default function KamadoPage() {
             <p className="km-concept__lead" data-rv>
               島でとれた物を、島のやり方で。
             </p>
-            <div className="km-concept__body" data-rv>
-              <p>
+            {/* 段落ごとに、画面に入ったら1つずつ出す */}
+            <div className="km-concept__body">
+              <p data-rv>
                 朝、港に揚がった魚と、
                 <br />
                 近くの畑でとれた島らっきょう。
@@ -137,15 +140,15 @@ export default function KamadoPage() {
                 <br className="km-sp" />
                 朝から炊いてとります。
               </p>
-              <p>
+              <p data-rv>
                 味つけは、この島の台所で
                 <br />
                 昔から作られてきたやり方にならいました。
               </p>
-              <p>
+              <p data-rv>
                 店の奥のかまどで、毎朝ご飯を炊いています。
                 <br />
-                昼は定食を、夜は島料理と黒糖焼酎を。
+                昼も夜も、そのご飯をお出しします。
               </p>
             </div>
           </div>
@@ -167,8 +170,8 @@ export default function KamadoPage() {
                   昼の定食<span>11:30〜14:00</span>
                 </h3>
                 <ul>
-                  {LUNCH.map((m) => (
-                    <li key={m.name}>
+                  {LUNCH.map((m, i) => (
+                    <li key={m.name} style={{ "--i": i } as CSSProperties}>
                       <span className="km-list__name">
                         {m.name}
                         <small>{m.note}</small>
@@ -188,8 +191,8 @@ export default function KamadoPage() {
                 夜の品書き<span>18:00〜22:00</span>
               </h3>
               <ul>
-                {DINNER.map((m) => (
-                  <li key={m.name}>
+                {DINNER.map((m, i) => (
+                  <li key={m.name} style={{ "--i": i } as CSSProperties}>
                     <span className="km-list__name">{m.name}</span>
                     <span className="km-list__price">{m.price}</span>
                   </li>
@@ -204,7 +207,7 @@ export default function KamadoPage() {
             <ul className="km-dishes">
               {DISHES.map((d, i) => (
                 <li key={d.src} className={`km-dish km-dish--${i + 1}`}>
-                  <Pic src={d.src} alt={d.alt} />
+                  <Pic src={d.src} alt={d.alt} drift={[0.06, 0.12, 0.09, 0.15][i]} />
                   <p data-rv>{d.name}</p>
                 </li>
               ))}
@@ -234,7 +237,7 @@ export default function KamadoPage() {
                 <p className="km-shochu__price">一杯 600円から（見本）</p>
               </div>
             </div>
-            <Pic src="shochu" alt="厚いグラスに注いだ黒糖焼酎と、黒糖の小皿" className="km-shochu__pic" />
+            <Pic src="shochu" alt="厚いグラスに注いだ黒糖焼酎と、黒糖の小皿" className="km-shochu__pic" drift={0.08} />
           </div>
         </section>
 
@@ -279,7 +282,7 @@ export default function KamadoPage() {
       {/* ご案内 */}
       <footer className="km-foot" id="access" aria-labelledby="km-access-h">
         <div className="km-foot__grid">
-          <Pic src="entrance2" alt="のれんの掛かった店の入口と鉢植え" className="km-foot__pic" />
+          <Pic src="entrance" alt="赤瓦の屋根の下、のれんを掛けた店の入口と石段" className="km-foot__pic" />
           <div className="km-foot__info">
             <Title en="Access" ja="ご案内" id="km-access-h" />
             <dl data-rv>
@@ -289,7 +292,15 @@ export default function KamadoPage() {
               </div>
               <div>
                 <dt>住所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>鹿児島県奄美市（見本のため架空）</dd>
+              </div>
+              <div>
+                <dt>地図</dt>
+                <dd>地図を開く（見本）</dd>
+              </div>
+              <div>
+                <dt>駐車場</dt>
+                <dd>店の横に2台（見本）</dd>
               </div>
               <div>
                 <dt>電話</dt>
@@ -307,7 +318,11 @@ export default function KamadoPage() {
               </div>
               <div>
                 <dt>定休日</dt>
-                <dd>水曜日</dd>
+                <dd>
+                  水曜日
+                  <br />
+                  十月は 10月19日（月）・20日（火）もお休みします
+                </dd>
               </div>
               <div>
                 <dt>席</dt>

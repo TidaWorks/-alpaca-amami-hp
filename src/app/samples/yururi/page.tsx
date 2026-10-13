@@ -4,6 +4,7 @@ import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
 import YururiMenu from "./YururiMenu";
 import { YR_LINKS } from "./links";
+import YururiMotion from "./YururiMotion";
 
 // 見本サイト：奄美市の町の整骨院（架空）。お手本は 桔梗が丘整骨院（並べ方・余白・写真の散らし方の物差しだけ・写真と文は全部こちらで作った）
 // 医療の広告の決まりに合わせて、効果・体験談・比較・順位は書かない
@@ -94,9 +95,17 @@ const FLOW = [
 ];
 
 const PRICE = [
-  { h: "保険での施術", note: "けがによる痛み（ねんざ・打撲・肉ばなれなど）", rows: [["自己負担", "保険証の割合による"]] },
-  { h: "はじめての方の問診と施術", note: "お話と確認に時間をとります", rows: [["約60分", "4,400円"]] },
-  { h: "ほぐし整体", note: "保険の対象にならない肩や腰のこわばりに", rows: [["30分", "3,300円"], ["60分", "5,500円"]] },
+  {
+    h: "保険での施術",
+    note: "けがによる痛み（ねんざ・打撲・肉ばなれなど）。はじめての方も、こちらの料金です",
+    rows: [["自己負担", "保険証の割合による"]],
+  },
+  {
+    h: "保険外：はじめての方の問診と施術",
+    note: "保険の対象にならない痛みやこわばりで、はじめて来られた方。お話と確認に時間をとります",
+    rows: [["約60分", "4,400円"]],
+  },
+  { h: "保険外：ほぐし整体", note: "保険の対象にならない肩や腰のこわばりに", rows: [["30分", "3,300円"], ["60分", "5,500円"]] },
   { h: "テーピング", note: "施術のあと、ご希望があれば", rows: [["1か所", "550円"]] },
 ];
 
@@ -133,7 +142,7 @@ export default function YururiPage() {
           <p>
             仕事帰りに寄れるよう、
             <br />
-            平日の夜は七時半まで
+            月・火・水・金は夜七時半まで
             <br />
             受け付けています。
           </p>
@@ -177,13 +186,9 @@ export default function YururiPage() {
         {/* はじめに：小さな写真を散らして、まん中に縦書き */}
         <section className="yr-intro" aria-labelledby="yr-intro-h">
           <div className="yr-float" aria-hidden="true">
-            <Pic src="hands-wrist" alt="" className="yr-f yr-f1" />
-            <Pic src="towels" alt="" className="yr-f yr-f2" />
-            <Pic src="hands-shoulder-c" alt="" className="yr-f yr-f3" />
-            <Pic src="leaves" alt="" className="yr-f yr-f4" />
-            <Pic src="reception" alt="" className="yr-f yr-f5" />
-            <Pic src="hands-ankle" alt="" className="yr-f yr-f6" />
-            <Pic src="entrance" alt="" className="yr-f yr-f7" />
+            <Pic src="entrance" alt="" className="yr-f yr-f1" />
+            <Pic src="leaves" alt="" className="yr-f yr-f3" />
+            <Pic src="reception" alt="" className="yr-f yr-f6" />
           </div>
           <div className="yr-intro__tate" data-rv>
             <h2 id="yr-intro-h">
@@ -258,19 +263,20 @@ export default function YururiPage() {
               いま何をしているのかを、そのつどお話しします。
             </p>
           </div>
-          <Pic src="towels" alt="棚に重ねた白とベージュのタオル" className="yr-cap yr-about__r" />
+          <Pic src="hands-shoulder" alt="肩に手を当てて、こわばりを確かめているところ" className="yr-cap yr-about__r" />
           <Wash className="yr-wash--d" />
         </section>
 
         {/* 施術の流れ */}
         <section className="yr-flow" id="yr-flow" aria-labelledby="yr-flow-h">
           <Head en="Flow" ja="施術の流れ" id="yr-flow-h" />
-          <ol className="yr-flow__list">
+          {/* 点線を左から（スマホは上から）引き、01〜04 を順に出す */}
+          <ol className="yr-flow__list" data-rv>
             {FLOW.map((f, i) => (
-              <li key={f.n} data-rv style={{ transitionDelay: `${i * 0.12}s` }}>
+              <li key={f.n} data-rv style={{ "--i": i } as React.CSSProperties}>
                 <span className="yr-num" aria-hidden="true">
                   <svg viewBox="0 0 60 60">
-                    <path d="M31 4 C 47 4, 57 15, 56 31 C 55 47, 44 57, 29 56 C 13 55, 4 45, 5 29 C 6 14, 16 4, 31 4 Z" />
+                    <path pathLength={1} d="M31 4 C 47 4, 57 15, 56 31 C 55 47, 44 57, 29 56 C 13 55, 4 45, 5 29 C 6 14, 16 4, 31 4 Z" />
                   </svg>
                   {f.n}
                 </span>
@@ -305,6 +311,8 @@ export default function YururiPage() {
             </dl>
             <p className="yr-price__memo" data-rv>
               料金は税込です。いずれも見本のための架空の料金です。
+              <br />
+              保険が使えるかどうかは、お話を聞いたうえで、施術の前にお伝えします。
             </p>
           </div>
           <aside className="yr-price__card" data-rv aria-labelledby="yr-ins-h">
@@ -318,7 +326,6 @@ export default function YururiPage() {
             <p>
               毎日の疲れや、はっきりした原因のない肩こりは、保険の対象になりません。どちらに当たるかは、お話を聞いたうえで受付でご説明します。
             </p>
-            <Pic src="reception" alt="木の受付台と、葉の付いた枝を挿した小さな花瓶" className="yr-price__pic" />
           </aside>
         </section>
 
@@ -395,8 +402,8 @@ export default function YururiPage() {
                 <thead>
                   <tr>
                     <th scope="col">受付時間</th>
-                    {DAYS.map((d) => (
-                      <th scope="col" key={d}>
+                    {DAYS.map((d, i) => (
+                      <th scope="col" key={d} data-col={i}>
                         {d}
                       </th>
                     ))}
@@ -408,8 +415,19 @@ export default function YururiPage() {
                       9:00<span>〜</span>12:30
                     </th>
                     {AM.map((m, i) => (
-                      <td key={i} className={m === "休" ? "is-off" : ""}>
-                        {m === "休" ? "休" : <span className="yr-dot" aria-label="受付" />}
+                      <td key={i} data-col={i} className={m === "休" ? "is-off" : ""}>
+                        {m === "休" ? (
+                          "休"
+                        ) : i === 5 ? (
+                          <>
+                            <span className="yr-dot" aria-label="受付（13:00まで）" />
+                            <sup className="yr-kome" aria-hidden="true">
+                              ※
+                            </sup>
+                          </>
+                        ) : (
+                          <span className="yr-dot" aria-label="受付" />
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -418,7 +436,7 @@ export default function YururiPage() {
                       15:00<span>〜</span>19:30
                     </th>
                     {PM.map((m, i) => (
-                      <td key={i} className={m === "休" ? "is-off" : ""}>
+                      <td key={i} data-col={i} className={m === "休" ? "is-off" : ""}>
                         {m === "休" ? "休" : <span className="yr-dot" aria-label="受付" />}
                       </td>
                     ))}
@@ -427,14 +445,40 @@ export default function YururiPage() {
               </table>
             </div>
             <ul className="yr-info__notes" data-rv>
-              <li>土曜日は 9:00〜13:00 の受付です。</li>
+              <li>※土曜日の午前は 9:00〜13:00 の受付です。</li>
               <li>休み　木曜の午後・土曜の午後・日曜・祝日</li>
-              <li>予約なしでも受け付けます。電話をいただくと、お待たせせずにご案内できます。</li>
+              <li>
+                予約なしでも受け付けます。電話をいただくと、
+                <span className="yr-nw" data-nowrap>
+                  お待たせせずに
+                </span>
+                ご案内できます。
+              </li>
             </ul>
           </div>
 
           <div className="yr-info__panel">
-            <Pic src="leaves" alt="白い壁に映る、大きな葉の影" className="yr-info__bg" />
+            <div className="yr-map" data-rv>
+              {/* 地図の代わりの、道と目印の簡単な図（見本） */}
+              <svg viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <path className="yr-map__road yr-map__road--main" d="M-20 250 C 180 230, 320 280, 520 240 S 760 190, 820 210" />
+                <path className="yr-map__road" d="M300 -20 C 310 90, 280 180, 330 400" />
+                <path className="yr-map__road" d="M560 -20 C 540 80, 600 160, 590 400" />
+                <path className="yr-map__road yr-map__road--thin" d="M-20 110 C 120 120, 220 90, 300 100" />
+                <path className="yr-map__road yr-map__road--thin" d="M590 120 C 660 130, 740 100, 820 110" />
+                <circle className="yr-map__pin-ring" cx="430" cy="206" r="26" />
+                <path className="yr-map__pin" d="M430 168 c -14 0 -24 10 -24 23 c 0 17 24 37 24 37 s 24 -20 24 -37 c 0 -13 -10 -23 -24 -23 z" />
+                <circle cx="430" cy="191" r="7" fill="#fff" />
+              </svg>
+              <a
+                className="yr-map__link"
+                href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%B8%82"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                地図を開く（見本）
+              </a>
+            </div>
             <div className="yr-info__card" data-rv>
               <p className="yr-info__name">ゆるり整骨院</p>
               <p className="yr-info__sub">yururi seikotsuin</p>
@@ -444,6 +488,7 @@ export default function YururiPage() {
                 （見本のため住所は架空です）
               </p>
               <p>院の前に駐車場が2台分あります。</p>
+              <p>受付 9:00〜12:30／15:00〜19:30</p>
               <a className="yr-tel" href="tel:0997000000">
                 <small>tel</small>0997-00-0000
               </a>
@@ -464,7 +509,18 @@ export default function YururiPage() {
         </p>
         <p className="yr-foot__c">(c) 2026 yururi seikotsuin / sample site by ALPACA</p>
       </footer>
+      {/* スマホで画面の下に付いてくる電話ボタン */}
+      <a className="yr-call" href="tel:0997000000">
+        <span className="yr-call__ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
+          </svg>
+        </span>
+        電話で予約する
+        <small>0997-00-0000</small>
+      </a>
       <Reveal />
+      <YururiMotion />
     </div>
   );
 }

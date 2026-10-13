@@ -1,9 +1,9 @@
-/* 見本サイト hair room nagi（奄美市名瀬・三席の美容室）。生成りの地に、小さく字間の広い文字 */
+/* 見本サイト hair room soyo（奄美市名瀬・三席の美容室）。生成りの地に、小さく字間の広い文字 */
 .ng {
   --bg: #eeebe5;
   --bg-2: #e6e1d9;
   --ink: #3b3733;
-  --ink-2: #77706a;
+  --ink-2: #655e57;
   --line: #c4bdb3;
   --skin: #e9ddd0;
   --pad: clamp(16px, 5.8vw, 84px);
@@ -196,7 +196,7 @@
   letter-spacing: 0.04em;
 }
 .ng-menu__ja {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--ink-2);
 }
@@ -217,7 +217,7 @@
   font-weight: 300;
 }
 .ng-txt {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 2.3;
   letter-spacing: 0.14em;
   margin-top: 40px;
@@ -269,7 +269,7 @@
   border-bottom: 1px solid var(--line);
 }
 .ng-sec-h__note {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--ink-2);
 }
@@ -293,6 +293,15 @@
 .ng-img.is-in img {
   opacity: 1;
   transform: scale(1);
+}
+/* 大きい写真：スクロールに合わせてゆっくり縦にずらす（上下 4% ずつ・--drift は Drift.tsx が渡す） */
+.ng-hero__img img,
+.ng-band__img img {
+  position: absolute;
+  inset: -6% 0 auto;
+  height: 112%;
+  translate: 0 calc(var(--drift, 0) * 4%);
+  will-change: translate;
 }
 .ng [data-rv]:not(.ng-img) {
   opacity: 0;
@@ -330,7 +339,7 @@
 }
 .ng-hero__en {
   font-family: var(--en);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   color: var(--ink-2);
 }
@@ -343,7 +352,7 @@
 }
 .ng-hero__sub {
   margin-top: 26px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   line-height: 2;
 }
@@ -369,7 +378,7 @@
 }
 .ng-strip__en {
   font-family: var(--en);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
 }
 .ng-strip__en--b {
@@ -379,11 +388,11 @@
 }
 .ng-strip__ja {
   margin-top: 14px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
 }
 .ng-strip__b {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 2;
   letter-spacing: 0.12em;
 }
@@ -391,7 +400,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: 11px;
+  font-size: 13px;
   text-underline-offset: 4px;
 }
 .ng-strip__thumb {
@@ -471,9 +480,8 @@
 }
 .ng-band__en {
   font-family: var(--en);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.12em;
-  opacity: 0.85;
 }
 .ng-band__h {
   margin-top: 14px;
@@ -496,14 +504,19 @@
   width: 1px;
   height: 120px;
   background: currentColor;
-  opacity: 0.7;
+  opacity: 0.8;
   transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.8s cubic-bezier(0.5, 0, 0.2, 1) 0.6s;
 }
 .ng-band__lines i:first-child {
-  transform: rotate(48deg);
+  rotate: 48deg;
 }
 .ng-band__lines i:last-child {
-  transform: rotate(-48deg);
+  rotate: -48deg;
+}
+.ng-band__t.is-in .ng-band__lines i {
+  transform: scaleY(1);
 }
 .ng-band__pts {
   display: flex;
@@ -512,16 +525,15 @@
 }
 .ng-band__pts li {
   width: 50%;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.9;
   letter-spacing: 0.12em;
 }
 .ng-band__pts span {
   display: block;
   font-family: var(--en);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.08em;
-  opacity: 0.8;
   margin-bottom: 10px;
 }
 .ng-band__pts span::before {
@@ -589,7 +601,7 @@
 }
 .ng-mrow__h p {
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--ink-2);
 }
@@ -597,7 +609,7 @@
   grid-area: b;
 }
 .ng-mrow__note {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 2.1;
   letter-spacing: 0.1em;
   color: var(--ink-2);
@@ -611,13 +623,16 @@
   gap: 16px;
   padding: 10px 0;
   border-top: 1px dotted var(--line);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
 }
-.ng-mrow dd {
+/* 料金は折り返さない（共通の text-wrap: pretty が nowrap を打ち消すので、強めに指定） */
+.ng .ng-mrow dd {
+  flex: none;
   font-family: var(--en);
-  font-size: 13px;
+  font-size: 14px;
   white-space: nowrap;
+  text-wrap-mode: nowrap;
 }
 .ng-mrow__img {
   grid-area: img;
@@ -668,14 +683,14 @@
   display: block;
   margin-top: 6px;
   font-family: var(--en);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--ink-2);
 }
 .ng-st-strip__txt {
   align-self: center;
   padding: 24px 48px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 2;
   letter-spacing: 0.1em;
 }
@@ -691,9 +706,34 @@
   border-left: 1px solid var(--line);
 }
 .ng-flow__list li {
+  position: relative;
   padding: 40px 32px 48px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+.ng-flow__list li::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s linear calc(var(--i) * 0.45s + 0.2s);
+}
+.ng-flow__list li > * {
+  opacity: 0;
+  translate: 0 8px;
+  transition: opacity 0.7s ease calc(var(--i) * 0.45s + 0.45s), translate 0.7s ease calc(var(--i) * 0.45s + 0.45s);
+}
+.ng-flow__list.is-in li::before {
+  transform: scaleX(1);
+}
+.ng-flow__list.is-in li > * {
+  opacity: 1;
+  translate: 0 0;
 }
 .ng-flow__n {
   font-family: var(--en);
@@ -710,7 +750,7 @@
 }
 .ng-flow__list p {
   margin-top: 18px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 2.1;
   letter-spacing: 0.1em;
   color: var(--ink-2);
@@ -723,7 +763,7 @@
   margin: 56px var(--pad) 0;
 }
 .ng-flow__cta p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 2.1;
   letter-spacing: 0.1em;
 }
@@ -746,12 +786,12 @@
   gap: 20px;
   min-height: 72px;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
 }
 .ng-news__list time {
   font-family: var(--en);
-  font-size: 11px;
+  font-size: 12px;
   width: 84px;
   flex: none;
 }
@@ -761,18 +801,12 @@
   padding: 2px 12px;
   border: 1px solid var(--ink-2);
   border-radius: 999px;
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
 }
-.ng-news__list a {
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  text-decoration: none;
-}
-.ng-news__list a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.ng-news__list p {
+  padding: 12px 0;
+  line-height: 1.9;
 }
 
 /* ---------- 店の案内 ---------- */
@@ -796,7 +830,7 @@
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 2;
   letter-spacing: 0.1em;
 }
@@ -804,7 +838,7 @@
   color: var(--ink-2);
 }
 .ng-info__dl small {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-2);
 }
 .ng-info__dl a {
@@ -812,6 +846,7 @@
   align-items: center;
   min-height: 44px;
   margin: -12px 0;
+  text-decoration: underline;
   text-underline-offset: 4px;
 }
 
@@ -852,14 +887,25 @@
   padding-top: 24px;
   border-top: 1px solid var(--line);
   font-family: var(--en);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.ng-foot__bot span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .ng-foot__bot a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   text-underline-offset: 3px;
+}
+
+/* スマホで画面の右下に付いてくる電話ボタン */
+.ng-call {
+  display: none;
 }
 
 /* ---------- タブレット ---------- */
@@ -903,7 +949,7 @@
   .ng-bar__rsv {
     width: auto;
     padding: 0 14px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .ng-bar__rsv svg {
     display: none;
@@ -981,7 +1027,18 @@
   .ng-txt {
     margin-top: 28px;
     line-height: 2.2;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+  }
+  .ng-strip__b,
+  .ng-mrow__note,
+  .ng-mrow dl div,
+  .ng-st-strip__txt,
+  .ng-flow__list p,
+  .ng-flow__cta p,
+  .ng-news__list li,
+  .ng-info__dl div {
+    font-size: 14px;
+    letter-spacing: 0.06em;
   }
   .ng-con__b {
     grid-template-columns: 54% 1fr;
@@ -1004,7 +1061,7 @@
     margin-top: 0;
     display: flex;
     flex-direction: column;
-    background: #9d8b7a;
+    background: #7d6b5a;
   }
   .ng-band__img {
     position: relative;
@@ -1043,10 +1100,10 @@
     height: 92px;
   }
   .ng-band__lines i:first-child {
-    transform: rotate(53deg);
+    rotate: 53deg;
   }
   .ng-band__lines i:last-child {
-    transform: rotate(-53deg);
+    rotate: -53deg;
   }
   .ng-band .ng-pill {
     margin-top: 24px;
@@ -1178,7 +1235,33 @@
   }
 
   .ng-foot {
-    padding: 72px var(--pad) 28px;
+    padding: 72px var(--pad) 96px;
+  }
+  .ng-foot .ng-logo {
+    align-self: flex-start;
+  }
+  .ng-call {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg) !important;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(59, 55, 51, 0.22);
+  }
+  .ng-call svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
   }
   .ng-foot__in {
     flex-direction: column;
@@ -1204,8 +1287,23 @@
   .ng-menu,
   .ng-pill,
   .ng-pill span,
-  .ng-mbtn b {
+  .ng-mbtn b,
+  .ng-band__lines i,
+  .ng-flow__list li::before,
+  .ng-flow__list li > * {
     transition: none !important;
+  }
+  .ng-band__lines i,
+  .ng-flow__list li::before {
+    transform: none;
+  }
+  .ng-flow__list li > * {
+    opacity: 1;
+    translate: none;
+  }
+  .ng-hero__img img,
+  .ng-band__img img {
+    translate: none;
   }
   .ng-img img {
     opacity: 1;

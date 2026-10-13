@@ -339,6 +339,9 @@
   flex-direction: column;
   gap: var(--g);
 }
+.am a.am-tile {
+  color: #fff;
+}
 .am-tile {
   position: relative;
   display: block;
@@ -375,13 +378,14 @@
 .am-tile__en {
   left: 18px;
   font-family: var(--roman);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
 }
 .am-tile__ja {
   right: 18px;
   font-size: 15px;
   letter-spacing: 0.12em;
+  text-shadow: 0 1px 8px rgba(20, 15, 11, 0.5);
 }
 
 /* 共通の段 */
@@ -430,7 +434,7 @@
   order: -1;
   margin-left: 0.6em;
   font-family: var(--roman);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   color: var(--ink-2);
 }
@@ -524,6 +528,33 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(20, 15, 11, 0.45), rgba(20, 15, 11, 0) 40%);
+}
+/* 写真をスクロールに合わせてゆっくりずらす（対応ブラウザだけ・動きを減らす設定では止める） */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* 写真の枠（overflow:hidden）がスクロールの基準にならないよう、区画に名前付きの時間軸を置く */
+    .am-pause {
+      view-timeline: --am-pause block;
+    }
+    .am-pause__img img,
+    .am-pause__img.is-in img {
+      transform: none;
+      transition: none;
+      position: relative;
+      top: -8%;
+      height: 116%;
+      animation: am-drift linear both;
+      animation-timeline: --am-pause;
+    }
+  }
+}
+@keyframes am-drift {
+  from {
+    transform: translateY(-6%);
+  }
+  to {
+    transform: translateY(6%);
+  }
 }
 .am-pause__tate {
   position: absolute;
@@ -730,8 +761,36 @@
   margin-top: 72px;
 }
 .am-day__item {
+  position: relative;
   padding-top: 18px;
-  border-top: 1px solid var(--ink);
+}
+/* 上の線：左から右へ、時刻の順に引く */
+.am-day__item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.5, 0, 0.3, 1);
+}
+.am-day__item.is-in::before {
+  transform: scaleX(1);
+}
+.am .am-day__item--1,
+.am-day__item--1::before {
+  transition-delay: 0.45s;
+}
+.am .am-day__item--2,
+.am-day__item--2::before {
+  transition-delay: 0.9s;
+}
+.am .am-day__item--3,
+.am-day__item--3::before {
+  transition-delay: 1.35s;
 }
 .am-day__item .am-ph {
   aspect-ratio: 3 / 4;
@@ -781,17 +840,10 @@
   margin-top: 48px;
 }
 .am-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
   margin-top: 32px;
-}
-.am-tags li {
-  padding: 3px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
+  color: var(--ink-2);
 }
 .am-news__list {
   display: grid;
@@ -810,10 +862,9 @@
   color: var(--ink-2);
   letter-spacing: 0.06em;
 }
-.am-news__meta span {
-  padding: 2px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+.am-news__meta span::before {
+  content: "／";
+  margin-right: 12px;
 }
 .am-news__t {
   margin-top: 10px;
@@ -909,6 +960,17 @@
 .am-foot__links a:hover {
   border-bottom-color: currentColor;
 }
+.am-nowrap {
+  white-space: nowrap;
+}
+.am-foot__links span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #b9ada0;
+}
 .am-foot__c {
   grid-column: 1 / -1;
   padding-top: 20px;
@@ -965,7 +1027,7 @@
     display: none;
   }
   .am-logo__s {
-    font-size: 10px;
+    font-size: 12px;
   }
   .am-logo__b {
     font-size: 17px;
@@ -979,7 +1041,7 @@
     font-size: 40px;
   }
   .am-hero__en {
-    font-size: 10px;
+    font-size: 12px;
   }
   .am-hero__side {
     display: contents;
@@ -1166,6 +1228,14 @@
     margin-top: 0;
     font-size: 26px;
   }
+  .am .am-day__item--1,
+  .am-day__item--1::before,
+  .am .am-day__item--2,
+  .am-day__item--2::before,
+  .am .am-day__item--3,
+  .am-day__item--3::before {
+    transition-delay: 0s;
+  }
 
   .am-news {
     padding-bottom: 80px;
@@ -1268,7 +1338,8 @@
   .am-hero__copy,
   .am-hero__en,
   .am-menu,
-  .am-menu nav {
+  .am-menu nav,
+  .am-day__item::before {
     transition: none !important;
     animation: none !important;
     opacity: 1;

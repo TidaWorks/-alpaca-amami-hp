@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const LINKS = [
-  { href: "#concept", en: "Concept", ja: "nagi のこと" },
+  { href: "#concept", en: "Concept", ja: "soyo のこと" },
   { href: "#menu", en: "Menu", ja: "メニューと料金" },
   { href: "#stylist", en: "Stylist", ja: "店の人" },
   { href: "#reserve", en: "Reserve", ja: "予約の流れ" },

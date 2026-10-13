@@ -1,4 +1,5 @@
 // 手で描いたような、ゆがんだ丸の枠（ボタン・見出しの札）。形は seed で少しずつ変える
+// 画面に入ったら線を描くように枠を引く（data-rv → is-in。動きは kuroto.css）
 const SHAPES = [
   "M14 34 C 10 14, 40 5, 98 6 C 156 7, 192 12, 194 33 C 196 54, 160 62, 100 61 C 40 60, 17 55, 14 34 Z",
   "M8 30 C 9 11, 52 4, 104 5 C 158 6, 191 15, 192 36 C 193 56, 150 63, 96 60 C 42 58, 7 50, 8 30 Z",
@@ -7,7 +8,7 @@ const SHAPES = [
 
 export function PillShape({ seed = 0, className = "" }: { seed?: number; className?: string }) {
   return (
-    <svg className={`kt-pill__svg ${className}`} viewBox="0 0 200 66" preserveAspectRatio="none" aria-hidden="true">
+    <svg className={`kt-pill__svg ${className}`} viewBox="0 0 200 66" preserveAspectRatio="none" aria-hidden="true" data-rv>
       <path d={SHAPES[seed % SHAPES.length]} />
     </svg>
   );

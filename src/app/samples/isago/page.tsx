@@ -49,7 +49,7 @@ function Reserve() {
   return (
     <a className="ig-reserve" href="#access">
       <svg viewBox="0 0 200 14" aria-hidden="true">
-        <path d="M0 9 C 20 2, 34 2, 52 8 S 86 14, 104 7 S 140 1, 160 7 S 188 12, 200 6" />
+        <path pathLength={1} d="M0 9 C 20 2, 34 2, 52 8 S 86 14, 104 7 S 140 1, 160 7 S 188 12, 200 6" />
       </svg>
       reserve <span aria-hidden="true">›</span>
     </a>
@@ -76,27 +76,29 @@ export default function IsagoPage() {
           <Img src="h1-beach" alt="朝の白い砂浜と、うすい水色の浅瀬" className="ig-sq" />
           <Img src="h2-adan" alt="しずくの付いたアダンの葉" className="ig-sq" />
           <Img src="h3-sky" alt="曇り空を横切るサギ" className="ig-sq" />
-          <div className="ig-sq ig-stack">
-            <Img src="h4-wave" alt="白い砂を洗う波" />
+          <div className="ig-sq ig-stack ig-stack--hero">
+            <Img src="h4-wave" alt="白い砂を洗う波" className="ig-drift" />
             <div className="ig-card" data-rv>
               <p>
                 奄美大島の北の浜。満ち潮が白い砂を洗い、引き潮が珊瑚のかけらを残していきます。
               </p>
-              <p>isago は、その浜から歩いて一分。六室だけの宿です。</p>
+              <p>
+                isago は、その浜から歩いて一分。<span className="ig-nobr">六室だけの宿です。</span>
+              </p>
             </div>
           </div>
         </section>
 
         <section className="ig-news" aria-labelledby="ig-news-h">
-          <h2 id="ig-news-h" className="ig-news__h">
+          <h2 id="ig-news-h" className="ig-news__h" data-rv>
             news
           </h2>
           <ul>
-            <li>
+            <li data-rv>
               <time dateTime="2026-10-01">2026年10月1日</time>
-              <a href="#table">冬の島料理のコースが始まりました。</a>
+              <a href="#table">秋冬の島料理のコースが始まりました。</a>
             </li>
-            <li>
+            <li data-rv>
               <time dateTime="2026-09-12">2026年9月12日</time>
               <a href="#around">泥染めの工房をたずねる半日の案内を始めました。</a>
             </li>
@@ -132,22 +134,15 @@ export default function IsagoPage() {
         {/* 島のごはん */}
         <section className="ig-pair" id="table" aria-labelledby="ig-table-h">
           <Img src="dine-keihan" alt="鶏飯にスープを注ぐところ" className="ig-sq" />
-          <div className="ig-sq ig-stack">
+          <div className="ig-sq ig-stack ig-stack--table">
             <Img src="dine-kokuto" alt="黒糖のかけらとお茶" />
             <div className="ig-card ig-card--tall" data-rv>
-              <h2 id="ig-table-h" className="ig-sr">
-                島のごはん
-              </h2>
               <p>
                 朝は鶏飯。島の鶏でとったスープを、ご飯に好きなだけかけて召し上がってください。夜は、その日に揚がった魚と島の野菜を。食後には黒糖と、お茶をお出しします。
               </p>
-              <ul className="ig-tate" aria-label="お食事">
-                <li>島のごはん</li>
-                <li className="ig-tate__gap" aria-hidden="true" />
-                <li>朝　鶏飯</li>
-                <li>夜　島の魚</li>
-                <li>食後　黒糖と茶</li>
-              </ul>
+              <h2 id="ig-table-h" className="ig-tate">
+                島のごはん
+              </h2>
             </div>
           </div>
         </section>
@@ -188,29 +183,49 @@ export default function IsagoPage() {
           <div className="ig-foot__info">
             <dl>
               <div>
-                <dt>isago</dt>
-                <dd>Instagram（見本）</dd>
+                <dt>料金の目安</dt>
+                <dd>一泊二食付き　お一人 28,000円から（税込・見本）</dd>
+              </div>
+              <div>
+                <dt>ご予約</dt>
+                <dd>お電話で、ご希望の日と人数をお知らせください。空きを確かめて、その場でお返事します。</dd>
+              </div>
+              <div>
+                <dt>時間</dt>
+                <dd>
+                  チェックイン 15:00
+                  <br />
+                  チェックアウト 11:00
+                </dd>
+              </div>
+              <div>
+                <dt>場所</dt>
+                <dd>
+                  鹿児島県奄美市（見本のため住所は架空です）
+                  <br />
+                  奄美空港から車で二十分
+                  <br />
+                  駐車場あり（6台）
+                </dd>
+              </div>
+              <div>
+                <dt>Instagram</dt>
+                <dd>@isago（見本）</dd>
               </div>
             </dl>
-            <p>
-              鹿児島県奄美市（見本のため住所は架空です）
-              <br />
-              奄美空港から車で二十分
-            </p>
-            <p>tel：0997-00-0000　受付 9:00〜18:00</p>
-            <p>チェックイン 15:00　チェックアウト 11:00</p>
+            <a className="ig-tel" href="tel:0997000000">
+              <span className="ig-tel__l">電話で予約する</span>
+              <span className="ig-tel__n">0997-00-0000</span>
+              <span className="ig-tel__h">受付 9:00〜18:00</span>
+            </a>
             <ul className="ig-foot__links">
-              <li>
-                <a href="#top">よくあるご質問</a>
-              </li>
-              <li>
-                <a href="#top">宿泊約款</a>
-              </li>
-              <li>
-                <a href="#top">privacy policy</a>
-              </li>
+              <li>よくあるご質問（準備中）</li>
+              <li>宿泊約款（準備中）</li>
+              <li>privacy policy（準備中）</li>
             </ul>
-            <p className="ig-foot__c">(c) 2026 isago — sample site by ALPACA</p>
+            <p className="ig-foot__c">
+              (c) 2026 isago — <span className="ig-nowrap">sample site by ALPACA</span>
+            </p>
           </div>
         </div>
       </footer>

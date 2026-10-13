@@ -15,6 +15,7 @@ const LINKS = [
 export default function KamadoMenu() {
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
+  const [nearEnd, setNearEnd] = useState(false);
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ export default function KamadoMenu() {
       const limit = hero ? hero.offsetTop + hero.offsetHeight * 0.5 : 600;
       setShown(window.scrollY > limit);
       setAtTop(window.scrollY < 48);
+      // 下の「電話で予約する」が見える所では、付いてくる電話ボタンを引っこめる
+      setNearEnd(window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 900);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -54,7 +57,8 @@ export default function KamadoMenu() {
           <b />
         </i>
       </button>
-      <div id="km-menu" className={`km-menu ${open ? "is-open" : ""}`} hidden={!open}>
+      {/* 開け閉めをフェードに（hidden だと移り変わりが出ない）。閉じている間は visibility で隠して押せなくする */}
+      <div id="km-menu" className={`km-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="ページ内の案内">
           <p className="km-menu__logo" aria-hidden="true">
             <small>島の食堂</small>かまど
@@ -74,6 +78,10 @@ export default function KamadoMenu() {
           </a>
         </nav>
       </div>
+      {/* スマホだけ：一番上を過ぎたら右下に付いてくる電話ボタン */}
+      <a className={`km-telfab ${shown && !open && !nearEnd ? "is-shown" : ""}`} href="tel:0997000000" aria-label="電話で予約する（0997-00-0000）">
+        電話で予約
+      </a>
     </>
   );
 }

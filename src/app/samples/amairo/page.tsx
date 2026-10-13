@@ -79,7 +79,7 @@ const ITEMS = [
 
 const DAY = [
   { time: "6:30", t: "釜に火を入れる", d: "朝いちばんに薪をくべ、前の日に割ったテーチ木を煮はじめます。", img: "fire", alt: "釜の下で燃える薪の火" },
-  { time: "10:00", t: "泥田に入る", d: "煮汁で染めた糸を泥田へ。手で揉んで、泥を糸の奥までなじませます。", img: "mudhands", alt: "泥田で糸の束を揉む両手" },
+  { time: "10:00", t: "午前の体験と泥田", d: "旅の方とハンカチを染めたあと、煮汁で染めた糸を泥田へ。手で揉んで、泥を奥までなじませます。", img: "mudhands", alt: "泥田で糸の束を揉む両手" },
   { time: "14:00", t: "午後の体験", d: "庭の泥田で、旅の方とハンカチを染めます。雨の日は煮汁の染めだけにします。", img: "experience", alt: "白いハンカチを赤茶色の煮汁に浸ける手元" },
   { time: "17:30", t: "泥田を見回る", d: "糸を軒下に取りこみ、夕方の泥田の水かさを見て一日を終えます。", img: "dusk", alt: "夕暮れの空を映す泥田と森" },
 ];
@@ -87,7 +87,7 @@ const DAY = [
 const NEWS = [
   { date: "2026.10.01", tag: "体験", t: "秋からの体験は、10:00 と 14:00 の一日2回になりました。", img: "table", alt: "木の作業台にたたんだ焦げ茶のハンカチと糸" },
   { date: "2026.09.20", tag: "小物", t: "巾着に、焦げ茶と黒の2色がそろいました。", img: "pouch", alt: "泥染めの巾着" },
-  { date: "2026.09.05", tag: "お知らせ", t: "台風の接近のため、9月6日の体験はお休みしました。", img: "chips", alt: "竹かごに盛ったテーチ木のチップ" },
+  { date: "2026.09.05", tag: "お知らせ", t: "台風の接近のため、9月6日の体験はお休みします。", img: "chips", alt: "竹かごに盛ったテーチ木のチップ" },
 ];
 
 export default function AmairoPage() {
@@ -107,7 +107,7 @@ export default function AmairoPage() {
             </div>
             <header className="am-hero__bar">
               <Logo />
-              <p className="am-hero__info">染めの体験　毎日 10:00・14:00</p>
+              <p className="am-hero__info">染めの体験　10:00・14:00（水曜休み）</p>
             </header>
             <div className="am-hero__txt">
               <p className="am-hero__en" aria-hidden="true">( MUD DYEING STUDIO, AMAMI )</p>
@@ -206,7 +206,7 @@ export default function AmairoPage() {
             <small aria-hidden="true">( WORKSHOP )</small>
           </h2>
           <div className="am-card" data-rv>
-            <Ph src="mudfield" alt="泥田に入り、糸の束を泥に浸ける人の後ろ姿" className="am-card__img" />
+            <Ph src="experience" alt="白いハンカチを赤茶色の煮汁に浸ける手元" className="am-card__img" />
             <div className="am-card__body">
               <p className="am-card__lead">
                 白い綿のハンカチを、テーチ木の煮汁と泥田で染めます。煮汁で揉む、泥に浸ける、水で洗う。工房と同じ順番を、職人と一緒にたどります。
@@ -301,11 +301,7 @@ export default function AmairoPage() {
               <h2 id="am-news-h" className="am-big am-big--l">
                 NEWS
               </h2>
-              <ul className="am-tags" aria-label="分類">
-                <li>お知らせ</li>
-                <li>体験</li>
-                <li>小物</li>
-              </ul>
+              <p className="am-tags">お知らせ・体験・小物</p>
             </div>
             <ul className="am-news__list">
               {NEWS.map((n) => (
@@ -331,7 +327,7 @@ export default function AmairoPage() {
                 GUIDE
               </h2>
               <p className="am-tate am-guide__tate" data-rv aria-hidden="true">
-                <span>森の奥の、</span>
+                <span>海の見える、</span>
                 <span>泥田のそばで。</span>
                 <small>( ACCESS )</small>
               </p>
@@ -369,12 +365,16 @@ export default function AmairoPage() {
                   </dd>
                 </div>
                 <div>
+                  <dt>道順</dt>
+                  <dd>奄美空港から車で約35分（見本）</dd>
+                </div>
+                <div>
                   <dt>駐車場</dt>
                   <dd>6台</dd>
                 </div>
                 <div>
                   <dt>Instagram</dt>
-                  <dd>（見本）</dd>
+                  <dd>@amairo（見本）</dd>
                 </div>
               </dl>
               <div className="am-guide__btns" data-rv>
@@ -389,16 +389,16 @@ export default function AmairoPage() {
         <Logo className="am-logo--lg" />
         <ul className="am-foot__links">
           <li>
-            <a href="#taiken">体験のよくあるご質問</a>
+            <a href="#taiken">体験のご案内</a>
           </li>
           <li>
             <a href="#shop">通信販売について</a>
           </li>
           <li>
-            <a href="#top">privacy policy</a>
+            <span>privacy policy（準備中）</span>
           </li>
         </ul>
-        <p className="am-foot__c">(c) 2026 泥染め工房 あまいろ / sample site by ALPACA</p>
+        <p className="am-foot__c">(c) 2026 泥染め工房 あまいろ / <span className="am-nowrap">sample site by ALPACA</span></p>
       </footer>
       <Reveal />
     </div>

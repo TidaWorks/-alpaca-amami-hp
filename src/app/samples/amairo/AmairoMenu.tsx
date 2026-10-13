@@ -15,11 +15,13 @@ export default function AmairoMenu() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
+    // html ではなく body で止める（body に overflow-x:hidden があるため、html を止めると body が別のスクロール枠になり、
+    // 上の帯の追従が外れ、閉じた時にページの頭へ戻ってしまう）
+    document.body.style.overflow = open ? "hidden" : "";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
-      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

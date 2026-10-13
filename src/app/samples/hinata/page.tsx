@@ -3,6 +3,8 @@ import "./hinata.css";
 import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
 import HinataNav from "./HinataNav";
+import Drift from "./Drift";
+import SeasonDots from "./SeasonDots";
 
 // 見本サイト：奄美のたんかん農園（架空）。お手本は とかちフルーツビレッジ（並べ方・余白・文字の組み方の物差しだけ・写真と絵と文は全部こちらで作った）
 export const metadata: Metadata = {
@@ -71,7 +73,7 @@ function Dots({ className = "" }: { className?: string }) {
 }
 
 const SEASONS = [
-  { src: "spring", kigo: "春", month: "3〜5月ごろ", h: "白い花が咲く", t: "枝の先に小さな白い花がつき、畑に甘い香りがします。冬に切りそろえた枝から、新しい葉が伸びる時期です。", alt: "枝先に咲いた白い柑橘の花" },
+  { src: "spring", kigo: "春", month: "4〜5月ごろ", h: "白い花が咲く", t: "枝の先に小さな白い花がつき、畑に甘い香りがします。冬に切りそろえた枝から、新しい葉が伸びる時期です。", alt: "枝先に咲いた白い柑橘の花" },
   { src: "summer", kigo: "夏", month: "6〜8月ごろ", h: "実を間引く", t: "青い実がたくさんつくので、ひと枝に残す数を決めて摘みます。草刈りと、台風の前の支柱の見回りも夏の仕事です。", alt: "葉のあいだの小さな青い実" },
   { src: "autumn", kigo: "秋", month: "9〜12月ごろ", h: "少しずつ色づく", t: "秋の終わりから、緑の実が少しずつ橙に変わります。鳥に食べられないよう、網の傷みを直して回ります。", alt: "緑から橙に変わりはじめた実" },
   { src: "winter", kigo: "冬", month: "1〜3月ごろ", h: "摘んで、箱に詰める", t: "色づいた実から順に、はさみで一つずつ摘みます。家族みんなで箱に詰めて、その日のうちに送り出します。", alt: "かごに入った摘みたてのたんかんを持つ手" },
@@ -251,29 +253,33 @@ export default function HinataPage() {
               <p className="hn-year__lead">たんかんの実を摘むのは冬の3か月。残りの季節は、次の冬のための仕事です。</p>
             </div>
             <ol className="hn-seasons" aria-label="季節ごとの仕事">
-              {SEASONS.map((s) => (
-                <li key={s.src} className="hn-season" data-rv>
+              {SEASONS.map((s, i) => (
+                <li key={s.src} className="hn-season" data-rv style={{ ["--i" as string]: i }}>
                   <div className="hn-season__top">
                     <span className="hn-season__kigo">{s.kigo}</span>
                     <span className="hn-season__month">{s.month}</span>
                   </div>
                   <div className="hn-season__pic">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${IMG}/${s.src}.webp`} alt={s.alt} loading="lazy" decoding="async" />
+                    <img src={`${IMG}/${s.src}.webp`} alt={s.alt} loading="eager" decoding="async" />
                   </div>
                   <h3>{s.h}</h3>
                   <p>{s.t}</p>
                 </li>
               ))}
             </ol>
+            <SeasonDots />
           </div>
           <Wave className="hn-wave--down" />
         </section>
 
         {/* 写真の帯 */}
-        <section className="hn-band" aria-label="冬の畑">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${IMG}/hill.webp`} alt="実のなった木のあいだを、木箱とかごを持って歩く家族の後ろ姿" loading="lazy" decoding="async" />
+        {/* 縦書きは PC は右上の空、スマホは写真の下（家族の頭にかからないように） */}
+        <section className="hn-band" aria-label="冬の畑" data-drift>
+          <div className="hn-band__photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`${IMG}/hill.webp`} alt="実のなった木のあいだを、木箱とかごを持って歩く家族の後ろ姿" loading="lazy" decoding="async" />
+          </div>
           <p className="hn-band__txt hn-tate-b" data-rv>
             <span>冬の畑が</span>
             <span>橙でいっぱいに</span>
@@ -310,7 +316,7 @@ export default function HinataPage() {
           </div>
           <ul className="hn-boxes">
             {BOXES.map((b, i) => (
-              <li key={b.kg} className={`hn-box hn-box--${i}`} data-rv>
+              <li key={b.kg} className={`hn-box hn-box--${i}`} data-rv style={{ ["--i" as string]: i }}>
                 <span className="hn-box__kg">
                   {b.kg}
                   <small>kg</small>
@@ -328,12 +334,12 @@ export default function HinataPage() {
             ※ 箱の大きさと値段は見本です。見た目に小さな傷のあるご家庭用の箱もあります。
           </p>
           <div className="hn-order__btns" data-rv>
-            <a className="hn-btn" href="#order">
-              ご注文フォーム（見本）
-            </a>
-            <a className="hn-btn hn-btn--line" href="tel:0997000000">
+            <a className="hn-btn" href="tel:0997000000">
               電話で注文する 0997-00-0000
             </a>
+            <span className="hn-btn hn-btn--off" aria-disabled="true">
+              ご注文フォーム（準備中です）
+            </span>
           </div>
         </section>
 
@@ -357,7 +363,17 @@ export default function HinataPage() {
                 </div>
                 <div>
                   <dt>場所</dt>
-                  <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                  <dd>
+                    鹿児島県奄美市（見本のため住所は架空です）
+                    <br />
+                    <a className="hn-map" href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6" target="_blank" rel="noopener noreferrer">
+                      地図を開く（見本）
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt>駐車場</dt>
+                  <dd>畑の入り口に、車を数台停められます</dd>
                 </div>
               </dl>
             </div>
@@ -412,7 +428,13 @@ export default function HinataPage() {
               </div>
               <div>
                 <dt>場所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>
+                  鹿児島県奄美市（見本のため住所は架空です）
+                  <br />
+                  <a href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%A4%A7%E5%B3%B6" target="_blank" rel="noopener noreferrer">
+                    地図を開く（見本）
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt>電話</dt>
@@ -428,7 +450,9 @@ export default function HinataPage() {
           </div>
           <div className="hn-foot__contact">
             <h2 className="hn-foot__h">お問い合わせ</h2>
-            <p>ご注文・直売所のこと・畑の見学は、お電話でお気軽に。</p>
+            <p>
+              ご注文・直売所のこと・畑の見学は、<span data-nowrap>お電話で</span>お気軽に。
+            </p>
             <a className="hn-foot__tel" href="tel:0997000000">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
@@ -443,7 +467,7 @@ export default function HinataPage() {
         <Dots />
         <p className="hn-tate hn-end__txt">
           <span>ひなたで</span>
-          <span>そだった</span>
+          <span>育った</span>
           <span>たんかん</span>
         </p>
         <div className="hn-end__marks" aria-hidden="true">
@@ -455,6 +479,7 @@ export default function HinataPage() {
       </section>
 
       <HinataNav />
+      <Drift />
       <Reveal />
     </div>
   );

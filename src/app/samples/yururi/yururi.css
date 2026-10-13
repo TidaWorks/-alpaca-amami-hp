@@ -3,7 +3,7 @@
   --white: #ffffff;
   --cream: #fbf8f5;
   --ink: #5f5a5c;
-  --ink-2: #8a8487;
+  --ink-2: #6f696c;
   --line: #e9e4e6;
   --fuji: #9a83b4;
   --momo: #c995aa;
@@ -48,6 +48,9 @@
 .yr-sp {
   display: none;
 }
+.yr-nw {
+  white-space: nowrap;
+}
 
 /* 藤色から桃色へのグラデーションの文字 */
 .yr-grad {
@@ -62,10 +65,10 @@
 /* 見出し：小さな英字と明朝 */
 .yr-head__en {
   font-family: var(--en);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 12px;
   letter-spacing: 0.2em;
-  color: var(--momo);
+  color: #a7708c;
   margin-bottom: 6px;
 }
 .yr-head__ja {
@@ -144,6 +147,26 @@
   filter: blur(14px);
   opacity: 0.55;
   pointer-events: none;
+  animation: yr-drift 16s ease-in-out infinite alternate;
+}
+.yr-wash--b,
+.yr-wash--d {
+  animation-duration: 21s;
+  animation-direction: alternate-reverse;
+}
+@keyframes yr-drift {
+  0% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 14px -10px;
+    rotate: 6deg;
+  }
+  100% {
+    translate: -10px 8px;
+    rotate: -4deg;
+  }
 }
 .yr-wash--a {
   width: 120px;
@@ -193,8 +216,8 @@
   box-shadow: 0 6px 24px rgba(120, 100, 130, 0.12);
   color: var(--fuji);
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: 0.14em;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -260,8 +283,8 @@
 }
 .yr-menu ul small {
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: 0.18em;
   color: var(--momo);
 }
@@ -286,7 +309,7 @@
 }
 .yr-menu__tel small {
   font-family: var(--goth);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-2);
 }
 @keyframes yr-fade {
@@ -370,10 +393,10 @@
 }
 .yr-hero__sub {
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 12.5px;
   letter-spacing: 0.3em;
-  color: var(--ink-2);
+  color: #5f5763;
 }
 @keyframes yr-up {
   from {
@@ -406,10 +429,10 @@
 }
 .yr-nav small {
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 10.5px;
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: 0.14em;
-  color: var(--momo);
+  color: #a7708c;
 }
 .yr-nav span {
   font-family: var(--mincho);
@@ -446,7 +469,7 @@
   gap: 8px;
   padding: 26px 4px;
   border-bottom: 1px solid var(--line);
-  font-size: 13.5px;
+  font-size: 14px;
 }
 .yr-news time {
   font-family: var(--en);
@@ -476,8 +499,8 @@
 /* はじめに */
 .yr-intro {
   position: relative;
-  min-height: 980px;
-  padding: 80px var(--pad) 200px;
+  min-height: 900px;
+  padding: 80px var(--pad) 120px;
   display: grid;
   justify-items: center;
   align-content: start;
@@ -493,10 +516,10 @@
   animation: yr-bob 9s ease-in-out infinite alternate;
 }
 .yr-f1 {
-  width: 170px;
-  height: 180px;
-  left: 3%;
-  top: 140px;
+  width: 200px;
+  height: 250px;
+  left: 4%;
+  top: 120px;
 }
 .yr-f2 {
   width: 82px;
@@ -506,10 +529,10 @@
   animation-delay: -3s;
 }
 .yr-f3 {
-  width: 250px;
-  height: 260px;
-  left: 24%;
-  top: 70px;
+  width: 150px;
+  height: 150px;
+  left: 22%;
+  top: 430px;
   animation-delay: -5s;
 }
 .yr-f4 {
@@ -529,7 +552,7 @@
 .yr-f6 {
   width: 260px;
   height: 260px;
-  right: 9%;
+  right: 7%;
   top: 150px;
   animation-delay: -2s;
 }
@@ -585,7 +608,7 @@
   z-index: 2;
   max-width: 620px;
   text-align: center;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 2.2;
 }
 
@@ -641,7 +664,7 @@
   margin-top: 14px;
   display: grid;
   gap: 8px;
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.85;
 }
 .yr-case__txt li {
@@ -661,7 +684,7 @@
 .yr-case__note {
   margin-top: 90px;
   text-align: center;
-  font-size: 12.5px;
+  font-size: 13.5px;
   color: var(--ink-2);
 }
 
@@ -674,7 +697,7 @@
   gap: 5vw;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 280px var(--pad) 220px;
+  padding: 200px var(--pad) 220px;
 }
 .yr-about__l {
   aspect-ratio: 3 / 4.3;
@@ -687,13 +710,15 @@
 .yr-about__c {
   position: relative;
   z-index: 1;
-  text-align: center;
+  text-align: left;
   display: grid;
   gap: 24px;
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 2.2;
 }
 .yr-about__lead {
+  justify-self: center;
+  text-align: center;
   font-size: clamp(19px, 1.6vw, 23px);
   letter-spacing: 0.14em;
   line-height: 1.9;
@@ -720,10 +745,33 @@
   right: 36px;
   top: 36px;
   height: 1px;
-  background: repeating-linear-gradient(90deg, #dcd2e2 0 4px, transparent 4px 9px);
+  background: repeating-linear-gradient(90deg, #c7b3cf 0 4px, transparent 4px 9px);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.8s cubic-bezier(0.5, 0, 0.2, 1);
+}
+.yr [data-rv].yr-flow__list {
+  opacity: 1;
+  transform: none;
+}
+.yr-flow__list.is-in::before {
+  transform: scaleX(1);
 }
 .yr-flow__list li {
   position: relative;
+}
+/* 線の先が着くころに、01〜04 が順に出る */
+.yr .yr-flow__list > li[data-rv] {
+  transition-delay: calc(0.2s + var(--i, 0) * 0.42s);
+}
+.yr-num path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: calc(0.35s + var(--i, 0) * 0.42s);
+}
+.yr-flow__list > li.is-in .yr-num path {
+  stroke-dashoffset: 0;
 }
 .yr-num {
   position: relative;
@@ -746,8 +794,8 @@
 }
 .yr-num path {
   fill: #fff;
-  stroke: #ead9e2;
-  stroke-width: 1;
+  stroke: #d7bccb;
+  stroke-width: 1.2;
 }
 .yr-num {
   isolation: isolate;
@@ -764,7 +812,7 @@
   color: #6a6070;
 }
 .yr-flow p {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 2;
 }
 
@@ -799,7 +847,7 @@
   display: block;
   margin-top: 6px;
   font-family: var(--goth);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   color: var(--ink-2);
 }
@@ -815,13 +863,13 @@
 .yr-price__row dd em {
   font-style: normal;
   font-family: var(--goth);
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--ink-2);
   margin-right: 18px;
 }
 .yr-price__memo {
   margin-top: 18px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 .yr-price__card {
@@ -833,7 +881,7 @@
   background: var(--white);
   display: grid;
   gap: 16px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 2;
 }
 .yr-price__mark {
@@ -857,11 +905,6 @@
   letter-spacing: 0.12em;
   color: var(--fuji);
   line-height: 1.7;
-}
-.yr-price__pic {
-  margin-top: 10px;
-  aspect-ratio: 16 / 9;
-  border-radius: 4px;
 }
 
 /* 院内の様子 */
@@ -920,7 +963,7 @@
 }
 .yr-room__grid p {
   margin-top: 16px;
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.8;
 }
 
@@ -958,16 +1001,16 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 .yr-staff__list dd {
   margin-top: 8px;
-  font-size: 13.5px;
+  font-size: 14px;
 }
 .yr-staff__memo {
   margin-top: 30px;
-  font-size: 12.5px;
+  font-size: 13.5px;
   color: var(--ink-2);
 }
 
@@ -1015,8 +1058,48 @@
   margin: 0 2px;
 }
 .yr-table td.is-off {
-  color: #b9b2b5;
+  color: #857e81;
+  font-size: 13px;
+}
+.yr-table th,
+.yr-table td {
+  position: relative;
+}
+/* 今日の曜日の列を淡く光らせる */
+.yr-table .is-today {
+  background: rgba(154, 131, 180, 0.1);
+  animation: yr-today 3.2s ease-in-out infinite alternate;
+}
+.yr-table thead .is-today {
+  color: var(--fuji);
+  font-weight: 500;
+}
+.yr-table thead .is-today::after {
+  content: "今日";
+  position: absolute;
+  left: 50%;
+  top: -18px;
+  translate: -50% 0;
+  font-family: var(--goth);
   font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #7c6596;
+  white-space: nowrap;
+}
+@keyframes yr-today {
+  from {
+    background-color: rgba(154, 131, 180, 0.06);
+  }
+  to {
+    background-color: rgba(154, 131, 180, 0.16);
+  }
+}
+.yr-kome {
+  margin: 0 -1.1em 0 2px;
+  font-size: 12px;
+  line-height: 0;
+  vertical-align: 0.5em;
+  color: #7c6596;
 }
 .yr-dot {
   display: inline-block;
@@ -1028,15 +1111,63 @@
 .yr-info__notes {
   display: grid;
   gap: 4px;
-  font-size: 13px;
+  font-size: 14px;
+}
+.yr-table {
+  padding-top: 20px;
 }
 .yr-info__panel {
   position: relative;
   width: 92%;
 }
-.yr-info__bg {
+.yr-map {
+  position: relative;
   aspect-ratio: 16 / 7.6;
   border-radius: 0 50px 0 0;
+  overflow: hidden;
+  background: #f6f2ef;
+}
+.yr-map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.yr-map__road {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+.yr-map__road--main {
+  stroke: #ece4dc;
+  stroke-width: 26;
+}
+.yr-map__road--thin {
+  stroke-width: 9;
+}
+.yr-map__pin {
+  fill: var(--fuji);
+}
+.yr-map__pin-ring {
+  fill: rgba(154, 131, 180, 0.16);
+}
+.yr-map__link {
+  position: absolute;
+  left: 32px;
+  bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(120, 100, 130, 0.12);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: #6a5a7c;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .yr-info__card {
   position: absolute;
@@ -1050,7 +1181,7 @@
   box-shadow: 0 10px 50px rgba(120, 100, 130, 0.08);
   display: grid;
   gap: 14px;
-  font-size: 12.5px;
+  font-size: 13.5px;
   line-height: 1.9;
 }
 .yr [data-rv].yr-info__card {
@@ -1068,10 +1199,10 @@
 }
 .yr-info__sub {
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 10.5px;
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: 0.24em;
-  color: var(--momo);
+  color: #a7708c;
   margin-top: -12px;
   margin-bottom: 6px;
 }
@@ -1088,8 +1219,8 @@
   text-decoration: none;
 }
 .yr-tel small {
-  font-size: 11px;
-  color: var(--momo);
+  font-size: 12px;
+  color: #a7708c;
 }
 .yr-info__sns {
   color: var(--ink-2);
@@ -1102,7 +1233,7 @@
   display: grid;
   justify-items: center;
   gap: 18px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 .yr-foot__logo {
@@ -1118,10 +1249,14 @@
 }
 .yr-foot__c {
   font-family: var(--en);
-  font-weight: 300;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 12px;
   letter-spacing: 0.12em;
   margin-top: 30px;
+}
+
+.yr-call {
+  display: none;
 }
 
 /* ---------- タブレット ---------- */
@@ -1258,8 +1393,29 @@
     right: 18%;
     top: 222px;
   }
-  .yr-f7 {
-    display: none;
+  .yr-f1 {
+    width: 120px;
+    height: 150px;
+    left: 0;
+    top: 20px;
+  }
+  .yr-f3 {
+    width: 84px;
+    height: 84px;
+    left: 38%;
+    top: 196px;
+  }
+  .yr-f6 {
+    width: 160px;
+    height: 160px;
+    left: auto;
+    right: 0;
+    top: 70px;
+  }
+  .yr-wash--b {
+    right: auto;
+    left: 30%;
+    top: 40px;
   }
   .yr-intro__tate {
     margin-top: 40px;
@@ -1288,22 +1444,31 @@
     padding: 50px 20px 80px;
   }
   .yr-case__list {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 16px;
+    grid-template-columns: 1fr;
+    gap: 36px;
     margin-top: 44px;
   }
-  .yr-case__item:nth-child(even) {
-    margin-top: 48px;
+  .yr-case__item:nth-child(n) {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: 34% 1fr;
+    gap: 18px;
+    align-items: center;
+  }
+  .yr-case__item .yr-cap {
+    aspect-ratio: 3 / 4;
   }
   .yr-chip {
     font-size: 13px;
     padding: 0 8px 1px;
   }
   .yr-case__txt {
-    margin-top: 16px;
+    margin-top: 0;
   }
   .yr-case__txt ul {
-    font-size: 12.5px;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.75;
   }
   .yr-case__txt li {
     padding-left: 12px;
@@ -1344,7 +1509,19 @@
     bottom: 36px;
     width: 1px;
     height: auto;
-    background: repeating-linear-gradient(180deg, #dcd2e2 0 4px, transparent 4px 9px);
+    background: repeating-linear-gradient(180deg, #c7b3cf 0 4px, transparent 4px 9px);
+    transform: scaleY(var(--p, 0));
+    transform-origin: center top;
+    transition: none;
+  }
+  .yr-flow__list.is-in::before {
+    transform: scaleY(var(--p, 1));
+  }
+  .yr .yr-flow__list > li[data-rv] {
+    transition-delay: 0.1s;
+  }
+  .yr-num path {
+    transition-delay: 0.25s;
   }
   .yr-flow__list li {
     display: grid;
@@ -1363,7 +1540,11 @@
     padding: 20px 20px 100px;
   }
   .yr-price__row {
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .yr-price__row dd {
+    justify-items: start;
   }
   .yr-price__row dt {
     font-size: 15px;
@@ -1399,7 +1580,7 @@
     font-size: 18px;
   }
   .yr-room__tate p {
-    font-size: 12.5px;
+    font-size: 14px;
     padding-top: 2em;
     margin-right: 12px;
   }
@@ -1443,7 +1624,7 @@
     font-size: 12px;
   }
   .yr-table tbody th {
-    font-size: 11px;
+    font-size: 12px;
     white-space: normal;
     line-height: 1.5;
   }
@@ -1454,9 +1635,14 @@
   .yr-info__panel {
     width: 100%;
   }
-  .yr-info__bg {
+  .yr-map {
     aspect-ratio: 4 / 3;
     border-radius: 0 40px 0 0;
+  }
+  .yr-map__link {
+    left: 20px;
+    bottom: auto;
+    top: 20px;
   }
   .yr-info__card {
     position: relative;
@@ -1470,6 +1656,48 @@
   }
   .yr-foot {
     padding-top: 80px;
+    padding-bottom: 110px;
+  }
+  .yr-call {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: linear-gradient(100deg, #8a6fa6, #a77c9f);
+    box-shadow: 0 10px 28px rgba(110, 85, 130, 0.28);
+    color: #fff !important;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    opacity: 0;
+    translate: 0 24px;
+    pointer-events: none;
+    transition: opacity 0.4s ease, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .yr-call.is-on {
+    opacity: 1;
+    translate: 0 0;
+    pointer-events: auto;
+  }
+  .yr-call small {
+    font-family: var(--en);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    opacity: 0.92;
+  }
+  .yr-call__ic svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
   }
 }
 
@@ -1481,9 +1709,20 @@
   .yr-hero__copy,
   .yr-hero__logo,
   .yr-f,
-  .yr-menu {
+  .yr-menu,
+  .yr-wash,
+  .yr-table .is-today,
+  .yr-num path,
+  .yr-flow__list::before,
+  .yr-call {
     animation: none !important;
     transition: none !important;
+  }
+  .yr-num path {
+    stroke-dashoffset: 0;
+  }
+  .yr-flow__list::before {
+    transform: none !important;
   }
   .yr-pic,
   .yr [data-rv] {

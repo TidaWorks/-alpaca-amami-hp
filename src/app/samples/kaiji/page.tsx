@@ -3,6 +3,7 @@ import "./kaiji.css";
 import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
 import KaijiMenu from "./KaijiMenu";
+import KaijiMotion, { KaijiToday } from "./KaijiMotion";
 
 // 見本サイト：奄美の少人数ダイビングショップ（架空）。お手本は NU:KUJU（白い地・欧文ロゴ1色・写真を大きさを変えて散らす並べ方だけを物差しに。写真と文は全部こちらで作った）
 export const metadata: Metadata = {
@@ -15,9 +16,9 @@ const FONTS =
 
 const IMG = "/samples/kaiji";
 
-function Ph({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+function Ph({ src, alt, className = "", drift }: { src: string; alt: string; className?: string; drift?: number }) {
   return (
-    <div className={`kj-ph ${className}`} data-rv>
+    <div className={`kj-ph ${className}`} data-rv data-drift={drift}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={`${IMG}/${src}.webp`} alt={alt} loading="lazy" decoding="async" />
     </div>
@@ -112,7 +113,7 @@ const SEA = [
     img: "fish",
     alt: "枝サンゴの上を泳ぐ小魚の群れ",
     ja: "小魚の群れ",
-    en: "damselfish",
+    en: "schooling fish",
     text: "枝サンゴの上を、小さな魚の群れが行き来します。光が当たると、体が銀色に光ります。",
   },
 ];
@@ -173,7 +174,7 @@ export default function KaijiPage() {
         </div>
 
         <div className="kj-today" aria-label="今日の海（見本の値）">
-          <p className="kj-today__date">10.13 TUE</p>
+          <KaijiToday />
           <dl>
             <div>
               <dt>水温</dt>
@@ -199,10 +200,7 @@ export default function KaijiPage() {
         <section className="kj-hero" aria-label="KAIJI DIVE の海">
           <div className="kj-hero__img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <picture>
-              <source media="(min-width: 900px)" srcSet={`${IMG}/hero-wide.webp`} />
-              <img src={`${IMG}/snorkel.webp`} alt="透きとおった浅い海と、遠くの島の山" />
-            </picture>
+            <img src={`${IMG}/hero-wide.webp`} alt="透きとおった浅い海と、遠くの島の山" />
           </div>
           <a className="kj-hero__card" href="#access">
             <span className="kj-hero__card-en">RESERVE</span>
@@ -211,21 +209,20 @@ export default function KaijiPage() {
           </a>
         </section>
 
-        <section className="kj-news" aria-labelledby="kj-news-h">
+        {/* お知らせ（見本のため記事のページはない＝リンクにしない） */}
+        <section className="kj-news" aria-labelledby="kj-news-h" data-rv>
           <div className="kj-news__h">
             <h2 id="kj-news-h">NEWS</h2>
-            <a href="#top">一覧を見る →</a>
           </div>
           <ul>
             {NEWS.map(([dt, d, w, t]) => (
               <li key={dt}>
-                <a href="#top">
+                <div className="kj-news__row">
                   <time dateTime={dt}>
                     {d} <small>{w}</small>
                   </time>
                   <span>{t}</span>
-                  <i aria-hidden="true">→</i>
-                </a>
+                </div>
               </li>
             ))}
           </ul>
@@ -233,8 +230,8 @@ export default function KaijiPage() {
 
         {/* 写真を散らす：店の考え */}
         <section className="kj-scatter" aria-label="KAIJI DIVE について">
-          <Ph src="surface" alt="水の中から見上げた、光の揺れる海面" className="kj-sc1" />
-          <Ph src="entry" alt="足あとの残る白い砂浜と、透きとおった浅瀬" className="kj-sc2" />
+          <Ph src="surface" alt="水の中から見上げた、光の揺れる海面" className="kj-sc1" drift={0.1} />
+          <Ph src="entry" alt="足あとの残る白い砂浜と、透きとおった浅瀬" className="kj-sc2" drift={0.04} />
           <div className="kj-poem kj-sc3" data-rv>
             <p>
               朝いちばんに浜へ出て、風と波を見る。
@@ -243,7 +240,9 @@ export default function KaijiPage() {
               <br />
               一度に案内するのは、多くて四人まで。
               <br />
-              水の中で、ひとりずつの顔色が見える人数です。
+              水の中で、
+              <br />
+              ひとりずつの顔色が見える人数です。
             </p>
             <p className="kj-poem__en" lang="en">
               We read the wind and waves every morning
@@ -253,7 +252,7 @@ export default function KaijiPage() {
               Small groups, one guide, the clear sea of Amami.
             </p>
           </div>
-          <Ph src="coast" alt="緑の崖に囲まれた、白い砂浜と青緑の入り江" className="kj-sc4" />
+          <Ph src="coast" alt="緑の崖に囲まれた、白い砂浜と青緑の入り江" className="kj-sc4" drift={0.07} />
         </section>
 
         {/* メニューと料金 */}
@@ -326,8 +325,9 @@ export default function KaijiPage() {
         </section>
 
         {/* 色の面：少人数のこと */}
+        {/* 山場：スクロールに合わせて、四隅から全幅へ広がる青い面（動きは KaijiMotion） */}
         <section className="kj-block" aria-label="少人数の案内">
-          <div className="kj-block__in" data-rv>
+          <div className="kj-block__in">
             <p className="kj-block__en" aria-hidden="true">
               1 GUIDE
               <br />4 GUESTS
@@ -367,7 +367,23 @@ export default function KaijiPage() {
             <dl>
               <div>
                 <dt>住所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>鹿児島県奄美市（見本のため架空）</dd>
+              </div>
+              <div>
+                <dt>地図</dt>
+                <dd>地図を開く（見本）</dd>
+              </div>
+              <div>
+                <dt>集合</dt>
+                <dd>8:30に店へ。浜やボートへは車でご案内します</dd>
+              </div>
+              <div>
+                <dt>駐車場</dt>
+                <dd>店の前に3台（見本）</dd>
+              </div>
+              <div>
+                <dt>お休み</dt>
+                <dd>不定休。海が荒れた日は中止にします</dd>
               </div>
               <div>
                 <dt>電話</dt>
@@ -377,7 +393,11 @@ export default function KaijiPage() {
               </div>
               <div>
                 <dt>予約</dt>
-                <dd>前日18時まで、電話かInstagramのメッセージで</dd>
+                <dd>
+                  前日18時まで。
+                  <br />
+                  電話か Instagram のメッセージで
+                </dd>
               </div>
               <div>
                 <dt>SNS</dt>
@@ -385,7 +405,11 @@ export default function KaijiPage() {
               </div>
               <div>
                 <dt>持ち物</dt>
-                <dd>水着・タオル。器材とウェットスーツはお貸しします</dd>
+                <dd>
+                  水着・タオル。器材と<span className="kj-nw">ウェットスーツ</span>はお貸しします
+                  <br />
+                  （ファンダイブの器材一式は 4,000円）
+                </dd>
               </div>
             </dl>
             <a className="kj-call" href="tel:0997000000">
@@ -395,6 +419,7 @@ export default function KaijiPage() {
         </div>
         <p className="kj-foot__c">(c) 2026 KAIJI DIVE / sample site by ALPACA</p>
       </footer>
+      <KaijiMotion />
       <Reveal />
     </div>
   );

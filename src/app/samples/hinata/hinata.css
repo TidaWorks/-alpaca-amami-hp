@@ -7,6 +7,8 @@
   --line: #ece6dc;
   --orange: #e8822a;
   --orange-d: #c9661a;
+  /* 白い字を乗せる橙の面（白字とのコントラスト 4.2:1） */
+  --orange-fill: #c25f16;
   --orange-pale: #fff1e2;
   --leaf: #7aa34f;
   --yellow: #f3c64b;
@@ -217,7 +219,7 @@
   gap: 10px;
   font-family: var(--latin);
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   color: var(--orange-d);
 }
@@ -377,7 +379,7 @@
 .hn-side {
   position: absolute;
   top: 46%;
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--latin);
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -416,7 +418,7 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--orange-fill);
   color: #fff;
   display: grid;
   place-items: center;
@@ -607,6 +609,20 @@
   border-radius: 18px;
   padding: 24px 22px 30px;
 }
+.hn .hn-season[data-rv] {
+  transition-delay: calc(var(--i, 0) * 0.12s);
+}
+.hn-season.is-in .hn-season__kigo {
+  animation: hn-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 0.12s + 0.35s) both;
+}
+@keyframes hn-pop {
+  0% {
+    scale: 0.55;
+  }
+  100% {
+    scale: 1;
+  }
+}
 .hn-season:nth-child(even) {
   margin-top: 48px;
 }
@@ -622,19 +638,22 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--orange-fill);
   color: #fff;
   font-size: 20px;
   font-weight: 700;
 }
 .hn-season:nth-child(1) .hn-season__kigo {
-  background: #e98fa0;
+  background: #c9607a;
 }
 .hn-season:nth-child(2) .hn-season__kigo {
-  background: var(--leaf);
+  background: #5c8a34;
 }
 .hn-season:nth-child(3) .hn-season__kigo {
-  background: #e3a535;
+  background: #a87010;
+}
+.hn-sdots {
+  display: none;
 }
 .hn-season__month {
   font-size: 13px;
@@ -675,23 +694,58 @@
   height: min(820px, 62vw);
   overflow: hidden;
 }
-.hn-band img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hn-band__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
+/* 写真はスクロールに合わせてゆっくり縦にずらす（上下 4% ずつ・--drift は Drift.tsx が渡す） */
+.hn-band__photo img {
+  position: absolute;
+  inset: -6% 0 auto;
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  translate: 0 calc(var(--drift, 0) * 4%);
+  will-change: translate;
+}
+/* 右上の空だけ少し沈めて、白い縦書きを読みやすく */
+.hn-band__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 34% 62% at 93% 6%, rgba(30, 48, 66, 0.4), rgba(30, 48, 66, 0) 72%);
+  pointer-events: none;
+}
+/* 縦書きは右上の空に（家族の頭にかからない） */
 .hn-band__txt {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
+  top: 6%;
+  right: 5%;
   color: #fff;
-  font-size: clamp(26px, 3vw, 40px);
-  text-shadow: 0 0 24px rgba(40, 30, 10, 0.45), 0 0 4px rgba(40, 30, 10, 0.3);
-  flex-direction: column;
+  font-size: clamp(22px, 2.3vw, 34px);
+  text-shadow: 0 0 3px rgba(20, 32, 46, 0.55), 0 1px 18px rgba(20, 32, 46, 0.6);
+}
+.hn .hn-band__txt[data-rv] {
+  opacity: 1;
+  transform: none;
 }
 .hn-band__txt span {
   writing-mode: vertical-rl;
+  opacity: 0;
+  translate: 0 -14px;
+  transition: opacity 1s ease, translate 1.2s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+/* 右の列から1列ずつ */
+.hn-band__txt span:nth-child(2) {
+  transition-delay: 0.45s;
+}
+.hn-band__txt span:nth-child(3) {
+  transition-delay: 0.9s;
+}
+.hn-band__txt.is-in span {
+  opacity: 1;
+  translate: 0 0;
 }
 .hn-tate-b {
   display: flex;
@@ -770,7 +824,7 @@
   width: 112px;
   height: 112px;
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--orange-fill);
   color: #fff;
   display: flex;
   align-items: baseline;
@@ -794,6 +848,17 @@
   top: -52px;
   padding-top: 38px;
   font-size: 44px;
+}
+/* 2→5→10kg の順に、丸が小さい所からふくらむ */
+.hn-box__kg {
+  scale: 0.2;
+  opacity: 0;
+  transition: scale 0.6s cubic-bezier(0.34, 1.5, 0.64, 1) calc(var(--i, 0) * 0.4s + 0.25s),
+    opacity 0.3s ease calc(var(--i, 0) * 0.4s + 0.25s);
+}
+.hn-box.is-in .hn-box__kg {
+  scale: 1;
+  opacity: 1;
 }
 .hn-box__kg small {
   font-size: 15px;
@@ -848,19 +913,30 @@
   min-width: 280px;
   padding: 12px 34px;
   border-radius: 999px;
-  background: var(--orange);
+  background: var(--orange-fill);
   color: #fff !important;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-decoration: none;
-  border: 2px solid var(--orange);
+  border: 2px solid var(--orange-fill);
   transition: background 0.35s ease, color 0.35s ease, transform 0.35s ease;
 }
 .hn-btn:hover {
-  background: var(--orange-d);
-  border-color: var(--orange-d);
+  background: #a9520f;
+  border-color: #a9520f;
   transform: translateY(-2px);
+}
+.hn-btn.hn-btn--off {
+  background: #f6f1e9;
+  border-color: var(--line);
+  color: var(--ink-2) !important;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: default;
+}
+.hn-btn.hn-btn--off:hover {
+  transform: none;
 }
 .hn-btn--line {
   background: #fff;
@@ -907,6 +983,14 @@
 }
 .hn-stand__dl dt {
   color: var(--orange-d);
+}
+.hn-map {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: -8px 0;
+  color: var(--orange-d) !important;
+  text-underline-offset: 4px;
 }
 .hn-stand__pic {
   aspect-ratio: 4 / 3.4;
@@ -1035,7 +1119,7 @@
   writing-mode: vertical-rl;
   font-family: var(--latin);
   font-weight: 700;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.3em;
 }
 .hn-foot__h {
@@ -1190,7 +1274,7 @@
   min-height: 44px;
   padding: 0 22px;
   border-radius: 999px;
-  background: var(--orange);
+  background: var(--orange-fill);
   color: #fff !important;
   font-size: 13.5px;
   font-weight: 700;
@@ -1199,6 +1283,9 @@
   margin-left: 6px;
 }
 .hn-nav__sheet {
+  display: none;
+}
+.hn-nav__tel {
   display: none;
 }
 
@@ -1230,6 +1317,21 @@
     min-height: 48px;
     min-width: 116px;
     justify-content: center;
+  }
+  .hn-nav__tel {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 2px solid var(--orange-fill);
+    color: var(--orange-fill);
+  }
+  .hn-nav__tel svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
   }
   .hn-nav__sheet.is-open {
     display: block;
@@ -1280,13 +1382,17 @@
     padding: 10px 16px 0;
   }
   .hn-bar__place {
-    gap: 6px;
-    font-size: 9px;
+    gap: 4px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+  .hn-bar__place span {
+    padding-left: 6px;
   }
   .hn-hero__logo {
-    height: 62svh;
-    min-height: 420px;
-    max-height: 540px;
+    height: 52svh;
+    min-height: 380px;
+    max-height: 460px;
   }
   .hn-mark--hero {
     width: 76px;
@@ -1418,15 +1524,61 @@
   .hn-season:nth-child(even) {
     margin-top: 0;
   }
+  .hn .hn-season[data-rv] {
+    transition-delay: 0s;
+  }
+  .hn-season.is-in .hn-season__kigo {
+    animation-delay: 0.3s;
+  }
+  .hn-sdots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px 0;
+  }
+  .hn-sdots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #ddd0bd;
+    transition: width 0.35s ease, background 0.35s ease;
+  }
+  .hn-sdots i.is-now {
+    width: 22px;
+    background: var(--orange-fill);
+  }
+  .hn-sdots span {
+    margin-left: 10px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+  /* スマホは写真の下に縦書き（写真の上では家族の頭にかかるため） */
   .hn-band {
     margin-top: 70px;
+    height: auto;
+    overflow: visible;
+  }
+  .hn-band__photo {
+    position: relative;
     height: 112vw;
   }
-  .hn-band img {
+  .hn-band__photo img {
     object-position: 50% 50%;
   }
+  .hn-band__photo::after {
+    display: none;
+  }
   .hn-band__txt {
-    font-size: 25px;
+    position: static;
+    justify-content: center;
+    margin: 44px auto 0;
+    color: var(--ink);
+    text-shadow: none;
+    font-size: 24px;
+  }
+  .hn-box__kg {
+    transition-delay: 0.2s;
   }
   .hn-order {
     padding: 100px 24px 100px;
@@ -1524,7 +1676,7 @@
     width: 30px;
   }
   .hn-end__c {
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
   }
 }
@@ -1549,13 +1701,27 @@
   .hn-nav {
     transition: none;
   }
+  .hn-band__txt span,
+  .hn-box__kg,
+  .hn-sdots i {
+    transition: none !important;
+    opacity: 1;
+    translate: none;
+    scale: 1;
+  }
+  .hn-band__photo img {
+    translate: none;
+  }
+  .hn-season.is-in .hn-season__kigo {
+    animation: none;
+  }
 }
 
 /* 写真が届くまでの下地 */
 .hn-pic,
 .hn-season__pic,
 .hn-hero__photo,
-.hn-band,
+.hn-band__photo,
 .hn-blob {
   background: #f3eee5;
 }
@@ -1563,6 +1729,8 @@
   background: #f3eee5;
 }
 .hn-foot__info dd a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
   display: inline-flex;
   align-items: center;
   min-height: 44px;

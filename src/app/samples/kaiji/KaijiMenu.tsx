@@ -14,9 +14,14 @@ const LINKS = [
 export default function KaijiMenu() {
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
+  const [nearEnd, setNearEnd] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShown(window.scrollY > 420);
+    const onScroll = () => {
+      setShown(window.scrollY > 420);
+      // 下の「電話で予約する」が見える所では、付いてくる電話ボタンを引っこめる
+      setNearEnd(window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 640);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -45,7 +50,8 @@ export default function KaijiMenu() {
         <b />
         <b />
       </button>
-      <div id="kj-mpanel" className={`kj-mpanel ${open ? "is-open" : ""}`} hidden={!open}>
+      {/* 開け閉めを 0.3 秒のフェードに（hidden だと移り変わりが出ない）。閉じている間は visibility で隠して押せなくする */}
+      <div id="kj-mpanel" className={`kj-mpanel ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="メニュー">
           <ul>
             {LINKS.map((l) => (
@@ -62,6 +68,10 @@ export default function KaijiMenu() {
           </a>
         </nav>
       </div>
+      {/* スマホだけ：一番上を過ぎたら右下に付いてくる電話ボタン */}
+      <a className={`kj-telfab ${shown && !open && !nearEnd ? "is-shown" : ""}`} href="tel:0997000000" aria-label="電話で予約する（0997-00-0000）">
+        電話で予約
+      </a>
     </>
   );
 }

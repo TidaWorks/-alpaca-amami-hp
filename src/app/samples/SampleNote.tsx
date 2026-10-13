@@ -31,7 +31,7 @@ export default function SampleNote({
       <span className="smp-note__pc">
         本サイトは ALPACA が制作したホームページのデザイン見本です。掲載している店舗名・文章はすべて架空のもので、写真は AI により生成しています。実際の制作では、お客様にご用意いただいたお写真を加工・調整して使用いたします。
       </span>
-      <span className="smp-note__sp">ALPACA 制作の見本です。店舗・文章は架空、写真は AI 生成（実際はお客様のお写真を使用）。</span>
+      <span className="smp-note__sp">ALPACA 制作の見本です。店舗・文章は架空、写真は AI 生成（実際は<span style={{ whiteSpace: "nowrap" }}>お客様</span>のお写真を使用）。</span>
       <Link href="/#samples" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3, marginLeft: 8, whiteSpace: "nowrap", display: "inline-block", padding: "13px 4px", margin: "-13px 0 -13px 4px" }}>
         ALPACA トップへ
       </Link>

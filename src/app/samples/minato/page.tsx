@@ -24,6 +24,15 @@ function Pic({ src, alt, className = "" }: { src: string; alt: string; className
   );
 }
 
+// 大きな英字の見出し。下から押し上げるマスクで現す（動きは minato.css の .mn-big）
+function Big({ children, className = "" }: { children: string; className?: string }) {
+  return (
+    <p className={`mn-big ${className}`} aria-hidden="true" data-rv>
+      <span>{children}</span>
+    </p>
+  );
+}
+
 const NAV = [
   { href: "#story", en: "Story" },
   { href: "#service", en: "Service" },
@@ -57,29 +66,62 @@ const SERVICES = [
   {
     no: "05",
     ja: "融資の書類づくり",
-    text: "銀行や公庫に出す事業計画書と資金繰りの表を、一緒につくります。数字の根っこは、ご本人の言葉で説明できる形にします。",
+    text: "銀行や公庫に出す事業計画書と資金繰りの表を、一緒につくります。数字の根っこを、銀行の人にご自身で説明できる形にします。",
   },
 ];
 
-const FEES = [
+const FEES: { ja: string; en: string; price: string; sub?: string }[] = [
   { ja: "記帳の代行", en: "Bookkeeping", price: "月 15,000円〜" },
   { ja: "個人の確定申告", en: "Tax return", price: "50,000円〜" },
   { ja: "法人の決算と申告", en: "Corporate", price: "180,000円〜" },
-  { ja: "相続のご相談", en: "Inheritance", price: "初回 30分 無料" },
+  {
+    ja: "相続のご相談",
+    en: "Inheritance",
+    price: "初回 30分 無料",
+    sub: "その後は、話をうかがってから見積り",
+  },
   { ja: "融資の書類づくり", en: "Loan papers", price: "40,000円〜" },
 ];
 
 const FLOW = [
-  { no: "01", ja: "お電話かメール", text: "何について聞きたいか、ひとことで大丈夫です。平日の昼間につながります。" },
-  { no: "02", ja: "はじめの面談", text: "事務所か、島の中ならご自宅や店に伺います。手元の書類をそのまま見せてください。" },
-  { no: "03", ja: "見積りをお渡し", text: "やることと金額を紙に書いてお渡しします。持ち帰って考えてから決めてください。" },
-  { no: "04", ja: "お預かり", text: "決まったら、書類の受け渡しの日を毎月一日ずつ決めて始めます。" },
+  {
+    no: "01",
+    ja: "お電話かメール",
+    text: "何について聞きたいか、ひとことで大丈夫です。平日の昼間につながります。",
+  },
+  {
+    no: "02",
+    ja: "はじめの面談",
+    text: "事務所か、島の中ならご自宅や店に伺います。手元の書類をそのまま見せてください。",
+  },
+  {
+    no: "03",
+    ja: "見積りをお渡し",
+    text: "やることと金額を紙に書いてお渡しします。持ち帰って考えてから決めてください。",
+  },
+  {
+    no: "04",
+    ja: "お預かり",
+    text: "決まったら、毎月、書類を受け渡す日を一日決めて始めます。",
+  },
 ];
 
 const NEWS = [
-  { date: "2026-10-01", label: "2026.10.01", text: "年末調整の書類の受け付けを、11月10日から始めます。" },
-  { date: "2026-09-16", label: "2026.09.16", text: "インボイスについての小さな勉強会を、事務所で開きました。" },
-  { date: "2026-08-20", label: "2026.08.20", text: "8月の旧盆の三日間は、事務所をお休みします。" },
+  {
+    date: "2026-10-01",
+    label: "2026.10.01",
+    text: "年末調整の書類の受け付けを、11月10日から始めます。",
+  },
+  {
+    date: "2026-09-16",
+    label: "2026.09.16",
+    text: "インボイスについての小さな勉強会を、事務所で開きました。",
+  },
+  {
+    date: "2026-08-20",
+    label: "2026.08.20",
+    text: "8月の旧盆の三日間は、事務所をお休みします。",
+  },
 ];
 
 export default function MinatoPage() {
@@ -88,19 +130,7 @@ export default function MinatoPage() {
       <link rel="stylesheet" href={FONTS} precedence="default" />
       <SampleNote bg="#1C4253" fg="#E9E2D6" font="'Noto Sans JP', sans-serif" />
 
-      <header className="mn-bar">
-        <a href="#top" className="mn-mark" aria-label="みなと税理士事務所 トップへ">
-          M<i aria-hidden="true" />
-        </a>
-        <nav className="mn-bar__nav" aria-label="ページ内の案内">
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href}>
-              {n.en}
-            </a>
-          ))}
-        </nav>
-        <MinatoMenu />
-      </header>
+      <MinatoMenu />
 
       <main>
         {/* 一番上：港の写真に大きな店名 */}
@@ -124,9 +154,7 @@ export default function MinatoPage() {
         {/* Story：深い海の青の面 */}
         <section className="mn-story" id="story" aria-labelledby="mn-story-h">
           <div className="mn-story__in">
-            <p className="mn-big mn-big--light" aria-hidden="true" data-rv>
-              Story
-            </p>
+            <Big className="mn-big--light">Story</Big>
             <h2 id="mn-story-h" className="mn-story__h" data-rv>
               領収書は、
               <br />
@@ -135,7 +163,7 @@ export default function MinatoPage() {
             <div className="mn-story__body" data-rv>
               <p>島で店や船の仕事をしていると、帳簿のことをすぐ聞ける人が、近くにいないことがあります。</p>
               <p>
-                この事務所は、名瀬の港から歩いて五分のところにあります。記帳、申告、決算、相続のご相談まで、ひとりの税理士と事務の二人で受けています。
+                この事務所は、名瀬の港から歩いて五分のところにあります。記帳、申告、決算、相続のご相談まで、税理士ひとりと事務ひとりの、二人で受けています。
               </p>
               <p>
                 「これは経費になりますか」と電話で聞くだけでもかまいません。わからないことは調べて、確かめてから返事をします。
@@ -143,14 +171,19 @@ export default function MinatoPage() {
               <p>龍郷町や瀬戸内町など、島の中ならこちらから伺います。</p>
             </div>
           </div>
-          <Pic src="story-window" alt="事務所の窓から見える海と、窓辺の湯のみ" className="mn-story__pic" />
+          <div className="mn-story__foot">
+            <div className="mn-story__aside" data-rv>
+              <p>聞きたいことが一つだけでも、電話で受けています。</p>
+              <a href="tel:0997000000">Tel : 0997-00-0000</a>
+              <small>平日 9:00〜17:30</small>
+            </div>
+            <Pic src="story-window" alt="事務所の窓から見える海と、窓辺のマグカップ" className="mn-story__pic" />
+          </div>
         </section>
 
         {/* 決めごと */}
         <section className="mn-policy" aria-labelledby="mn-policy-h">
-          <p className="mn-big mn-policy__big" aria-hidden="true" data-rv>
-            Policy
-          </p>
+          <Big className="mn-policy__big">Policy</Big>
           <h2 id="mn-policy-h" className="mn-sr">
             事務所の決めごと
           </h2>
@@ -159,7 +192,7 @@ export default function MinatoPage() {
             <li data-rv>
               <span className="mn-no">01.</span>
               <div>
-                <h3>数字は、ご本人の言葉で説明します。</h3>
+                <h3>数字は、ふだんの言葉で説明します。</h3>
                 <p>
                   決算書を渡して終わりにはしません。去年と比べて何が増えて何が減ったのか、帳簿を一緒にめくりながら話します。専門の言葉は、使ったらすぐ言いかえます。
                 </p>
@@ -180,9 +213,7 @@ export default function MinatoPage() {
         {/* できること */}
         <section className="mn-service" id="service" aria-labelledby="mn-service-h">
           <div className="mn-service__head">
-            <p className="mn-big" aria-hidden="true" data-rv>
-              Service
-            </p>
+            <Big>Service</Big>
             <h2 id="mn-service-h" className="mn-service__ja" data-rv>
               できること
             </h2>
@@ -209,9 +240,7 @@ export default function MinatoPage() {
         {/* 料金の目安：青の面 */}
         <section className="mn-fee" id="fee" aria-labelledby="mn-fee-h">
           <div className="mn-fee__in">
-            <p className="mn-big mn-big--light" aria-hidden="true" data-rv>
-              Fee
-            </p>
+            <Big className="mn-big--light">Fee</Big>
             <div className="mn-fee__body">
               <h2 id="mn-fee-h" className="mn-fee__h" data-rv>
                 料金の目安
@@ -226,7 +255,10 @@ export default function MinatoPage() {
                       {f.ja}
                       <span aria-hidden="true">{f.en}</span>
                     </dt>
-                    <dd>{f.price}</dd>
+                    <dd>
+                      {f.price}
+                      {f.sub && <small>{f.sub}</small>}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -241,9 +273,7 @@ export default function MinatoPage() {
         {/* 相談の流れ */}
         <section className="mn-flow" id="flow" aria-labelledby="mn-flow-h">
           <div className="mn-flow__head">
-            <p className="mn-big" aria-hidden="true" data-rv>
-              Flow
-            </p>
+            <Big>Flow</Big>
             <h2 id="mn-flow-h" className="mn-flow__ja" data-rv>
               ご相談の流れ
             </h2>
@@ -262,9 +292,7 @@ export default function MinatoPage() {
 
         {/* 事務所の様子 */}
         <section className="mn-office" id="office" aria-labelledby="mn-office-h">
-          <p className="mn-big mn-office__big" aria-hidden="true" data-rv>
-            Office
-          </p>
+          <Big className="mn-office__big">Office</Big>
           <div className="mn-office__wide">
             <Pic src="office-table" alt="海の見える窓の前の、丸い木のテーブルと二脚の椅子" />
             <div className="mn-office__over" data-rv>
@@ -279,9 +307,7 @@ export default function MinatoPage() {
               <p>
                 入口は通りに面したガラス戸で、段差は一段だけです。建物の横に、車を二台とめられます。お子さん連れでも、気にせずお入りください。
               </p>
-              <p>
-                帳簿や申告書の控えは、鍵のかかる棚に、お客さんごとの綴りで保管しています。
-              </p>
+              <p>帳簿や申告書の控えは、お客さんごとの綴りにして、鍵のかかる書庫で保管しています。</p>
             </div>
             <Pic src="office-shelf" alt="紺と灰色の綴りが並ぶ木の棚" className="mn-office__b" />
           </div>
@@ -291,9 +317,7 @@ export default function MinatoPage() {
         {/* お知らせ */}
         <section className="mn-news" aria-labelledby="mn-news-h">
           <div className="mn-news__head">
-            <p className="mn-big" aria-hidden="true" data-rv>
-              News
-            </p>
+            <Big>News</Big>
             <h2 id="mn-news-h" className="mn-sr">
               お知らせ
             </h2>
@@ -320,7 +344,18 @@ export default function MinatoPage() {
               </div>
               <div>
                 <dt>住所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>
+                  鹿児島県奄美市（住所は架空）
+                  <br />
+                  <a
+                    className="mn-link"
+                    href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%B8%82%E5%90%8D%E7%80%AC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    地図を開く（見本）
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt>受付</dt>
@@ -328,11 +363,19 @@ export default function MinatoPage() {
               </div>
               <div>
                 <dt>駐車場</dt>
-                <dd>2台</dd>
+                <dd>建物の横に2台</dd>
+              </div>
+              <div>
+                <dt>電話</dt>
+                <dd>
+                  <a className="mn-link" href="tel:0997000000">
+                    0997-00-0000
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt>SNS</dt>
-                <dd>Instagram（見本）</dd>
+                <dd>Instagram（準備中）</dd>
               </div>
             </dl>
           </div>
@@ -341,9 +384,7 @@ export default function MinatoPage() {
 
       <footer className="mn-foot" id="contact">
         <div className="mn-arch">
-          <p className="mn-big mn-big--light mn-arch__big" data-rv>
-            Contact
-          </p>
+          <Big className="mn-big--light mn-arch__big">Contact</Big>
           <p className="mn-arch__lead" data-rv>
             はじめてのご相談も、まずはお電話でひとこと。
           </p>

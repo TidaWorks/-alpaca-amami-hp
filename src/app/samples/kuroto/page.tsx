@@ -15,17 +15,29 @@ const FONTS =
 
 const IMG = "/samples/kuroto";
 
-function Pic({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+function Pic({ src, alt, className = "", rv = true }: { src: string; alt: string; className?: string; rv?: boolean }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={`kt-pic ${className}`} src={`${IMG}/${src}.webp`} alt={alt} loading="lazy" decoding="async" data-rv />
+    <img
+      className={`kt-pic ${className}`}
+      src={`${IMG}/${src}.webp`}
+      alt={alt}
+      loading={rv ? "lazy" : "eager"}
+      decoding="async"
+      {...(rv ? { "data-rv": "" } : {})}
+    />
   );
 }
 
 const MENU = [
   { src: "loaf", name: "黒糖食パン", note: "一斤", price: "480円" },
   { src: "roll", name: "黒糖ロール", note: "ひとつ", price: "220円" },
-  { src: "tankan", name: "たんかんデニッシュ", note: "1月〜3月", price: "380円" },
+  {
+    src: "tankan",
+    name: "たんかんデニッシュ",
+    note: "1月〜3月",
+    price: "380円",
+  },
   { src: "banana", name: "島バナナのマフィン", note: "ひとつ", price: "260円" },
   { src: "shio", name: "塩パン", note: "ひとつ", price: "160円" },
 ];
@@ -51,20 +63,21 @@ export default function KurotoPage() {
       <main>
         {/* 一番上：パン2つと「く ろ と」 */}
         <section className="kt-hero" aria-label="くろと">
+          <p className="kt-hero__lead">奄美の黒糖のパン屋</p>
           <div className="kt-hero__item kt-hero__item--a">
-            <Pic src="roll" alt="黒糖ロール" />
+            <Pic src="roll" alt="黒糖ロール" rv={false} />
             <span className="kt-hero__ch" aria-hidden="true">
               く
             </span>
           </div>
           <div className="kt-hero__item kt-hero__item--b">
-            <Pic src="tankan" alt="たんかんデニッシュ" />
+            <Pic src="tankan" alt="たんかんデニッシュ" rv={false} />
             <span className="kt-hero__ch" aria-hidden="true">
               ろ
             </span>
           </div>
           <div className="kt-hero__item kt-hero__item--c">
-            <Pic src="shio" alt="塩パン" />
+            <Pic src="shio" alt="塩パン" rv={false} />
             <span className="kt-hero__ch" aria-hidden="true">
               と
             </span>
@@ -74,33 +87,35 @@ export default function KurotoPage() {
 
         {/* はじめに */}
         <section className="kt-intro" aria-labelledby="kt-intro-h">
-          <div className="kt-tate" data-rv>
-            <h2 id="kt-intro-h" className="kt-tate__h">
-              島の黒糖で、
-              <br />
-              毎朝やく。
-            </h2>
-            <p className="kt-tate__p">
-              サトウキビを煮つめた奄美の黒糖を、
-              <br />
-              生地に練りこんでいます。
-              <br />
-              焼くと、ふちは香ばしく、中はしっとり。
-              <br />
-              朝七時に、いちばん目の食パンが
-              <br />
-              焼きあがります。
-            </p>
+          <div className="kt-intro__copy">
+            <div className="kt-tate" data-rv>
+              <h2 id="kt-intro-h" className="kt-tate__h">
+                島の黒糖で、
+                <br />
+                毎朝やく。
+              </h2>
+              <p className="kt-tate__p">
+                サトウキビを煮つめた奄美の黒糖を、
+                <br />
+                生地に練りこんでいます。
+                <br />
+                焼くと、ふちは香ばしく、中はしっとり。
+                <br />
+                朝七時に、いちばん目の食パンが
+                <br />
+                焼きあがります。
+              </p>
+            </div>
+            <div className="kt-intro__btn">
+              <Pill href="#shop" seed={0} big>
+                お店のこと
+              </Pill>
+            </div>
           </div>
           <figure className="kt-intro__fig" data-rv>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`${IMG}/sugarcane.webp`} alt="サトウキビをしぼる絵" loading="lazy" />
           </figure>
-          <div className="kt-intro__btn">
-            <Pill href="#shop" seed={0} big>
-              お店のこと
-            </Pill>
-          </div>
         </section>
 
         {/* 黒糖食パン */}
@@ -121,11 +136,6 @@ export default function KurotoPage() {
           </figure>
           <div className="kt-feature__loaf">
             <Pic src="loaf" alt="黒糖食パン" />
-            <p className="kt-feature__name" aria-hidden="true">
-              <span>く</span>
-              <span>ろ</span>
-              <span>と</span>
-            </p>
           </div>
           <div className="kt-feature__text" data-rv>
             <p>
@@ -174,15 +184,15 @@ export default function KurotoPage() {
             </Pill>
             <ul>
               <li>
-                <time dateTime="2026-10-08">26.10.08</time>
+                <time dateTime="2026-10-08">2026.10.08</time>
                 <span>日曜日は朝八時からの営業になりました。</span>
               </li>
               <li>
-                <time dateTime="2026-09-20">26.09.20</time>
+                <time dateTime="2026-09-20">2026.09.20</time>
                 <span>お取り置きを電話で受け付けています。</span>
               </li>
               <li>
-                <time dateTime="2026-09-01">26.09.01</time>
+                <time dateTime="2026-09-01">2026.09.01</time>
                 <span>島バナナのマフィンが今年も始まりました。</span>
               </li>
             </ul>
@@ -202,7 +212,11 @@ export default function KurotoPage() {
             <dl>
               <div>
                 <dt>営業</dt>
-                <dd>7:00〜16:00（売り切れたら閉めます）</dd>
+                <dd>
+                  7:00〜16:00（日曜は8:00から）
+                  <br />
+                  売り切れたら閉めます
+                </dd>
               </div>
               <div>
                 <dt>お休み</dt>
@@ -210,11 +224,38 @@ export default function KurotoPage() {
               </div>
               <div>
                 <dt>場所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>
+                  鹿児島県奄美市（住所は架空）
+                  <br />
+                  <a
+                    className="kt-link"
+                    href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%B8%82%E5%90%8D%E7%80%AC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    地図を開く（見本）
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>駐車場</dt>
+                <dd>店の前に2台</dd>
+              </div>
+              <div>
+                <dt>お支払い</dt>
+                <dd>現金・QRコード決済</dd>
+              </div>
+              <div>
+                <dt>お取り置き</dt>
+                <dd>前の日の16時までに、お電話で</dd>
               </div>
               <div>
                 <dt>電話</dt>
-                <dd>0997-00-0000</dd>
+                <dd>
+                  <a className="kt-link" href="tel:0997000000">
+                    0997-00-0000
+                  </a>
+                </dd>
               </div>
             </dl>
           </div>
@@ -225,14 +266,15 @@ export default function KurotoPage() {
         <div className="kt-foot__pills">
           <div className="kt-foot__pill">
             <span className="kt-foot__small">お取り置きは</span>
-            <Pill href="#shop" seed={1} big>
+            <Pill href="tel:0997000000" seed={1} big>
               電話で
             </Pill>
           </div>
           <div className="kt-foot__pill">
             <span className="kt-foot__small">焼きあがりの写真は</span>
-            <Pill href="#top" seed={2} big>
+            <Pill seed={2} big>
               Instagram
+              <small className="kt-pill__sub">準備中</small>
             </Pill>
           </div>
         </div>
@@ -241,6 +283,10 @@ export default function KurotoPage() {
         </p>
         <p className="kt-foot__c">© 2026 kuroto — sample site by ALPACA</p>
       </footer>
+      <a className="kt-call" href="tel:0997000000">
+        <span>お取り置きの電話</span>
+        <b>0997-00-0000</b>
+      </a>
       <Reveal />
     </div>
   );

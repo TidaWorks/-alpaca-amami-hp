@@ -3,6 +3,7 @@ import "./nagi.css";
 import SampleNote from "../SampleNote";
 import Reveal from "../Reveal";
 import NagiMenu from "./NagiMenu";
+import Drift from "./Drift";
 
 // 見本サイト：奄美市名瀬の路地にある三席の美容室（架空）。お手本は longleage（地の色・小さな文字・余白の物差しだけ。写真と文は全部こちらで作った）
 export const metadata: Metadata = {
@@ -65,7 +66,7 @@ const MENU = [
     en: "Color",
     ja: "カラー",
     img: "color",
-    alt: "刷毛で髪に明るい茶色のカラーを塗る手元",
+    alt: "刷毛で髪に深めの茶色のカラーを塗る手元",
     note: "日ざしで色が抜けやすい島の髪に合わせて、少し深めに入れることが多いです。白髪を隠す色にも対応します。",
     items: [
       ["カラー（根元から毛先まで）", "7,700円〜"],
@@ -81,7 +82,7 @@ const MENU = [
     note: "潮風と日ざしで乾いた毛先に、水分と油分を順に入れていきます。カットやカラーと一緒にも受けられます。",
     items: [
       ["髪の手入れ（30分）", "4,400円"],
-      ["髪の手入れ（60分・頭皮のマッサージ付き）", "7,700円"],
+      ["髪の手入れ（60分・頭皮マッサージ付き）", "7,700円"],
     ],
   },
   {
@@ -97,7 +98,7 @@ const MENU = [
 const FLOW = [
   ["01", "ご予約", "電話か Instagram のメッセージで。希望の日と、カットやカラーなどのメニューを教えてください。"],
   ["02", "髪の話を聞く", "席に座ったら、まず鏡の前で今の髪の困りごとを聞きます。決まっていなくても大丈夫です。"],
-  ["03", "施術", "その時間は、店にいるお客さまはお一人だけ。途中で休みたい時は、いつでも言ってください。"],
+  ["03", "施術", "鏡で長さや色を一緒に確かめながら進めます。気になる所は、その場で言ってください。"],
   ["04", "家での手入れ", "帰る前に、乾かし方と、次の来店までの手入れの仕方をお伝えします。"],
 ];
 
@@ -144,7 +145,7 @@ export default function NagiPage() {
 
       <main>
         {/* 一番上：大きな写真と短い一文 */}
-        <section className="ng-hero" aria-label="hair room soyo">
+        <section className="ng-hero" aria-label="hair room soyo" data-drift>
           <Img src="hero" alt="窓辺の椅子に座る長い髪の人の後ろ姿。朝の光が麻のカーテン越しに入る" className="ng-hero__img" eager />
           <div className="ng-hero__txt" data-rv>
             <p className="ng-hero__en">hair room soyo — Naze, Amami</p>
@@ -159,7 +160,7 @@ export default function NagiPage() {
 
         {/* 今月のおすすめ（お手本の細い枠の帯） */}
         <section className="ng-strip" aria-label="今月のおすすめ">
-          <div className="ng-strip__in">
+          <div className="ng-strip__in" data-rv>
             <div className="ng-strip__h">
               <p className="ng-strip__en">This Month</p>
               <p className="ng-strip__en ng-strip__en--b">Seasonal Care</p>
@@ -187,8 +188,10 @@ export default function NagiPage() {
             <div className="ng-con__t1">
               <Label id="ng-con-h">Concept</Label>
               <div className="ng-txt" data-rv>
-                <p>soyo は、奄美市名瀬の路地にある、席が三つだけの美容室です。</p>
-                <p>ご予約は、同じ時間にお一人だけ。</p>
+                <p>soyo は、店主がひとりで髪を切る、小さな美容室です。</p>
+                <p>
+                  ほかのお客さまと時間が重ならないように、<span data-nowrap>ご予約</span>をお受けしています。
+                </p>
                 <p>となりの席を気にせずに、髪のことをゆっくり話せます。</p>
               </div>
             </div>
@@ -208,7 +211,7 @@ export default function NagiPage() {
         </section>
 
         {/* 写真いっぱいの帯：島の髪の手入れ */}
-        <section className="ng-band" aria-labelledby="ng-band-h">
+        <section className="ng-band" aria-labelledby="ng-band-h" data-drift>
           <Img src="breeze" alt="夕方の逆光で、海風にゆれる長い髪の後ろ姿" className="ng-band__img" />
           <div className="ng-band__t" data-rv>
             <p className="ng-band__en">Care for island hair</p>
@@ -250,18 +253,18 @@ export default function NagiPage() {
             <p className="ng-salon__lead" data-rv>
               路地の奥の、
               <br />
-              椅子が三つの部屋
+              海の見える部屋
             </p>
             <div className="ng-txt ng-txt--sm" data-rv>
               <p>
-                しっくいの白い壁と、木の床。窓には麻のカーテンを掛けて、昼の光をやわらげています。
+                しっくいの白い壁と、木の床。二階の窓からは、名瀬の入り江が見えます。麻のカーテンを掛けて、昼の光をやわらげています。
               </p>
               <p>
-                席は三つありますが、同じ時間にお迎えするのはお一人だけ。残りの二つは、カラーを置く時間やお茶を飲む時に使います。
+                髪を切るのは窓辺の椅子です。ほかの二つは、カラーを置く時間やお茶を飲む時に使います。
               </p>
             </div>
           </div>
-          <Img src="room" alt="木の床にならぶ三つの椅子と、しっくいの壁の小さな美容室" className="ng-salon__img" />
+          <Img src="room" alt="木の床にならぶ椅子と、入り江の見える窓のある小さな美容室" className="ng-salon__img" />
         </section>
 
         {/* メニューと料金 */}
@@ -317,7 +320,7 @@ export default function NagiPage() {
               店主 <span>Owner / Stylist</span>
             </p>
             <p className="ng-st-strip__txt">
-              美容師。カットと髪の手入れを担当。日ざしと潮風で傷んだ髪の相談を、いちばん多く受けています。
+              美容師。カット・カラー・髪の手入れを、ひとりで担当しています。日ざしと潮風で傷んだ髪の相談を、いちばん多く受けています。
             </p>
           </div>
         </div>
@@ -328,9 +331,9 @@ export default function NagiPage() {
             <Label id="ng-flow-h">Reserve</Label>
             <p className="ng-sec-h__note">ご予約から、お帰りまで</p>
           </div>
-          <ol className="ng-flow__list">
+          <ol className="ng-flow__list" data-rv>
             {FLOW.map(([n, h, t], i) => (
-              <li key={n} data-rv style={{ transitionDelay: `${i * 0.08}s` }}>
+              <li key={n} style={{ ["--i" as string]: i }}>
                 <span className="ng-flow__n">{n}</span>
                 <h3>{h}</h3>
                 <p>{t}</p>
@@ -347,7 +350,6 @@ export default function NagiPage() {
               <Pill href="tel:0997000000" dark>
                 電話で予約する　0997-00-0000
               </Pill>
-              <Pill href="#info">Instagram（見本）</Pill>
             </div>
           </div>
         </section>
@@ -360,7 +362,7 @@ export default function NagiPage() {
               <li key={dt} data-rv>
                 <time dateTime={dt}>{d}</time>
                 <span className="ng-tag">{tag}</span>
-                <a href="#news">{t}</a>
+                <p>{t}</p>
               </li>
             ))}
           </ul>
@@ -386,7 +388,13 @@ export default function NagiPage() {
               </div>
               <div>
                 <dt>住所</dt>
-                <dd>鹿児島県奄美市（見本のため住所は架空です）</dd>
+                <dd>
+                  鹿児島県奄美市（見本のため住所は架空です）
+                  <br />
+                  <a href="https://www.google.com/maps/search/?api=1&query=%E5%A5%84%E7%BE%8E%E5%B8%82%E5%90%8D%E7%80%AC" target="_blank" rel="noopener noreferrer">
+                    地図を開く（見本）
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt>電話</dt>
@@ -400,7 +408,9 @@ export default function NagiPage() {
               </div>
               <div>
                 <dt>駐車場</dt>
-                <dd>店の前にはありません。近くの有料駐車場をご利用ください。</dd>
+                <dd>
+                  店の前にはありません。近くの有料<span data-nowrap>駐車場</span>をご利用ください。
+                </dd>
               </div>
               <div>
                 <dt>SNS</dt>
@@ -412,7 +422,7 @@ export default function NagiPage() {
       </main>
 
       <footer className="ng-foot">
-        <div className="ng-foot__in">
+        <div className="ng-foot__in" data-rv>
           <Logo className="ng-logo--lg" />
           <ul className="ng-foot__nav">
             <li><a href="#concept">Concept</a></li>
@@ -424,10 +434,17 @@ export default function NagiPage() {
           </ul>
         </div>
         <div className="ng-foot__bot">
-          <a href="#top">Privacy Policy</a>
+          <span>Privacy Policy（準備中）</span>
           <p>(c) 2026 hair room soyo — sample site by ALPACA</p>
         </div>
       </footer>
+      <a className="ng-call" href="tel:0997000000" aria-label="電話で予約する 0997-00-0000">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
+        </svg>
+        電話で予約
+      </a>
+      <Drift />
       <Reveal />
     </div>
   );

@@ -45,7 +45,9 @@
 .mn [data-rv] {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 1s ease, transform 1.2s cubic-bezier(0.22, 0.8, 0.24, 1);
+  transition:
+    opacity 1s ease,
+    transform 1.2s cubic-bezier(0.22, 0.8, 0.24, 1);
 }
 .mn [data-rv].is-in {
   opacity: 1;
@@ -79,6 +81,36 @@
 .mn-big--light {
   color: var(--light);
 }
+/* 山場の動き：英字の見出しを、下から押し上げるマスクで現す（字の下の出っ張り y・p を切らないよう上下に余白を足して打ち消す） */
+.mn .mn-big[data-rv] {
+  opacity: 1;
+  transform: none;
+  overflow: hidden;
+  padding: 0.12em 0.04em 0.24em;
+  margin-top: -0.12em;
+  margin-bottom: -0.24em;
+}
+.mn-big > span {
+  display: inline-block;
+  transform: translateY(1.2em);
+  transition: transform 1.25s cubic-bezier(0.2, 0.75, 0.15, 1);
+}
+.mn-big.is-in > span {
+  transform: none;
+}
+/* 全体の改行：最後の行に1〜2文字だけ残さない（Chrome。Safari はふつうの折り返し） */
+.mn :where(p, h2, h3, dd, li) {
+  text-wrap: pretty;
+}
+.mn-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline !important;
+  text-underline-offset: 5px;
+  font-weight: 700;
+  color: var(--sea) !important;
+}
 .mn-no {
   font-family: var(--serif);
   font-weight: 700;
@@ -87,16 +119,45 @@
   padding-top: 7px;
 }
 
-/* 上の帯（写真の上に重ねる） */
+/* 上の帯（一番上では写真の上に重ねる。読み進めると隠れ、上へ戻る時だけ生成りの細い帯で出る） */
 .mn-bar {
   position: absolute;
   left: 0;
   right: 0;
-  z-index: 65;
+  z-index: 75;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 26px 4.6vw;
+}
+.mn-bar.is-fixed {
+  position: fixed;
+  top: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background: rgba(244, 239, 230, 0.96);
+  box-shadow: 0 1px 0 rgba(28, 66, 83, 0.14);
+  transform: translateY(-110%);
+}
+.mn-bar.is-fixed .mn-mark {
+  font-size: 36px;
+}
+.mn-bar.is-anim {
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mn-bar.is-show,
+.mn-bar.is-fixed.is-open {
+  transform: none;
+}
+.mn-bar.is-open {
+  background: transparent;
+  box-shadow: none;
+}
+.mn-bar.is-open .mn-mark {
+  color: var(--light);
+}
+.mn-bar__sp {
+  display: none;
 }
 .mn-mark {
   position: relative;
@@ -264,10 +325,46 @@
 .mn-story__body p + p {
   margin-top: 1.2em;
 }
+.mn-story__foot {
+  display: grid;
+  grid-template-columns: 1fr 39vw;
+  align-items: end;
+  column-gap: 6vw;
+  margin-top: 72px;
+  padding: 0 11vw 0 var(--col);
+}
 .mn-story__pic {
-  margin: 72px 0 0 50vw;
-  width: 39vw;
+  width: 100%;
   aspect-ratio: 2 / 3;
+}
+.mn-story__aside {
+  margin-bottom: 220px;
+  max-width: 340px;
+  border-top: 1px solid rgba(239, 232, 220, 0.35);
+  padding-top: 28px;
+}
+.mn-story__aside p {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 2;
+  letter-spacing: 0.05em;
+}
+.mn-story__aside a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 12px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 30px;
+  border-bottom: 1px solid rgba(239, 232, 220, 0.5);
+}
+.mn-story__aside small {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
 }
 
 /* 決めごと */
@@ -452,6 +549,17 @@
   font-size: 24px;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  text-align: right;
+}
+.mn-fee__list dd small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  white-space: normal;
+  opacity: 0.9;
 }
 .mn-fee__note {
   margin-top: 24px;
@@ -477,17 +585,34 @@
   counter-reset: none;
 }
 .mn-flow__list li {
-  border-top: 2px solid var(--sea);
+  position: relative;
   padding-top: 26px;
 }
+/* 流れの上線を左から順に引く */
+.mn-flow__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--sea);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.3, 1);
+  transition-delay: inherit;
+}
+.mn-flow__list li.is-in::before {
+  transform: scaleX(1);
+}
 .mn-flow__list li:nth-child(2) {
-  transition-delay: 0.12s;
+  transition-delay: 0.25s;
 }
 .mn-flow__list li:nth-child(3) {
-  transition-delay: 0.24s;
+  transition-delay: 0.5s;
 }
 .mn-flow__list li:nth-child(4) {
-  transition-delay: 0.36s;
+  transition-delay: 0.75s;
 }
 .mn-flow__no {
   display: block;
@@ -525,7 +650,10 @@
   position: relative;
   z-index: 2;
   padding-left: 9vw;
-  margin-bottom: -0.36em;
+}
+.mn .mn-office__big[data-rv] {
+  padding-left: 9vw;
+  margin-bottom: -0.6em;
 }
 .mn-office__wide {
   position: relative;
@@ -808,7 +936,35 @@
 /* スマホ */
 @media (max-width: 760px) {
   .mn-bar {
-    padding: 14px 84px 14px 20px;
+    padding: 14px 16px 14px 20px;
+  }
+  .mn-bar.is-fixed {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .mn-bar.is-fixed .mn-mark {
+    font-size: 32px;
+  }
+  .mn-bar__sp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mn-bar__tel {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--sea);
+  }
+  .mn-bar:not(.is-fixed) .mn-bar__tel {
+    display: none;
+  }
+  .mn-bar.is-open .mn-bar__tel {
+    display: none;
   }
   .mn-mark {
     font-size: 40px;
@@ -822,16 +978,13 @@
     justify-content: center;
     align-items: center;
     gap: 7px;
-    position: fixed;
-    top: 64px;
-    right: 16px;
-    z-index: 80;
-    width: 52px;
-    height: 52px;
+    position: relative;
+    width: 48px;
+    height: 48px;
     border: 0;
     border-radius: 50%;
     background: var(--sea);
-    box-shadow: 0 0 0 1px rgba(239, 232, 220, 0.35);
+    box-shadow: 0 0 0 1px rgba(239, 232, 220, 0.5);
     cursor: pointer;
   }
   .mn-burger b {
@@ -887,8 +1040,16 @@
     line-height: 2.2;
     letter-spacing: 0.04em;
   }
+  .mn-story__foot {
+    display: block;
+    margin-top: 56px;
+    padding: 0 24px;
+  }
+  .mn-story__aside {
+    display: none;
+  }
   .mn-story__pic {
-    margin: 56px 24px 0 auto;
+    margin: 0 0 0 auto;
     width: 64vw;
   }
 
@@ -1015,6 +1176,9 @@
   .mn-fee__list dd {
     font-size: 19px;
   }
+  .mn-fee__list dd small {
+    font-size: 12px;
+  }
 
   .mn-flow {
     padding: 120px 24px 0;
@@ -1052,7 +1216,7 @@
   .mn-office {
     padding-top: 120px;
   }
-  .mn-office__big {
+  .mn .mn-office__big[data-rv] {
     padding-left: 24px;
   }
   .mn-office__wide .mn-pic {
@@ -1151,6 +1315,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mn-big > span,
+  .mn-flow__list li::before,
   .mn [data-rv],
   .mn-pic img,
   .mn-hero__img img,
@@ -1163,5 +1329,10 @@
   }
   .mn-hero__en {
     transform: translateY(0.035em) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mn-bar {
+    transition: none !important;
   }
 }

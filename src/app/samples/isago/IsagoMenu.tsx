@@ -14,11 +14,13 @@ export default function IsagoMenu() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
+    // html ではなく body で止める（body に overflow-x:hidden があるため、html を止めると body が別のスクロール枠になり、
+    // 上の帯の追従が外れ、閉じた時にページの頭へ戻ってしまう）
+    document.body.style.overflow = open ? "hidden" : "";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
-      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -39,7 +41,8 @@ export default function IsagoMenu() {
           <b />
         </i>
       </button>
-      <div id="ig-menu" className={`ig-menu ${open ? "is-open" : ""}`} hidden={!open}>
+      {/* hidden を使うと開け閉めのフェードが出ないので、visibility と opacity で切り替える（CSS 側） */}
+      <div id="ig-menu" className={`ig-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="ページ内の案内">
           <ul>
             {LINKS.map((l) => (
@@ -53,7 +56,7 @@ export default function IsagoMenu() {
           </ul>
           <a className="ig-reserve ig-reserve--menu" href="#access" onClick={() => setOpen(false)}>
             <svg viewBox="0 0 200 14" aria-hidden="true">
-              <path d="M0 9 C 20 2, 34 2, 52 8 S 86 14, 104 7 S 140 1, 160 7 S 188 12, 200 6" />
+              <path pathLength={1} d="M0 9 C 20 2, 34 2, 52 8 S 86 14, 104 7 S 140 1, 160 7 S 188 12, 200 6" />
             </svg>
             reserve <span aria-hidden="true">›</span>
           </a>
