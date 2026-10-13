@@ -24,6 +24,9 @@ export default function AwShowcase() {
   const [auto, setAuto] = useState(true);
   const [held, setHeld] = useState(false);
   const [still, setStill] = useState(false);
+  // 欄が画面に入ってから枠をせり上げ、流し始める（入る前に勝手に進まない）
+  const [seen, setSeen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
   const chips = useRef<HTMLDivElement>(null);
   const s = SAMPLES[cur];
   // 流れる速さ：1秒に 140px（画面写真の高さで秒数が変わる）。一周したら次の見本へ
@@ -34,10 +37,26 @@ export default function AwShowcase() {
   }, []);
 
   useEffect(() => {
-    if (!auto || held) return;
+    const el = root.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.18 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!seen || !auto || held) return;
     const t = window.setTimeout(() => setCur((c) => (c + 1) % SAMPLES.length), (still ? 6 : durPc + 2.5) * 1000);
     return () => window.clearTimeout(t);
-  }, [cur, auto, held, durPc, still]);
+  }, [cur, auto, held, durPc, still, seen]);
 
   // 選んだ札が横の並びの中で見えるように（スマホ）
   useEffect(() => {
@@ -63,7 +82,7 @@ export default function AwShowcase() {
   };
 
   return (
-    <div className="aw-sc" onPointerEnter={() => setHeld(true)} onPointerLeave={() => setHeld(false)}>
+    <div ref={root} className={`aw-sc ${seen ? "is-in" : ""}`} onPointerEnter={() => setHeld(true)} onPointerLeave={() => setHeld(false)}>
       <div className="aw-sc__stage" aria-live="polite">
         <div className="aw-sc__pc" aria-hidden="true">
           <span className="aw-sc__bar">

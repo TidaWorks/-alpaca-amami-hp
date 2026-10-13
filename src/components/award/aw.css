@@ -3994,6 +3994,55 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   aspect-ratio: 9 / 19.5;
   border-radius: 15px;
 }
+/* 入り方（10/13 大地さん「1」＝画面から入る）：見出しは小さく、欄に入ったら枠が下からせり上がって流れ始める */
+.aw-samples {
+  padding-top: clamp(64px, 8vw, 120px);
+}
+.aw-samples .aw-sechead {
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.aw-samples .aw-hand__svg {
+  max-width: min(480px, 70vw) !important;
+}
+.aw-samples .aw-smp__lead {
+  margin-bottom: clamp(24px, 3vw, 40px) !important;
+}
+.aw-sc__pc,
+.aw-sc__sp,
+.aw-sc__side {
+  transition:
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.8s ease;
+}
+.aw-sc:not(.is-in) .aw-sc__pc {
+  transform: translateY(120px);
+  opacity: 0;
+}
+.aw-sc:not(.is-in) .aw-sc__sp {
+  transform: translateY(220px);
+  opacity: 0;
+}
+.aw-sc:not(.is-in) .aw-sc__side {
+  transform: translateY(40px);
+  opacity: 0;
+}
+.aw-sc__sp {
+  transition-delay: 0.18s;
+}
+.aw-sc__side {
+  transition-delay: 0.35s;
+}
+.aw-sc:not(.is-in) .aw-sc__scroll {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-sc:not(.is-in) .aw-sc__pc,
+  .aw-sc:not(.is-in) .aw-sc__sp,
+  .aw-sc:not(.is-in) .aw-sc__side {
+    transform: none;
+  }
+}
 .aw-sc__side {
   display: grid;
   gap: 14px;

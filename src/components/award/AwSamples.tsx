@@ -20,7 +20,7 @@ export default function AwSamples() {
   return (
     <>
       <p className="aw-smp__lead" data-rise>
-        {jp("業種ごとに作った、ホームページの見本です。業種を選ぶと画面が切り替わり、「このサイトを開く」から実際に動くページをご覧いただけます。")}
+        {jp("奄美のお店を想定して作った、ホームページの見本10本です。")}
       </p>
       <AwShowcase />
       <p className="aw-smp__fine">※ 掲載している店舗名・文章はすべて架空のもので、写真は AI により生成しています。実際の制作では、お客様にご用意いただいたお写真を加工・調整して使用いたします。</p>
