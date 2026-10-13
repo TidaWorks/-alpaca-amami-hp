@@ -83,7 +83,8 @@ export default function AwShowcase() {
 
   return (
     <div ref={root} className={`aw-sc ${seen ? "is-in" : ""}`} onPointerEnter={() => setHeld(true)} onPointerLeave={() => setHeld(false)}>
-      <div className="aw-sc__stage" aria-live="polite">
+      {/* 画面そのものを押すと、その見本サイトに入る（10/13 大地さん「タップしたら中に入る感じに」） */}
+      <a className="aw-sc__stage" href={`/samples/${s.slug}`} aria-label={`${s.k}の見本「${s.name}」に入る`}>
         <div className="aw-sc__pc" aria-hidden="true">
           <span className="aw-sc__bar">
             <i />
@@ -112,10 +113,10 @@ export default function AwShowcase() {
             />
           </span>
         </div>
-        <p className="aw-sr">
-          {s.k}の見本「{s.name}」を表示しています。
-        </p>
-      </div>
+        <span className="aw-sc__enter" aria-hidden="true">
+          中に入る<i>→</i>
+        </span>
+      </a>
 
       <div className="aw-sc__side">
         <p className="aw-sc__now">
@@ -123,10 +124,6 @@ export default function AwShowcase() {
           <span className="aw-sc__now-k">{s.k}</span>
         </p>
         <p className="aw-sc__name">{s.name}</p>
-        <a className="aw-sc__open" href={`/samples/${s.slug}`} target="_blank" rel="noopener">
-          このサイトを開く
-          <span aria-hidden="true">↗</span>
-        </a>
         <div className="aw-sc__chips" ref={chips} role="tablist" aria-label="見本の業種">
           {SAMPLES.map((x, i) => (
             <button
