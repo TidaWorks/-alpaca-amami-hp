@@ -114,9 +114,6 @@ export default function AwShowcase({ head }: { head?: React.ReactNode }) {
             />
           </span>
         </div>
-        <span className="aw-sc__enter" aria-hidden="true">
-          中に入る<i>→</i>
-        </span>
       </a>
 
       <div className="aw-sc__side">
