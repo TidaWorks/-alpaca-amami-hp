@@ -53,7 +53,7 @@ const MENUS = [
     id: "trial",
     en: "TRIAL DIVE",
     ja: "体験ダイビング",
-    img: "diver",
+    img: "trial",
     alt: "白い砂の上をサンゴの方へ泳いでいくダイバーの後ろ姿",
     text: "免許がなくても潜れます。浅い砂地で呼吸の練習をしてから、ガイドと手をつなげる距離で海の中を進みます。",
     rows: [

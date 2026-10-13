@@ -154,15 +154,15 @@ export default function KamadoPage() {
           </div>
           <Pic src="leaf" alt="光に透けた芭蕉の葉" className="km-scat km-scat--1" drift={0.12} />
           <Pic src="kokuto" alt="木の板にのせた黒糖のかたまり" className="km-scat km-scat--2" drift={0.22} />
-          <Pic src="kamado" alt="鉄の釜をのせた土のかまど" className="km-scat km-scat--3" drift={0.08} />
-          <Pic src="shelf" alt="棚に重ねた手作りの器" className="km-scat km-scat--4" drift={0.18} />
+          <Pic src="hands" alt="かまどの前で、炊きあがったご飯を返す手" className="km-scat km-scat--3" drift={0.08} />
+          <Pic src="wipe" alt="布巾で器を拭く手" className="km-scat km-scat--4" drift={0.18} />
         </section>
 
         {/* 昼と夜の品書き */}
         <section className="km-menu-sec" id="menu" aria-labelledby="km-menu-h">
           <div className="km-lunch">
-            <Pic src="teishoku" alt="木の盆にのせた昼の定食" className="km-lunch__pic" />
-            <Pic src="hero-keihan" alt="鶏飯とスープの土鍋" className="km-lunch__sub" drift={0.1} />
+            <Pic src="teishoku-shima" alt="木の盆にのせた昼の定食。島の魚の塩焼き" className="km-lunch__pic" />
+            <Pic src="soup" alt="鶏飯のスープの土鍋と、ほぐした鶏・錦糸卵・椎茸" className="km-lunch__sub" drift={0.1} />
             <div className="km-lunch__txt">
               <Title en="Menu" ja="昼と夜の品書き" id="km-menu-h" />
               <div className="km-list" data-rv>

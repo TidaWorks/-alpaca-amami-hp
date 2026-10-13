@@ -186,9 +186,9 @@ export default function YururiPage() {
         {/* はじめに：小さな写真を散らして、まん中に縦書き */}
         <section className="yr-intro" aria-labelledby="yr-intro-h">
           <div className="yr-float" aria-hidden="true">
-            <Pic src="entrance" alt="" className="yr-f yr-f1" />
+            <Pic src="exterior" alt="" className="yr-f yr-f1" />
             <Pic src="leaves" alt="" className="yr-f yr-f3" />
-            <Pic src="reception" alt="" className="yr-f yr-f6" />
+            <Pic src="taping" alt="" className="yr-f yr-f6" />
           </div>
           <div className="yr-intro__tate" data-rv>
             <h2 id="yr-intro-h">
@@ -348,8 +348,8 @@ export default function YururiPage() {
               <p data-rv>受付。予約の電話もここで受けます。</p>
             </li>
             <li>
-              <Pic src="towels" alt="重ねて置いたタオル" className="yr-room__p" />
-              <p data-rv>タオルは、お一人ごとに取りかえます。</p>
+              <Pic src="room-bed" alt="カーテンで仕切った、三台の施術ベッド" className="yr-room__p" />
+              <p data-rv>施術室。ベッドの間は、カーテンで仕切っています。</p>
             </li>
             <li>
               <Pic src="leaves" alt="白い壁に映る、大きな葉の影" className="yr-room__p" />

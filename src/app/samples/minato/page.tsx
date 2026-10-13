@@ -137,7 +137,11 @@ export default function MinatoPage() {
         <section className="mn-hero" aria-label="みなと税理士事務所">
           <div className="mn-hero__img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/hero-port.webp`} alt="朝の港。岸壁に小さな漁船が並び、うしろに緑の山" fetchPriority="high" />
+            <picture style={{ display: "contents" }}>
+              {/* スマホは縦の写真（横長を引き伸ばすと粗いため・10/13 総チェック） */}
+              <source media="(max-width: 700px)" srcSet={`${IMG}/hero-port-sp.webp`} />
+              <img src={`${IMG}/hero-port.webp`} alt="朝の港。岸壁に小さな漁船が並び、うしろに緑の山" fetchPriority="high" />
+            </picture>
           </div>
           <h1 className="mn-hero__name">
             <span className="mn-hero__en" aria-hidden="true">

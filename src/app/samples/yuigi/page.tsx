@@ -185,7 +185,7 @@ export default function YuigiPage() {
               </p>
               <More href="#contact">平屋の相談をする</More>
             </div>
-            <Ph src="hero" alt="" className="yg-brand__side yg-brand__side--r" />
+            <Ph src="hiraya-dusk" alt="" className="yg-brand__side yg-brand__side--r" />
           </div>
         </section>
 
