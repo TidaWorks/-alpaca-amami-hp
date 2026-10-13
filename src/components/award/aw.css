@@ -4199,7 +4199,32 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-sc__stage {
     padding: 0 9% 16% 0;
   }
-  /* スマホは札で今の見本が分かるので、名前の行は出さない（画面→札→見出しの順） */
+  /* スマホは 札→画面→見出し の順（10/13 大地さん「この部分はギャラリーの上に」）。右側の箱をほどいて並べ替える */
+  .aw-sc {
+    display: flex;
+    flex-direction: column;
+  }
+  .aw-sc__side {
+    display: contents;
+  }
+  .aw-sc__chips {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+  }
+  .aw-sc__stage {
+    width: 100%;
+  }
+  .aw-sc__head {
+    order: 2;
+  }
+  .aw-sc:not(.is-in) .aw-sc__chips {
+    opacity: 0;
+  }
+  .aw-sc__chips {
+    transition: opacity 0.8s ease 0.35s;
+  }
+  /* スマホは札で今の見本が分かるので、名前の行は出さない */
   .aw-sc__now,
   .aw-sc__name {
     display: none;
