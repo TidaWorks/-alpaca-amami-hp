@@ -107,7 +107,7 @@ export default function IsagoPage() {
 
         {/* 宿泊 */}
         <section className="ig-row" id="stay">
-          <Img src="room" alt="麻のカーテンと低い木のベッド、泥染めのクッション" className="ig-wide" />
+          <Img src="room" alt="窓の先に波打ちぎわが見える、低い木のベッドの部屋" className="ig-wide" />
           <div className="ig-text">
             <Head ja="宿泊" en="stay" />
             <div className="ig-body" data-rv>
@@ -128,7 +128,7 @@ export default function IsagoPage() {
               <p>夕方は、浜を染める光を湯の中から見送れます。貸し切りで、ご予約制です。</p>
             </div>
           </div>
-          <Img src="bath" alt="海に向いた木のデッキの丸い湯船" className="ig-wide" />
+          <Img src="bath" alt="浜のすぐ上の木のデッキにある、丸い湯船" className="ig-wide" />
         </section>
 
         {/* 島のごはん */}

@@ -80,14 +80,14 @@ const ITEMS = [
 const DAY = [
   { time: "6:30", t: "釜に火を入れる", d: "朝いちばんに薪をくべ、前の日に割ったテーチ木を煮はじめます。", img: "fire", alt: "釜の下で燃える薪の火" },
   { time: "10:00", t: "午前の体験と泥田", d: "旅の方とハンカチを染めたあと、煮汁で染めた糸を泥田へ。手で揉んで、泥を奥までなじませます。", img: "mudhands", alt: "泥田で糸の束を揉む両手" },
-  { time: "14:00", t: "午後の体験", d: "庭の泥田で、旅の方とハンカチを染めます。雨の日は煮汁の染めだけにします。", img: "experience", alt: "白いハンカチを赤茶色の煮汁に浸ける手元" },
+  { time: "14:00", t: "午後の体験", d: "庭の泥田で、旅の方とハンカチを染めます。雨の日は煮汁の染めだけにします。", img: "day-afternoon", alt: "泥田で、職人と旅の方がならんでハンカチを浸ける手元" },
   { time: "17:30", t: "泥田を見回る", d: "糸を軒下に取りこみ、夕方の泥田の水かさを見て一日を終えます。", img: "dusk", alt: "夕暮れの空を映す泥田と森" },
 ];
 
 const NEWS = [
-  { date: "2026.10.01", tag: "体験", t: "秋からの体験は、10:00 と 14:00 の一日2回になりました。", img: "table", alt: "木の作業台にたたんだ焦げ茶のハンカチと糸" },
-  { date: "2026.09.20", tag: "小物", t: "巾着に、焦げ茶と黒の2色がそろいました。", img: "pouch", alt: "泥染めの巾着" },
-  { date: "2026.09.05", tag: "お知らせ", t: "台風の接近のため、9月6日の体験はお休みします。", img: "chips", alt: "竹かごに盛ったテーチ木のチップ" },
+  { date: "2026.10.01", tag: "体験", t: "秋からの体験は、10:00 と 14:00 の一日2回になりました。", img: "news-1", alt: "作業台にならべて干した、染めあがりのハンカチ" },
+  { date: "2026.09.20", tag: "小物", t: "巾着に、焦げ茶と黒の2色がそろいました。", img: "news-2", alt: "焦げ茶と黒の、泥染めの巾着" },
+  { date: "2026.09.05", tag: "お知らせ", t: "台風の接近のため、9月6日の体験はお休みします。", img: "news-3", alt: "雨と風の日の、工房の軒先" },
 ];
 
 export default function AmairoPage() {
@@ -103,7 +103,11 @@ export default function AmairoPage() {
           <div className="am-hero__main">
             <div className="am-hero__img">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/hero.webp`} alt="朝もやの中の泥田と、竹竿に掛けた焦げ茶の糸" fetchPriority="high" />
+              <picture style={{ display: "contents" }}>
+            {/* スマホは縦の写真（横長を引き伸ばすと粗いため・10/13 総チェック） */}
+            <source media="(max-width: 700px)" srcSet={`${IMG}/hero-sp.webp`} />
+            <img src={`${IMG}/hero.webp`} alt="朝もやの中の泥田と、竹竿に掛けた焦げ茶の糸" fetchPriority="high" />
+          </picture>
             </div>
             <header className="am-hero__bar">
               <Logo />
@@ -128,7 +132,7 @@ export default function AmairoPage() {
             </li>
             <li>
               <a href="#taiken" className="am-tile">
-                <Ph src="experience" alt="白いハンカチを赤茶色の煮汁に浸ける手元" />
+                <Ph src="day-afternoon" alt="泥田で、職人と旅の方がならんでハンカチを浸ける手元" />
                 <span className="am-tile__en">( WORKSHOP )</span>
                 <span className="am-tile__ja">染めの体験</span>
               </a>

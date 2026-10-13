@@ -113,7 +113,11 @@ export default function YuigiPage() {
       <main>
         <section className="yg-hero" aria-label="結木工務店">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${IMG}/hero.webp`} alt="山を背にした、軒の深い木の平屋" className="yg-hero__img" />
+          <picture style={{ display: "contents" }}>
+            {/* スマホは縦の写真（横長を引き伸ばすと粗いため・10/13 総チェック） */}
+            <source media="(max-width: 700px)" srcSet={`${IMG}/hero-sp.webp`} />
+            <img src={`${IMG}/hero.webp`} alt="山を背にした、軒の深い木の平屋" className="yg-hero__img" />
+          </picture>
           <div className="yg-hero__copy">
             <p className="yg-hero__en">Live with the wind.</p>
             <h1 className="yg-hero__ja">風と暮らす、奄美の木の家。</h1>

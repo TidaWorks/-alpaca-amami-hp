@@ -85,7 +85,11 @@ export default function KamadoPage() {
         <section className="km-hero" aria-label="島の食堂 かまど">
           <div className="km-hero__bg" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
+            <picture style={{ display: "contents" }}>
+            {/* スマホは縦の写真（横長を引き伸ばすと粗いため・10/13 総チェック） */}
+            <source media="(max-width: 700px)" srcSet={`${IMG}/hero-sp.webp`} />
             <img src={`${IMG}/hero-bg.webp`} alt="" />
+          </picture>
           </div>
           <header className="km-head">
             <nav className="km-head__nav" aria-label="ページ内の案内">
