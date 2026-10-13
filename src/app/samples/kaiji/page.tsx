@@ -199,7 +199,10 @@ export default function KaijiPage() {
         <section className="kj-hero" aria-label="KAIJI DIVE の海">
           <div className="kj-hero__img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/snorkel.webp`} alt="透きとおった浅い海に浮かぶ人の後ろ姿と、遠くの島の山" />
+            <picture>
+              <source media="(min-width: 900px)" srcSet={`${IMG}/hero-wide.webp`} />
+              <img src={`${IMG}/snorkel.webp`} alt="透きとおった浅い海と、遠くの島の山" />
+            </picture>
           </div>
           <a className="kj-hero__card" href="#access">
             <span className="kj-hero__card-en">RESERVE</span>

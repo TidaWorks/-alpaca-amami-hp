@@ -65,7 +65,7 @@ function Btn({ href, children, light = false }: { href: string; children: React.
 
 const STEPS = [
   { n: "一", t: "テーチ木を割る", d: "山から切り出したテーチ木を、細かく割って、かごに集めます。", img: "chips", alt: "竹かごに盛った赤茶色のテーチ木のチップ" },
-  { n: "二", t: "煮出して染める", d: "大きな釜で煮出した赤茶色の汁に、糸を浸けては揉みこみます。", img: "fire", alt: "薪の火で温める鉄の釜" },
+  { n: "二", t: "煮出して染める", d: "大きな釜で煮出した赤茶色の汁に、糸を浸けては揉みこみます。", img: "steam2", alt: "湯気の立つ鉄の釜と赤茶色の煮汁" },
   { n: "三", t: "泥田に浸ける", d: "煮汁で染めた糸を泥田に沈め、泥をなじませます。", img: "mudthread", alt: "泥の中から引き上げた焦げ茶の糸" },
   { n: "四", t: "洗って干す", d: "川の水で泥を落として干し、乾いたらまた煮汁に戻ります。", img: "threads", alt: "軒下に干された赤茶から黒までの糸の束" },
 ];
@@ -74,6 +74,7 @@ const ITEMS = [
   { name: "ハンカチ", price: "3,300円", img: "table", alt: "木の作業台にたたんだ焦げ茶のハンカチ" },
   { name: "巾着", price: "4,950円", img: "pouch", alt: "作業台に置いた泥染めの小さな巾着" },
   { name: "小銭入れ・しおり", price: "2,200円から", img: "smalls", alt: "麻の布の上に並べた泥染めの小物" },
+  { name: "ストール（長さ180cm）", price: "16,500円", img: "scarf2", alt: "白い土壁の軒下に掛けた焦げ茶のストール" },
 ];
 
 const DAY = [
@@ -198,7 +199,7 @@ export default function AmairoPage() {
         <section className="am-dark" id="taiken" aria-labelledby="am-taiken-h">
           <div className="am-dark__bg" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/experience.webp`} alt="" loading="lazy" decoding="async" />
+            <img src={`${IMG}/bench2.webp`} alt="" loading="lazy" decoding="async" />
           </div>
           <h2 id="am-taiken-h" className="am-tate am-dark__tate" data-rv>
             <span>染めの体験</span>
@@ -266,12 +267,6 @@ export default function AmairoPage() {
                 </p>
               </li>
             ))}
-            <li className="am-item am-item--note" data-rv>
-              <p className="am-item__en">( STOLE )</p>
-              <p className="am-item__name">ストール</p>
-              <p className="am-item__d">長さ180cm。一枚ずつ色の出方が違うので、工房の棚で選んでいただいています。</p>
-              <p className="am-item__price">16,500円</p>
-            </li>
           </ul>
         </section>
 

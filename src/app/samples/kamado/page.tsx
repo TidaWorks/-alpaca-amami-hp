@@ -53,7 +53,7 @@ function Title({ en, ja, id, light = false }: { en: string; ja: string; id?: str
 const LUNCH = [
   { name: "鶏飯の定食", note: "鶏飯・香の物・黒糖", price: "1,200円" },
   { name: "油ぞうめんの定食", note: "油ぞうめん・ご飯・汁・小鉢", price: "1,000円" },
-  { name: "島の魚の煮付け定食", note: "その日の魚・ご飯・汁・小鉢", price: "1,300円" },
+  { name: "島の魚の塩焼き定食", note: "その日の魚・ご飯・汁・小鉢", price: "1,300円" },
 ];
 
 const DINNER = [
@@ -270,7 +270,7 @@ export default function KamadoPage() {
             </li>
             <li>
               <time dateTime="2026-09-05">2026.09.05</time>
-              <a href="#menu">昼の定食に、島の魚の煮付けを加えました。</a>
+              <a href="#menu">昼の定食に、島の魚の塩焼きを加えました。</a>
             </li>
           </ul>
         </section>

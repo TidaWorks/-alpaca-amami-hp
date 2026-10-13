@@ -188,6 +188,10 @@
   aspect-ratio: 1290 / 560;
   background: var(--mist);
 }
+.kj-hero__img picture {
+  display: block;
+  height: 100%;
+}
 .kj-hero__img img {
   display: block;
   width: 100%;
