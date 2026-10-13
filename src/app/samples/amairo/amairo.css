@@ -580,6 +580,9 @@
   place-items: center;
 }
 .am-dark__bg,
+.am-dark__bg picture {
+  display: contents;
+}
 .am-dark__bg img {
   position: absolute;
   inset: 0;

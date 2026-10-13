@@ -202,8 +202,11 @@ export default function AmairoPage() {
         {/* 染めの体験：沈んだ色の写真の上に白い札 */}
         <section className="am-dark" id="taiken" aria-labelledby="am-taiken-h">
           <div className="am-dark__bg" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/bench2.webp`} alt="" loading="lazy" decoding="async" />
+            <picture>
+              <source media="(max-width: 700px)" srcSet={`${IMG}/bench2-sp.webp`} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`${IMG}/bench2.webp`} alt="" loading="lazy" decoding="async" />
+            </picture>
           </div>
           <h2 id="am-taiken-h" className="am-tate am-dark__tate" data-rv>
             <span>染めの体験</span>

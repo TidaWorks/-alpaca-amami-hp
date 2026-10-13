@@ -125,8 +125,11 @@ export default function KamadoPage() {
         {/* 店の考え：ぼかした店内の上に文字、小さな写真を散らす */}
         <section className="km-concept" id="concept" aria-labelledby="km-concept-h">
           <div className="km-concept__bg" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/interior.webp`} alt="" loading="lazy" />
+            <picture>
+              <source media="(max-width: 700px)" srcSet={`${IMG}/interior-sp.webp`} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`${IMG}/interior.webp`} alt="" loading="lazy" />
+            </picture>
           </div>
           <div className="km-concept__in">
             <Title en="Concept" ja="店の考え" id="km-concept-h" light />
@@ -223,7 +226,7 @@ export default function KamadoPage() {
         <section className="km-shochu" id="shochu" aria-labelledby="km-shochu-h">
           <div className="km-shochu__bg" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/shochu.webp`} alt="" loading="lazy" />
+            <img src={`${IMG}/shochu-wide.webp`} alt="" loading="lazy" />
           </div>
           <div className="km-shochu__in">
             <div className="km-shochu__txt">
