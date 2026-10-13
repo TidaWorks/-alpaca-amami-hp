@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState } from "react";
+import type React from "react";
 
 // 制作の見本（架空のお店10本）をパソコンとスマホの枠の中で流して見せる（10/13 大地さん「1」＝ショーケース型）
 // 縦長の画面写真は public/images/samples/full/<slug>-pc.webp・-sp.webp（高さは下の h に合わせる）
@@ -19,7 +20,7 @@ const SAMPLES = [
 ];
 const pad2 = (n: number) => String(n + 1).padStart(2, "0");
 
-export default function AwShowcase() {
+export default function AwShowcase({ head }: { head?: React.ReactNode }) {
   const [cur, setCur] = useState(0);
   const [auto, setAuto] = useState(true);
   const [held, setHeld] = useState(false);
@@ -119,6 +120,7 @@ export default function AwShowcase() {
       </a>
 
       <div className="aw-sc__side">
+        {head && <div className="aw-sc__head">{head}</div>}
         <p className="aw-sc__now">
           <span className="aw-sc__now-n">{pad2(cur)}</span>
           <span className="aw-sc__now-k">{s.k}</span>

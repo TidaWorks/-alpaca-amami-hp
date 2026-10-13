@@ -4046,14 +4046,20 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   padding-top: clamp(64px, 8vw, 120px);
 }
 .aw-samples .aw-sechead {
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 .aw-samples .aw-hand__svg {
-  max-width: min(480px, 70vw) !important;
+  max-width: min(380px, 80vw) !important;
 }
 .aw-samples .aw-smp__lead {
-  margin-bottom: clamp(24px, 3vw, 40px) !important;
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+.aw-sc__head {
+  padding-bottom: clamp(16px, 2vw, 28px);
+  margin-bottom: clamp(8px, 1vw, 16px);
+  border-bottom: 1px solid var(--aw-line);
 }
 .aw-sc__pc,
 .aw-sc__sp,
@@ -4192,6 +4198,15 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   }
   .aw-sc__stage {
     padding: 0 9% 16% 0;
+  }
+  /* スマホは札で今の見本が分かるので、名前の行は出さない（画面→札→見出しの順） */
+  .aw-sc__now,
+  .aw-sc__name {
+    display: none;
+  }
+  .aw-sc__head {
+    border-bottom: 0;
+    padding-bottom: 0;
   }
   .aw-sc__enter {
     left: 12px;

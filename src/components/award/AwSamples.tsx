@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import type React from "react";
 import { jp } from "./jp";
 import AwShowcase from "./AwShowcase";
 import { FlowBoxes } from "./AwServices";
@@ -17,13 +18,17 @@ const SAMPLES = [
   { href: "/samples/amairo", slug: "amairo", k: "工房", name: "泥染め工房 あまいろ", d: "大きな写真と縦書きの明朝。染めの体験と小物の販売を一枚に。" },
 ];
 
-export default function AwSamples({ flow }: { flow: { t: string; d: string }[] }) {
+export default function AwSamples({ flow, head }: { flow: { t: string; d: string }[]; head: React.ReactNode }) {
   return (
     <>
-      <p className="aw-smp__lead" data-rise>
-        {jp("奄美のお店を想定して作った、ホームページの見本10本です。")}
-      </p>
-      <AwShowcase />
+      <AwShowcase
+        head={
+          <>
+            {head}
+            <p className="aw-smp__lead">{jp("奄美のお店を想定して作った、ホームページの見本10本です。")}</p>
+          </>
+        }
+      />
       <p className="aw-smp__fine">※ 掲載している店舗名・文章はすべて架空のもので、写真は AI により生成しています。実際の制作では、お客様にご用意いただいたお写真を加工・調整して使用いたします。</p>
       {/* 見本を見た流れで、頼んだ時の進め方まで読めるように（10/13 大地さん「1」でサービス欄のボタンから移した） */}
       <div className="aw-smp__flow">

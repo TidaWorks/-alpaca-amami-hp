@@ -276,8 +276,8 @@ export default function Home() {
       {/* 制作の見本（架空のお店3つ・10/13 大地さん） */}
       <section className="aw-sec aw-samples" id="samples" aria-labelledby="aw-samples-h">
         <div className="aw-wrap">
-          <SecHead n="02" id="aw-samples-h" title={<HandTitle text="Sample Sites" w={1060} fid="aw-hand-w5" />} />
-          <AwSamples flow={FLOW_HP} />
+          {/* 10/13 大地さん「このセクションの1番上に」：画面を先に出し、見出しは画面の横（スマホは下）へ */}
+          <AwSamples flow={FLOW_HP} head={<SecHead n="02" id="aw-samples-h" title={<HandTitle text="Sample Sites" w={1060} fid="aw-hand-w5" />} />} />
         </div>
       </section>
 
