@@ -176,7 +176,7 @@ export default function NagiPage() {
             </div>
             <div className="ng-strip__thumb">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/oil.webp`} alt="髪用のオイルの瓶" loading="lazy" decoding="async" />
+              <img src={`${IMG}/strip.webp`} alt="髪用のオイルの瓶" loading="lazy" decoding="async" />
             </div>
           </div>
         </section>
