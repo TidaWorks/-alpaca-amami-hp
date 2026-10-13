@@ -277,7 +277,7 @@ export default function Home() {
       <section className="aw-sec aw-samples" id="samples" aria-labelledby="aw-samples-h">
         <div className="aw-wrap">
           <SecHead n="02" id="aw-samples-h" title={<HandTitle text="Sample Sites" w={1060} fid="aw-hand-w5" />} />
-          <AwSamples />
+          <AwSamples flow={FLOW_HP} />
         </div>
       </section>
 

@@ -3899,6 +3899,9 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   line-height: 1.8;
   color: var(--aw-sub);
 }
+.aw-smp__flow {
+  margin-top: clamp(56px, 7vw, 104px);
+}
 .aw-smp__fine {
   margin-top: 28px !important;
   font-size: 12px;

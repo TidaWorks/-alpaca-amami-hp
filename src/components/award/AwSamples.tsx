@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { jp } from "./jp";
 import AwShowcase from "./AwShowcase";
+import { FlowBoxes } from "./AwServices";
 
 // 制作の見本（架空のお店のホームページ3つ）。押すと実際に動く見本のページが開く（10/13 大地さん「3業種でデモを作ろう」）
 const SAMPLES = [
@@ -16,7 +17,7 @@ const SAMPLES = [
   { href: "/samples/amairo", slug: "amairo", k: "工房", name: "泥染め工房 あまいろ", d: "大きな写真と縦書きの明朝。染めの体験と小物の販売を一枚に。" },
 ];
 
-export default function AwSamples() {
+export default function AwSamples({ flow }: { flow: { t: string; d: string }[] }) {
   return (
     <>
       <p className="aw-smp__lead" data-rise>
@@ -24,6 +25,10 @@ export default function AwSamples() {
       </p>
       <AwShowcase />
       <p className="aw-smp__fine">※ 掲載している店舗名・文章はすべて架空のもので、写真は AI により生成しています。実際の制作では、お客様にご用意いただいたお写真を加工・調整して使用いたします。</p>
+      {/* 見本を見た流れで、頼んだ時の進め方まで読めるように（10/13 大地さん「1」でサービス欄のボタンから移した） */}
+      <div className="aw-smp__flow">
+        <FlowBoxes title="進め方" steps={flow} />
+      </div>
     </>
   );
 }

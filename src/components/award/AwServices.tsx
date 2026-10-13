@@ -120,7 +120,9 @@ export default function AwServices({ services }: { services: Service[] }) {
             {s.note && <p className="aw-svc__note">{s.note}</p>}
           </div>
         </div>
-        {/* 10/6 大地さん①: 中身は画面1枚ちょっとに収め、見本・図解・進め方は「詳しく見る」で開く（タブは追いかけてこない） */}
+        {/* 10/6 大地さん①: 中身は画面1枚ちょっとに収め、見本・図解・進め方は「詳しく見る」で開く（タブは追いかけてこない）
+            ホームページは 10/13 大地さん「1」でボタンを外した（見本は下の見本欄・進め方は見本欄の一番下へ） */}
+        {s.id !== "web" && (
         <div className="aw-svc__more">
           <button
             type="button"
@@ -137,7 +139,7 @@ export default function AwServices({ services }: { services: Service[] }) {
               <>
                 <AwStage id={s.id} />
                 {/* AI顧問は図解（ひと月の流れ）と重なるので、4つの箱はホームページだけ。システムの進め方の表は 10/7 大地さん「いらない」で外した */}
-                {s.id === "web" && <FlowBoxes title={s.flowTitle} steps={s.flow} />}
+                
                 <button type="button" className="aw-svc__more-btn aw-svc__more-btn--end" onClick={() => toggle(true)}>
                   <span>閉じる</span>
                   <i aria-hidden="true" />
@@ -146,13 +148,14 @@ export default function AwServices({ services }: { services: Service[] }) {
             )}
           </div>
         </div>
+        )}
       </div>
     </div>
   );
 }
 
 /** 進め方を4つの箱で1画面に並べる（BoostX 風の図解とそろえる） */
-function FlowBoxes({ title, steps }: { title: string; steps: { t: string; d: string }[] }) {
+export function FlowBoxes({ title, steps }: { title: string; steps: { t: string; d: string }[] }) {
   return (
     <div className="bx bx--tight">
       <div className="bx-h">
