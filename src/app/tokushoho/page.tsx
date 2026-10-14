@@ -60,7 +60,7 @@ export default function TokushohoPage() {
             {/* 2026-09-25 新しい方針に合わせて書き換え。料金は税別。10/5 月25万のプランは10/1になくしたので消す（facts/business.md） */}
             <Row label="販売価格">
               <ul className="space-y-1.5">
-                <li>AI顧問：月額¥150,000（税別）</li>
+                <li>IT顧問：月額¥150,000（税別）</li>
                 <li>システム開発：要見積もり（税別）</li>
                 <li>ホームページ制作：¥250,000〜（税別）</li>
               </ul>
@@ -87,7 +87,7 @@ export default function TokushohoPage() {
             <Row label="支払時期">
               <ul className="space-y-1.5">
                 <li>
-                  AI顧問（月額）：月額前払い。毎月1日に当月分を請求し、月末までにお支払いいただきます。
+                  IT顧問（月額）：月額前払い。毎月1日に当月分を請求し、月末までにお支払いいただきます。
                 </li>
                 <li>
                   システム開発・ホームページ制作：契約時に着手金として50%、納品時に残金50%
@@ -97,13 +97,13 @@ export default function TokushohoPage() {
 
             <Row label="役務の提供時期">
               <ul className="space-y-1.5">
-                <li>AI顧問：契約成立後、即時に提供を開始します。</li>
+                <li>IT顧問：契約成立後、即時に提供を開始します。</li>
                 <li>システム開発・ホームページ制作：契約後、合意した納期に応じて提供します。</li>
               </ul>
             </Row>
 
             <Row label="キャンセル・解約・返金">
-              <p className="mb-3 font-bold">AI顧問（月額）</p>
+              <p className="mb-3 font-bold">IT顧問（月額）</p>
               <ul className="list-disc pl-5 space-y-1 mb-4">
                 <li>契約期間の縛りはなく、月単位で解約できます。</li>
                 <li>解約は前月末までにメールか電話でご連絡ください。</li>

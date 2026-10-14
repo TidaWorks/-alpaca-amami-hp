@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 /**
  * Our Services の各タブに置く仕掛け（10/4 大地さん 10001・10003・10005）。
- * ホームページ＝スクロールでページが組み上がる／システム＝入れると勝手に計算される／AI顧問＝困りごとが窓口に集まる。
+ * ホームページ＝スクロールでページが組み上がる／システム＝入れると勝手に計算される／IT顧問＝困りごとが窓口に集まる。
  * 左の細い列（レール）に今の状態を大きな字で出し、右に見本の画面を置く。スマホではレールが上に来る。
  * 色は生成り・墨・朱の3つだけ。影と角丸は使わない（10/4 10009 賞の水準まで）。
  * 動きを減らす設定の人には、できあがった姿だけを見せる。
@@ -36,7 +36,7 @@ export default function AwStage({ id }: { id: "web" | "system" | "komon" }) {
   return <BxKomon />;
 }
 
-/* ───────── AI顧問・システム：BoostX 風の図解（10/4 大地さん「ブーストXのデザインの感じ好き」→「2」＝この2タブだけ） ─────────
+/* ───────── IT顧問・システム：BoostX 風の図解（10/4 大地さん「ブーストXのデザインの感じ好き」→「2」＝この2タブだけ） ─────────
    現状→理想の2つの箱（太い黒線のイラスト）＋具体的な一覧。色はページに合わせて生成り・墨・朱、箱は白と淡い朱。 */
 
 function BxBefore({ now, ideal }: { now: { img: string; title: string; items: string[] }; ideal: { img: string; title: string; items: string[] } }) {
@@ -97,7 +97,7 @@ const KOMON_KEEP = [
 function BxKomon() {
   return (
     <div className="bx">
-      <BxHead k="AI顧問　どう変わるか" t="ITのことを、社長と事務の人が抱えなくてよくなります。" />
+      <BxHead k="IT顧問　どう変わるか" t="ITのことを、社長と事務の人が抱えなくてよくなります。" />
       <BxBefore
         now={{
           img: "/images/bx/komon-now.webp",

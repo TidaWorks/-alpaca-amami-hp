@@ -14,7 +14,7 @@ const siteName = "ALPACA";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alpaca-amami.com";  // プレビューの時だけ書き出し時に差し替える
 const siteTitle = "ALPACA | あなたの仕事の、ベストパートナー。";
 const siteDescription =
-  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るAI顧問（月15万円・税別）。鹿児島県奄美市のALPACA。";
+  "ホームページも、システムも、AIの相談も、窓口はひとつ。ホームページ制作（25万円から・税別）、業務システムの開発、会社のIT担当として中に入るIT顧問（月15万円・税別）。鹿児島県奄美市のALPACA。";
 // 共有リンクの画像＝一番上の決定版の画像（10/5 大地さん「共有リンクのここダサい」）
 const ogImage = `${siteUrl}/og.jpg`;
 
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | ALPACA",
   },
   description: siteDescription,
-  keywords: ["AI顧問", "AI導入支援", "AIエージェント", "業務の自動化", "システム開発", "ホームページ制作", "奄美大島", "奄美", "鹿児島"],
+  keywords: ["IT顧問", "AI導入支援", "AIエージェント", "業務の自動化", "システム開発", "ホームページ制作", "奄美大島", "奄美", "鹿児島"],
   authors: [{ name: "ALPACA（作田 大地）" }],
   creator: "ALPACA",
   publisher: "ALPACA",
@@ -113,7 +113,7 @@ const jsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "AI顧問",
+          name: "IT顧問",
           description:
             "月1〜2回の打ち合わせで、AIに任せる仕事を決め、会社専用のAIエージェントや自動化を作り、社員が使えるまで教える顧問。期間の縛りなし。",
         },

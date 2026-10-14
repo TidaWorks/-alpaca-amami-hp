@@ -3421,7 +3421,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
 .aw-ac__col.is-now .aw-ac__barv { background: var(--aw-shu); opacity: 1; }
 .aw-ac__m { font-size: 11px; color: var(--aw-sub); font-family: var(--aw-mono), monospace; }
 
-/* --- AI顧問：困りごとが窓口に集まる --- */
+/* --- IT顧問：困りごとが窓口に集まる --- */
 .aw-dk {
   position: relative;
   height: clamp(420px, 36vw, 500px);
@@ -3588,7 +3588,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-gl__lb { animation: none; }
 }
 
-/* --- AI顧問：IT担当がやること（線の絵 8枚・10/4） --- */
+/* --- IT顧問：IT担当がやること（線の絵 8枚・10/4） --- */
 .aw-km__now { font-family: var(--aw-mincho), serif; font-weight: 700; font-size: clamp(20px, 1.7vw, 26px); line-height: 1.5; padding-bottom: 14px; border-bottom: 1px solid var(--aw-line); min-height: 3em; }
 .aw-km { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3vw, 48px) clamp(20px, 2.4vw, 36px); }
 .aw-km__item { display: grid; gap: 12px; }
@@ -3610,7 +3610,7 @@ html.aw-js-ok .aw-hand.is-in .aw-hand__t {
   .aw-km__img img { transform: none; transition: none; }
 }
 
-/* ===== AI顧問・システム：BoostX 風の図解（10/4） =====
+/* ===== IT顧問・システム：BoostX 風の図解（10/4） =====
    白と淡い朱の箱・太い墨の罫線・黒枠の札・太い黒線のイラスト。差し色は朱だけ */
 .bx { --bx-pale: #f7e7e0; margin-top: clamp(56px, 6vw, 104px); display: grid; gap: clamp(40px, 4vw, 64px); }
 .bx-h { display: grid; gap: 14px; }

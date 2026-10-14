@@ -9,9 +9,9 @@ type Sub = { href: string; label: string; note?: string };
 export const NAV: { href: string; label: string; sub: Sub[] }[] = [
   {
     href: "#what",
-    label: "AI顧問とは",
+    label: "IT顧問とは",
     sub: [
-      { href: "#what", label: "AI顧問とは", note: "毎月ひとつずつ、AIに任せる仕事を増やす" },
+      { href: "#what", label: "IT顧問とは", note: "毎月ひとつずつ、AIに任せる仕事を増やす" },
       { href: "#voice", label: "社長の困りごと" },
       { href: "#faq", label: "よくある質問" },
     ],
@@ -21,7 +21,7 @@ export const NAV: { href: string; label: string; sub: Sub[] }[] = [
     label: "料金",
     sub: [
       // 古い方針の下層（/system /web）へは飛ばさない（作り直すまでトップの料金へ）
-      { href: "#price", label: "AI顧問", note: "月15万円〜（税別）" },
+      { href: "#price", label: "IT顧問", note: "月15万円〜（税別）" },
       { href: "#price", label: "システム開発", note: "要見積もり" },
       { href: "#price", label: "ホームページ制作", note: "25万円〜（税別）" },
     ],
@@ -103,7 +103,7 @@ export default function Header() {
         <img src="/images/top/logo-mark.webp" alt="" className="tp-header__mark" />
         <span className="tp-header__name">
           <span className="tp-header__en">ALPACA</span>
-          <span className="tp-header__tag">奄美・鹿児島の会社のAI顧問</span>
+          <span className="tp-header__tag">奄美・鹿児島の会社のIT顧問</span>
         </span>
       </a>
 

@@ -138,7 +138,7 @@ export default function AwServices({ services }: { services: Service[] }) {
             {open && (
               <>
                 <AwStage id={s.id} />
-                {/* AI顧問は図解（ひと月の流れ）と重なるので、4つの箱はホームページだけ。システムの進め方の表は 10/7 大地さん「いらない」で外した */}
+                {/* IT顧問は図解（ひと月の流れ）と重なるので、4つの箱はホームページだけ。システムの進め方の表は 10/7 大地さん「いらない」で外した */}
                 
                 <button type="button" className="aw-svc__more-btn aw-svc__more-btn--end" onClick={() => toggle(true)}>
                   <span>閉じる</span>

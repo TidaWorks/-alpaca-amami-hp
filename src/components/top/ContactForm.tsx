@@ -25,7 +25,7 @@ export default function ContactForm() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          message: `[新トップ（AI顧問）からのお問い合わせ]\n\n${form.message}`,
+          message: `[新トップ（IT顧問）からのお問い合わせ]\n\n${form.message}`,
         }),
       });
       if (!res.ok) throw new Error(String(res.status));

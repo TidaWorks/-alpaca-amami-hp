@@ -172,7 +172,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="tp-hero" id="top" aria-label="ALPACA AI顧問" ref={heroRef}>
+      <section className="tp-hero" id="top" aria-label="ALPACA IT顧問" ref={heroRef}>
         <svg className="tp-hero__svg" width="0" height="0" aria-hidden="true" focusable="false">
           <defs>
             <clipPath id="tp-wave" clipPathUnits="objectBoundingBox">

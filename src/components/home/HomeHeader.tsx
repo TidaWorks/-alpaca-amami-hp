@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // 新しいトップの見出しへ（旧トップの #service #works は無くなった）
 const NAV_LINKS = [
-  { href: "/#what", label: "AI顧問とは" },
+  { href: "/#what", label: "IT顧問とは" },
   { href: "/#price", label: "料金" },
   { href: "/#flow", label: "毎月の流れ" },
   { href: "/#about", label: "ALPACAについて" },
