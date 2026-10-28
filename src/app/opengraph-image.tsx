@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "ALPACA - 奄美・鹿児島の会社のIT顧問";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

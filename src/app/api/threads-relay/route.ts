@@ -14,7 +14,6 @@ import { NextResponse } from "next/server";
 //   TELEGRAM_BOT_TOKEN  — Telegram Bot API Token
 //   TELEGRAM_CHAT_ID    — 既定の送信先 chat_id
 
-export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
